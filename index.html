@@ -24,7 +24,6 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/img/madeleines-coffee-home-bakery-doha.webp" as="image" fetchpriority="high">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
@@ -704,6 +703,34 @@
   }
   body.sheet-open{overflow:hidden;}
 
+  /* ---------- sélecteur de produits dans le tunnel ---------- */
+  .pk-line{
+    display:flex;align-items:center;gap:14px;padding:11px 0;
+    border-bottom:1px solid rgba(94,22,34,0.08);
+  }
+  .pk-line:last-child{border-bottom:none;}
+  .pk-name{
+    flex:1;font-family:'Playfair Display',serif;font-size:0.95rem;
+    line-height:1.3;color:var(--deep-maroon);
+  }
+  [dir="rtl"] .pk-name{font-family:'Amiri',serif;}
+  .pk-unit{
+    display:block;margin-top:3px;font-family:'Lora',serif;font-style:italic;
+    font-size:0.78rem;color:var(--dusty-rose);unicode-bidi:isolate;
+  }
+  [dir="rtl"] .pk-unit{font-style:normal;font-family:'Lora',serif;}
+  .pk-q{min-width:22px;text-align:center;font-weight:700;color:var(--deep-maroon);}
+  .pick-empty{
+    font-family:'Lora',serif;font-style:italic;font-size:0.88rem;
+    color:var(--dusty-rose);padding:14px 0 2px;margin:0;
+  }
+  [dir="rtl"] .pick-empty{font-style:normal;}
+  .tl-note{
+    font-family:'Lora',serif;font-size:0.78rem;line-height:1.4;
+    color:var(--deep-green);margin:-4px 0 10px;
+  }
+  .sheet-send:disabled{opacity:0.4;cursor:not-allowed;}
+
 
   /* ================= HERO : respiration + entrée en cascade ================= */
   .hero-content{padding-top:clamp(28px,6vh,64px);}
@@ -894,6 +921,50 @@
   .fallback-card button{flex:1;min-width:140px;padding:13px;border:none;border-radius:4px;cursor:pointer;font-family:'Lora',serif;font-size:0.92rem;}
   .fb-copy{background:var(--deep-maroon);color:var(--cream);}
   .fb-num{background:transparent;border:1px solid var(--deep-maroon)!important;color:var(--deep-maroon);}
+
+  /* ================= HERO TYPOGRAPHIQUE (sans photo) ================= */
+  .hero-img-wrap{
+    background:
+      radial-gradient(ellipse 120% 90% at 50% 8%,  rgba(123,34,48,0.85) 0%, transparent 62%),
+      radial-gradient(ellipse 90% 70% at 18% 88%, rgba(227,177,114,0.16) 0%, transparent 64%),
+      radial-gradient(ellipse 80% 60% at 84% 78%, rgba(78,114,89,0.14) 0%, transparent 62%),
+      linear-gradient(168deg, #3A0D16 0%, #5E1622 44%, #48111C 78%, #2C0910 100%);
+  }
+  .hero-veil{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      repeating-linear-gradient(102deg, rgba(250,246,236,0.030) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(12deg,  rgba(0,0,0,0.045)      0 1px, transparent 1px 3px);
+    mix-blend-mode:soft-light;opacity:0.85;
+  }
+  .hero-img-wrap::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse 68% 54% at 50% 46%, transparent 0%, rgba(24,6,10,0.46) 100%);
+  }
+  .hero-content h1{text-shadow:none;letter-spacing:-0.012em;}
+  .hero-content h1::after{
+    content:"";display:block;width:56px;height:1px;margin:26px auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    opacity:0;animation:heroIn 1.1s cubic-bezier(.16,1,.3,1) .75s forwards;
+  }
+  .hero-mark{
+    margin-top:26px;font-family:'Lora',serif;
+    font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:rgba(250,246,236,0.55);line-height:1.9;
+  }
+  [dir="rtl"] .hero-mark{letter-spacing:0;text-transform:none;font-size:0.84rem;font-family:'Amiri',serif;}
+  @media(max-width:520px){
+    .hero-mark{font-size:0.6rem;letter-spacing:0.14em;}
+  }
+
+  /* ================= PRIX À CÔTÉ DES BOUTONS + ET − ================= */
+  .qty-row{justify-content:flex-start;}
+  .qty-price{
+    margin-inline-start:auto;
+    font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;
+    color:var(--maroon);unicode-bidi:isolate;letter-spacing:0.01em;
+  }
+  .spread .qty-row .qty-price{display:none;}
 </style>
 <script type="application/ld+json">
 {
@@ -1097,13 +1168,14 @@
 
 <section class="hero">
   <div class="hero-img-wrap" id="heroImgWrap">
-    <img id="heroImg" src="/img/madeleines-coffee-home-bakery-doha.webp" alt="Freshly baked madeleines and coffee in a home kitchen in Doha, Qatar" width="1600" height="1067" decoding="async" fetchpriority="high">
+    <div class="hero-veil" aria-hidden="true"></div>
   </div>
   <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-eyebrow" data-i18n="hero_eyebrow">Home-Baked · Doha, Qatar</div>
     <h1 data-i18n-html="hero_title">The hour she keeps<br>for herself.</h1>
     <p data-i18n="hero_sub">No shop, no storefront — just a home kitchen in Doha, small-batch cakes made by a mother who gives everyone else her time.</p>
+    <div class="hero-mark">Small batches · Made to order · Delivered across Qatar</div>
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="hero_btn_order">Order via WhatsApp</a>
       <a class="btn btn-outline" href="#menu" data-i18n="hero_btn_menu">See the Menu</a>
@@ -1216,7 +1288,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
         </div>
       </div>
       <div class="menu-card reveal">
@@ -1232,7 +1304,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">180 QR</span></div>
         </div>
       </div>
       <div class="menu-card reveal">
@@ -1248,7 +1320,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">300 QR</span></div>
         </div>
       </div>
       <div class="menu-card reveal">
@@ -1264,7 +1336,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">300 QR</span></div>
         </div>
       </div>
       <div class="menu-card reveal">
@@ -1280,7 +1352,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">180 QR</span></div>
         </div>
       </div>
       <div class="menu-card reveal">
@@ -1296,7 +1368,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
         </div>
       </div>
       <div class="menu-card reveal">
@@ -1312,7 +1384,7 @@
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          </div>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
         </div>
       </div>
     </div>
@@ -1339,7 +1411,7 @@
           <button class="qty-btn" data-action="dec" aria-label="-">−</button>
           <span class="qty-val">0</span>
           <button class="qty-btn" data-action="inc" aria-label="+">+</button>
-        </div>
+        <span class="qty-price" dir="ltr">590 QR</span></div>
       </div>
     </div>
   </div>
@@ -1439,7 +1511,17 @@
     <div class="fld" style="margin-top:0;">
       <span class="fld-label">Your basket</span>
       <div id="cartLines"></div>
+      <p class="pick-empty" id="cartEmpty">Your basket is empty.</p>
     </div>
+
+    <div class="fld" id="pickerWrap">
+      <span class="fld-label">What would you like?</span>
+      <p class="fld-help" style="margin:-4px 0 12px;">Tap + to add. Prices and delivery are worked out for you — nothing to ask.</p>
+      <div id="picker"></div>
+    </div>
+    <button type="button" class="more-toggle" id="pickerBtn">+ Add another item</button>
+
+    <div id="sheetRest">
 
     <div class="fld">
       <span class="fld-label">Delivery day <span class="req">*</span></span>
@@ -1493,6 +1575,7 @@
     <div class="totals">
       <div class="tl"><span>Subtotal</span><span id="tSub">0 QR</span></div>
       <div class="tl"><span>Delivery</span><span id="tDel">—</span></div>
+      <div class="tl-note" id="tDelNote"></div>
       <div class="tl grand"><span>Total</span><span id="tGrand">0 QR</span></div>
       <div class="nudge" id="nudge" style="display:none;">
         <span id="nudgeTxt"></span>
@@ -1565,6 +1648,8 @@
       </div>
     </div>
 
+    </div><!-- /sheetRest -->
+
     <button type="button" class="gift-toggle" id="optinBtn" aria-pressed="false" style="margin-top:24px;">
       <span class="gift-box"><svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg></span>
       <span>Keep me posted about new batches</span>
@@ -1586,6 +1671,7 @@
 (function(){
   var translations = {
     en: {
+      spread_name:"The Full Spread",
       nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp",
       hero_eyebrow:"Home-Baked · Doha, Qatar",
       hero_title:"The hour she keeps<br>for herself.",
@@ -1621,7 +1707,6 @@
       info_closed:"Closed", info_closed_val:"Friday",
       info_orders:"Orders", info_orders_val:"Via WhatsApp only", info_wa:"WhatsApp",
       footer_tag:"For the love of baking", footer_wa:"WhatsApp", footer_ig:"Instagram", footer_story:"Our Story",
-      spread_name:"The Full Spread",
       footer_copy:"© Petit Gâteau · Home-Baked, Doha",
       order_items:"items",
       order_continue:"Continue",
@@ -1686,6 +1771,15 @@
       co_send:"Send order on WhatsApp",
       co_reassure:"Nothing is charged here. We confirm everything with you on WhatsApp.",
       opt:"optional",
+      pick_title:"What would you like?",
+      pick_hint:"Tap + to add. Prices and delivery are worked out for you — nothing to ask.",
+      pick_more:"+ Add another item",
+      pick_hide:"− Done adding",
+      pick_empty:"Your basket is empty.",
+      del_note_pay:"Free above {n} QR",
+      del_note_free:"You're above {n} QR — delivery is on us",
+      del_note_pick:"Pick your area to see the cost",
+      each:"each",
       co_err_day:"Please pick a day.",
       co_err_slot:"Please pick a time.",
       co_err_zone:"Please tell us where you are.",
@@ -1713,6 +1807,7 @@
       fb_done:"Copied ✓"
     },
     ar: {
+      spread_name:"التشكيلة الكاملة",
       nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب",
       hero_eyebrow:"صناعة منزلية · الدوحة، قطر",
       hero_title:"الساعة التي تحتفظ بها لنفسها.",
@@ -1727,7 +1822,7 @@
       sourcing_p1:"ما بدأ في مطبخنا المنزلي ما زال يُصنع هناك: بكميات صغيرة، باليد، بمكونات يسعدنا وضعها على مائدتنا نحن.",
       sourcing_p2:"نلتزم بنفس المعيار في كل مكوّن: عضوي، عالي الجودة، لا نتردد في استخدامه بأنفسنا. وإن لم نستطع تأمينه بهذا المستوى، لا نصنعه.",
       menu_label:"طازج يوميًا، من السبت إلى الخميس", menu_title:"القائمة",
-      qr:"ر.ق",
+      qr:"QR",
       item1_name:"مادلين", item1_desc:"إسفنجية كلاسيكية بشكل الصدفة · 12 حبة",
       item2_name:"مادلين صغيرة", item2_desc:"بحجم اللقمة · 40 قطعة",
       item3_name:"خبز الموز بالزبدة البنية", item3_desc:"يُخبز ببطء، بالموز الناضج والزبدة البنية",
@@ -1790,6 +1885,299 @@
     ORDER[id] = Math.max(0, ORDER[id] + delta);
     var row = document.querySelector('.qty-row[data-item="'+id+'"]');
     if(row) row.querySelector('.qty-val').textContent = ORDER[id];
+    refresh();
+  }
+
+  function subtotal(){
+    var t=0; Object.keys(ORDER).forEach(function(id){ t += ORDER[id]*PRICES[id]; }); return t;
+  }
+  function count(){
+    var c=0; Object.keys(ORDER).forEach(function(id){ c += ORDER[id]; }); return c;
+  }
+  function fee(){
+    if(!S.zone || S.zone==='far') return null;
+    return subtotal() >= CFG.freeFrom ? 0 : CFG.zones[S.zone];
+  }
+
+  function refresh(){
+    var c = count(), sub = subtotal(), active = c > 0;
+    $('orderCount').textContent = c;
+    $('orderTotal').textContent = sub + ' ' + T('qr');
+    var miss = CFG.freeFrom - sub;
+    $('orderBarSub').innerHTML = (active && miss > 0)
+      ? T('co_nudge_short').replace('{n}', '<b>'+miss+' '+T('qr')+'</b>')
+      : (active ? T('co_free_short') : '');
+    orderBar.classList.toggle('active', active);
+    if(waFloat) waFloat.style.display = active ? 'none' : 'flex';
+    if(sheet.classList.contains('open')) paint();
+  }
+
+  /* ---------- dates ---------- */
+  function buildDates(){
+    var rail = $('dateRail'); rail.innerHTML = '';
+    var now = new Date();
+    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    start.setDate(start.getDate() + (now.getHours() >= CFG.cutoffHour ? 2 : 1));
+    for(var i=0;i<CFG.railDays;i++){
+      var d = new Date(start); d.setDate(start.getDate()+i);
+      var closed = d.getDay() === CFG.closedWeekday;
+      var b = document.createElement('button');
+      b.type='button'; b.className='date-chip' + (closed?' closed':'');
+      b.disabled = closed;
+      b.setAttribute('aria-pressed','false');
+      b.setAttribute('data-iso', d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2));
+      b.innerHTML = '<small>'+d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{weekday:'short'})+'</small>'
+                  + '<b>'+d.getDate()+'</b>'
+                  + '<em>'+d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{month:'short'})+'</em>';
+      if(!closed){
+        b.addEventListener('click', function(){
+          rail.querySelectorAll('.date-chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+          this.setAttribute('aria-pressed','true');
+          S.date = this.getAttribute('data-iso');
+          $('dateRail').closest('.fld').classList.remove('err');
+        });
+      }
+      rail.appendChild(b);
+    }
+  }
+
+
+  /* ---------- sélecteur de produits ---------- */
+  var CATALOG = [];
+  (function(){
+    document.querySelectorAll('.qty-row').forEach(function(row){
+      CATALOG.push({ id: row.getAttribute('data-item'), price: PRICES[row.getAttribute('data-item')] });
+    });
+    var host = $('picker');
+    CATALOG.forEach(function(it){
+      var el = document.createElement('div');
+      el.className = 'pk-line';
+      el.setAttribute('data-pk', it.id);
+      el.innerHTML =
+        '<div class="pk-name">' + T(it.id === 'spread' ? 'spread_name' : it.id + '_name')
+        + '<span class="pk-unit">' + it.price + ' ' + T('qr') + ' ' + T('each') + '</span></div>'
+        + '<div class="cl-step"><button type="button" data-a="dec">\u2212</button>'
+        + '<span class="pk-q">0</span>'
+        + '<button type="button" data-a="inc">+</button></div>';
+      el.querySelectorAll('.cl-step button').forEach(function(b){
+        b.addEventListener('click', function(){ bump(it.id, b.getAttribute('data-a') === 'inc' ? 1 : -1); });
+      });
+      host.appendChild(el);
+    });
+  })();
+
+  function showPicker(on){
+    $('pickerWrap').style.display = on ? 'block' : 'none';
+    $('pickerBtn').textContent = on ? T('pick_hide') : T('pick_more');
+    $('pickerBtn').setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  $('pickerBtn').addEventListener('click', function(){
+    showPicker(this.getAttribute('aria-pressed') !== 'true');
+  });
+
+  /* ---------- rendu de la feuille ---------- */
+  function paint(){
+    CATALOG.forEach(function(it){
+      var q = $('picker').querySelector('.pk-line[data-pk="' + it.id + '"] .pk-q');
+      if(q) q.textContent = ORDER[it.id];
+    });
+
+    var empty = count() === 0;
+    $('cartEmpty').style.display = empty ? 'block' : 'none';
+    $('sheetRest').style.display = empty ? 'none' : 'block';
+    $('pickerBtn').style.display = empty ? 'none' : 'block';
+    if(empty) showPicker(true);
+    $('sheetSend').disabled = empty;
+
+    var box = $('cartLines'); box.innerHTML = '';
+    Object.keys(ORDER).forEach(function(id){
+      if(ORDER[id] <= 0) return;
+      var line = document.createElement('div'); line.className='cart-line';
+      line.innerHTML =
+        '<div class="cl-name">'+ T(id === 'spread' ? 'spread_name' : id+'_name')
+      + '<span class="cl-sub">'+ ORDER[id] + ' \u00d7 ' + PRICES[id] +' '+T('qr')+'</span></div>'
+      + '<div class="cl-step"><button type="button" data-a="dec">−</button><span>'+ORDER[id]+'</span><button type="button" data-a="inc">+</button></div>'
+      + '<div class="cl-price">'+ (ORDER[id]*PRICES[id]) +' '+T('qr')+'</div>';
+      line.querySelectorAll('.cl-step button').forEach(function(b){
+        b.addEventListener('click', function(){ bump(id, b.getAttribute('data-a')==='inc'?1:-1); });
+      });
+      box.appendChild(line);
+    });
+
+    var sub = subtotal(), f = fee();
+    $('tSub').textContent = sub + ' ' + T('qr');
+    if(S.zone === 'far'){ $('tDel').textContent = T('co_del_ask'); }
+    else if(f === null){ $('tDel').textContent = T('co_del_pick'); }
+    else if(f === 0){ $('tDel').innerHTML = '<span class="free">'+T('co_del_free')+'</span>'; }
+    else { $('tDel').textContent = f + ' ' + T('qr'); }
+    $('tGrand').textContent = (sub + (f||0)) + ' ' + T('qr');
+
+    var note = '';
+    if(S.zone === 'far')      note = '';
+    else if(f === null)       note = T('del_note_pick');
+    else if(f === 0)          note = T('del_note_free').replace('{n}', CFG.freeFrom);
+    else                      note = T('del_note_pay').replace('{n}', CFG.freeFrom);
+    $('tDelNote').textContent = note;
+
+    var miss = CFG.freeFrom - sub;
+    if(miss > 0 && sub > 0 && S.zone !== 'far'){
+      $('nudge').style.display = 'block';
+      $('nudgeTxt').innerHTML = T('co_nudge').replace('{n}', '<b>'+miss+' '+T('qr')+'</b>');
+      $('nudgeBar').style.width = Math.min(100, Math.round(sub/CFG.freeFrom*100)) + '%';
+    } else { $('nudge').style.display = 'none'; }
+  }
+
+  /* ---------- chips ---------- */
+  function chipGroup(hostId, key, multi){
+    var host = $(hostId);
+    host.querySelectorAll('.chip').forEach(function(c){
+      c.setAttribute('aria-pressed','false');
+      c.addEventListener('click', function(){
+        host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        c.setAttribute('aria-pressed','true');
+        S[key] = c.getAttribute('data-val');
+        host.closest('.fld').classList.remove('err');
+      });
+    });
+  }
+  chipGroup('slotChips','slot'); chipGroup('occChips','occ');
+  chipGroup('payChips','pay');  chipGroup('srcChips','src');
+
+  $('giftBtn').addEventListener('click', function(){
+    S.gift = !S.gift;
+    this.setAttribute('aria-pressed', S.gift ? 'true' : 'false');
+    $('giftFields').classList.toggle('on', S.gift);
+  });
+
+  /* ---------- mémoire locale ---------- */
+  function remember(){
+    try{
+      localStorage.setItem('pg_c', JSON.stringify({
+        n:$('fName').value, f:$('fFirst').value, p:$('fPhone').value,
+        z:S.zone, c:$('fCity').value, s:$('fStreet').value,
+        v:$('fVilla').value, u:$('fUnit').value, zn:$('fZoneNo').value, mk:$('fMark').value
+      }));
+    }catch(e){}
+  }
+  function recall(){
+    try{
+      var d = JSON.parse(localStorage.getItem('pg_c')||'{}');
+      if(d.n) $('fName').value = d.n;
+      if(d.f) $('fFirst').value = d.f;
+      if(d.p) $('fPhone').value = d.p;
+      if(d.c) $('fCity').value = d.c;
+      if(d.s) $('fStreet').value = d.s;
+      if(d.v) $('fVilla').value = d.v;
+      if(d.u) $('fUnit').value = d.u;
+      if(d.zn) $('fZoneNo').value = d.zn;
+      if(d.mk) $('fMark').value = d.mk;
+      if(d.z){
+        S.zone = d.z;
+        var b = document.querySelector('.zone[data-zone="'+d.z+'"]');
+        if(b) b.setAttribute('aria-pressed','true');
+        if(d.z === 'far') $('farBtn').setAttribute('aria-pressed','true');
+      }
+    }catch(e){}
+  }
+
+  $('farBtn').addEventListener('click', function(){
+    var on = this.getAttribute('aria-pressed') !== 'true';
+    this.setAttribute('aria-pressed', on ? 'true' : 'false');
+    document.querySelectorAll('.zone').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+    S.zone = on ? 'far' : null;
+    $('zoneChips').closest('.fld').classList.remove('err');
+    paint();
+  });
+
+  /* ---------- ouverture / fermeture ---------- */
+  function open(){
+    buildDates(); paint(); recall(); paint();
+    sheet.classList.add('open'); veil.classList.add('open');
+    document.body.classList.add('sheet-open');
+  }
+  function close(){
+    sheet.classList.remove('open'); veil.classList.remove('open');
+    document.body.classList.remove('sheet-open');
+  }
+  $('orderSendBtn').addEventListener('click', function(){ open(); });
+
+  // aucun bouton d'appel n'envoie vers WhatsApp à vide : ils ouvrent le tunnel
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function(a){
+    if(a.closest('.sheet') || a.closest('.fallback')) return;
+    a.addEventListener('click', function(e){ e.preventDefault(); open(); });
+  });
+  $('sheetClose').addEventListener('click', close);
+  veil.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+
+  /* ---------- validation + envoi ---------- */
+  function bad(el){ el.closest('.fld').classList.add('err'); return el.closest('.fld'); }
+
+  $('sheetSend').addEventListener('click', function(){
+    document.querySelectorAll('.sheet .fld').forEach(function(f){ f.classList.remove('err'); });
+
+    // toutes les erreurs sont signalées d'un coup, pas une par une
+    var errs = [];
+    var flag = function(cond, el){ if(cond){ var f = bad(el); if(errs.indexOf(f) < 0) errs.push(f); } };
+    var digits = function(el){ return el.value.replace(/\D/g, '').length; };
+
+    flag(!S.date,                          $('dateRail'));
+    flag(!S.slot,                          $('slotChips'));
+    flag(!S.zone,                          $('zoneChips'));
+    flag(!$('fCity').value.trim(),         $('fCity'));
+    flag(!$('fStreet').value.trim(),       $('fStreet'));
+    flag(!$('fName').value.trim(),         $('fName'));
+    flag(digits($('fPhone')) < 8,          $('fPhone'));
+    flag(S.gift && digits($('fPhone2')) < 8, $('fPhone2'));
+    flag(!S.pay,                           $('payChips'));
+
+    var first = errs[0] || null;
+    if(first){ first.scrollIntoView({behavior:'smooth', block:'center'}); return; }
+
+    remember();
+
+    var sub = subtotal(), f = fee();
+    var lines = [];
+    Object.keys(ORDER).forEach(function(id){
+      if(ORDER[id] > 0){
+        var lbl = T(id === 'spread' ? 'spread_name' : id + '_name');
+        if(id === 'spread' && S.spreadCookie) lbl += ' (' + T(S.spreadCookie === 'nutella' ? 'item7_name' : 'item5_name') + ')';
+        lines.push('• ' + lbl + ' ×' + ORDER[id] + ' — ' + (ORDER[id]*PRICES[id]) + ' ' + T('qr'));
+      }
+    });
+
+    var m = [];
+    m.push(T('order_greeting'));
+    m.push('');
+    m.push(lines.join('\n'));
+    m.push('');
+    m.push(T('co_m_sub') + ': ' + sub + ' ' + T('qr'));
+    m.push(T('co_m_del') + ': ' + (S.zone === 'far' ? T('co_del_ask') : (f === 0 ? T('co_del_free') : f + ' ' + T('qr'))));
+    if(S.zone !== 'far') m.push(T('co_m_total') + ': ' + (sub + f) + ' ' + T('qr'));
+    m.push('');
+    m.push(T('co_m_when') + ': ' + S.date + ' — ' + T('co_slot_' + ({morning:'am',afternoon:'pm',evening:'eve'}[S.slot])));
+    var addr = [$('fStreet').value.trim(), $('fCity').value.trim()];
+    if($('fVilla').value.trim())  addr.unshift(T('co_villa') + ' ' + $('fVilla').value.trim());
+    if($('fUnit').value.trim())   addr.push(T('co_unit') + ' ' + $('fUnit').value.trim());
+    if($('fZoneNo').value.trim()) addr.push(T('co_zoneno') + ' ' + $('fZoneNo').value.trim());
+    if($('fMark').value.trim())   addr.push($('fMark').value.trim());
+    m.push(T('co_m_where') + ': ' + addr.filter(Boolean).join(', '));
+    m.push(T('co_m_zone') + ': ' + T(S.zone === 'far' ? 'zfar' : (S.zone === 'z1' ? 'z1_n' : S.zone === 'z2' ? 'z2_n' : 'z3_n')));
+    m.push(T('co_m_who') + ': ' + ($('fFirst').value.trim() ? $('fFirst').value.trim() + ' ' : '') + $('fName').value.trim());
+    m.push(T('co_m_recv') + ': \u2066' + $('fPhone').value.trim() + '\u2069');
+    if(S.gift){
+      m.push(T('co_m_mine') + ': \u2066' + $('fPhone2').value.trim() + '\u2069');
+      if($('fCard').value.trim()) m.push(T('co_m_card') + ': ' + $('fCard').value.trim());
+    }
+    m.push(T('co_m_pay') + ': ' + T(S.pay === 'cash' ? 'co_pay1' : 'co_pay2'));
+    if(S.occ) m.push(T('co_m_occ') + ': ' + T('co_occ' + ({birthday:'1',majlis:'2',gift:'3',us:'4'}[S.occ])));
+    if($('fNote').value.trim()) m.push(T('co_m_note') + ': ' + $('fNote').value.trim());
+    if(S.optin) m.push('\u2713 ' + T('co_m_optin'));
+    if(S.src) m.push(T('co_m_src') + ': ' + T('co_src' + ({instagram:'1',friend:'2',google:'3',before:'4'}[S.src])));
+
+    sendTo(m.join('\n'));
+  });
+
   
   /* ---------- rail best-sellers ---------- */
   document.querySelectorAll('.pick-add').forEach(function(b){
@@ -1885,231 +2273,6 @@
       var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta);
       ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done();
     }
-  });
-
-  refresh();
-  }
-
-  function subtotal(){
-    var t=0; Object.keys(ORDER).forEach(function(id){ t += ORDER[id]*PRICES[id]; }); return t;
-  }
-  function count(){
-    var c=0; Object.keys(ORDER).forEach(function(id){ c += ORDER[id]; }); return c;
-  }
-  function fee(){
-    if(!S.zone || S.zone==='far') return null;
-    return subtotal() >= CFG.freeFrom ? 0 : CFG.zones[S.zone];
-  }
-
-  function refresh(){
-    var c = count(), sub = subtotal(), active = c > 0;
-    $('orderCount').textContent = c;
-    $('orderTotal').textContent = sub + ' ' + T('qr');
-    var miss = CFG.freeFrom - sub;
-    $('orderBarSub').innerHTML = (active && miss > 0)
-      ? T('co_nudge_short').replace('{n}', '<b>'+miss+' '+T('qr')+'</b>')
-      : (active ? T('co_free_short') : '');
-    orderBar.classList.toggle('active', active);
-    if(waFloat) waFloat.style.display = active ? 'none' : 'flex';
-    if(sheet.classList.contains('open')) paint();
-  }
-
-  /* ---------- dates ---------- */
-  function buildDates(){
-    var rail = $('dateRail'); rail.innerHTML = '';
-    var now = new Date();
-    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    start.setDate(start.getDate() + (now.getHours() >= CFG.cutoffHour ? 2 : 1));
-    for(var i=0;i<CFG.railDays;i++){
-      var d = new Date(start); d.setDate(start.getDate()+i);
-      var closed = d.getDay() === CFG.closedWeekday;
-      var b = document.createElement('button');
-      b.type='button'; b.className='date-chip' + (closed?' closed':'');
-      b.disabled = closed;
-      b.setAttribute('aria-pressed','false');
-      b.setAttribute('data-iso', d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2));
-      b.innerHTML = '<small>'+d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{weekday:'short'})+'</small>'
-                  + '<b>'+d.getDate()+'</b>'
-                  + '<em>'+d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{month:'short'})+'</em>';
-      if(!closed){
-        b.addEventListener('click', function(){
-          rail.querySelectorAll('.date-chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-          this.setAttribute('aria-pressed','true');
-          S.date = this.getAttribute('data-iso');
-          $('dateRail').closest('.fld').classList.remove('err');
-        });
-      }
-      rail.appendChild(b);
-    }
-  }
-
-
-  /* ---------- rendu de la feuille ---------- */
-  function paint(){
-    var box = $('cartLines'); box.innerHTML = '';
-    Object.keys(ORDER).forEach(function(id){
-      if(ORDER[id] <= 0) return;
-      var line = document.createElement('div'); line.className='cart-line';
-      line.innerHTML =
-        '<div class="cl-name">'+ T(id+'_name') +'<span class="cl-sub">'+ PRICES[id] +' '+T('qr')+'</span></div>'
-      + '<div class="cl-step"><button type="button" data-a="dec">−</button><span>'+ORDER[id]+'</span><button type="button" data-a="inc">+</button></div>'
-      + '<div class="cl-price">'+ (ORDER[id]*PRICES[id]) +' '+T('qr')+'</div>';
-      line.querySelectorAll('.cl-step button').forEach(function(b){
-        b.addEventListener('click', function(){ bump(id, b.getAttribute('data-a')==='inc'?1:-1); });
-      });
-      box.appendChild(line);
-    });
-
-    var sub = subtotal(), f = fee();
-    $('tSub').textContent = sub + ' ' + T('qr');
-    if(S.zone === 'far'){ $('tDel').textContent = T('co_del_ask'); }
-    else if(f === null){ $('tDel').textContent = T('co_del_pick'); }
-    else if(f === 0){ $('tDel').innerHTML = '<span class="free">'+T('co_del_free')+'</span>'; }
-    else { $('tDel').textContent = f + ' ' + T('qr'); }
-    $('tGrand').textContent = (sub + (f||0)) + ' ' + T('qr');
-
-    var miss = CFG.freeFrom - sub;
-    if(miss > 0 && sub > 0 && S.zone !== 'far'){
-      $('nudge').style.display = 'block';
-      $('nudgeTxt').innerHTML = T('co_nudge').replace('{n}', '<b>'+miss+' '+T('qr')+'</b>');
-      $('nudgeBar').style.width = Math.min(100, Math.round(sub/CFG.freeFrom*100)) + '%';
-    } else { $('nudge').style.display = 'none'; }
-  }
-
-  /* ---------- chips ---------- */
-  function chipGroup(hostId, key, multi){
-    var host = $(hostId);
-    host.querySelectorAll('.chip').forEach(function(c){
-      c.setAttribute('aria-pressed','false');
-      c.addEventListener('click', function(){
-        host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-        c.setAttribute('aria-pressed','true');
-        S[key] = c.getAttribute('data-val');
-        host.closest('.fld').classList.remove('err');
-      });
-    });
-  }
-  chipGroup('slotChips','slot'); chipGroup('occChips','occ');
-  chipGroup('payChips','pay');  chipGroup('srcChips','src');
-
-  $('giftBtn').addEventListener('click', function(){
-    S.gift = !S.gift;
-    this.setAttribute('aria-pressed', S.gift ? 'true' : 'false');
-    $('giftFields').classList.toggle('on', S.gift);
-  });
-
-  /* ---------- mémoire locale ---------- */
-  function remember(){
-    try{
-      localStorage.setItem('pg_c', JSON.stringify({
-        n:$('fName').value, f:$('fFirst').value, p:$('fPhone').value,
-        z:S.zone, c:$('fCity').value, s:$('fStreet').value,
-        v:$('fVilla').value, u:$('fUnit').value, zn:$('fZoneNo').value, mk:$('fMark').value
-      }));
-    }catch(e){}
-  }
-  function recall(){
-    try{
-      var d = JSON.parse(localStorage.getItem('pg_c')||'{}');
-      if(d.n) $('fName').value = d.n;
-      if(d.f) $('fFirst').value = d.f;
-      if(d.p) $('fPhone').value = d.p;
-      if(d.c) $('fCity').value = d.c;
-      if(d.s) $('fStreet').value = d.s;
-      if(d.v) $('fVilla').value = d.v;
-      if(d.u) $('fUnit').value = d.u;
-      if(d.zn) $('fZoneNo').value = d.zn;
-      if(d.mk) $('fMark').value = d.mk;
-      if(d.z){
-        S.zone = d.z;
-        var b = document.querySelector('.zone[data-zone="'+d.z+'"]');
-        if(b) b.setAttribute('aria-pressed','true');
-        if(d.z === 'far') $('farBtn').setAttribute('aria-pressed','true');
-      }
-    }catch(e){}
-  }
-
-  $('farBtn').addEventListener('click', function(){
-    var on = this.getAttribute('aria-pressed') !== 'true';
-    this.setAttribute('aria-pressed', on ? 'true' : 'false');
-    document.querySelectorAll('.zone').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-    S.zone = on ? 'far' : null;
-    $('zoneChips').closest('.fld').classList.remove('err');
-    paint();
-  });
-
-  /* ---------- ouverture / fermeture ---------- */
-  function open(){
-    buildDates(); paint(); recall(); paint();
-    sheet.classList.add('open'); veil.classList.add('open');
-    document.body.classList.add('sheet-open');
-  }
-  function close(){
-    sheet.classList.remove('open'); veil.classList.remove('open');
-    document.body.classList.remove('sheet-open');
-  }
-  $('orderSendBtn').addEventListener('click', function(){ if(count()>0) open(); });
-  $('sheetClose').addEventListener('click', close);
-  veil.addEventListener('click', close);
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
-
-  /* ---------- validation + envoi ---------- */
-  function bad(el){ el.closest('.fld').classList.add('err'); return el.closest('.fld'); }
-
-  $('sheetSend').addEventListener('click', function(){
-    var first = null;
-    document.querySelectorAll('.sheet .fld').forEach(function(f){ f.classList.remove('err'); });
-
-    if(!S.date) first = first || bad($('dateRail'));
-    if(!S.slot) first = first || bad($('slotChips'));
-    if(!S.zone) first = first || bad($('zoneChips'));
-    if(!$('fCity').value.trim()) first = first || bad($('fCity'));
-    if(!$('fStreet').value.trim()) first = first || bad($('fStreet'));
-    if(!$('fName').value.trim()) first = first || bad($('fName'));
-    if($('fPhone').value.replace(/\D/g,'').length < 8) first = first || bad($('fPhone'));
-    if(S.gift && $('fPhone2').value.replace(/\D/g,'').length < 8) first = first || bad($('fPhone2'));
-    if(!S.pay) first = first || bad($('payChips'));
-
-    if(first){ first.scrollIntoView({behavior:'smooth', block:'center'}); return; }
-
-    remember();
-
-    var sub = subtotal(), f = fee();
-    var lines = [];
-    Object.keys(ORDER).forEach(function(id){
-      if(ORDER[id] > 0) lines.push('• ' + T(id+'_name') + ' ×' + ORDER[id] + ' — ' + (ORDER[id]*PRICES[id]) + ' ' + T('qr'));
-    });
-
-    var m = [];
-    m.push(T('order_greeting'));
-    m.push('');
-    m.push(lines.join('\n'));
-    m.push('');
-    m.push(T('co_m_sub') + ': ' + sub + ' ' + T('qr'));
-    m.push(T('co_m_del') + ': ' + (S.zone === 'far' ? T('co_del_ask') : (f === 0 ? T('co_del_free') : f + ' ' + T('qr'))));
-    if(S.zone !== 'far') m.push(T('co_m_total') + ': ' + (sub + f) + ' ' + T('qr'));
-    m.push('');
-    m.push(T('co_m_when') + ': ' + S.date + ' — ' + T('co_slot_' + ({morning:'am',afternoon:'pm',evening:'eve'}[S.slot])));
-    var addr = [$('fStreet').value.trim(), $('fCity').value.trim()];
-    if($('fVilla').value.trim())  addr.unshift(T('co_villa') + ' ' + $('fVilla').value.trim());
-    if($('fUnit').value.trim())   addr.push(T('co_unit') + ' ' + $('fUnit').value.trim());
-    if($('fZoneNo').value.trim()) addr.push(T('co_zoneno') + ' ' + $('fZoneNo').value.trim());
-    if($('fMark').value.trim())   addr.push($('fMark').value.trim());
-    m.push(T('co_m_where') + ': ' + addr.filter(Boolean).join(', '));
-    m.push(T('co_m_zone') + ': ' + T(S.zone === 'far' ? 'zfar' : (S.zone === 'z1' ? 'z1_n' : S.zone === 'z2' ? 'z2_n' : 'z3_n')));
-    m.push(T('co_m_who') + ': ' + ($('fFirst').value.trim() ? $('fFirst').value.trim() + ' ' : '') + $('fName').value.trim());
-    m.push(T('co_m_recv') + ': \u2066' + $('fPhone').value.trim() + '\u2069');
-    if(S.gift){
-      m.push(T('co_m_mine') + ': \u2066' + $('fPhone2').value.trim() + '\u2069');
-      if($('fCard').value.trim()) m.push(T('co_m_card') + ': ' + $('fCard').value.trim());
-    }
-    m.push(T('co_m_pay') + ': ' + T(S.pay === 'cash' ? 'co_pay1' : 'co_pay2'));
-    if(S.occ) m.push(T('co_m_occ') + ': ' + T('co_occ' + ({birthday:'1',majlis:'2',gift:'3',us:'4'}[S.occ])));
-    if($('fNote').value.trim()) m.push(T('co_m_note') + ': ' + $('fNote').value.trim());
-    if(S.optin) m.push('\u2713 ' + T('co_m_optin'));
-    if(S.src) m.push(T('co_m_src') + ': ' + T('co_src' + ({instagram:'1',friend:'2',google:'3',before:'4'}[S.src])));
-
-    sendTo(m.join('\n'));
   });
 
   refresh();
