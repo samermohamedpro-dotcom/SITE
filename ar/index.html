@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://petit-gateau.com/ar/">
 <meta property="og:image" content="https://petit-gateau.com/img/madeleines-coffee-home-bakery-doha.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/amiri-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/img/madeleines-coffee-home-bakery-doha.webp" as="image" fetchpriority="high">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
@@ -37,6 +37,7 @@
 @font-face{font-family:'Lora';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/lora-latin-400-italic.woff2') format('woff2');}
 @font-face{font-family:'Lora';font-style:italic;font-weight:600;font-display:swap;src:url('/fonts/lora-latin-600-italic.woff2') format('woff2');}
 @font-face{font-family:'Amiri';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/amiri-arabic-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Amiri';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/amiri-arabic-700-normal.woff2') format('woff2');}
 
   :root{
     --deep-maroon:#5E1622;
@@ -327,7 +328,7 @@
   .menu-card .img-wrap{aspect-ratio:4/5;overflow:hidden;position:relative;}
   .menu-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
   .menu-card:hover img{transform:scale(1.04);}
-  .menu-card .price-badge{unicode-bidi:isolate;
+  .menu-card .price-badge{
     position:absolute;top:16px;right:16px;
     background:var(--cream);color:var(--deep-maroon);
     font-family:'Playfair Display',serif;font-weight:700;font-size:0.95rem;
@@ -345,7 +346,7 @@
     0%,70%{left:-150%;}
     100%{left:150%;}
   }
-  [dir="rtl"] .menu-card .price-badge{unicode-bidi:isolate;right:auto;left:16px;}
+  [dir="rtl"] .menu-card .price-badge{right:auto;left:16px;}
   .menu-card-body{padding:22px 22px 26px;}
   .menu-card h3{font-size:1.15rem;line-height:1.3;margin-bottom:4px;}
   .menu-card .arabic{
@@ -645,7 +646,7 @@
     font-family:'Lora',serif;transition:background .15s,border-color .15s;
   }
   .date-chip small{display:block;font-size:0.68rem;color:var(--dusty-rose);letter-spacing:0.05em;text-transform:uppercase;}
-  .date-chip b{unicode-bidi:isolate;display:block;font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--deep-maroon);line-height:1.4;}
+  .date-chip b{display:block;font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--deep-maroon);line-height:1.4;}
   .date-chip em{display:block;font-size:0.64rem;font-style:normal;color:var(--maroon);}
   .date-chip[aria-pressed="true"]{background:var(--deep-maroon);border-color:var(--deep-maroon);}
   .date-chip[aria-pressed="true"] small,.date-chip[aria-pressed="true"] b,.date-chip[aria-pressed="true"] em{color:var(--cream);}
@@ -657,7 +658,7 @@
     margin-top:24px;padding:16px 18px;border-radius:10px;background:var(--warm-cream);
     border:1px solid rgba(94,22,34,0.12);
   }
-  .totals .tl{display:flex;unicode-bidi:isolate;justify-content:space-between;align-items:baseline;font-size:0.92rem;color:var(--maroon);margin-bottom:8px;}
+  .totals .tl{display:flex;justify-content:space-between;align-items:baseline;font-size:0.92rem;color:var(--maroon);margin-bottom:8px;}
   .totals .tl.grand{
     margin:12px 0 0;padding-top:12px;border-top:1px solid rgba(94,22,34,0.15);
     font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--deep-maroon);
@@ -704,84 +705,195 @@
   body.sheet-open{overflow:hidden;}
 
 
-  /* ---------- HERO PICKS ---------- */
-  .picks{padding:44px 0 8px;background:var(--cream);}
-  .picks-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px;}
-  .picks-all{
-    font-family:'Lora',serif;font-size:0.85rem;color:var(--maroon);
-    text-decoration:none;border-bottom:1px solid rgba(123,34,48,0.35);padding-bottom:2px;white-space:nowrap;
+  /* ================= HERO : respiration + entrée en cascade ================= */
+  .hero-content{padding-top:clamp(28px,6vh,64px);}
+  .hero-eyebrow{
+    background:rgba(94,22,34,0.34)!important;
+    border:1px solid rgba(227,177,114,0.55);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    letter-spacing:0.22em!important;font-size:0.68rem!important;
+    padding:9px 22px!important;border-radius:999px;
+    color:var(--gold)!important;
   }
+  .hero-img-wrap::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 78% 62% at 50% 46%, rgba(40,10,16,0.10) 0%, rgba(40,10,16,0.52) 100%),
+      linear-gradient(to bottom, rgba(40,10,16,0.34) 0%, transparent 26%, transparent 58%, rgba(40,10,16,0.46) 100%);
+  }
+  .hero-content > *{
+    opacity:0;transform:translateY(22px);
+    animation:heroIn 1.05s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  .hero-content > *:nth-child(1){animation-delay:.15s;}
+  .hero-content > *:nth-child(2){animation-delay:.30s;}
+  .hero-content > *:nth-child(3){animation-delay:.45s;}
+  .hero-content > *:nth-child(4){animation-delay:.60s;}
+  @keyframes heroIn{to{opacity:1;transform:translateY(0);}}
+  .hero-content h1{
+    text-shadow:0 2px 28px rgba(40,10,16,0.42);
+  }
+
+  /* ================= RÉVÉLATIONS AU SCROLL ================= */
+  .reveal-up{
+    opacity:0;transform:translateY(26px);filter:blur(5px);
+    transition:opacity .85s cubic-bezier(.16,1,.3,1),
+               transform .85s cubic-bezier(.16,1,.3,1),
+               filter .85s ease;
+  }
+  .reveal-up.in{opacity:1;transform:none;filter:none;}
+  @media(prefers-reduced-motion:reduce){
+    .reveal-up{opacity:1;transform:none;filter:none;transition:none;}
+    .hero-content > *{opacity:1;transform:none;animation:none;}
+  }
+
+  /* ================= BEST-SELLERS ================= */
+  .picks{padding:clamp(52px,9vw,86px) 0 clamp(12px,3vw,28px);background:var(--cream);}
+  .picks-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:16px;margin-bottom:26px;
+  }
+  .picks-head .label{margin:0;}
+  .picks-all{
+    font-family:'Lora',serif;font-size:0.82rem;letter-spacing:0.04em;
+    color:var(--maroon);text-decoration:none;white-space:nowrap;
+    border-bottom:1px solid rgba(123,34,48,0.3);padding-bottom:3px;
+    transition:border-color .25s ease,color .25s ease;
+  }
+  .picks-all:hover{color:var(--deep-maroon);border-color:var(--deep-maroon);}
+
   .picks-rail{
-    display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;
+    display:grid;grid-auto-flow:column;
+    grid-auto-columns:minmax(190px,1fr);gap:clamp(12px,2vw,22px);
+    overflow-x:auto;padding:4px 0 16px;
     scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
   .picks-rail::-webkit-scrollbar{display:none;}
+  @media(min-width:900px){
+    .picks-rail{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible;}
+  }
   .pick{
-    flex:0 0 auto;width:158px;scroll-snap-align:start;position:relative;
-    border-radius:10px;overflow:hidden;background:#fff;
-    box-shadow:0 2px 12px rgba(94,22,34,0.10);
+    scroll-snap-align:start;background:#fff;border-radius:3px;overflow:hidden;
+    display:flex;flex-direction:column;
+    box-shadow:0 1px 2px rgba(94,22,34,0.06), 0 10px 30px -14px rgba(94,22,34,0.32);
+    transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease;
   }
-  .pick img{width:100%;height:158px;object-fit:cover;display:block;}
-  .pick-b{padding:11px 12px 13px;}
+  .pick:hover{transform:translateY(-6px);box-shadow:0 1px 2px rgba(94,22,34,0.08), 0 22px 44px -18px rgba(94,22,34,0.42);}
+  .pick-img{position:relative;overflow:hidden;aspect-ratio:4/5;}
+  .pick-img img{width:100%;height:100%;object-fit:cover;display:block;
+    transform:scale(1.04);transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
+  .pick:hover .pick-img img{transform:scale(1.11);}
+  .pick-img::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to bottom,transparent 55%,rgba(40,10,16,0.16) 100%);
+  }
+  .pick-b{
+    padding:20px 18px 22px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;flex:1;
+  }
   .pick-n{
-    display:block;font-family:'Playfair Display',serif;font-size:0.9rem;line-height:1.25;
-    color:var(--deep-maroon);min-height:2.2em;
+    font-family:'Playfair Display',serif;font-weight:700;
+    font-size:1.02rem;line-height:1.25;color:var(--deep-maroon);
+    margin:0 0 6px;
   }
-  .pick-p{unicode-bidi:isolate;
-    display:block;margin-top:5px;font-family:'Playfair Display',serif;font-weight:700;
-    font-size:0.95rem;color:var(--maroon);
+  body.lang-ar .pick-n,[dir="rtl"] .pick-n{font-family:'Amiri',serif;}
+  .pick-d{
+    font-family:'Lora',serif;font-style:italic;font-size:0.82rem;line-height:1.4;
+    color:var(--dusty-rose);margin:0;flex:1;
+  }
+  [dir="rtl"] .pick-d{font-style:normal;font-family:'Amiri',serif;}
+  .pick-rule{
+    width:26px;height:1px;background:var(--gold);margin:14px auto 13px;
+  }
+  .pick-f{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+  }
+  .pick-p{
+    font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;
+    color:var(--maroon);unicode-bidi:isolate;letter-spacing:0.01em;
   }
   .pick-add{
-    position:absolute;top:10px;inset-inline-end:10px;
-    width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;padding:0;
-    background:var(--deep-maroon);color:var(--cream);
-    font-family:'Playfair Display',serif;font-size:1.35rem;line-height:1;
+    width:38px;height:38px;border-radius:50%;padding:0;cursor:pointer;flex:0 0 auto;
+    border:1px solid var(--deep-maroon);background:transparent;color:var(--deep-maroon);
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 2px 8px rgba(0,0,0,0.28);transition:transform .15s ease,background .15s ease;
+    transition:background .28s ease,color .28s ease,transform .18s ease;
   }
+  .pick-add span{font-family:'Playfair Display',serif;font-size:1.3rem;line-height:1;}
+  .pick-add:hover{background:var(--deep-maroon);color:var(--cream);}
   .pick-add:active{transform:scale(0.88);}
-  .pick-add.on{background:var(--deep-green);}
+  .pick-add.on{background:var(--deep-green);border-color:var(--deep-green);color:var(--cream);}
   .picks-note{
-    margin-top:14px;text-align:center;font-family:'Lora',serif;
-    font-size:0.78rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--dusty-rose);
+    margin-top:22px;text-align:center;font-family:'Lora',serif;
+    font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--dusty-rose);
   }
+  [dir="rtl"] .picks-note{letter-spacing:0;text-transform:none;font-size:0.85rem;}
 
-  /* ---------- FULL SPREAD ---------- */
-  .spread-price{
-    margin-top:14px;font-family:'Playfair Display',serif;color:var(--deep-maroon);
+  /* ================= FULL SPREAD ================= */
+  .spread-price{margin-top:18px;}
+  .spread-price b{
+    font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:800;
+    line-height:1;color:var(--deep-maroon);unicode-bidi:isolate;display:inline-block;
   }
-  .spread-price b{unicode-bidi:isolate;font-size:2rem;font-weight:800;line-height:1;}
-  .spread-price span{font-size:1rem;}
   .spread-price em{
-    display:block;margin-top:6px;font-family:'Lora',serif;font-style:normal;
-    font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--deep-green);
+    display:block;margin-top:8px;font-family:'Lora',serif;font-style:normal;
+    font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--deep-green);
   }
+  [dir="rtl"] .spread-price em{letter-spacing:0;text-transform:none;font-size:0.85rem;}
 
-  /* ---------- REPLI ORDINATEUR ---------- */
-  .fallback{
-    position:fixed;inset:0;z-index:120;display:none;
-    align-items:center;justify-content:center;padding:24px;
-    background:rgba(40,10,16,0.6);
+  /* ================= PRIX : ordre stable en RTL ================= */
+  .menu-card .price-badge,.cl-price,.totals .tl span:last-child,
+  .order-bar-total,.date-chip b{unicode-bidi:isolate;}
+  [dir="rtl"] .menu-card .price-badge{direction:ltr;}
+
+  /* ================= ADRESSE ================= */
+  .zones{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+  .zone{
+    cursor:pointer;padding:14px 8px 13px;border-radius:4px;text-align:center;
+    border:1px solid rgba(94,22,34,0.22);background:#fff;
+    transition:border-color .25s ease,background .25s ease,transform .18s ease;
   }
+  .zone:active{transform:scale(0.97);}
+  .zone[aria-pressed="true"]{border-color:var(--deep-maroon);background:rgba(207,224,198,0.3);}
+  .zone b{
+    display:block;font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;
+    color:var(--deep-maroon);line-height:1.25;margin-bottom:5px;
+  }
+  [dir="rtl"] .zone b{font-family:'Amiri',serif;}
+  .zone small{
+    display:block;font-family:'Lora',serif;font-size:0.7rem;line-height:1.3;
+    color:var(--dusty-rose);min-height:2.6em;
+  }
+  .zone i{
+    display:block;margin-top:7px;font-style:normal;font-family:'Playfair Display',serif;
+    font-weight:700;font-size:0.85rem;color:var(--maroon);unicode-bidi:isolate;
+  }
+  .zone[aria-pressed="true"] i{color:var(--deep-green);}
+
+  .more-toggle{
+    width:100%;margin-top:14px;padding:12px;cursor:pointer;
+    background:transparent;border:1px dashed rgba(94,22,34,0.3);border-radius:4px;
+    font-family:'Lora',serif;font-size:0.85rem;color:var(--maroon);
+  }
+  .more-fields{display:none;}
+  .more-fields.on{display:block;}
+  .fld-help{
+    display:block;margin-top:6px;font-family:'Lora',serif;font-size:0.76rem;
+    color:var(--dusty-rose);line-height:1.4;font-style:italic;
+  }
+  [dir="rtl"] .fld-help{font-style:normal;}
+
+  /* ================= REPLI ORDINATEUR ================= */
+  .fallback{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(40,10,16,0.6);}
   .fallback.open{display:flex;}
-  .fallback-card{
-    background:var(--cream);border-radius:12px;padding:26px;max-width:520px;width:100%;
-    max-height:86vh;overflow-y:auto;
-  }
+  .fallback-card{background:var(--cream);border-radius:6px;padding:26px;max-width:520px;width:100%;max-height:86vh;overflow-y:auto;}
   .fallback-card h4{font-size:1.1rem;color:var(--deep-maroon);margin-bottom:8px;}
   .fallback-card p{font-size:0.88rem;color:var(--maroon);margin-bottom:14px;line-height:1.5;}
-  .fallback-card pre{
-    white-space:pre-wrap;word-break:break-word;font-family:'Lora',serif;font-size:0.85rem;
-    background:#fff;border:1px solid rgba(94,22,34,0.18);border-radius:8px;padding:14px;
-    color:var(--deep-maroon);margin-bottom:14px;
-  }
+  .fallback-card pre{white-space:pre-wrap;word-break:break-word;font-family:'Lora',serif;font-size:0.85rem;background:#fff;border:1px solid rgba(94,22,34,0.18);border-radius:4px;padding:14px;color:var(--deep-maroon);margin-bottom:14px;}
   .fallback-card .fb-row{display:flex;gap:10px;flex-wrap:wrap;}
-  .fallback-card button{
-    flex:1;min-width:140px;padding:13px;border:none;border-radius:8px;cursor:pointer;
-    font-family:'Lora',serif;font-size:0.92rem;
-  }
+  .fallback-card button{flex:1;min-width:140px;padding:13px;border:none;border-radius:4px;cursor:pointer;font-family:'Lora',serif;font-size:0.92rem;}
   .fb-copy{background:var(--deep-maroon);color:var(--cream);}
-  .fb-num{background:transparent;border:1.5px solid var(--deep-maroon)!important;color:var(--deep-maroon);}
+  .fb-num{background:transparent;border:1px solid var(--deep-maroon)!important;color:var(--deep-maroon);}
 </style>
 <script type="application/ld+json">
 {
@@ -793,7 +905,7 @@
   "description": "Home bakery in Doha, Qatar. Madeleines, cookies and cakes baked by hand in small batches, made to order. Orders via WhatsApp only.",
   "url": "https://petit-gateau.com/",
   "telephone": "+97450040617",
-  "priceRange": "180–590 QAR",
+  "priceRange": "180-590 QAR",
   "currenciesAccepted": "QAR",
   "image": "https://petit-gateau.com/img/madeleines-coffee-home-bakery-doha.webp",
   "address": {
@@ -961,8 +1073,7 @@
       ]
     }
   },
-  "inLanguage": "ar",
-  "hasDeliveryMethod": "https://purl.org/goodrelations/v1#DeliveryModeOwnFleet"
+  "inLanguage": "ar"
 }
 </script>
 </head>
@@ -976,7 +1087,7 @@
     <div class="nav-links">
       <a href="#story" data-i18n="nav_story">قصتنا</a>
       <a href="#menu" data-i18n="nav_menu">القائمة</a>
-      <a href="#visit" data-i18n="nav_visit">تواصل</a>
+      <a href="#visit" data-i18n="nav_visit">الطلب</a>
     </div>
     <div class="nav-right">
       <a class="lang-toggle" id="langToggle" href="/" hreflang="en" lang="en" rel="alternate">English</a>
@@ -1002,47 +1113,63 @@
 </section>
 
 
-<section class="picks" aria-label="Most ordered">
+<section class="picks" aria-label="الأكثر طلباً">
   <div class="container">
-    <div class="picks-head">
-      <span class="label" data-i18n="picks_label">Most ordered</span>
-      <a href="#menu" class="picks-all" data-i18n="picks_all">See all 7 &rarr;</a>
+    <div class="picks-head reveal-up">
+      <span class="label">الأكثر طلباً</span>
+      <a href="#menu" class="picks-all">شاهد الكل (7) &rarr;</a>
     </div>
     <div class="picks-rail">
-      <div class="pick" data-pick="item7">
-        <img src="/img/nutella-cookies-doha.webp" alt="" width="800" height="1000" decoding="async" loading="lazy">
+      <article class="pick reveal-up">
+        <div class="pick-img"><img src="/img/nutella-cookies-doha.webp" alt="كوكيز نوتيلا" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <span class="pick-n" data-i18n="item7_name"></span>
-          <span class="pick-p">200 <span data-i18n="qr">QR</span></span>
+          <h3 class="pick-n">كوكيز نوتيلا</h3>
+          <p class="pick-d">قلب نوتيلا سائل</p>
+          <div class="pick-rule"></div>
+          <div class="pick-f">
+            <span class="pick-p" dir="ltr">200 ر.ق</span>
+            <button type="button" class="pick-add" data-add="item7" aria-label="أضف"><span>+</span></button>
+          </div>
         </div>
-        <button type="button" class="pick-add" data-add="item7" aria-label="Add">+</button>
-      </div>
-      <div class="pick" data-pick="item1">
-        <img src="/img/madeleine-box-doha.webp" alt="" width="800" height="1000" decoding="async" loading="lazy">
+      </article>
+      <article class="pick reveal-up">
+        <div class="pick-img"><img src="/img/madeleine-box-doha.webp" alt="مادلين" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <span class="pick-n" data-i18n="item1_name"></span>
-          <span class="pick-p">200 <span data-i18n="qr">QR</span></span>
+          <h3 class="pick-n">مادلين</h3>
+          <p class="pick-d">الكلاسيكية، بشكل الصدفة</p>
+          <div class="pick-rule"></div>
+          <div class="pick-f">
+            <span class="pick-p" dir="ltr">200 ر.ق</span>
+            <button type="button" class="pick-add" data-add="item1" aria-label="أضف"><span>+</span></button>
+          </div>
         </div>
-        <button type="button" class="pick-add" data-add="item1" aria-label="Add">+</button>
-      </div>
-      <div class="pick" data-pick="item5">
-        <img src="/img/chocolate-chip-cookies-doha.webp" alt="" width="800" height="1000" decoding="async" loading="lazy">
+      </article>
+      <article class="pick reveal-up">
+        <div class="pick-img"><img src="/img/chocolate-chip-cookies-doha.webp" alt="كوكيز رقائق الشوكولاتة" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <span class="pick-n" data-i18n="item5_name"></span>
-          <span class="pick-p">180 <span data-i18n="qr">QR</span></span>
+          <h3 class="pick-n">كوكيز رقائق الشوكولاتة</h3>
+          <p class="pick-d">طرية في الوسط</p>
+          <div class="pick-rule"></div>
+          <div class="pick-f">
+            <span class="pick-p" dir="ltr">180 ر.ق</span>
+            <button type="button" class="pick-add" data-add="item5" aria-label="أضف"><span>+</span></button>
+          </div>
         </div>
-        <button type="button" class="pick-add" data-add="item5" aria-label="Add">+</button>
-      </div>
-      <div class="pick" data-pick="item3">
-        <img src="/img/brown-butter-banana-bread-doha.webp" alt="" width="800" height="1000" decoding="async" loading="lazy">
+      </article>
+      <article class="pick reveal-up">
+        <div class="pick-img"><img src="/img/brown-butter-banana-bread-doha.webp" alt="خبز الموز بالزبدة البنية" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <span class="pick-n" data-i18n="item3_name"></span>
-          <span class="pick-p">300 <span data-i18n="qr">QR</span></span>
+          <h3 class="pick-n">خبز الموز بالزبدة البنية</h3>
+          <p class="pick-d">مخبوز ببطء، موز ناضج</p>
+          <div class="pick-rule"></div>
+          <div class="pick-f">
+            <span class="pick-p" dir="ltr">300 ر.ق</span>
+            <button type="button" class="pick-add" data-add="item3" aria-label="أضف"><span>+</span></button>
+          </div>
         </div>
-        <button type="button" class="pick-add" data-add="item3" aria-label="Add">+</button>
-      </div>
+      </article>
     </div>
-    <div class="picks-note" data-i18n="picks_note">Complimentary delivery on orders above 400 QR</div>
+    <div class="picks-note reveal-up">توصيل مجاني للطلبات فوق 400 ر.ق</div>
   </div>
 </section>
 <section class="story" id="story">
@@ -1194,18 +1321,18 @@
         <span class="label" data-i18n="spread_label">العرض</span>
         <h2 data-i18n="spread_title">التشكيلة الكاملة</h2>
         <p data-i18n="spread_desc">لا تستطيع الاختيار؟ نحن أيضًا. القليل من كل شيء — كوكيز، مادلين، وكيكة الخوخ — معًا في صندوق واحد لطاولتك.</p>
-        <div class="spread-price"><b>590</b> <span data-i18n="qr">QR</span><em data-i18n="spread_note">Delivered with our compliments</em></div>
-        <div class="fld" style="margin:18px 0 0;">
-          <span class="fld-label" data-i18n="spread_pick">Choose your cookie</span>
+        <div class="spread-price"><b dir="ltr">590 ر.ق</b><em>التوصيل على حسابنا</em></div>
+        <div class="fld" style="margin:20px 0 0;">
+          <span class="fld-label">اختر الكوكيز</span>
           <div class="chips" id="spreadCookie">
-            <button type="button" class="chip" data-val="choc" data-i18n="item5_name">Chocolate Chip Cookies</button>
-            <button type="button" class="chip" data-val="nutella" data-i18n="item7_name">Nutella Cookies</button>
+            <button type="button" class="chip" data-val="choc">كوكيز رقائق الشوكولاتة</button>
+            <button type="button" class="chip" data-val="nutella">كوكيز نوتيلا</button>
           </div>
         </div>
         <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
-          <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+          <button class="qty-btn" data-action="dec" aria-label="-">−</button>
           <span class="qty-val">0</span>
-          <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <button class="qty-btn" data-action="inc" aria-label="+">+</button>
         </div>
       </div>
     </div>
@@ -1215,9 +1342,9 @@
 <section class="visit" id="visit">
   <div class="container visit-inner">
     <div class="reveal" style="position:relative;">
-      <span class="label" data-i18n="visit_label">الزيارة / الطلب</span>
-      <h2 data-i18n="visit_title">يُصنع حسب الطلب، على بُعد رسالة واحدة.</h2>
-      <p data-i18n="visit_p1">كل شيء يُخبز في المنزل، بكميات صغيرة — لا شيء ينتظر على الرف، ولا يوجد محل تدخل إليه. راسلنا عبر واتساب لتقديم طلب أو للسؤال عمّا هو طازج اليوم.</p>
+      <span class="label" data-i18n="visit_label">الطلب</span>
+      <h2 data-i18n="visit_title">يُخبز حسب الطلب، ويصل إليك.</h2>
+      <p data-i18n="visit_p1">كل شيء يُخبز في المنزل يوم وصوله إليك — لا شيء ينتظر على الرفوف. لا يوجد محل ولا واجهة: نوصل في جميع أنحاء قطر، وكل طلب يبدأ برسالة.</p>
       <p data-i18n="visit_p2">نادر عن قصد: كميات صغيرة فقط، لذا يستحق الانتظار.</p>
       <div class="visit-actions">
         <a class="btn btn-dark" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="visit_btn1">راسلنا عبر واتساب</a>
@@ -1229,7 +1356,7 @@
       <div class="info-row"><span data-i18n="info_days">أيام الخَبز</span><span data-i18n="info_days_val">السبت – الخميس</span></div>
       <div class="info-row"><span data-i18n="info_closed">إغلاق</span><span data-i18n="info_closed_val">الجمعة</span></div>
       <div class="info-row"><span data-i18n="info_orders">الطلبات</span><span data-i18n="info_orders_val">عبر واتساب فقط</span></div>
-      <div class="info-row"><span data-i18n="info_wa">واتساب</span><span>+974 5004 0617</span></div>
+      <div class="info-row"><span data-i18n="info_wa">واتساب</span><span><bdi dir="ltr">+974 5004 0617</bdi></span></div>
     </div>
   </div>
 </section>
@@ -1257,24 +1384,24 @@
   <div class="order-bar-inner">
     <div class="order-bar-info">
       <span class="order-bar-count" id="orderCount">0</span>
-      <span data-i18n="order_items">items</span>
+      <span>منتج</span>
       <span class="order-bar-dot">·</span>
-      <span class="order-bar-total" id="orderTotal">0 QR</span>
+      <span class="order-bar-total" id="orderTotal">0 ر.ق</span>
       <span class="order-bar-sub" id="orderBarSub"></span>
     </div>
-    <button class="order-bar-btn" id="orderSendBtn" data-i18n="order_continue">Continue</button>
+    <button class="order-bar-btn" id="orderSendBtn">متابعة</button>
   </div>
 </div>
 
 
 <div class="fallback" id="fallback">
   <div class="fallback-card">
-    <h4 data-i18n="fb_title">WhatsApp didn't open?</h4>
-    <p data-i18n="fb_text">Copy your order below and send it to <bdi dir="ltr">+974 5004 0617</bdi> on WhatsApp.</p>
+    <h4>لم يفتح واتساب؟</h4>
+    <p>انسخ طلبك أدناه وأرسله عبر واتساب إلى <bdi dir="ltr"><bdi dir="ltr">+974 5004 0617</bdi></bdi></p>
     <pre id="fbMsg"></pre>
     <div class="fb-row">
-      <button class="fb-copy" id="fbCopy" data-i18n="fb_copy">Copy the order</button>
-      <button class="fb-num" id="fbClose" data-i18n="fb_close">Close</button>
+      <button class="fb-copy" id="fbCopy">انسخ الطلب</button>
+      <button class="fb-num" id="fbClose">إغلاق</button>
     </div>
   </div>
 </div>
@@ -1282,7 +1409,7 @@
 
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
   <div class="sheet-head">
-    <h3 id="sheetTitle" data-i18n="co_title">Your order</h3>
+    <h3 id="sheetTitle">طلبك</h3>
     <button class="sheet-close" id="sheetClose" aria-label="Close">&times;</button>
   </div>
 
@@ -1291,49 +1418,76 @@
     <div class="rules">
       <div class="rule">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span data-i18n="co_rule1">Order 1 day ahead</span>
+        <span>اطلب قبل يوم</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
-        <span data-i18n="co_rule2">Closed Friday</span>
+        <span>مغلق الجمعة</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><path d="M3 6l9 6 9-6M3 6h18v12H3z"/></svg>
-        <span data-i18n="co_rule3">Delivery only</span>
+        <span>توصيل فقط</span>
       </div>
     </div>
 
     <div class="fld" style="margin-top:0;">
-      <span class="fld-label" data-i18n="co_basket">Your basket</span>
+      <span class="fld-label">سلتك</span>
       <div id="cartLines"></div>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_day">Delivery day <span class="req">*</span></span>
+      <span class="fld-label">يوم التوصيل <span class="req">*</span></span>
       <div class="dates" id="dateRail"></div>
-      <div class="err-msg" data-i18n="co_err_day">Please pick a day.</div>
+      <div class="err-msg">الرجاء اختيار اليوم.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_slot">Time <span class="req">*</span></span>
+      <span class="fld-label">الوقت <span class="req">*</span></span>
       <div class="chips" id="slotChips">
-        <button type="button" class="chip" data-val="morning" data-i18n="co_slot_am">Morning</button>
-        <button type="button" class="chip" data-val="afternoon" data-i18n="co_slot_pm">Afternoon</button>
-        <button type="button" class="chip" data-val="evening" data-i18n="co_slot_eve">Evening</button>
+        <button type="button" class="chip" data-val="morning">صباحاً</button>
+        <button type="button" class="chip" data-val="afternoon">بعد الظهر</button>
+        <button type="button" class="chip" data-val="evening">مساءً</button>
       </div>
-      <div class="err-msg" data-i18n="co_err_slot">Please pick a time.</div>
+      <div class="err-msg">الرجاء اختيار الوقت.</div>
     </div>
 
-    <div class="fld" id="fldArea">
-      <span class="fld-label" data-i18n="co_area">Where do we deliver? <span class="req">*</span></span>
-      <select id="areaSel"></select>
-      <div class="err-msg" data-i18n="co_err_area">Please pick your area.</div>
+    <div class="fld">
+      <span class="fld-label">أين أنت؟ <span class="req">*</span></span>
+      <div class="zones" id="zoneChips">
+        <button type="button" class="zone" data-zone="z1" aria-pressed="false"><b>الوكرة</b><small>وما حولها</small><i>10 ر.ق</i></button>
+        <button type="button" class="zone" data-zone="z2" aria-pressed="false"><b>الدوحة</b><small>المدينة والضواحي</small><i>15 ر.ق</i></button>
+        <button type="button" class="zone" data-zone="z3" aria-pressed="false"><b>الشمال</b><small>لوسيل، أم صلال، الأطراف</small><i>20 ر.ق</i></button>
+      </div>
+      <button type="button" class="more-toggle" id="farBtn" style="margin-top:9px;" aria-pressed="false">أبعد من ذلك؟ نخبرك بالسعر عبر واتساب</button>
+      <div class="err-msg">الرجاء تحديد منطقتك.</div>
+    </div>
+
+    <div class="fld">
+      <span class="fld-label">المنطقة أو الحي <span class="req">*</span></span>
+      <input type="text" id="fCity" autocomplete="address-level2">
+      <span class="fld-help">الوعب، لوسيل، المطار القديم…</span>
+      <div class="err-msg">الرجاء كتابة المنطقة.</div>
+    </div>
+
+    <div class="fld">
+      <span class="fld-label">الشارع والمبنى <span class="req">*</span></span>
+      <input type="text" id="fStreet" autocomplete="street-address">
+      <span class="fld-help">ما يكفي ليجدك السائق</span>
+      <div class="err-msg">الرجاء كتابة الشارع والمبنى.</div>
+    </div>
+
+    <button type="button" class="more-toggle" id="moreBtn">+ أضف رقم الفيلا، الطابق، علامة مميزة</button>
+    <div class="more-fields" id="moreFields">
+      <div class="fld"><span class="fld-label">رقم الفيلا أو المبنى <span class="opt">اختياري</span></span><input type="text" id="fVilla" inputmode="numeric"></div>
+      <div class="fld"><span class="fld-label">الطابق / الشقة <span class="opt">اختياري</span></span><input type="text" id="fUnit"></div>
+      <div class="fld"><span class="fld-label">رقم المنطقة <span class="opt">اختياري</span></span><input type="text" id="fZoneNo" inputmode="numeric"></div>
+      <div class="fld"><span class="fld-label">علامة مميزة قريبة <span class="opt">اختياري</span></span><input type="text" id="fMark"></div>
     </div>
 
     <div class="totals">
-      <div class="tl"><span data-i18n="co_subtotal">Subtotal</span><span id="tSub">0 QR</span></div>
-      <div class="tl"><span data-i18n="co_delivery">Delivery</span><span id="tDel">—</span></div>
-      <div class="tl grand"><span data-i18n="co_total">Total</span><span id="tGrand">0 QR</span></div>
+      <div class="tl"><span>المجموع</span><span id="tSub">0 ر.ق</span></div>
+      <div class="tl"><span>التوصيل</span><span id="tDel">—</span></div>
+      <div class="tl grand"><span>الإجمالي</span><span id="tGrand">0 ر.ق</span></div>
       <div class="nudge" id="nudge" style="display:none;">
         <span id="nudgeTxt"></span>
         <span class="nudge-bar"><i id="nudgeBar" style="width:0%"></i></span>
@@ -1341,86 +1495,83 @@
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_name">Name <span class="req">*</span></span>
-      <input type="text" id="fName" autocomplete="family-name" enterkeyhint="next">
-      <div class="err-msg" data-i18n="co_err_name">Please tell us your name.</div>
+      <span class="fld-label">الاسم <span class="req">*</span></span>
+      <input type="text" id="fName" autocomplete="family-name">
+      <div class="err-msg">الرجاء كتابة اسمك.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_first">First name <span class="opt" data-i18n="opt">optional</span></span>
+      <span class="fld-label">الاسم الأول <span class="opt">اختياري</span></span>
       <input type="text" id="fFirst" autocomplete="given-name">
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_phone">Phone of the person receiving <span class="req">*</span></span>
-      <input type="tel" id="fPhone" inputmode="tel" autocomplete="tel" placeholder="+974 ...">
-      <div class="err-msg" data-i18n="co_err_phone">Please add a Qatar mobile number.</div>
+      <span class="fld-label">رقم من سيستلم الطلب <span class="req">*</span></span>
+      <input type="tel" id="fPhone" inputmode="tel" autocomplete="tel" placeholder="+974 …" dir="ltr">
+      <div class="err-msg">الرجاء إضافة رقم جوال قطري.</div>
     </div>
 
     <button type="button" class="gift-toggle" id="giftBtn" aria-pressed="false">
       <span class="gift-box"><svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg></span>
-      <span data-i18n="co_gift">This is a gift — someone else will receive it</span>
+      <span>هذا الطلب هدية — سيستلمه شخص آخر</span>
     </button>
 
     <div class="gift-fields" id="giftFields">
       <div class="fld">
-        <span class="fld-label" data-i18n="co_yourphone">Your own number <span class="req">*</span></span>
-        <input type="tel" id="fPhone2" inputmode="tel" placeholder="+974 ...">
-        <div class="err-msg" data-i18n="co_err_phone2">Please add your own number.</div>
+        <span class="fld-label">رقمك أنت <span class="req">*</span></span>
+        <input type="tel" id="fPhone2" inputmode="tel" placeholder="+974 …" dir="ltr">
+        <div class="err-msg">الرجاء إضافة رقمك أنت.</div>
       </div>
-      <div class="fld">
-        <span class="fld-label" data-i18n="co_card">Message on the card <span class="opt" data-i18n="opt">optional</span></span>
-        <input type="text" id="fCard">
-      </div>
+      <div class="fld"><span class="fld-label">رسالة على البطاقة <span class="opt">اختياري</span></span><input type="text" id="fCard"></div>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_occasion">Occasion <span class="opt" data-i18n="opt">optional</span></span>
+      <span class="fld-label">المناسبة <span class="opt">اختياري</span></span>
       <div class="chips" id="occChips">
-        <button type="button" class="chip" data-val="birthday" data-i18n="co_occ1">Birthday</button>
-        <button type="button" class="chip" data-val="majlis" data-i18n="co_occ2">Majlis / guests</button>
-        <button type="button" class="chip" data-val="gift" data-i18n="co_occ3">A gift</button>
-        <button type="button" class="chip" data-val="us" data-i18n="co_occ4">Just for us</button>
+        <button type="button" class="chip" data-val="birthday">عيد ميلاد</button>
+        <button type="button" class="chip" data-val="majlis">مجلس / ضيوف</button>
+        <button type="button" class="chip" data-val="gift">هدية</button>
+        <button type="button" class="chip" data-val="us">لنا فقط</button>
       </div>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_pay">Payment <span class="req">*</span></span>
+      <span class="fld-label">طريقة الدفع <span class="req">*</span></span>
       <div class="chips" id="payChips">
-        <button type="button" class="chip" data-val="cash" data-i18n="co_pay1">Cash on delivery</button>
-        <button type="button" class="chip" data-val="fawran" data-i18n="co_pay2">Fawran transfer</button>
+        <button type="button" class="chip" data-val="cash">نقداً عند الاستلام</button>
+        <button type="button" class="chip" data-val="fawran">تحويل فوران</button>
       </div>
-      <div class="err-msg" data-i18n="co_err_pay">Please pick a payment method.</div>
+      <div class="err-msg">الرجاء اختيار طريقة الدفع.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_note">Allergies or a note <span class="opt" data-i18n="opt">optional</span></span>
+      <span class="fld-label">حساسية أو ملاحظة <span class="opt">اختياري</span></span>
       <textarea id="fNote"></textarea>
     </div>
 
     <div class="fld">
-      <span class="fld-label" data-i18n="co_source">How did you find us? <span class="opt" data-i18n="opt">optional</span></span>
+      <span class="fld-label">كيف عرفتنا؟ <span class="opt">اختياري</span></span>
       <div class="chips" id="srcChips">
-        <button type="button" class="chip" data-val="instagram" data-i18n="co_src1">Instagram</button>
-        <button type="button" class="chip" data-val="friend" data-i18n="co_src2">A friend</button>
-        <button type="button" class="chip" data-val="google" data-i18n="co_src3">Google</button>
-        <button type="button" class="chip" data-val="before" data-i18n="co_src4">Ordered before</button>
+        <button type="button" class="chip" data-val="instagram">إنستغرام</button>
+        <button type="button" class="chip" data-val="friend">من صديق</button>
+        <button type="button" class="chip" data-val="google">جوجل</button>
+        <button type="button" class="chip" data-val="before">طلبت من قبل</button>
       </div>
     </div>
 
-
     <button type="button" class="gift-toggle" id="optinBtn" aria-pressed="false" style="margin-top:24px;">
       <span class="gift-box"><svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg></span>
-      <span data-i18n="optin_label">Keep me posted about new batches</span>
+      <span>أخبروني عن الدفعات الجديدة</span>
     </button>
+
   </div>
 
   <div class="sheet-foot">
     <button class="sheet-send" id="sheetSend">
       <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      <span data-i18n="co_send">Send order on WhatsApp</span>
+      <span>أرسل الطلب عبر واتساب</span>
     </button>
-    <div class="sheet-reassure" data-i18n="co_reassure">Nothing is charged here. We confirm everything with you on WhatsApp.</div>
+    <div class="sheet-reassure">لا يُخصم أي مبلغ هنا. نؤكد كل التفاصيل معك عبر واتساب.</div>
   </div>
 </div>
 
@@ -1429,10 +1580,7 @@
 (function(){
   var translations = {
     en: {
-      co_optin:"Keep me posted about new batches",
-      optin_label:"Keep me posted about new batches",
-      co_m_optin:"Happy to hear about new batches",
-      nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Visit", nav_cta:"Order on WhatsApp",
+      nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp",
       hero_eyebrow:"Home-Baked · Doha, Qatar",
       hero_title:"The hour she keeps<br>for herself.",
       hero_sub:"No shop, no storefront — just a home kitchen in Doha, small-batch cakes made by a mother who gives everyone else her time.",
@@ -1459,97 +1607,17 @@
       spread_label:"The Offer", spread_title:"The Full Spread",
       spread_desc:"Can't choose? Neither can we. A little of everything — cookies, madeleines, and the peach cake — boxed together for the table.",
       spread_btn:"Ask on WhatsApp",
-      visit_label:"Visit / Order", visit_title:"Made to order, one message away.",
-      visit_p1:"Everything is baked at home, in small batches — nothing sits waiting on a shelf, and there's no shop to walk into. Message us on WhatsApp to place an order or ask what's fresh today.",
+      visit_label:"Ordering", visit_title:"Made to order, delivered to you.",
+      visit_p1:"Everything is baked at home the day it reaches you — nothing sits waiting on a shelf. There is no shop and no counter: we deliver across Qatar, and every order starts with a message.",
       visit_p2:"Rare, on purpose: small batches only, so it's worth the wait.",
       visit_btn1:"Message on WhatsApp", visit_btn2:"Follow on Instagram",
       info_location:"Location", info_location_val:"Home kitchen, Doha", info_days:"Baking Days", info_days_val:"Saturday – Thursday",
       info_closed:"Closed", info_closed_val:"Friday",
       info_orders:"Orders", info_orders_val:"Via WhatsApp only", info_wa:"WhatsApp",
       footer_tag:"For the love of baking", footer_wa:"WhatsApp", footer_ig:"Instagram", footer_story:"Our Story",
+      spread_name:"التشكيلة الكاملة",
       footer_copy:"© Petit Gâteau · Home-Baked, Doha",
-      picks_label:"Most ordered",
-      picks_all:"See all 7 &rarr;",
-      picks_note:"Complimentary delivery on orders above 400 QR",
-      spread_pick:"Choose your cookie",
-      spread_note:"Delivered with our compliments",
-      spread_name:"The Full Spread",
-      fb_title:"WhatsApp didn't open?",
-      fb_text:"Copy your order below and send it to +974 5004 0617 on WhatsApp.",
-      fb_copy:"Copy the order",
-      fb_done:"Copied ✓",
-      fb_close:"Close",
-      order_continue:"Continue",
-      co_title:"Your order",
-      co_rule1:"Order 1 day ahead",
-      co_rule2:"Closed Friday",
-      co_rule3:"Delivery only",
-      co_basket:"Your basket",
-      co_day:"Delivery day",
-      co_slot:"Time",
-      co_slot_am:"Morning",
-      co_slot_pm:"Afternoon",
-      co_slot_eve:"Evening",
-      co_area:"Where do we deliver?",
-      co_area_ph:"Pick your area",
-      co_area_far:"Somewhere else / further away",
-      co_zone_z1:"Al Wakrah &amp; nearby — {p} QR",
-      co_zone_z2:"Doha — {p} QR",
-      co_zone_z3:"North &amp; outskirts — {p} QR",
-      co_subtotal:"Subtotal",
-      co_delivery:"Delivery",
-      co_total:"Total",
-      co_del_pick:"Pick your area",
-      co_del_free:"Free",
-      co_del_ask:"We'll tell you on WhatsApp",
-      co_nudge:"Add {n} more and delivery is on us.",
-      co_nudge_short:"{n} more &rarr; free delivery",
-      co_free_short:"Free delivery ✓",
-      co_name:"Name",
-      co_first:"First name",
-      co_phone:"Phone of the person receiving",
-      co_gift:"This is a gift — someone else will receive it",
-      co_yourphone:"Your own number",
-      co_card:"Message on the card",
-      co_occasion:"Occasion",
-      co_occ1:"Birthday",
-      co_occ2:"Majlis / guests",
-      co_occ3:"A gift",
-      co_occ4:"Just for us",
-      co_pay:"Payment",
-      co_pay1:"Cash on delivery",
-      co_pay2:"Fawran transfer",
-      co_note:"Allergies or a note",
-      co_source:"How did you find us?",
-      co_src1:"Instagram",
-      co_src2:"A friend",
-      co_src3:"Google",
-      co_src4:"Ordered before",
-      co_send:"Send order on WhatsApp",
-      co_reassure:"Nothing is charged here. We confirm everything with you on WhatsApp.",
-      co_err_day:"Please pick a day.",
-      co_err_slot:"Please pick a time.",
-      co_err_area:"Please pick your area.",
-      co_err_name:"Please tell us your name.",
-      co_err_phone:"Please add a Qatar mobile number.",
-      co_err_phone2:"Please add your own number.",
-      co_err_pay:"Please pick a payment method.",
-      co_m_sub:"Subtotal",
-      co_m_del:"Delivery",
-      co_m_total:"Total",
-      co_m_when:"When",
-      co_m_where:"Area",
-      co_m_who:"Name",
-      co_m_recv:"Receiver's number",
-      co_m_mine:"My number",
-      co_m_card:"Card message",
-      co_m_pay:"Payment",
-      co_m_occ:"Occasion",
-      co_m_note:"Note",
-      co_m_src:"Found us via",
-      opt:"optional"
-    },
-    ar: {
+      order_items:"منتج",
       order_continue:"متابعة",
       co_title:"طلبك",
       co_rule1:"اطلب قبل يوم",
@@ -1561,12 +1629,24 @@
       co_slot_am:"صباحاً",
       co_slot_pm:"بعد الظهر",
       co_slot_eve:"مساءً",
-      co_area:"إلى أين نوصل؟",
-      co_area_ph:"اختر منطقتك",
-      co_area_far:"منطقة أخرى / أبعد",
-      co_zone_z1:"الوكرة وما حولها — {p} ر.ق",
-      co_zone_z2:"الدوحة — {p} ر.ق",
-      co_zone_z3:"الشمال والأطراف — {p} ر.ق",
+      co_zone:"أين أنت؟",
+      z1_n:"الوكرة",
+      z1_d:"وما حولها",
+      z2_n:"الدوحة",
+      z2_d:"المدينة والضواحي",
+      z3_n:"الشمال",
+      z3_d:"لوسيل، أم صلال، الأطراف",
+      zfar:"أبعد من ذلك؟ نخبرك بالسعر عبر واتساب",
+      co_city:"المنطقة أو الحي",
+      co_city_h:"الوعب، لوسيل، المطار القديم…",
+      co_street:"الشارع والمبنى",
+      co_street_h:"ما يكفي ليجدك السائق",
+      addr_more:"+ أضف رقم الفيلا، الطابق، علامة مميزة",
+      addr_less:"− إخفاء التفاصيل الإضافية",
+      co_villa:"رقم الفيلا أو المبنى",
+      co_unit:"الطابق / الشقة",
+      co_zoneno:"رقم المنطقة",
+      co_mark:"علامة مميزة قريبة",
       co_subtotal:"المجموع",
       co_delivery:"التوصيل",
       co_total:"الإجمالي",
@@ -1596,11 +1676,15 @@
       co_src2:"من صديق",
       co_src3:"جوجل",
       co_src4:"طلبت من قبل",
+      optin_label:"أخبروني عن الدفعات الجديدة",
       co_send:"أرسل الطلب عبر واتساب",
       co_reassure:"لا يُخصم أي مبلغ هنا. نؤكد كل التفاصيل معك عبر واتساب.",
+      opt:"اختياري",
       co_err_day:"الرجاء اختيار اليوم.",
       co_err_slot:"الرجاء اختيار الوقت.",
-      co_err_area:"الرجاء اختيار المنطقة.",
+      co_err_zone:"الرجاء تحديد منطقتك.",
+      co_err_city:"الرجاء كتابة المنطقة.",
+      co_err_street:"الرجاء كتابة الشارع والمبنى.",
       co_err_name:"الرجاء كتابة اسمك.",
       co_err_phone:"الرجاء إضافة رقم جوال قطري.",
       co_err_phone2:"الرجاء إضافة رقمك أنت.",
@@ -1609,7 +1693,8 @@
       co_m_del:"التوصيل",
       co_m_total:"الإجمالي",
       co_m_when:"الموعد",
-      co_m_where:"المنطقة",
+      co_m_where:"العنوان",
+      co_m_zone:"المنطقة",
       co_m_who:"الاسم",
       co_m_recv:"رقم المستلم",
       co_m_mine:"رقمي",
@@ -1618,22 +1703,11 @@
       co_m_occ:"المناسبة",
       co_m_note:"ملاحظة",
       co_m_src:"عرفنا عن طريق",
-      picks_label:"الأكثر طلباً",
-      picks_all:"شاهد الكل (7) ←",
-      picks_note:"توصيل مجاني للطلبات فوق 400 ر.ق",
-      spread_pick:"اختر الكوكيز",
-      spread_note:"التوصيل على حسابنا",
-      spread_name:"التشكيلة الكاملة",
-      fb_title:"لم يفتح واتساب؟",
-      fb_text:"انسخ طلبك أدناه وأرسله إلى الرقم 50040617 974+ عبر واتساب.",
-      fb_copy:"انسخ الطلب",
-      fb_done:"تم النسخ ✓",
-      fb_close:"إغلاق",
-      co_optin:"أخبروني عن الدفعات الجديدة",
-      optin_label:"أخبروني عن الدفعات الجديدة",
       co_m_optin:"يرغب بمتابعة الجديد",
-      opt:"اختياري",
-      nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"تواصل", nav_cta:"اطلب عبر واتساب",
+      fb_done:"تم النسخ ✓"
+    },
+    ar: {
+      nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب",
       hero_eyebrow:"صناعة منزلية · الدوحة، قطر",
       hero_title:"الساعة التي تحتفظ بها لنفسها.",
       hero_sub:"لا محل، لا واجهة عرض — فقط مطبخ منزلي في الدوحة، حلويات بكميات صغيرة تصنعها أم تمنح وقتها للجميع.",
@@ -1660,8 +1734,8 @@
       spread_label:"العرض", spread_title:"التشكيلة الكاملة",
       spread_desc:"لا تستطيع الاختيار؟ نحن أيضًا. القليل من كل شيء — كوكيز، مادلين، وكيكة الخوخ — معًا في صندوق واحد لطاولتك.",
       spread_btn:"اسأل عبر واتساب",
-      visit_label:"الزيارة / الطلب", visit_title:"يُصنع حسب الطلب، على بُعد رسالة واحدة.",
-      visit_p1:"كل شيء يُخبز في المنزل، بكميات صغيرة — لا شيء ينتظر على الرف، ولا يوجد محل تدخل إليه. راسلنا عبر واتساب لتقديم طلب أو للسؤال عمّا هو طازج اليوم.",
+      visit_label:"الطلب", visit_title:"يُخبز حسب الطلب، ويصل إليك.",
+      visit_p1:"كل شيء يُخبز في المنزل يوم وصوله إليك — لا شيء ينتظر على الرفوف. لا يوجد محل ولا واجهة: نوصل في جميع أنحاء قطر، وكل طلب يبدأ برسالة.",
       visit_p2:"نادر عن قصد: كميات صغيرة فقط، لذا يستحق الانتظار.",
       visit_btn1:"راسلنا عبر واتساب", visit_btn2:"تابعنا على إنستغرام",
       info_location:"الموقع", info_location_val:"مطبخ منزلي، الدوحة", info_days:"أيام الخَبز", info_days_val:"السبت – الخميس",
@@ -1683,16 +1757,10 @@
     zones: { z1:10, z2:15, z3:20 }
   };
 
-  // quartiers classés par distance routière depuis Al Wakrah
-  var AREAS = [
-    ['z1', ['Al Wakrah','Al Wukair','Al Mashaf','Barwa City','Ezdan Oasis','Al Thumama','Nuaija','Old Airport','Airport / Al Matar']],
-    ['z2', ['Najma','Al Mansoura','Umm Ghuwailina','Al Hilal','Bu Sidra','Mesaimeer','Abu Hamour','Fereej Bin Mahmoud','Al Sadd','Msheireb','Souq Waqif','Corniche','Al Waab','Ain Khaled','Al Aziziya','Muaither','Industrial Area','Al Sailiya','West Bay','Al Dafna','Onaiza','Madinat Khalifa','Al Duhail','Al Rayyan','Al Gharrafa','Education City','The Pearl','Katara','Mesaieed']],
-    ['z3', ['Lusail','Al Kharaitiyat','Al Kheesa','Umm Salal Mohammed','Umm Salal Ali','Bani Hajer','Al Wajba','Rawdat Al Hamama']],
-    ['far', []]
-  ];
 
   var ORDER = {}, PRICES = {}, NAMES = {};
-  var S = { date:null, slot:null, area:null, zone:null, gift:false, occ:null, pay:null, src:null };
+  var S = { date:null, slot:null, zone:null, gift:false, occ:null, pay:null, src:null,
+          optin:false, spreadCookie:null };
 
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
@@ -1716,7 +1784,104 @@
     ORDER[id] = Math.max(0, ORDER[id] + delta);
     var row = document.querySelector('.qty-row[data-item="'+id+'"]');
     if(row) row.querySelector('.qty-val').textContent = ORDER[id];
-    refresh();
+  
+  /* ---------- rail best-sellers ---------- */
+  document.querySelectorAll('.pick-add').forEach(function(b){
+    b.addEventListener('click', function(){
+      bump(b.getAttribute('data-add'), 1);
+      b.classList.add('on'); b.querySelector('span').textContent = '\u2713';
+      setTimeout(function(){ b.classList.remove('on'); b.querySelector('span').textContent = '+'; }, 1000);
+    });
+  });
+
+  /* ---------- cookie de la Full Spread ---------- */
+  (function(){
+    var host = document.getElementById('spreadCookie');
+    if(!host) return;
+    host.querySelectorAll('.chip').forEach(function(c){
+      c.setAttribute('aria-pressed','false');
+      c.addEventListener('click', function(){
+        host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        c.setAttribute('aria-pressed','true');
+        S.spreadCookie = c.getAttribute('data-val');
+      });
+    });
+  })();
+
+  /* ---------- 3 zones au lieu d'une liste de 40 ---------- */
+  (function(){
+    var host = document.getElementById('zoneChips');
+    host.querySelectorAll('.zone').forEach(function(z){
+      z.addEventListener('click', function(){
+        host.querySelectorAll('.zone').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        z.setAttribute('aria-pressed','true');
+        S.zone = z.getAttribute('data-zone');
+        host.closest('.fld').classList.remove('err');
+        paint();
+      });
+    });
+  })();
+
+  /* ---------- détails d'adresse repliés ---------- */
+  (function(){
+    var t = document.getElementById('moreBtn'), f = document.getElementById('moreFields');
+    t.addEventListener('click', function(){
+      var on = f.classList.toggle('on');
+      t.textContent = on ? T('addr_less') : T('addr_more');
+    });
+  })();
+
+  /* ---------- consentement ---------- */
+  (function(){
+    var b = document.getElementById('optinBtn');
+    b.addEventListener('click', function(){
+      S.optin = !S.optin;
+      b.setAttribute('aria-pressed', S.optin ? 'true' : 'false');
+    });
+  })();
+
+  /* ---------- révélations au scroll ---------- */
+  (function(){
+    var els = document.querySelectorAll('.reveal-up');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(e){ e.classList.add('in'); }); return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en, n){
+        if(!en.isIntersecting) return;
+        var d = en.target.closest('.picks-rail')
+              ? Array.prototype.indexOf.call(en.target.parentNode.children, en.target) * 110
+              : 0;
+        setTimeout(function(){ en.target.classList.add('in'); }, d);
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+
+  /* ---------- repli si WhatsApp ne s'ouvre pas ---------- */
+  function sendTo(msg){
+    var win = null;
+    try { win = window.open('https://wa.me/' + CFG.wa + '?text=' + encodeURIComponent(msg), '_blank', 'noopener'); } catch(e){}
+    if(!win || win.closed || typeof win.closed === 'undefined'){
+      document.getElementById('fbMsg').textContent = msg;
+      document.getElementById('fallback').classList.add('open');
+    }
+  }
+  document.getElementById('fbClose').addEventListener('click', function(){
+    document.getElementById('fallback').classList.remove('open');
+  });
+  document.getElementById('fbCopy').addEventListener('click', function(){
+    var t = document.getElementById('fbMsg').textContent, b = this, old = b.textContent;
+    var done = function(){ b.textContent = T('fb_done'); setTimeout(function(){ b.textContent = old; }, 1800); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done, done); }
+    else {
+      var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta);
+      ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done();
+    }
+  });
+
+  refresh();
   }
 
   function subtotal(){
@@ -1772,33 +1937,6 @@
     }
   }
 
-  /* ---------- zones ---------- */
-  function buildAreas(){
-    var sel = $('areaSel');
-    sel.innerHTML = '<option value="" selected disabled>' + T('co_area_ph') + '</option>';
-    AREAS.forEach(function(pair){
-      var z = pair[0], list = pair[1];
-      if(z === 'far'){
-        var o = document.createElement('option');
-        o.value='far'; o.textContent = T('co_area_far'); sel.appendChild(o);
-        return;
-      }
-      var g = document.createElement('optgroup');
-      g.label = T('co_zone_'+z).replace('{p}', CFG.zones[z]);
-      list.slice().sort().forEach(function(name){
-        var o = document.createElement('option');
-        o.value = z + '|' + name; o.textContent = name; g.appendChild(o);
-      });
-      sel.appendChild(g);
-    });
-    sel.addEventListener('change', function(){
-      var v = this.value;
-      if(v === 'far'){ S.zone='far'; S.area = T('co_area_far'); }
-      else { var p = v.split('|'); S.zone = p[0]; S.area = p[1]; }
-      $('fldArea').classList.remove('err');
-      paint();
-    });
-  }
 
   /* ---------- rendu de la feuille ---------- */
   function paint(){
@@ -1858,7 +1996,9 @@
   function remember(){
     try{
       localStorage.setItem('pg_c', JSON.stringify({
-        n:$('fName').value, f:$('fFirst').value, p:$('fPhone').value, a:$('areaSel').value
+        n:$('fName').value, f:$('fFirst').value, p:$('fPhone').value,
+        z:S.zone, c:$('fCity').value, s:$('fStreet').value,
+        v:$('fVilla').value, u:$('fUnit').value, zn:$('fZoneNo').value, mk:$('fMark').value
       }));
     }catch(e){}
   }
@@ -1868,15 +2008,29 @@
       if(d.n) $('fName').value = d.n;
       if(d.f) $('fFirst').value = d.f;
       if(d.p) $('fPhone').value = d.p;
-      if(d.a){
-        $('areaSel').value = d.a;
-        if($('areaSel').value === d.a){
-          if(d.a === 'far'){ S.zone='far'; S.area=T('co_area_far'); }
-          else { var q=d.a.split('|'); S.zone=q[0]; S.area=q[1]; }
-        }
+      if(d.c) $('fCity').value = d.c;
+      if(d.s) $('fStreet').value = d.s;
+      if(d.v) $('fVilla').value = d.v;
+      if(d.u) $('fUnit').value = d.u;
+      if(d.zn) $('fZoneNo').value = d.zn;
+      if(d.mk) $('fMark').value = d.mk;
+      if(d.z){
+        S.zone = d.z;
+        var b = document.querySelector('.zone[data-zone="'+d.z+'"]');
+        if(b) b.setAttribute('aria-pressed','true');
+        if(d.z === 'far') $('farBtn').setAttribute('aria-pressed','true');
       }
     }catch(e){}
   }
+
+  $('farBtn').addEventListener('click', function(){
+    var on = this.getAttribute('aria-pressed') !== 'true';
+    this.setAttribute('aria-pressed', on ? 'true' : 'false');
+    document.querySelectorAll('.zone').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+    S.zone = on ? 'far' : null;
+    $('zoneChips').closest('.fld').classList.remove('err');
+    paint();
+  });
 
   /* ---------- ouverture / fermeture ---------- */
   function open(){
@@ -1902,7 +2056,9 @@
 
     if(!S.date) first = first || bad($('dateRail'));
     if(!S.slot) first = first || bad($('slotChips'));
-    if(!S.zone) first = first || bad($('areaSel'));
+    if(!S.zone) first = first || bad($('zoneChips'));
+    if(!$('fCity').value.trim()) first = first || bad($('fCity'));
+    if(!$('fStreet').value.trim()) first = first || bad($('fStreet'));
     if(!$('fName').value.trim()) first = first || bad($('fName'));
     if($('fPhone').value.replace(/\D/g,'').length < 8) first = first || bad($('fPhone'));
     if(S.gift && $('fPhone2').value.replace(/\D/g,'').length < 8) first = first || bad($('fPhone2'));
@@ -1928,11 +2084,17 @@
     if(S.zone !== 'far') m.push(T('co_m_total') + ': ' + (sub + f) + ' ' + T('qr'));
     m.push('');
     m.push(T('co_m_when') + ': ' + S.date + ' — ' + T('co_slot_' + ({morning:'am',afternoon:'pm',evening:'eve'}[S.slot])));
-    m.push(T('co_m_where') + ': ' + S.area);
+    var addr = [$('fStreet').value.trim(), $('fCity').value.trim()];
+    if($('fVilla').value.trim())  addr.unshift(T('co_villa') + ' ' + $('fVilla').value.trim());
+    if($('fUnit').value.trim())   addr.push(T('co_unit') + ' ' + $('fUnit').value.trim());
+    if($('fZoneNo').value.trim()) addr.push(T('co_zoneno') + ' ' + $('fZoneNo').value.trim());
+    if($('fMark').value.trim())   addr.push($('fMark').value.trim());
+    m.push(T('co_m_where') + ': ' + addr.filter(Boolean).join(', '));
+    m.push(T('co_m_zone') + ': ' + T(S.zone === 'far' ? 'zfar' : (S.zone === 'z1' ? 'z1_n' : S.zone === 'z2' ? 'z2_n' : 'z3_n')));
     m.push(T('co_m_who') + ': ' + ($('fFirst').value.trim() ? $('fFirst').value.trim() + ' ' : '') + $('fName').value.trim());
-    m.push(T('co_m_recv') + ': ' + $('fPhone').value.trim());
+    m.push(T('co_m_recv') + ': \u2066' + $('fPhone').value.trim() + '\u2069');
     if(S.gift){
-      m.push(T('co_m_mine') + ': ' + $('fPhone2').value.trim());
+      m.push(T('co_m_mine') + ': \u2066' + $('fPhone2').value.trim() + '\u2069');
       if($('fCard').value.trim()) m.push(T('co_m_card') + ': ' + $('fCard').value.trim());
     }
     m.push(T('co_m_pay') + ': ' + T(S.pay === 'cash' ? 'co_pay1' : 'co_pay2'));
@@ -1944,62 +2106,6 @@
     sendTo(m.join('\n'));
   });
 
-
-  /* ---------- rail best-sellers : + depuis le hero ---------- */
-  document.querySelectorAll('.pick-add').forEach(function(b){
-    b.addEventListener('click', function(){
-      bump(b.getAttribute('data-add'), 1);
-      b.classList.add('on'); b.textContent = '\u2713';
-      setTimeout(function(){ b.classList.remove('on'); b.textContent = '+'; }, 900);
-    });
-  });
-
-  /* ---------- choix du cookie de la Full Spread ---------- */
-  (function(){
-    var host = document.getElementById('spreadCookie');
-    if(!host) return;
-    host.querySelectorAll('.chip').forEach(function(c){
-      c.setAttribute('aria-pressed','false');
-      c.addEventListener('click', function(){
-        host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-        c.setAttribute('aria-pressed','true');
-        S.spreadCookie = c.getAttribute('data-val');
-      });
-    });
-  })();
-
-  /* ---------- repli si WhatsApp ne s'ouvre pas ---------- */
-  function sendTo(msg){
-    var win = null;
-    try { win = window.open('https://wa.me/' + CFG.wa + '?text=' + encodeURIComponent(msg), '_blank', 'noopener'); } catch(e){}
-    if(!win || win.closed || typeof win.closed === 'undefined'){
-      document.getElementById('fbMsg').textContent = msg;
-      document.getElementById('fallback').classList.add('open');
-    }
-  }
-  document.getElementById('fbClose').addEventListener('click', function(){
-    document.getElementById('fallback').classList.remove('open');
-  });
-  document.getElementById('fbCopy').addEventListener('click', function(){
-    var t = document.getElementById('fbMsg').textContent, b = this;
-    var done = function(){ b.textContent = T('fb_done'); setTimeout(function(){ b.textContent = T('fb_copy'); }, 1800); };
-    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done, done); }
-    else {
-      var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta);
-      ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done();
-    }
-  });
-
-
-  (function(){
-    var b = document.getElementById('optinBtn');
-    b.addEventListener('click', function(){
-      S.optin = !S.optin;
-      b.setAttribute('aria-pressed', S.optin ? 'true' : 'false');
-    });
-  })();
-
-  buildAreas();
   refresh();
 
   // floating light particles in the hero sunbeam
