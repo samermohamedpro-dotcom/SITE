@@ -965,6 +965,103 @@
     color:var(--maroon);unicode-bidi:isolate;letter-spacing:0.01em;
   }
   .spread .qty-row .qty-price{display:none;}
+
+  /* ================= NOMBRE DE PIÈCES ================= */
+  .qty-note{
+    font-family:'Lora',serif;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--dusty-rose);margin:0 0 8px;
+  }
+  [dir="rtl"] .qty-note{letter-spacing:0;text-transform:none;font-size:0.86rem;}
+  .pick-q{
+    font-family:'Lora',serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--deep-green);margin:0 0 7px;
+  }
+  [dir="rtl"] .pick-q{letter-spacing:0;text-transform:none;font-size:0.82rem;}
+  .cl-qty{
+    display:block;font-family:'Lora',serif;font-size:0.74rem;
+    letter-spacing:0.09em;text-transform:uppercase;color:var(--deep-green);margin-top:2px;
+  }
+  [dir="rtl"] .cl-qty{letter-spacing:0;text-transform:none;font-size:0.84rem;}
+
+  /* ================= CARROUSEL : on voit qu'il continue ================= */
+  .rail-wrap{position:relative;}
+  .rail-wrap::after{
+    content:"";position:absolute;top:0;bottom:14px;inset-inline-end:0;width:46px;
+    pointer-events:none;
+    background:linear-gradient(to right, transparent, var(--cream) 85%);
+  }
+  [dir="rtl"] .rail-wrap::after{background:linear-gradient(to left, transparent, var(--cream) 85%);}
+  @media(min-width:900px){ .rail-wrap::after{display:none;} }
+  .picks-rail{grid-auto-columns:minmax(0,43%);}
+  @media(min-width:560px){ .picks-rail{grid-auto-columns:minmax(0,30%);} }
+  .swipe-hint{
+    margin-top:2px;text-align:center;font-family:'Lora',serif;font-style:italic;
+    font-size:0.76rem;color:var(--dusty-rose);
+  }
+  [dir="rtl"] .swipe-hint{font-style:normal;}
+  @media(min-width:900px){ .swipe-hint{display:none;} }
+  /* le rail se révèle d'un seul bloc : plus de cartes qui sautent */
+  .pick{opacity:1;transform:none;filter:none;}
+
+  /* ================= HERO CHALEUREUX ================= */
+  .hero-img-wrap{
+    background:
+      radial-gradient(ellipse 90% 62% at 50% 4%,  rgba(255,255,255,0.92) 0%, transparent 58%),
+      radial-gradient(ellipse 70% 56% at 16% 84%, rgba(227,177,114,0.42) 0%, transparent 66%),
+      radial-gradient(ellipse 66% 52% at 88% 74%, rgba(207,224,198,0.46) 0%, transparent 64%),
+      radial-gradient(ellipse 96% 70% at 50% 100%, rgba(227,177,114,0.20) 0%, transparent 70%),
+      linear-gradient(172deg, #FDFBF4 0%, #F7F2E6 40%, #F3EADA 72%, #EFE3D0 100%);
+  }
+  .hero-veil{
+    background:
+      repeating-linear-gradient(101deg, rgba(107,61,24,0.024) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(9deg,   rgba(107,61,24,0.018) 0 1px, transparent 1px 4px);
+    mix-blend-mode:multiply;opacity:1;
+  }
+  .hero-img-wrap::after{
+    background:radial-gradient(ellipse 74% 60% at 50% 46%, transparent 0%, rgba(123,34,48,0.10) 100%);
+  }
+
+  /* motifs de pâtisserie au trait */
+  .hero-motifs{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .hero-motifs .mo{
+    position:absolute;fill:none;stroke:var(--maroon);
+    stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
+    animation:drift 22s ease-in-out infinite alternate;
+  }
+  .hero-motifs .mo:nth-child(3n){stroke:var(--cocoa);animation-duration:29s;}
+  .hero-motifs .mo:nth-child(4n){stroke:var(--deep-green);animation-duration:34s;}
+  .hero-motifs .mo:nth-child(2n){animation-delay:-8s;}
+  .hero-motifs .mo:nth-child(5n){animation-delay:-15s;}
+  @keyframes drift{
+    from{translate:0 0;}
+    to  {translate:0 -14px;}
+  }
+  @media(max-width:640px){
+    .hero-motifs .mo{width:auto!important;height:auto!important;}
+    .hero-motifs .mo:nth-child(n+9){display:none;}
+    .hero-motifs .mo{transform:scale(0.62) rotate(var(--r,0deg));}
+  }
+
+  /* texte sur fond clair */
+  .hero-content h1{color:var(--deep-maroon);}
+  .hero-content p,.hero-sub,.hero-content .hero-text{color:var(--maroon);}
+  .hero-eyebrow{
+    background:rgba(255,255,255,0.72)!important;
+    border:1px solid rgba(227,177,114,0.85);
+    color:var(--cocoa)!important;
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  }
+  .hero-mark{color:rgba(107,61,24,0.62);}
+  .hero-content h1::after{
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .hero .btn-primary{background:var(--deep-maroon);color:var(--cream);border-color:var(--deep-maroon);}
+  .hero .btn-ghost,.hero .btn-outline{
+    border-color:rgba(94,22,34,0.42);color:var(--deep-maroon);
+  }
+  .hero-scroll,.scroll-cue{color:var(--maroon);}
+  @media(prefers-reduced-motion:reduce){ .hero-motifs .mo{animation:none;} }
 </style>
 <script type="application/ld+json">
 {
@@ -1168,7 +1265,7 @@
 
 <section class="hero">
   <div class="hero-img-wrap" id="heroImgWrap">
-    <div class="hero-veil" aria-hidden="true"></div>
+    <div class="hero-veil" aria-hidden="true"></div><div class="hero-motifs" aria-hidden="true"><svg viewBox="0 0 64 64" class="mo mo0" style="top:6%;left:14%;width:92px;height:92px;opacity:0.085;transform:rotate(-14deg)"><path d="M32 4v18"/><rect x="28" y="4" width="8" height="8" rx="3"/><path d="M32 22c-9 6-13 20-9 34M32 22c9 6 13 20 9 34M32 22v34"/><path d="M23 47c6 4 12 4 18 0"/></svg><svg viewBox="0 0 64 64" class="mo mo1" style="top:18%;left:62%;width:64px;height:64px;opacity:0.070;transform:rotate(22deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo2" style="top:33%;left:9%;width:56px;height:56px;opacity:0.060;transform:rotate(-26deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo3" style="top:46%;left:78%;width:104px;height:104px;opacity:0.080;transform:rotate(12deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo4" style="top:62%;left:20%;width:70px;height:70px;opacity:0.065;transform:rotate(18deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo5" style="top:74%;left:66%;width:58px;height:58px;opacity:0.075;transform:rotate(-18deg)"><rect x="14" y="24" width="36" height="16" rx="8"/><path d="M14 32H4M50 32h10"/></svg><svg viewBox="0 0 64 64" class="mo mo6" style="top:86%;left:12%;width:76px;height:76px;opacity:0.060;transform:rotate(10deg)"><path d="M22 20h20v34a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6z"/><path d="M20 12h24v8H20z"/><path d="M27 34h10"/></svg><svg viewBox="0 0 64 64" class="mo mo7" style="top:24%;left:38%;width:44px;height:44px;opacity:0.050;transform:rotate(34deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo8" style="top:58%;left:48%;width:40px;height:40px;opacity:0.045;transform:rotate(-30deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo9" style="top:90%;left:52%;width:86px;height:86px;opacity:0.070;transform:rotate(-10deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo10" style="top:12%;left:86%;width:50px;height:50px;opacity:0.055;transform:rotate(26deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo11" style="top:68%;left:4%;width:46px;height:46px;opacity:0.050;transform:rotate(-8deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg></div>
   </div>
   <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
   <div class="hero-content">
@@ -1190,11 +1287,12 @@
       <span class="label">Most ordered</span>
       <a href="#menu" class="picks-all">See all 7 &rarr;</a>
     </div>
-    <div class="picks-rail">
-      <article class="pick reveal-up">
+    <div class="rail-wrap reveal-up"><div class="picks-rail">
+      <article class="pick">
         <div class="pick-img"><img src="/img/nutella-cookies-doha.webp" alt="Nutella Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
           <h3 class="pick-n">Nutella Cookies</h3>
+          <p class="pick-q">12 pieces</p>
           <p class="pick-d">A molten hazelnut centre</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
@@ -1203,10 +1301,11 @@
           </div>
         </div>
       </article>
-      <article class="pick reveal-up">
+      <article class="pick">
         <div class="pick-img"><img src="/img/madeleine-box-doha.webp" alt="Madeleine" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
           <h3 class="pick-n">Madeleine</h3>
+          <p class="pick-q">12 pieces</p>
           <p class="pick-d">The classic, shell-shaped</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
@@ -1215,10 +1314,24 @@
           </div>
         </div>
       </article>
-      <article class="pick reveal-up">
+      <article class="pick">
+        <div class="pick-img"><img src="/img/upside-down-peach-cake-doha.webp" alt="Upside-Down Peach Cake" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-b">
+          <h3 class="pick-n">Upside-Down Peach Cake</h3>
+          <p class="pick-q">1 cake</p>
+          <p class="pick-d">Caramelised peach, baked to order</p>
+          <div class="pick-rule"></div>
+          <div class="pick-f">
+            <span class="pick-p" dir="ltr">300 QR</span>
+            <button type="button" class="pick-add" data-add="item4" aria-label="Add"><span>+</span></button>
+          </div>
+        </div>
+      </article>
+      <article class="pick">
         <div class="pick-img"><img src="/img/chocolate-chip-cookies-doha.webp" alt="Chocolate Chip Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
           <h3 class="pick-n">Chocolate Chip Cookies</h3>
+          <p class="pick-q">12 pieces</p>
           <p class="pick-d">Soft in the middle</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
@@ -1227,19 +1340,8 @@
           </div>
         </div>
       </article>
-      <article class="pick reveal-up">
-        <div class="pick-img"><img src="/img/brown-butter-banana-bread-doha.webp" alt="Brown Butter Banana Bread" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Brown Butter Banana Bread</h3>
-          <p class="pick-d">Slow-baked, ripe banana</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">300 QR</span>
-            <button type="button" class="pick-add" data-add="item3" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-    </div>
+    </div></div>
+    <div class="swipe-hint">Swipe for more</div>
     <div class="picks-note reveal-up">Complimentary delivery on orders above 400 QR</div>
   </div>
 </section>
@@ -1284,7 +1386,8 @@
           <h3 data-i18n="item1_name">Madeleine</h3>
           <div class="arabic">مادلين</div>
           <p class="desc" data-i18n="item1_desc">Classic shell-shaped sponge · dozen</p>
-          <div class="qty-row" data-item="item1" data-price="200">
+          <p class="qty-note">12 pieces</p>
+        <div class="qty-row" data-item="item1" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1300,7 +1403,8 @@
           <h3 data-i18n="item2_name">Petit Madeleine</h3>
           <div class="arabic">مادلين صغيرة</div>
           <p class="desc" data-i18n="item2_desc">Bite-size · 40 pieces</p>
-          <div class="qty-row" data-item="item2" data-price="180">
+          <p class="qty-note">40 pieces</p>
+        <div class="qty-row" data-item="item2" data-price="180">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1316,7 +1420,8 @@
           <h3 data-i18n="item3_name">Brown Butter Banana Bread</h3>
           <div class="arabic">خبز الموز بالزبدة البنية</div>
           <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
-          <div class="qty-row" data-item="item3" data-price="300">
+          <p class="qty-note">1 loaf</p>
+        <div class="qty-row" data-item="item3" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1332,7 +1437,8 @@
           <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
           <div class="arabic">كيكة الخوخ المقلوبة</div>
           <p class="desc" data-i18n="item4_desc">Caramelized peach, baked to order</p>
-          <div class="qty-row" data-item="item4" data-price="300">
+          <p class="qty-note">1 cake</p>
+        <div class="qty-row" data-item="item4" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1348,7 +1454,8 @@
           <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
           <div class="arabic">كوكيز رقائق الشوكولاتة</div>
           <p class="desc" data-i18n="item5_desc">Dozen</p>
-          <div class="qty-row" data-item="item5" data-price="180">
+          <p class="qty-note">12 pieces</p>
+        <div class="qty-row" data-item="item5" data-price="180">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1364,7 +1471,8 @@
           <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
           <div class="arabic">رسك "شبورة"</div>
           <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
-          <div class="qty-row" data-item="item6" data-price="200">
+          <p class="qty-note">30 pieces</p>
+        <div class="qty-row" data-item="item6" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1380,7 +1488,8 @@
           <h3 data-i18n="item7_name">Nutella Cookies</h3>
           <div class="arabic">كوكيز نوتيلا</div>
           <p class="desc" data-i18n="item7_desc">Soft-baked with a molten Nutella centre · dozen</p>
-          <div class="qty-row" data-item="item7" data-price="200">
+          <p class="qty-note">12 pieces</p>
+        <div class="qty-row" data-item="item7" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
@@ -1407,6 +1516,7 @@
             <button type="button" class="chip" data-val="nutella">Nutella Cookies</button>
           </div>
         </div>
+        <p class="qty-note">12 cookies · 40 petit madeleines · 1 cake</p>
         <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
           <button class="qty-btn" data-action="dec" aria-label="-">−</button>
           <span class="qty-val">0</span>
@@ -1671,6 +1781,14 @@
 (function(){
   var translations = {
     en: {
+      item1_qty:"12 pieces",
+      item2_qty:"40 pieces",
+      item3_qty:"1 loaf",
+      item4_qty:"1 cake",
+      item5_qty:"12 pieces",
+      item6_qty:"30 pieces",
+      item7_qty:"12 pieces",
+      spread_qty:"12 cookies · 40 petit madeleines · 1 cake",
       spread_name:"The Full Spread",
       nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp",
       hero_eyebrow:"Home-Baked · Doha, Qatar",
@@ -1780,6 +1898,15 @@
       del_note_free:"You're above {n} QR — delivery is on us",
       del_note_pick:"Pick your area to see the cost",
       each:"each",
+      item1_qty:"12 pieces",
+      item2_qty:"40 pieces",
+      item3_qty:"1 loaf",
+      item4_qty:"1 cake",
+      item5_qty:"12 pieces",
+      item6_qty:"30 pieces",
+      item7_qty:"12 pieces",
+      spread_qty:"12 cookies · 40 petit madeleines · 1 cake",
+      swipe:"Swipe for more",
       co_err_day:"Please pick a day.",
       co_err_slot:"Please pick a time.",
       co_err_zone:"Please tell us where you are.",
@@ -1807,6 +1934,14 @@
       fb_done:"Copied ✓"
     },
     ar: {
+      item1_qty:"12 حبة",
+      item2_qty:"40 قطعة",
+      item3_qty:"رغيف واحد",
+      item4_qty:"كيكة واحدة",
+      item5_qty:"12 حبة",
+      item6_qty:"30 قطعة",
+      item7_qty:"12 حبة",
+      spread_qty:"12 كوكيز · 40 مادلين صغيرة · كيكة واحدة",
       spread_name:"التشكيلة الكاملة",
       nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب",
       hero_eyebrow:"صناعة منزلية · الدوحة، قطر",
@@ -1865,6 +2000,9 @@
 
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
+
+  function NAME(id){ return T(id === 'spread' ? 'spread_name' : id + '_name'); }
+  function QTY(id){ var k = id + '_qty'; var v = T(k); return v === k ? '' : v; }
 
   function L(){ return document.documentElement.lang === 'ar' ? 'ar' : 'en'; }
   function T(k){ var d=translations[L()]; return (d && d[k]) || (translations.en[k]||k); }
@@ -1954,8 +2092,9 @@
       el.className = 'pk-line';
       el.setAttribute('data-pk', it.id);
       el.innerHTML =
-        '<div class="pk-name">' + T(it.id === 'spread' ? 'spread_name' : it.id + '_name')
-        + '<span class="pk-unit">' + it.price + ' ' + T('qr') + ' ' + T('each') + '</span></div>'
+        '<div class="pk-name">' + NAME(it.id)
+        + '<span class="pk-unit">' + it.price + ' ' + T('qr') + ' ' + T('each')
+        + (QTY(it.id) ? ' \u00b7 ' + QTY(it.id) : '') + '</span></div>'
         + '<div class="cl-step"><button type="button" data-a="dec">\u2212</button>'
         + '<span class="pk-q">0</span>'
         + '<button type="button" data-a="inc">+</button></div>';
@@ -1994,7 +2133,8 @@
       if(ORDER[id] <= 0) return;
       var line = document.createElement('div'); line.className='cart-line';
       line.innerHTML =
-        '<div class="cl-name">'+ T(id === 'spread' ? 'spread_name' : id+'_name')
+        '<div class="cl-name">'+ NAME(id)
+      + (QTY(id) ? '<span class="cl-qty">' + QTY(id) + '</span>' : '')
       + '<span class="cl-sub">'+ ORDER[id] + ' \u00d7 ' + PRICES[id] +' '+T('qr')+'</span></div>'
       + '<div class="cl-step"><button type="button" data-a="dec">−</button><span>'+ORDER[id]+'</span><button type="button" data-a="inc">+</button></div>'
       + '<div class="cl-price">'+ (ORDER[id]*PRICES[id]) +' '+T('qr')+'</div>';
@@ -2140,7 +2280,8 @@
     var lines = [];
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] > 0){
-        var lbl = T(id === 'spread' ? 'spread_name' : id + '_name');
+        var lbl = NAME(id);
+        if(QTY(id)) lbl += ' (' + QTY(id) + ')';
         if(id === 'spread' && S.spreadCookie) lbl += ' (' + T(S.spreadCookie === 'nutella' ? 'item7_name' : 'item5_name') + ')';
         lines.push('• ' + lbl + ' ×' + ORDER[id] + ' — ' + (ORDER[id]*PRICES[id]) + ' ' + T('qr'));
       }
