@@ -796,9 +796,6 @@
     scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
   .picks-rail::-webkit-scrollbar{display:none;}
-  @media(min-width:900px){
-    .picks-rail{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible;}
-  }
   .pick{
     scroll-snap-align:start;background:#fff;border-radius:3px;overflow:hidden;
     display:flex;flex-direction:column;
@@ -992,8 +989,6 @@
   }
   [dir="rtl"] .rail-wrap::after{background:linear-gradient(to left, transparent, var(--cream) 85%);}
   @media(min-width:900px){ .rail-wrap::after{display:none;} }
-  .picks-rail{grid-auto-columns:minmax(0,43%);}
-  @media(min-width:560px){ .picks-rail{grid-auto-columns:minmax(0,30%);} }
   .swipe-hint{
     margin-top:2px;text-align:center;font-family:'Lora',serif;font-style:italic;
     font-size:0.76rem;color:var(--dusty-rose);
@@ -1062,6 +1057,193 @@
   }
   .hero-scroll,.scroll-cue{color:var(--maroon);}
   @media(prefers-reduced-motion:reduce){ .hero-motifs .mo{animation:none;} }
+
+  /* ================= HERO : lumière chaude et lisible ================= */
+  /* le voile sombre d'origine est neutralisé, il écrasait tout */
+  .hero::after{
+    background:linear-gradient(180deg,
+      rgba(255,255,255,0.22) 0%,
+      rgba(255,255,255,0.05) 30%,
+      rgba(227,177,114,0.07) 68%,
+      rgba(107,61,24,0.10) 100%)!important;
+  }
+  .hero-img-wrap{
+    background:
+      radial-gradient(ellipse 92% 60% at 50% 2%,  rgba(255,255,255,0.96) 0%, transparent 56%),
+      radial-gradient(ellipse 72% 54% at 12% 82%, rgba(227,177,114,0.34) 0%, transparent 68%),
+      radial-gradient(ellipse 66% 50% at 90% 70%, rgba(207,224,198,0.40) 0%, transparent 66%),
+      linear-gradient(172deg, #FEFCF7 0%, #F9F4E9 42%, #F5EDDF 74%, #F2E7D6 100%);
+  }
+  .hero-veil{
+    position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:
+      repeating-linear-gradient(101deg, rgba(107,61,24,0.020) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(9deg,   rgba(107,61,24,0.014) 0 1px, transparent 1px 4px);
+    mix-blend-mode:multiply;
+  }
+
+  /* beaucoup de petits motifs, jamais un gros dessin */
+  .hero-motifs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
+  .hero-motifs .mo{
+    position:absolute;fill:none;stroke:var(--maroon);
+    stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+    animation:drift 24s ease-in-out infinite alternate;
+  }
+  .hero-motifs .mo:nth-child(3n){stroke:var(--cocoa);animation-duration:31s;}
+  .hero-motifs .mo:nth-child(4n){stroke:var(--deep-green);animation-duration:37s;}
+  .hero-motifs .mo:nth-child(2n){animation-delay:-9s;}
+  .hero-motifs .mo:nth-child(5n){animation-delay:-17s;}
+  @keyframes drift{ from{translate:0 0;} to{translate:0 -12px;} }
+  @media(max-width:640px){
+    .hero-motifs .mo{stroke-width:1.8;}
+    .hero-motifs .mo:nth-child(n+19){display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){ .hero-motifs .mo{animation:none;} }
+
+  /* texte : contraste franc sur fond clair */
+  .hero-content{position:relative;z-index:4;padding-top:clamp(24px,5vh,56px);}
+  .hero-content > *{
+    opacity:0;transform:translateY(20px);
+    animation:heroIn 1s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  .hero-content > *:nth-child(1){animation-delay:.12s;}
+  .hero-content > *:nth-child(2){animation-delay:.26s;}
+  .hero-content > *:nth-child(3){animation-delay:.40s;}
+  .hero-content > *:nth-child(4){animation-delay:.54s;}
+  .hero-content > *:nth-child(5){animation-delay:.66s;}
+  @keyframes heroIn{to{opacity:1;transform:translateY(0);}}
+
+  .hero h1{color:var(--deep-maroon);text-shadow:none;letter-spacing:-0.012em;}
+  .hero h1::after{
+    content:"";display:block;width:54px;height:1px;margin:24px auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .hero p{color:var(--maroon)!important;text-shadow:none;}
+  .hero-eyebrow{
+    background:rgba(255,255,255,0.86)!important;
+    border:1px solid rgba(227,177,114,0.9)!important;
+    color:var(--cocoa)!important;
+    text-shadow:none!important;
+    box-shadow:0 1px 10px rgba(107,61,24,0.10);
+  }
+  .hero-mark{
+    margin-top:24px;font-family:'Lora',serif;
+    font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--maroon);opacity:0.9;line-height:1.9;
+  }
+  [dir="rtl"] .hero-mark{letter-spacing:0;text-transform:none;font-size:0.88rem;font-family:'Amiri',serif;}
+  @media(max-width:560px){ .hero-mark{font-size:0.62rem;letter-spacing:0.1em;} }
+  .hero .btn-primary{background:var(--deep-maroon);color:var(--cream);border-color:var(--deep-maroon);}
+  .hero .btn-ghost,.hero .btn-outline,.hero .btn-dark{
+    border-color:rgba(94,22,34,0.45);color:var(--deep-maroon);background:rgba(255,255,255,0.55);
+  }
+
+  /* ================= CARROUSEL : 2 grandes cartes, tout aligné ================= */
+  .picks-rail{
+    display:flex;grid-auto-flow:unset;grid-auto-columns:unset;grid-template-columns:none;
+    gap:14px;align-items:stretch;
+  }
+  .pick{
+    flex:0 0 auto;width:min(52vw,250px);
+    display:flex;flex-direction:column;
+  }
+  @media(min-width:700px){ .pick{width:min(30vw,240px);} }
+  @media(min-width:1000px){
+    .picks-rail{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;}
+    .pick{width:auto;}
+  }
+  .pick-b{
+    padding:18px 16px 20px;text-align:center;flex:1;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  /* hauteurs fixes : les lignes se répondent d'une carte à l'autre */
+  .pick-n{
+    font-size:1rem;line-height:1.3;margin:0 0 7px;
+    min-height:2.6em;display:flex;align-items:center;justify-content:center;
+  }
+  .pick-q{min-height:1.3em;margin:0 0 8px;}
+  .pick-d{
+    min-height:3.1em;margin:0;flex:0 0 auto;
+    display:flex;align-items:flex-start;justify-content:center;
+  }
+  .pick-rule{margin:14px auto 14px;}
+  .pick-f{margin-top:auto;gap:12px;}
+  .pick-p{white-space:nowrap;font-size:1.05rem;}
+
+  /* l'ombre latérale montre qu'il y a d'autres produits */
+  .rail-wrap::after{
+    width:40px;top:0;bottom:16px;
+    background:linear-gradient(to right, rgba(250,246,236,0) 0%, var(--cream) 78%);
+  }
+  .rail-wrap::before{
+    content:"";position:absolute;top:0;bottom:16px;inset-inline-end:40px;width:26px;
+    pointer-events:none;z-index:2;
+    background:linear-gradient(to right, rgba(94,22,34,0) 0%, rgba(94,22,34,0.10) 100%);
+  }
+  [dir="rtl"] .rail-wrap::before{background:linear-gradient(to left, rgba(94,22,34,0) 0%, rgba(94,22,34,0.10) 100%);}
+  @media(min-width:1000px){ .rail-wrap::before,.rail-wrap::after{display:none;} }
+
+  /* ================= ADRESSE AU FORMAT QATARI ================= */
+  .addr-grid{
+    display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:9px;
+  }
+  @media(max-width:420px){ .addr-grid{grid-template-columns:1fr 1fr;} .af-wide{grid-column:1 / -1;order:-1;} }
+  .af-l{
+    display:block;font-family:'Lora',serif;font-size:0.7rem;
+    letter-spacing:0.09em;text-transform:uppercase;color:var(--maroon);margin-bottom:5px;
+  }
+  [dir="rtl"] .af-l{letter-spacing:0;text-transform:none;font-size:0.82rem;}
+  .af input{
+    width:100%;font-family:'Lora',serif;font-size:1rem;color:var(--deep-maroon);
+    background:#fff;border:1.5px solid rgba(94,22,34,0.22);border-radius:4px;
+    padding:12px 11px;outline:none;
+  }
+  .af input:focus{border-color:var(--deep-maroon);}
+  .af.err input{border-color:#B3261E;background:#FFF6F5;}
+
+  /* ================= POINT DE LOCALISATION ================= */
+  .loc-btn{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    width:100%;margin-top:14px;padding:13px;cursor:pointer;
+    background:rgba(207,224,198,0.28);border:1px solid rgba(78,114,89,0.4);border-radius:4px;
+    font-family:'Lora',serif;font-size:0.9rem;color:var(--deep-green);
+    transition:background .2s ease;
+  }
+  .loc-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto;}
+  .loc-btn[aria-pressed="true"]{background:var(--deep-green);border-color:var(--deep-green);color:var(--cream);}
+  .loc-btn:disabled{opacity:0.6;cursor:progress;}
+
+  /* ================= JOUR MÊME ================= */
+  .date-chip.is-today b{position:relative;}
+  .date-chip.is-today small{color:var(--deep-green);font-weight:700;}
+  .date-chip[aria-pressed="true"].is-today small{color:var(--gold);}
+  .date-chip.frozen{opacity:0.28;}
+  .sameday-warn{
+    display:none;margin-top:11px;padding:12px 14px;border-radius:4px;
+    background:rgba(227,177,114,0.2);border:1px dashed var(--gold);
+    font-family:'Lora',serif;font-size:0.84rem;line-height:1.45;color:var(--cocoa);
+  }
+
+  /* ================= LIVRAISON : bloc à part, hors du total ================= */
+  .driver-note{
+    display:flex;gap:11px;align-items:flex-start;
+    margin-top:16px;padding:13px 15px;border-radius:4px;
+    background:rgba(94,22,34,0.045);border:1px solid rgba(94,22,34,0.14);
+  }
+  .driver-note svg{
+    width:20px;height:20px;flex:0 0 auto;margin-top:1px;
+    fill:none;stroke:var(--dusty-rose);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+  }
+  .driver-note b{
+    display:block;font-family:'Lora',serif;font-weight:600;
+    font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--maroon);margin-bottom:4px;
+  }
+  [dir="rtl"] .driver-note b{letter-spacing:0;text-transform:none;font-size:0.86rem;}
+  .driver-note div{
+    font-family:'Lora',serif;font-size:0.82rem;line-height:1.5;color:var(--dusty-rose);
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -1265,7 +1447,7 @@
 
 <section class="hero">
   <div class="hero-img-wrap" id="heroImgWrap">
-    <div class="hero-veil" aria-hidden="true"></div><div class="hero-motifs" aria-hidden="true"><svg viewBox="0 0 64 64" class="mo mo0" style="top:6%;left:14%;width:92px;height:92px;opacity:0.085;transform:rotate(-14deg)"><path d="M32 4v18"/><rect x="28" y="4" width="8" height="8" rx="3"/><path d="M32 22c-9 6-13 20-9 34M32 22c9 6 13 20 9 34M32 22v34"/><path d="M23 47c6 4 12 4 18 0"/></svg><svg viewBox="0 0 64 64" class="mo mo1" style="top:18%;left:62%;width:64px;height:64px;opacity:0.070;transform:rotate(22deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo2" style="top:33%;left:9%;width:56px;height:56px;opacity:0.060;transform:rotate(-26deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo3" style="top:46%;left:78%;width:104px;height:104px;opacity:0.080;transform:rotate(12deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo4" style="top:62%;left:20%;width:70px;height:70px;opacity:0.065;transform:rotate(18deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo5" style="top:74%;left:66%;width:58px;height:58px;opacity:0.075;transform:rotate(-18deg)"><rect x="14" y="24" width="36" height="16" rx="8"/><path d="M14 32H4M50 32h10"/></svg><svg viewBox="0 0 64 64" class="mo mo6" style="top:86%;left:12%;width:76px;height:76px;opacity:0.060;transform:rotate(10deg)"><path d="M22 20h20v34a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6z"/><path d="M20 12h24v8H20z"/><path d="M27 34h10"/></svg><svg viewBox="0 0 64 64" class="mo mo7" style="top:24%;left:38%;width:44px;height:44px;opacity:0.050;transform:rotate(34deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo8" style="top:58%;left:48%;width:40px;height:40px;opacity:0.045;transform:rotate(-30deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo9" style="top:90%;left:52%;width:86px;height:86px;opacity:0.070;transform:rotate(-10deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo10" style="top:12%;left:86%;width:50px;height:50px;opacity:0.055;transform:rotate(26deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo11" style="top:68%;left:4%;width:46px;height:46px;opacity:0.050;transform:rotate(-8deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg></div>
+    <div class="hero-veil" aria-hidden="true"></div><div class="hero-motifs" aria-hidden="true"><svg viewBox="0 0 64 64" class="mo mo0" style="top:4%;left:3%;width:34px;height:34px;opacity:0.077;transform:rotate(-21deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo1" style="top:9%;left:64%;width:26px;height:26px;opacity:0.100;transform:rotate(-31deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo2" style="top:14%;left:32%;width:26px;height:26px;opacity:0.087;transform:rotate(6deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo3" style="top:19%;left:93%;width:42px;height:42px;opacity:0.057;transform:rotate(-13deg)"><path d="M32 4v18"/><rect x="28" y="4" width="8" height="8" rx="3"/><path d="M32 22c-9 6-13 20-9 34M32 22c9 6 13 20 9 34M32 22v34"/><path d="M23 47c6 4 12 4 18 0"/></svg><svg viewBox="0 0 64 64" class="mo mo4" style="top:24%;left:61%;width:38px;height:38px;opacity:0.059;transform:rotate(13deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo5" style="top:29%;left:29%;width:26px;height:26px;opacity:0.078;transform:rotate(30deg)"><rect x="14" y="24" width="36" height="16" rx="8"/><path d="M14 32H4M50 32h10"/></svg><svg viewBox="0 0 64 64" class="mo mo6" style="top:34%;left:90%;width:42px;height:42px;opacity:0.107;transform:rotate(-25deg)"><path d="M22 20h20v34a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6z"/><path d="M20 12h24v8H20z"/><path d="M27 34h10"/></svg><svg viewBox="0 0 64 64" class="mo mo7" style="top:39%;left:58%;width:46px;height:46px;opacity:0.087;transform:rotate(40deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo8" style="top:44%;left:26%;width:26px;height:26px;opacity:0.087;transform:rotate(33deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo9" style="top:49%;left:87%;width:26px;height:26px;opacity:0.058;transform:rotate(-12deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo10" style="top:54%;left:55%;width:30px;height:30px;opacity:0.078;transform:rotate(-3deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo11" style="top:59%;left:23%;width:42px;height:42px;opacity:0.086;transform:rotate(-25deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo12" style="top:64%;left:84%;width:42px;height:42px;opacity:0.061;transform:rotate(-17deg)"><path d="M32 4v18"/><rect x="28" y="4" width="8" height="8" rx="3"/><path d="M32 22c-9 6-13 20-9 34M32 22c9 6 13 20 9 34M32 22v34"/><path d="M23 47c6 4 12 4 18 0"/></svg><svg viewBox="0 0 64 64" class="mo mo13" style="top:69%;left:52%;width:42px;height:42px;opacity:0.075;transform:rotate(-16deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo14" style="top:74%;left:20%;width:42px;height:42px;opacity:0.086;transform:rotate(-32deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo15" style="top:79%;left:81%;width:42px;height:42px;opacity:0.082;transform:rotate(-14deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo16" style="top:84%;left:49%;width:42px;height:42px;opacity:0.098;transform:rotate(14deg)"><rect x="14" y="24" width="36" height="16" rx="8"/><path d="M14 32H4M50 32h10"/></svg><svg viewBox="0 0 64 64" class="mo mo17" style="top:89%;left:17%;width:38px;height:38px;opacity:0.106;transform:rotate(34deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo18" style="top:94%;left:78%;width:34px;height:34px;opacity:0.069;transform:rotate(-2deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo19" style="top:7%;left:46%;width:30px;height:30px;opacity:0.060;transform:rotate(-9deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo20" style="top:12%;left:14%;width:34px;height:34px;opacity:0.082;transform:rotate(27deg)"><path d="M22 20h20v34a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6z"/><path d="M20 12h24v8H20z"/><path d="M27 34h10"/></svg><svg viewBox="0 0 64 64" class="mo mo21" style="top:17%;left:75%;width:34px;height:34px;opacity:0.071;transform:rotate(17deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo22" style="top:22%;left:43%;width:26px;height:26px;opacity:0.083;transform:rotate(-25deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo23" style="top:27%;left:11%;width:30px;height:30px;opacity:0.063;transform:rotate(3deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo24" style="top:32%;left:72%;width:38px;height:38px;opacity:0.057;transform:rotate(13deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo25" style="top:37%;left:40%;width:46px;height:46px;opacity:0.097;transform:rotate(-31deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg></div>
   </div>
   <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
   <div class="hero-content">
@@ -1342,7 +1524,7 @@
       </article>
     </div></div>
     <div class="swipe-hint">Swipe for more</div>
-    <div class="picks-note reveal-up">Complimentary delivery on orders above 400 QR</div>
+    <div class="picks-note reveal-up">Same-day delivery available · order before 6 PM</div>
   </div>
 </section>
 <section class="story" id="story">
@@ -1636,6 +1818,7 @@
     <div class="fld">
       <span class="fld-label">Delivery day <span class="req">*</span></span>
       <div class="dates" id="dateRail"></div>
+      <div class="sameday-warn" id="sameDayWarn">Rusk “Shabora” and Brown Butter Banana Bread are baked overnight — they cannot go out the same day. Remove them to order for today, or pick tomorrow.</div>
       <div class="err-msg">Please pick a day.</div>
     </div>
 
@@ -1650,47 +1833,37 @@
     </div>
 
     <div class="fld">
-      <span class="fld-label">Where are you? <span class="req">*</span></span>
-      <div class="zones" id="zoneChips">
-        <button type="button" class="zone" data-zone="z1" aria-pressed="false"><b>Al Wakrah</b><small>and everything nearby</small><i>10 QR</i></button>
-        <button type="button" class="zone" data-zone="z2" aria-pressed="false"><b>Doha</b><small>city and suburbs</small><i>15 QR</i></button>
-        <button type="button" class="zone" data-zone="z3" aria-pressed="false"><b>North</b><small>Lusail, Umm Salal, outskirts</small><i>20 QR</i></button>
+      <span class="fld-label">Where do we deliver? <span class="req">*</span></span>
+      <div class="addr-grid">
+        <div class="af">
+          <span class="af-l">Zone</span>
+          <input type="text" id="fZone" inputmode="numeric" placeholder="e.g. 90">
+        </div>
+        <div class="af af-wide">
+          <span class="af-l">City</span>
+          <input type="text" id="fCity" autocomplete="address-level2" placeholder="e.g. Al Wakrah">
+        </div>
+        <div class="af">
+          <span class="af-l">House number</span>
+          <input type="text" id="fHouse" inputmode="numeric" placeholder="e.g. 30">
+        </div>
       </div>
-      <button type="button" class="more-toggle" id="farBtn" style="margin-top:9px;" aria-pressed="false">Further away? We'll quote you on WhatsApp</button>
-      <div class="err-msg">Please tell us where you are.</div>
-    </div>
+      <div class="err-msg" id="addrErr">Please add your zone number.</div>
 
-    <div class="fld">
-      <span class="fld-label">Area or district <span class="req">*</span></span>
-      <input type="text" id="fCity" autocomplete="address-level2">
-      <span class="fld-help">Al Waab, Lusail, Old Airport…</span>
-      <div class="err-msg">Please add your area.</div>
-    </div>
-
-    <div class="fld">
-      <span class="fld-label">Street and building <span class="req">*</span></span>
-      <input type="text" id="fStreet" autocomplete="street-address">
-      <span class="fld-help">Enough for the driver to find you</span>
-      <div class="err-msg">Please add street and building.</div>
-    </div>
-
-    <button type="button" class="more-toggle" id="moreBtn">+ Add villa, floor, landmark</button>
-    <div class="more-fields" id="moreFields">
-      <div class="fld"><span class="fld-label">Villa or building number <span class="opt">optional</span></span><input type="text" id="fVilla" inputmode="numeric"></div>
-      <div class="fld"><span class="fld-label">Floor / apartment <span class="opt">optional</span></span><input type="text" id="fUnit"></div>
-      <div class="fld"><span class="fld-label">Zone number <span class="opt">optional</span></span><input type="text" id="fZoneNo" inputmode="numeric"></div>
-      <div class="fld"><span class="fld-label">Landmark nearby <span class="opt">optional</span></span><input type="text" id="fMark"></div>
+      <button type="button" class="loc-btn" id="locBtn" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <span id="locTxt">Attach my location</span>
+      </button>
+      <span class="fld-help">Tap only if you are at the delivery address. Addresses in Doha are rarely precise — a pin saves the driver a call.</span>
     </div>
 
     <div class="totals">
-      <div class="tl"><span>Subtotal</span><span id="tSub">0 QR</span></div>
-      <div class="tl"><span>Delivery</span><span id="tDel">—</span></div>
-      <div class="tl-note" id="tDelNote"></div>
       <div class="tl grand"><span>Total</span><span id="tGrand">0 QR</span></div>
-      <div class="nudge" id="nudge" style="display:none;">
-        <span id="nudgeTxt"></span>
-        <span class="nudge-bar"><i id="nudgeBar" style="width:0%"></i></span>
-      </div>
+    </div>
+
+    <div class="driver-note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="6" width="14" height="10" rx="1.5"/><path d="M15 9h4l3 3.5V16h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+      <div><b>About delivery</b>Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.</div>
     </div>
 
     <div class="fld">
@@ -1737,9 +1910,10 @@
     <div class="fld">
       <span class="fld-label">Payment <span class="req">*</span></span>
       <div class="chips" id="payChips">
-        <button type="button" class="chip" data-val="cash">Cash on delivery</button>
         <button type="button" class="chip" data-val="fawran">Fawran transfer</button>
+        <button type="button" class="chip" data-val="bank">Bank transfer</button>
       </div>
+      <span class="fld-help">We send you the transfer details on WhatsApp once your order is confirmed.</span>
       <div class="err-msg">Please pick a payment method.</div>
     </div>
 
@@ -1838,33 +2012,9 @@
       co_slot_am:"Morning",
       co_slot_pm:"Afternoon",
       co_slot_eve:"Evening",
-      co_zone:"Where are you?",
-      z1_n:"Al Wakrah",
-      z1_d:"and everything nearby",
-      z2_n:"Doha",
-      z2_d:"city and suburbs",
-      z3_n:"North",
-      z3_d:"Lusail, Umm Salal, outskirts",
-      zfar:"Further away? We'll quote you on WhatsApp",
-      co_city:"Area or district",
-      co_city_h:"Al Waab, Lusail, Old Airport…",
-      co_street:"Street and building",
-      co_street_h:"Enough for the driver to find you",
-      addr_more:"+ Add villa, floor, landmark",
-      addr_less:"− Hide extra details",
-      co_villa:"Villa or building number",
-      co_unit:"Floor / apartment",
-      co_zoneno:"Zone number",
-      co_mark:"Landmark nearby",
-      co_subtotal:"Subtotal",
-      co_delivery:"Delivery",
+      co_city:"City",
+      co_city_h:"e.g. Al Wakrah",
       co_total:"Total",
-      co_del_pick:"Pick your area",
-      co_del_free:"Free",
-      co_del_ask:"We'll tell you on WhatsApp",
-      co_nudge:"Add {n} more and delivery is on us.",
-      co_nudge_short:"{n} more → free delivery",
-      co_free_short:"Free delivery ✓",
       co_name:"Name",
       co_first:"First name",
       co_phone:"Phone of the person receiving",
@@ -1877,8 +2027,9 @@
       co_occ3:"A gift",
       co_occ4:"Just for us",
       co_pay:"Payment",
-      co_pay1:"Cash on delivery",
-      co_pay2:"Fawran transfer",
+      co_pay_h:"We send you the transfer details on WhatsApp once your order is confirmed.",
+      co_pay1:"Fawran transfer",
+      co_pay2:"Bank transfer",
       co_note:"Allergies or a note",
       co_source:"How did you find us?",
       co_src1:"Instagram",
@@ -1894,9 +2045,6 @@
       pick_more:"+ Add another item",
       pick_hide:"− Done adding",
       pick_empty:"Your basket is empty.",
-      del_note_pay:"Free above {n} QR",
-      del_note_free:"You're above {n} QR — delivery is on us",
-      del_note_pick:"Pick your area to see the cost",
       each:"each",
       item1_qty:"12 pieces",
       item2_qty:"40 pieces",
@@ -1907,21 +2055,34 @@
       item7_qty:"12 pieces",
       spread_qty:"12 cookies · 40 petit madeleines · 1 cake",
       swipe:"Swipe for more",
+      co_addr:"Where do we deliver?",
+      co_zoneno:"Zone",
+      co_house:"House number",
+      co_zoneno_h:"e.g. 90",
+      co_house_h:"e.g. 30",
+      co_err_zoneno:"Please add your zone number.",
+      co_err_city:"Please add your area.",
+      co_err_house:"Please add your house number.",
+      co_loc:"Attach my location",
+      co_loc_on:"Location attached ✓",
+      co_loc_wait:"Locating…",
+      co_loc_no:"Could not get it — share your pin on WhatsApp instead",
+      co_loc_hint:"Tap only if you are at the delivery address. Addresses in Doha are rarely precise — a pin saves the driver a call.",
+      co_m_loc:"Location",
+      del_driver:"Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.",
+      del_driver_t:"About delivery",
+      sameday_note:"Same-day delivery available · order before 6 PM",
+      sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread are baked overnight — they cannot go out the same day. Remove them to order for today, or pick tomorrow.",
+      today:"Today",
       co_err_day:"Please pick a day.",
       co_err_slot:"Please pick a time.",
-      co_err_zone:"Please tell us where you are.",
-      co_err_city:"Please add your area.",
-      co_err_street:"Please add street and building.",
       co_err_name:"Please tell us your name.",
       co_err_phone:"Please add a Qatar mobile number.",
       co_err_phone2:"Please add your own number.",
       co_err_pay:"Please pick a payment method.",
-      co_m_sub:"Subtotal",
-      co_m_del:"Delivery",
       co_m_total:"Total",
       co_m_when:"When",
       co_m_where:"Address",
-      co_m_zone:"Zone",
       co_m_who:"Name",
       co_m_recv:"Receiver's number",
       co_m_mine:"My number",
@@ -1986,17 +2147,16 @@
   // ============ CHECKOUT ============
   var CFG = {
     wa: '97450040617',
-    freeFrom: 400,          // livraison offerte à partir de ce montant, toutes zones
-    cutoffHour: 18,         // après 18h, la première date possible saute d'un jour
-    closedWeekday: 5,       // 5 = vendredi (Date.getDay)
+    cutoffHour: 18,          // au-delà, le jour même n'est plus proposé
+    closedWeekday: 5,        // 5 = vendredi
     railDays: 16,
-    zones: { z1:10, z2:15, z3:20 }
+    overnight: ['item3', 'item6']   // banana bread & rusk : jamais le jour même
   };
 
 
   var ORDER = {}, PRICES = {}, NAMES = {};
-  var S = { date:null, slot:null, zone:null, gift:false, occ:null, pay:null, src:null,
-          optin:false, spreadCookie:null };
+  var S = { date:null, slot:null, gift:false, occ:null, pay:null, src:null,
+            optin:false, spreadCookie:null, loc:null };
 
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
@@ -2032,50 +2192,74 @@
   function count(){
     var c=0; Object.keys(ORDER).forEach(function(id){ c += ORDER[id]; }); return c;
   }
-  function fee(){
-    if(!S.zone || S.zone==='far') return null;
-    return subtotal() >= CFG.freeFrom ? 0 : CFG.zones[S.zone];
-  }
 
   function refresh(){
     var c = count(), sub = subtotal(), active = c > 0;
     $('orderCount').textContent = c;
     $('orderTotal').textContent = sub + ' ' + T('qr');
-    var miss = CFG.freeFrom - sub;
-    $('orderBarSub').innerHTML = (active && miss > 0)
-      ? T('co_nudge_short').replace('{n}', '<b>'+miss+' '+T('qr')+'</b>')
-      : (active ? T('co_free_short') : '');
+    $('orderBarSub').textContent = '';
     orderBar.classList.toggle('active', active);
     if(waFloat) waFloat.style.display = active ? 'none' : 'flex';
     if(sheet.classList.contains('open')) paint();
   }
 
   /* ---------- dates ---------- */
+  function blocked(){
+    for(var i = 0; i < CFG.overnight.length; i++){
+      if(ORDER[CFG.overnight[i]] > 0) return true;
+    }
+    return false;
+  }
+
   function buildDates(){
     var rail = $('dateRail'); rail.innerHTML = '';
     var now = new Date();
-    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    start.setDate(start.getDate() + (now.getHours() >= CFG.cutoffHour ? 2 : 1));
-    for(var i=0;i<CFG.railDays;i++){
-      var d = new Date(start); d.setDate(start.getDate()+i);
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var start = new Date(today);
+    // après l'heure limite, le jour même n'est plus proposé du tout
+    if(now.getHours() >= CFG.cutoffHour) start.setDate(start.getDate() + 1);
+
+    for(var i = 0; i < CFG.railDays; i++){
+      var d = new Date(start); d.setDate(start.getDate() + i);
+      var iso = d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2);
+      var isToday = d.getTime() === today.getTime();
       var closed = d.getDay() === CFG.closedWeekday;
+
       var b = document.createElement('button');
-      b.type='button'; b.className='date-chip' + (closed?' closed':'');
+      b.type = 'button';
+      b.className = 'date-chip' + (closed ? ' closed' : '') + (isToday ? ' is-today' : '');
+      b.setAttribute('aria-pressed', S.date === iso ? 'true' : 'false');
+      b.setAttribute('data-iso', iso);
+      if(isToday) b.setAttribute('data-today', '1');
+      b.innerHTML = '<small>' + (isToday ? T('today')
+                      : d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{weekday:'short'})) + '</small>'
+                  + '<b>' + d.getDate() + '</b>'
+                  + '<em>' + d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{month:'short'}) + '</em>';
       b.disabled = closed;
-      b.setAttribute('aria-pressed','false');
-      b.setAttribute('data-iso', d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2));
-      b.innerHTML = '<small>'+d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{weekday:'short'})+'</small>'
-                  + '<b>'+d.getDate()+'</b>'
-                  + '<em>'+d.toLocaleDateString(L()==='ar'?'ar-QA':'en-GB',{month:'short'})+'</em>';
-      if(!closed){
-        b.addEventListener('click', function(){
-          rail.querySelectorAll('.date-chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-          this.setAttribute('aria-pressed','true');
-          S.date = this.getAttribute('data-iso');
-          $('dateRail').closest('.fld').classList.remove('err');
-        });
-      }
+      b.addEventListener('click', function(){
+        if(this.disabled) return;
+        rail.querySelectorAll('.date-chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        this.setAttribute('aria-pressed','true');
+        S.date = this.getAttribute('data-iso');
+        rail.closest('.fld').classList.remove('err');
+      });
       rail.appendChild(b);
+    }
+    syncToday();
+  }
+
+  // active ou gèle le jour même selon le contenu du panier
+  function syncToday(){
+    var chip = $('dateRail').querySelector('.date-chip[data-today]');
+    var warn = $('sameDayWarn');
+    var stop = blocked();
+    warn.style.display = (chip && stop) ? 'block' : 'none';
+    if(!chip) return;
+    chip.disabled = stop;
+    chip.classList.toggle('frozen', stop);
+    if(stop && S.date === chip.getAttribute('data-iso')){
+      S.date = null;
+      chip.setAttribute('aria-pressed','false');
     }
   }
 
@@ -2128,6 +2312,8 @@
     if(empty) showPicker(true);
     $('sheetSend').disabled = empty;
 
+    if($('dateRail').children.length) syncToday();
+
     var box = $('cartLines'); box.innerHTML = '';
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] <= 0) return;
@@ -2144,27 +2330,7 @@
       box.appendChild(line);
     });
 
-    var sub = subtotal(), f = fee();
-    $('tSub').textContent = sub + ' ' + T('qr');
-    if(S.zone === 'far'){ $('tDel').textContent = T('co_del_ask'); }
-    else if(f === null){ $('tDel').textContent = T('co_del_pick'); }
-    else if(f === 0){ $('tDel').innerHTML = '<span class="free">'+T('co_del_free')+'</span>'; }
-    else { $('tDel').textContent = f + ' ' + T('qr'); }
-    $('tGrand').textContent = (sub + (f||0)) + ' ' + T('qr');
-
-    var note = '';
-    if(S.zone === 'far')      note = '';
-    else if(f === null)       note = T('del_note_pick');
-    else if(f === 0)          note = T('del_note_free').replace('{n}', CFG.freeFrom);
-    else                      note = T('del_note_pay').replace('{n}', CFG.freeFrom);
-    $('tDelNote').textContent = note;
-
-    var miss = CFG.freeFrom - sub;
-    if(miss > 0 && sub > 0 && S.zone !== 'far'){
-      $('nudge').style.display = 'block';
-      $('nudgeTxt').innerHTML = T('co_nudge').replace('{n}', '<b>'+miss+' '+T('qr')+'</b>');
-      $('nudgeBar').style.width = Math.min(100, Math.round(sub/CFG.freeFrom*100)) + '%';
-    } else { $('nudge').style.display = 'none'; }
+    $('tGrand').textContent = subtotal() + ' ' + T('qr');
   }
 
   /* ---------- chips ---------- */
@@ -2194,8 +2360,7 @@
     try{
       localStorage.setItem('pg_c', JSON.stringify({
         n:$('fName').value, f:$('fFirst').value, p:$('fPhone').value,
-        z:S.zone, c:$('fCity').value, s:$('fStreet').value,
-        v:$('fVilla').value, u:$('fUnit').value, zn:$('fZoneNo').value, mk:$('fMark').value
+        zn:$('fZone').value, c:$('fCity').value, hn:$('fHouse').value
       }));
     }catch(e){}
   }
@@ -2205,29 +2370,31 @@
       if(d.n) $('fName').value = d.n;
       if(d.f) $('fFirst').value = d.f;
       if(d.p) $('fPhone').value = d.p;
-      if(d.c) $('fCity').value = d.c;
-      if(d.s) $('fStreet').value = d.s;
-      if(d.v) $('fVilla').value = d.v;
-      if(d.u) $('fUnit').value = d.u;
-      if(d.zn) $('fZoneNo').value = d.zn;
-      if(d.mk) $('fMark').value = d.mk;
-      if(d.z){
-        S.zone = d.z;
-        var b = document.querySelector('.zone[data-zone="'+d.z+'"]');
-        if(b) b.setAttribute('aria-pressed','true');
-        if(d.z === 'far') $('farBtn').setAttribute('aria-pressed','true');
-      }
+      if(d.zn) $('fZone').value = d.zn;
+      if(d.c)  $('fCity').value = d.c;
+      if(d.hn) $('fHouse').value = d.hn;
     }catch(e){}
   }
 
-  $('farBtn').addEventListener('click', function(){
-    var on = this.getAttribute('aria-pressed') !== 'true';
-    this.setAttribute('aria-pressed', on ? 'true' : 'false');
-    document.querySelectorAll('.zone').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-    S.zone = on ? 'far' : null;
-    $('zoneChips').closest('.fld').classList.remove('err');
-    paint();
-  });
+  /* ---------- point de localisation ---------- */
+  (function(){
+    var b = $('locBtn'), txt = $('locTxt');
+    b.addEventListener('click', function(){
+      if(!navigator.geolocation){ txt.textContent = T('co_loc_no'); return; }
+      txt.textContent = T('co_loc_wait');
+      b.disabled = true;
+      navigator.geolocation.getCurrentPosition(function(p){
+        S.loc = p.coords.latitude.toFixed(6) + ',' + p.coords.longitude.toFixed(6);
+        txt.textContent = T('co_loc_on');
+        b.setAttribute('aria-pressed','true');
+        b.disabled = false;
+      }, function(){
+        S.loc = null;
+        txt.textContent = T('co_loc_no');
+        b.disabled = false;
+      }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 });
+    });
+  })();
 
   /* ---------- ouverture / fermeture ---------- */
   function open(){
@@ -2263,9 +2430,9 @@
 
     flag(!S.date,                          $('dateRail'));
     flag(!S.slot,                          $('slotChips'));
-    flag(!S.zone,                          $('zoneChips'));
+    flag(!$('fZone').value.trim(),         $('fZone'));
     flag(!$('fCity').value.trim(),         $('fCity'));
-    flag(!$('fStreet').value.trim(),       $('fStreet'));
+    flag(!$('fHouse').value.trim(),        $('fHouse'));
     flag(!$('fName').value.trim(),         $('fName'));
     flag(digits($('fPhone')) < 8,          $('fPhone'));
     flag(S.gift && digits($('fPhone2')) < 8, $('fPhone2'));
@@ -2276,7 +2443,7 @@
 
     remember();
 
-    var sub = subtotal(), f = fee();
+    var sub = subtotal();
     var lines = [];
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] > 0){
@@ -2292,25 +2459,20 @@
     m.push('');
     m.push(lines.join('\n'));
     m.push('');
-    m.push(T('co_m_sub') + ': ' + sub + ' ' + T('qr'));
-    m.push(T('co_m_del') + ': ' + (S.zone === 'far' ? T('co_del_ask') : (f === 0 ? T('co_del_free') : f + ' ' + T('qr'))));
-    if(S.zone !== 'far') m.push(T('co_m_total') + ': ' + (sub + f) + ' ' + T('qr'));
+    m.push(T('co_m_total') + ': ' + sub + ' ' + T('qr'));
     m.push('');
     m.push(T('co_m_when') + ': ' + S.date + ' — ' + T('co_slot_' + ({morning:'am',afternoon:'pm',evening:'eve'}[S.slot])));
-    var addr = [$('fStreet').value.trim(), $('fCity').value.trim()];
-    if($('fVilla').value.trim())  addr.unshift(T('co_villa') + ' ' + $('fVilla').value.trim());
-    if($('fUnit').value.trim())   addr.push(T('co_unit') + ' ' + $('fUnit').value.trim());
-    if($('fZoneNo').value.trim()) addr.push(T('co_zoneno') + ' ' + $('fZoneNo').value.trim());
-    if($('fMark').value.trim())   addr.push($('fMark').value.trim());
-    m.push(T('co_m_where') + ': ' + addr.filter(Boolean).join(', '));
-    m.push(T('co_m_zone') + ': ' + T(S.zone === 'far' ? 'zfar' : (S.zone === 'z1' ? 'z1_n' : S.zone === 'z2' ? 'z2_n' : 'z3_n')));
+    m.push(T('co_m_where') + ': ' + T('co_zoneno') + ' ' + $('fZone').value.trim()
+           + ' \u00b7 ' + T('co_city') + ' ' + $('fCity').value.trim()
+           + ' \u00b7 ' + T('co_house') + ' ' + $('fHouse').value.trim());
+    if(S.loc) m.push(T('co_m_loc') + ': https://maps.google.com/?q=' + S.loc);
     m.push(T('co_m_who') + ': ' + ($('fFirst').value.trim() ? $('fFirst').value.trim() + ' ' : '') + $('fName').value.trim());
     m.push(T('co_m_recv') + ': \u2066' + $('fPhone').value.trim() + '\u2069');
     if(S.gift){
       m.push(T('co_m_mine') + ': \u2066' + $('fPhone2').value.trim() + '\u2069');
       if($('fCard').value.trim()) m.push(T('co_m_card') + ': ' + $('fCard').value.trim());
     }
-    m.push(T('co_m_pay') + ': ' + T(S.pay === 'cash' ? 'co_pay1' : 'co_pay2'));
+    m.push(T('co_m_pay') + ': ' + T(S.pay === 'fawran' ? 'co_pay1' : 'co_pay2'));
     if(S.occ) m.push(T('co_m_occ') + ': ' + T('co_occ' + ({birthday:'1',majlis:'2',gift:'3',us:'4'}[S.occ])));
     if($('fNote').value.trim()) m.push(T('co_m_note') + ': ' + $('fNote').value.trim());
     if(S.optin) m.push('\u2713 ' + T('co_m_optin'));
@@ -2340,29 +2502,6 @@
         c.setAttribute('aria-pressed','true');
         S.spreadCookie = c.getAttribute('data-val');
       });
-    });
-  })();
-
-  /* ---------- 3 zones au lieu d'une liste de 40 ---------- */
-  (function(){
-    var host = document.getElementById('zoneChips');
-    host.querySelectorAll('.zone').forEach(function(z){
-      z.addEventListener('click', function(){
-        host.querySelectorAll('.zone').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-        z.setAttribute('aria-pressed','true');
-        S.zone = z.getAttribute('data-zone');
-        host.closest('.fld').classList.remove('err');
-        paint();
-      });
-    });
-  })();
-
-  /* ---------- détails d'adresse repliés ---------- */
-  (function(){
-    var t = document.getElementById('moreBtn'), f = document.getElementById('moreFields');
-    t.addEventListener('click', function(){
-      var on = f.classList.toggle('on');
-      t.textContent = on ? T('addr_less') : T('addr_more');
     });
   })();
 
