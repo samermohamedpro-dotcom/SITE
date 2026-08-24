@@ -24,6 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/img/hero-home-bakery-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" imagesizes="100vw">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
@@ -1067,38 +1068,14 @@
       rgba(227,177,114,0.07) 68%,
       rgba(107,61,24,0.10) 100%)!important;
   }
-  .hero-img-wrap{
-    background:
-      radial-gradient(ellipse 92% 60% at 50% 2%,  rgba(255,255,255,0.96) 0%, transparent 56%),
-      radial-gradient(ellipse 72% 54% at 12% 82%, rgba(227,177,114,0.34) 0%, transparent 68%),
-      radial-gradient(ellipse 66% 50% at 90% 70%, rgba(207,224,198,0.40) 0%, transparent 66%),
-      linear-gradient(172deg, #FEFCF7 0%, #F9F4E9 42%, #F5EDDF 74%, #F2E7D6 100%);
-  }
+  .hero-img-wrap{background:#F7F2E6;}
+  /* voile clair : la photo reste visible, le titre reste lisible */
   .hero-veil{
     position:absolute;inset:0;pointer-events:none;z-index:1;
     background:
-      repeating-linear-gradient(101deg, rgba(107,61,24,0.020) 0 1px, transparent 1px 5px),
-      repeating-linear-gradient(9deg,   rgba(107,61,24,0.014) 0 1px, transparent 1px 4px);
-    mix-blend-mode:multiply;
+      radial-gradient(ellipse 72% 54% at 50% 30%, rgba(253,250,243,0.80) 0%, rgba(253,250,243,0.34) 55%, transparent 78%),
+      linear-gradient(180deg, rgba(253,250,243,0.55) 0%, rgba(253,250,243,0.10) 42%, transparent 70%);
   }
-
-  /* beaucoup de petits motifs, jamais un gros dessin */
-  .hero-motifs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
-  .hero-motifs .mo{
-    position:absolute;fill:none;stroke:var(--maroon);
-    stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
-    animation:drift 24s ease-in-out infinite alternate;
-  }
-  .hero-motifs .mo:nth-child(3n){stroke:var(--cocoa);animation-duration:31s;}
-  .hero-motifs .mo:nth-child(4n){stroke:var(--deep-green);animation-duration:37s;}
-  .hero-motifs .mo:nth-child(2n){animation-delay:-9s;}
-  .hero-motifs .mo:nth-child(5n){animation-delay:-17s;}
-  @keyframes drift{ from{translate:0 0;} to{translate:0 -12px;} }
-  @media(max-width:640px){
-    .hero-motifs .mo{stroke-width:1.8;}
-    .hero-motifs .mo:nth-child(n+19){display:none;}
-  }
-  @media(prefers-reduced-motion:reduce){ .hero-motifs .mo{animation:none;} }
 
   /* texte : contraste franc sur fond clair */
   .hero-content{position:relative;z-index:4;padding-top:clamp(24px,5vh,56px);}
@@ -1244,6 +1221,18 @@
   .driver-note div{
     font-family:'Lora',serif;font-size:0.82rem;line-height:1.5;color:var(--dusty-rose);
   }
+
+  /* ---------- localisation d'un autre lieu ---------- */
+  .loc-else{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(94,22,34,0.18);}
+  .loc-else input{
+    width:100%;font-family:'Lora',serif;font-size:0.92rem;color:var(--deep-maroon);
+    background:#fff;border:1.5px solid rgba(94,22,34,0.22);border-radius:4px;
+    padding:12px 11px;outline:none;margin-bottom:6px;
+  }
+  .loc-else input:focus{border-color:var(--deep-maroon);}
+  .loc-else.err input{border-color:#B3261E;background:#FFF6F5;}
+  .loc-else .err-msg{display:none;}
+  .loc-else.err .err-msg{display:block;}
 </style>
 <script type="application/ld+json">
 {
@@ -1447,7 +1436,7 @@
 
 <section class="hero">
   <div class="hero-img-wrap" id="heroImgWrap">
-    <div class="hero-veil" aria-hidden="true"></div><div class="hero-motifs" aria-hidden="true"><svg viewBox="0 0 64 64" class="mo mo0" style="top:4%;left:3%;width:34px;height:34px;opacity:0.077;transform:rotate(-21deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo1" style="top:9%;left:64%;width:26px;height:26px;opacity:0.100;transform:rotate(-31deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo2" style="top:14%;left:32%;width:26px;height:26px;opacity:0.087;transform:rotate(6deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo3" style="top:19%;left:93%;width:42px;height:42px;opacity:0.057;transform:rotate(-13deg)"><path d="M32 4v18"/><rect x="28" y="4" width="8" height="8" rx="3"/><path d="M32 22c-9 6-13 20-9 34M32 22c9 6 13 20 9 34M32 22v34"/><path d="M23 47c6 4 12 4 18 0"/></svg><svg viewBox="0 0 64 64" class="mo mo4" style="top:24%;left:61%;width:38px;height:38px;opacity:0.059;transform:rotate(13deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo5" style="top:29%;left:29%;width:26px;height:26px;opacity:0.078;transform:rotate(30deg)"><rect x="14" y="24" width="36" height="16" rx="8"/><path d="M14 32H4M50 32h10"/></svg><svg viewBox="0 0 64 64" class="mo mo6" style="top:34%;left:90%;width:42px;height:42px;opacity:0.107;transform:rotate(-25deg)"><path d="M22 20h20v34a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6z"/><path d="M20 12h24v8H20z"/><path d="M27 34h10"/></svg><svg viewBox="0 0 64 64" class="mo mo7" style="top:39%;left:58%;width:46px;height:46px;opacity:0.087;transform:rotate(40deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo8" style="top:44%;left:26%;width:26px;height:26px;opacity:0.087;transform:rotate(33deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo9" style="top:49%;left:87%;width:26px;height:26px;opacity:0.058;transform:rotate(-12deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo10" style="top:54%;left:55%;width:30px;height:30px;opacity:0.078;transform:rotate(-3deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo11" style="top:59%;left:23%;width:42px;height:42px;opacity:0.086;transform:rotate(-25deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo12" style="top:64%;left:84%;width:42px;height:42px;opacity:0.061;transform:rotate(-17deg)"><path d="M32 4v18"/><rect x="28" y="4" width="8" height="8" rx="3"/><path d="M32 22c-9 6-13 20-9 34M32 22c9 6 13 20 9 34M32 22v34"/><path d="M23 47c6 4 12 4 18 0"/></svg><svg viewBox="0 0 64 64" class="mo mo13" style="top:69%;left:52%;width:42px;height:42px;opacity:0.075;transform:rotate(-16deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo14" style="top:74%;left:20%;width:42px;height:42px;opacity:0.086;transform:rotate(-32deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo15" style="top:79%;left:81%;width:42px;height:42px;opacity:0.082;transform:rotate(-14deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo16" style="top:84%;left:49%;width:42px;height:42px;opacity:0.098;transform:rotate(14deg)"><rect x="14" y="24" width="36" height="16" rx="8"/><path d="M14 32H4M50 32h10"/></svg><svg viewBox="0 0 64 64" class="mo mo17" style="top:89%;left:17%;width:38px;height:38px;opacity:0.106;transform:rotate(34deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo18" style="top:94%;left:78%;width:34px;height:34px;opacity:0.069;transform:rotate(-2deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg><svg viewBox="0 0 64 64" class="mo mo19" style="top:7%;left:46%;width:30px;height:30px;opacity:0.060;transform:rotate(-9deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo20" style="top:12%;left:14%;width:34px;height:34px;opacity:0.082;transform:rotate(27deg)"><path d="M22 20h20v34a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6z"/><path d="M20 12h24v8H20z"/><path d="M27 34h10"/></svg><svg viewBox="0 0 64 64" class="mo mo21" style="top:17%;left:75%;width:34px;height:34px;opacity:0.071;transform:rotate(17deg)"><path d="M12 44h40l-6 12H18z"/><path d="M12 44 32 12l20 32z"/><path d="M20 31h24"/></svg><svg viewBox="0 0 64 64" class="mo mo22" style="top:22%;left:43%;width:26px;height:26px;opacity:0.083;transform:rotate(-25deg)"><circle cx="32" cy="32" r="24"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="23" r="2.4"/><circle cx="36" cy="38" r="3.2"/><circle cx="22" cy="40" r="2.2"/></svg><svg viewBox="0 0 64 64" class="mo mo23" style="top:27%;left:11%;width:30px;height:30px;opacity:0.063;transform:rotate(3deg)"><path d="M32 58V16"/><path d="M32 22c-7-1-11-6-11-6s6-2 11 3M32 22c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 34c-7-1-11-6-11-6s6-2 11 3M32 34c7-1 11-6 11-6s-6-2-11 3"/><path d="M32 46c-7-1-11-6-11-6s6-2 11 3M32 46c7-1 11-6 11-6s-6-2-11 3"/></svg><svg viewBox="0 0 64 64" class="mo mo24" style="top:32%;left:72%;width:38px;height:38px;opacity:0.057;transform:rotate(13deg)"><path d="M32 6c12 0 22 11 22 26S44 58 32 58 10 47 10 32 20 6 32 6z"/><path d="M32 10v44M22 13c-3 12-3 26 0 38M42 13c3 12 3 26 0 38"/></svg><svg viewBox="0 0 64 64" class="mo mo25" style="top:37%;left:40%;width:46px;height:46px;opacity:0.097;transform:rotate(-31deg)"><path d="M32 12v40M12 32h40"/><path d="M20 20l24 24M44 20 20 44"/></svg></div>
+    <img id="heroImg" src="/img/hero-home-bakery-doha.webp" srcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" sizes="100vw" alt="Madeleines and cookies on a bright table in a home kitchen in Doha, Qatar" width="1440" height="736" decoding="async" fetchpriority="high"><div class="hero-veil" aria-hidden="true"></div>
   </div>
   <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
   <div class="hero-content">
@@ -1698,7 +1687,7 @@
             <button type="button" class="chip" data-val="nutella">Nutella Cookies</button>
           </div>
         </div>
-        <p class="qty-note">12 cookies · 40 petit madeleines · 1 cake</p>
+        <p class="qty-note">12 cookies · 40 petit madeleines · 1 upside-down peach cake</p>
         <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
           <button class="qty-btn" data-action="dec" aria-label="-">−</button>
           <span class="qty-val">0</span>
@@ -1837,15 +1826,16 @@
       <div class="addr-grid">
         <div class="af">
           <span class="af-l">Zone</span>
-          <input type="text" id="fZone" inputmode="numeric" placeholder="e.g. 90">
+          <input type="text" id="fZone" inputmode="numeric" placeholder="2 or 3 digits">
         </div>
         <div class="af af-wide">
           <span class="af-l">City</span>
-          <input type="text" id="fCity" autocomplete="address-level2" placeholder="e.g. Al Wakrah">
+          <input type="text" id="fCity" list="qaCities" autocomplete="address-level2" placeholder="Start typing, we suggest">
+          <datalist id="qaCities"><option value="Doha"></option><option value="Al Rayyan"></option><option value="Al Wakrah"></option><option value="Al Wukair"></option><option value="Lusail"></option><option value="Al Daayen"></option><option value="Umm Salal"></option><option value="Al Khor"></option><option value="Al Thakhira"></option><option value="Simaisma"></option><option value="Al Shahaniya"></option><option value="Mesaieed"></option><option value="Dukhan"></option><option value="Al Shamal"></option><option value="Ras Laffan"></option></datalist>
         </div>
         <div class="af">
           <span class="af-l">House number</span>
-          <input type="text" id="fHouse" inputmode="numeric" placeholder="e.g. 30">
+          <input type="text" id="fHouse" inputmode="numeric" placeholder="Building or villa no.">
         </div>
       </div>
       <div class="err-msg" id="addrErr">Please add your zone number.</div>
@@ -1854,7 +1844,14 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
         <span id="locTxt">Attach my location</span>
       </button>
-      <span class="fld-help">Tap only if you are at the delivery address. Addresses in Doha are rarely precise — a pin saves the driver a call.</span>
+      <span class="fld-help">Use this only if you are standing at the delivery address.</span>
+
+      <div class="loc-else">
+        <span class="af-l">Delivering somewhere else?</span>
+        <input type="url" id="locLink" inputmode="url" placeholder="Paste a Google Maps link">
+        <span class="fld-help">Open Google Maps, hold your finger on the spot, then Share → Copy link. Addresses in Doha are rarely precise — a pin saves the driver a call.</span>
+        <div class="err-msg" id="locErr">That does not look like a map link.</div>
+      </div>
     </div>
 
     <div class="totals">
@@ -1962,7 +1959,7 @@
       item5_qty:"12 pieces",
       item6_qty:"30 pieces",
       item7_qty:"12 pieces",
-      spread_qty:"12 cookies · 40 petit madeleines · 1 cake",
+      spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
       spread_name:"The Full Spread",
       nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp",
       hero_eyebrow:"Home-Baked · Doha, Qatar",
@@ -2013,7 +2010,7 @@
       co_slot_pm:"Afternoon",
       co_slot_eve:"Evening",
       co_city:"City",
-      co_city_h:"e.g. Al Wakrah",
+      co_city_h:"Start typing, we suggest",
       co_total:"Total",
       co_name:"Name",
       co_first:"First name",
@@ -2053,13 +2050,13 @@
       item5_qty:"12 pieces",
       item6_qty:"30 pieces",
       item7_qty:"12 pieces",
-      spread_qty:"12 cookies · 40 petit madeleines · 1 cake",
+      spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
       swipe:"Swipe for more",
       co_addr:"Where do we deliver?",
       co_zoneno:"Zone",
       co_house:"House number",
-      co_zoneno_h:"e.g. 90",
-      co_house_h:"e.g. 30",
+      co_zoneno_h:"2 or 3 digits",
+      co_house_h:"Building or villa no.",
       co_err_zoneno:"Please add your zone number.",
       co_err_city:"Please add your area.",
       co_err_house:"Please add your house number.",
@@ -2067,7 +2064,11 @@
       co_loc_on:"Location attached ✓",
       co_loc_wait:"Locating…",
       co_loc_no:"Could not get it — share your pin on WhatsApp instead",
-      co_loc_hint:"Tap only if you are at the delivery address. Addresses in Doha are rarely precise — a pin saves the driver a call.",
+      co_loc_hint:"Use this only if you are standing at the delivery address.",
+      co_loc_or:"Delivering somewhere else?",
+      co_loc_paste:"Paste a Google Maps link",
+      co_loc_how:"Open Google Maps, hold your finger on the spot, then Share → Copy link. Addresses in Doha are rarely precise — a pin saves the driver a call.",
+      co_loc_bad:"That does not look like a map link.",
       co_m_loc:"Location",
       del_driver:"Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.",
       del_driver_t:"About delivery",
@@ -2102,7 +2103,7 @@
       item5_qty:"12 حبة",
       item6_qty:"30 قطعة",
       item7_qty:"12 حبة",
-      spread_qty:"12 كوكيز · 40 مادلين صغيرة · كيكة واحدة",
+      spread_qty:"12 كوكيز · 40 مادلين صغيرة · كيكة خوخ مقلوبة",
       spread_name:"التشكيلة الكاملة",
       nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب",
       hero_eyebrow:"صناعة منزلية · الدوحة، قطر",
@@ -2156,7 +2157,7 @@
 
   var ORDER = {}, PRICES = {}, NAMES = {};
   var S = { date:null, slot:null, gift:false, occ:null, pay:null, src:null,
-            optin:false, spreadCookie:null, loc:null };
+            optin:false, spreadCookie:null, loc:null, locFromDevice:null };
 
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
@@ -2377,6 +2378,34 @@
   }
 
   /* ---------- point de localisation ---------- */
+  // accepte un lien Google Maps, un lien court, ou un simple couple de coordonnées
+  function readMapLink(v){
+    v = (v || '').trim();
+    if(!v) return null;
+    var c = v.match(/(-?\d{1,3}\.\d{3,}) *, *(-?\d{1,3}\.\d{3,})/);
+    if(c) return { kind: 'coords', value: c[1] + ',' + c[2] };
+    if(/^https?:\/\/(www\.)?(google\.[a-z.]+\/maps|maps\.google\.[a-z.]+|maps\.app\.goo\.gl|goo\.gl\/maps)/i.test(v))
+      return { kind: 'url', value: v };
+    return null;
+  }
+
+  (function(){
+    var link = $('locLink');
+    link.addEventListener('input', function(){
+      var r = readMapLink(link.value);
+      link.closest('.loc-else').classList.toggle('err', link.value.trim() !== '' && !r);
+      if(r){
+        S.loc = r.kind === 'coords' ? 'https://maps.google.com/?q=' + r.value : r.value;
+        $('locBtn').setAttribute('aria-pressed','false');
+        $('locTxt').textContent = T('co_loc');
+      } else if(link.value.trim() === '' && S.locFromDevice){
+        S.loc = S.locFromDevice;
+      } else if(!r){
+        S.loc = S.locFromDevice || null;
+      }
+    });
+  })();
+
   (function(){
     var b = $('locBtn'), txt = $('locTxt');
     b.addEventListener('click', function(){
@@ -2384,12 +2413,16 @@
       txt.textContent = T('co_loc_wait');
       b.disabled = true;
       navigator.geolocation.getCurrentPosition(function(p){
-        S.loc = p.coords.latitude.toFixed(6) + ',' + p.coords.longitude.toFixed(6);
+        S.locFromDevice = 'https://maps.google.com/?q='
+          + p.coords.latitude.toFixed(6) + ',' + p.coords.longitude.toFixed(6);
+        S.loc = S.locFromDevice;
+        $('locLink').value = '';
+        $('locLink').closest('.loc-else').classList.remove('err');
         txt.textContent = T('co_loc_on');
         b.setAttribute('aria-pressed','true');
         b.disabled = false;
       }, function(){
-        S.loc = null;
+        S.locFromDevice = null; S.loc = null;
         txt.textContent = T('co_loc_no');
         b.disabled = false;
       }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 });
@@ -2448,8 +2481,12 @@
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] > 0){
         var lbl = NAME(id);
-        if(QTY(id)) lbl += ' (' + QTY(id) + ')';
-        if(id === 'spread' && S.spreadCookie) lbl += ' (' + T(S.spreadCookie === 'nutella' ? 'item7_name' : 'item5_name') + ')';
+        // la Full Spread annonce le cookie choisi, pas son inventaire complet
+        if(id === 'spread'){
+          if(S.spreadCookie) lbl += ' (' + T(S.spreadCookie === 'nutella' ? 'item7_name' : 'item5_name') + ')';
+        } else if(QTY(id)){
+          lbl += ' (' + QTY(id) + ')';
+        }
         lines.push('• ' + lbl + ' ×' + ORDER[id] + ' — ' + (ORDER[id]*PRICES[id]) + ' ' + T('qr'));
       }
     });
@@ -2465,7 +2502,7 @@
     m.push(T('co_m_where') + ': ' + T('co_zoneno') + ' ' + $('fZone').value.trim()
            + ' \u00b7 ' + T('co_city') + ' ' + $('fCity').value.trim()
            + ' \u00b7 ' + T('co_house') + ' ' + $('fHouse').value.trim());
-    if(S.loc) m.push(T('co_m_loc') + ': https://maps.google.com/?q=' + S.loc);
+    if(S.loc) m.push(T('co_m_loc') + ': ' + S.loc);
     m.push(T('co_m_who') + ': ' + ($('fFirst').value.trim() ? $('fFirst').value.trim() + ' ' : '') + $('fName').value.trim());
     m.push(T('co_m_recv') + ': \u2066' + $('fPhone').value.trim() + '\u2069');
     if(S.gift){
