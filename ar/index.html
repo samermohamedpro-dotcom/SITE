@@ -764,6 +764,18 @@
   .pk-line.is-soldout{opacity:0.4;pointer-events:none;}
 
 
+  /* ================= CHIFFRES : lisibles avant d'être élégants =================
+     Playfair Display compose ses chiffres « à l'ancienne » : le 0 et le 2 à
+     hauteur d'x, le 3, le 5, le 7 et le 9 sous la ligne de base. Vérifié dans
+     le fichier de police lui-même — « 200 » se lit alors « 2oo ».
+     Sur un titre c'est un parti pris ; sur un PRIX, c'est une erreur de lecture.
+     La police porte bien le jeu de chiffres alignés : on le demande.
+     Lora, elle, est déjà alignée par défaut et sait aligner les colonnes. */
+  html{
+    font-variant-numeric:lining-nums;
+    font-feature-settings:'lnum' 1;
+  }
+
   /* ================= HERO : respiration + entrée en cascade ================= */
   .hero-content{padding-top:clamp(28px,6vh,64px);}
   .hero-eyebrow{
@@ -1876,6 +1888,7 @@
       <span class="fld-label">يوم التوصيل <span class="req">*</span></span>
       <div class="dates" id="dateRail"></div>
       <div class="sameday-warn" id="sameDayWarn">رسك “شبورة” وخبز الموز بالزبدة البنية يحتاجان وقتًا أطول للتحضير — المواعيد الأقرب غير متاحة لهما. احذفهما، أو اختر موعدًا لاحقًا.</div>
+      <div class="sameday-warn" id="quotaWarn">بعض التواريخ محجوزة بالكامل. اختر يومًا آخر.</div>
       <div class="err-msg">الرجاء اختيار اليوم.</div>
     </div>
 
@@ -2158,6 +2171,7 @@
       del_driver:"التوصيل يُرتّب مع السائق أو شركة التوصيل، ويُدفع لهم مباشرة. وهو منفصل عن هذا الطلب وغير مشمول في المبلغ أعلاه.",
       del_driver_t:"بخصوص التوصيل",
       sameday_note:"التوصيل في نفس اليوم متاح · اطلب قبل 3 PM",
+      quota_block:"بعض التواريخ محجوزة بالكامل. اختر يومًا آخر.",
       sameday_block:"رسك “شبورة” وخبز الموز بالزبدة البنية يحتاجان وقتًا أطول للتحضير — المواعيد الأقرب غير متاحة لهما. احذفهما، أو اختر موعدًا لاحقًا.",
       today:"اليوم",
       soldout:"غير متاح اليوم",
@@ -2252,6 +2266,10 @@
   // suffit pas : le panier doit refuser le produit quel que soit le chemin
   // emprunté pour l'y mettre.
   var INDISPONIBLES = {};
+  // Ce que le carnet de commandes interdit, jour par jour. Rempli par la
+  // lecture du document public ; vide tant que rien n'a été lu — et vide
+  // veut dire ouvert. Une panne de réseau ne ferme pas la boutique.
+  var QUOTAS = {};
   var S = { date:null, slot:null, gift:false, occ:null, pay:null, src:null,
             optin:false, spreadCookie:null, loc:null, locFromDevice:null };
 
@@ -2335,7 +2353,23 @@
     // panier demande plus de préparation
     return gap >= Math.max(CFG.minGap, leadNeeded());
   }
+  // Une journée pleine, ou pleine POUR CE PANIER.
+  //
+  // Un Banana Bread épuisé le 28 ne regarde que les paniers qui en
+  // contiennent un. Celle qui ne commande que des cookies ne doit pas voir
+  // sa date se griser à cause d'un produit qu'elle n'a pas pris — c'est la
+  // même règle que le délai de préparation, qui ne s'applique qu'au panier.
+  function jourPlein(iso){
+    var q = QUOTAS[iso];
+    if(!q) return false;
+    if(q.complet) return true;
+    for(var id in q.produits){
+      if(Object.prototype.hasOwnProperty.call(q.produits, id) && ORDER[id] > 0) return true;
+    }
+    return false;
+  }
   function dayOk(iso){
+    if(jourPlein(iso)) return false;
     for(var i = 0; i < CFG.slots.length; i++){ if(slotOk(iso, CFG.slots[i])) return true; }
     return false;
   }
@@ -2393,6 +2427,17 @@
     return false;
   }
 
+  // reste-t-il un jour fermé par le carnet ? Une case grise sans explication
+  // se lit comme une panne du site ; on dit donc qu'elle est prise.
+  function anyFull(){
+    var chips = $('dateRail').querySelectorAll('.date-chip');
+    for(var i = 0; i < chips.length; i++){
+      if(chips[i].classList.contains('closed')) continue;
+      if(jourPlein(chips[i].getAttribute('data-iso'))) return true;
+    }
+    return false;
+  }
+
   // gèle les jours qu'aucune heure ne peut plus servir, selon le panier
   function syncDates(){
     $('dateRail').querySelectorAll('.date-chip').forEach(function(chip){
@@ -2404,6 +2449,8 @@
       if(shut && S.date === iso){ S.date = null; chip.setAttribute('aria-pressed','false'); }
     });
     $('sameDayWarn').style.display = (blocked() && anyShut()) ? 'block' : 'none';
+    var qw = $('quotaWarn');
+    if(qw) qw.style.display = anyFull() ? 'block' : 'none';
     syncSlots();
   }
 
@@ -2751,6 +2798,7 @@
   // qui a le droit d'en sortir.
   (function(){
     var URL_CATALOGUE = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents/vitrine/catalogue";   // injectée par build.py, guillemets compris
+    var URL_DISPOS    = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents/vitrine/disponibilites";      // idem
     var COOKIES_DU_LOT = { choc:'item5', nutella:'item7', chamaral:'item8' };
 
     // Firestore répond en JSON typé : { "prix": { "integerValue": "200" } }
@@ -2837,7 +2885,31 @@
       if($('dateRail') && $('dateRail').children.length) syncDates();
     }
 
+    // Le carnet ne dit que des « non » : telle date est prise, tel produit
+    // l'est ce jour-là. Aucun compte n'y figure — savoir combien de commandes
+    // ils ont ce jeudi ne regarde pas une page publique.
+    function appliquerDispos(jours){
+      QUOTAS = {};
+      (jours || []).forEach(function(j){
+        if(!j || !j.date) return;
+        var produits = {};
+        (j.produits || []).forEach(function(c){ if(c) produits[c] = true; });
+        QUOTAS[j.date] = { complet: j.complet === true, produits: produits };
+      });
+      refresh();   // appelle paint(), qui resynchronise déjà le carrousel
+    }
+
     if(typeof fetch !== 'function') return;
+    try{
+      fetch(URL_DISPOS, { cache: 'no-store' })
+        .then(function(r){ return r && r.ok ? r.json() : null; })
+        .then(function(j){
+          var f = j && j.fields;
+          if(!f) return;
+          appliquerDispos(valeur(f.jours));
+        })
+        .catch(function(){ /* carnet illisible : on n'ouvre ni ne ferme rien */ });
+    }catch(e){ /* carnet illisible : on n'ouvre ni ne ferme rien */ }
     try{
       fetch(URL_CATALOGUE, { cache: 'no-store' })
         .then(function(r){ return r && r.ok ? r.json() : null; })
