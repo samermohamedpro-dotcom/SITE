@@ -25,7 +25,7 @@
 <link rel="preload" href="/fonts/amiri-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/img/hero-home-bakery-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" imagesizes="100vw">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src https://firestore.googleapis.com; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
 <style>
@@ -751,6 +751,17 @@
   }
   .sugg-i:last-child{border-bottom:0;}
   .sugg-i:hover,.sugg-i:focus{background:var(--cream);outline:none;}
+
+  /* ================= PRODUIT INDISPONIBLE =================
+     Posé par la lecture du catalogue : la fiche reste visible, mais
+     elle n'est plus commandable. */
+  .soldout{
+    font-family:'Lora',serif;font-size:0.85rem;color:#B3261E;
+    margin:6px 0 2px;
+  }
+  .menu-card.is-soldout .img-wrap{opacity:0.45;}
+  .menu-card.is-soldout .qty-row{opacity:0.4;pointer-events:none;}
+  .pk-line.is-soldout{opacity:0.4;pointer-events:none;}
 
 
   /* ================= HERO : respiration + entrée en cascade ================= */
@@ -2149,6 +2160,7 @@
       sameday_note:"التوصيل في نفس اليوم متاح · اطلب قبل 3 PM",
       sameday_block:"رسك “شبورة” وخبز الموز بالزبدة البنية يحتاجان وقتًا أطول للتحضير — المواعيد الأقرب غير متاحة لهما. احذفهما، أو اختر موعدًا لاحقًا.",
       today:"اليوم",
+      soldout:"غير متاح اليوم",
       co_err_day:"الرجاء اختيار اليوم.",
       co_err_slot:"الرجاء اختيار الوقت.",
       co_err_name:"الرجاء كتابة اسمك.",
@@ -2236,6 +2248,10 @@
 
 
   var ORDER = {}, PRICES = {}, NAMES = {};
+  // Produits déclarés en pause par le catalogue. Désactiver les boutons ne
+  // suffit pas : le panier doit refuser le produit quel que soit le chemin
+  // emprunté pour l'y mettre.
+  var INDISPONIBLES = {};
   var S = { date:null, slot:null, gift:false, occ:null, pay:null, src:null,
             optin:false, spreadCookie:null, loc:null, locFromDevice:null };
 
@@ -2261,6 +2277,7 @@
   });
 
   function bump(id, delta){
+    if(delta > 0 && INDISPONIBLES[id]) return;
     ORDER[id] = Math.max(0, ORDER[id] + delta);
     var row = document.querySelector('.qty-row[data-item="'+id+'"]');
     if(row) row.querySelector('.qty-val').textContent = ORDER[id];
@@ -2719,6 +2736,118 @@
     input.addEventListener('keydown', function(e){
       if(e.key === 'Escape' && open){ e.stopPropagation(); hide(); }
     });
+  })();
+
+  /* ---------- le catalogue publié par l'app ---------- */
+  //
+  // Règle absolue : cette page doit continuer de fonctionner si rien ne
+  // répond. Le menu écrit en dur reste la vérité affichée ; ce qui suit ne
+  // fait que la CORRIGER — prix, disponibilité, délai de préparation. Panne
+  // de Google, connexion faible, bloqueur de publicité : on ne touche à rien
+  // et la commande reste possible.
+  //
+  // Le document lu est public et anonyme. Aucune commande, aucune cliente,
+  // aucun coût n'y figure — c'est l'app qui décide, champ par champ, de ce
+  // qui a le droit d'en sortir.
+  (function(){
+    var URL_CATALOGUE = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents/vitrine/catalogue";   // injectée par build.py, guillemets compris
+    var COOKIES_DU_LOT = { choc:'item5', nutella:'item7', chamaral:'item8' };
+
+    // Firestore répond en JSON typé : { "prix": { "integerValue": "200" } }
+    function valeur(v){
+      if(!v || typeof v !== 'object') return null;
+      if('stringValue'  in v) return v.stringValue;
+      if('integerValue' in v) return Number(v.integerValue);
+      if('doubleValue'  in v) return Number(v.doubleValue);
+      if('booleanValue' in v) return v.booleanValue;
+      if('arrayValue'   in v) return ((v.arrayValue && v.arrayValue.values) || []).map(valeur);
+      if('mapValue'     in v){
+        var o = {}, f = (v.mapValue && v.mapValue.fields) || {};
+        for(var k in f){ if(Object.prototype.hasOwnProperty.call(f, k)) o[k] = valeur(f[k]); }
+        return o;
+      }
+      return null;
+    }
+
+    function ecrirePrix(id, prix){
+      var txt = prix + ' ' + T('qr');
+      var row = document.querySelector('.qty-row[data-item="' + id + '"]');
+      if(row){
+        row.setAttribute('data-price', prix);
+        var p = row.querySelector('.qty-price');
+        if(p) p.textContent = txt;
+        var carte = row.closest('.menu-card');
+        var badge = carte && carte.querySelector('.price-badge');
+        // la pastille contient « 200 <span>QR</span> » : on ne touche qu'au nombre
+        if(badge && badge.firstChild) badge.firstChild.nodeValue = prix + ' ';
+      }
+      var rail = document.querySelector('.pick [data-add="' + id + '"]');
+      var prixRail = rail && rail.closest('.pick-f') && rail.closest('.pick-f').querySelector('.pick-p');
+      if(prixRail) prixRail.textContent = txt;
+      var unit = document.querySelector('.pk-line[data-pk="' + id + '"] .pk-unit');
+      if(unit) unit.textContent = prix + ' ' + T('qr') + ' ' + T('each') + (QTY(id) ? ' · ' + QTY(id) : '');
+    }
+
+    function retirerDeLaVente(id){
+      INDISPONIBLES[id] = true;
+      ORDER[id] = 0;
+      var row = document.querySelector('.qty-row[data-item="' + id + '"]');
+      if(row){
+        row.querySelectorAll('.qty-btn').forEach(function(b){ b.disabled = true; });
+        var v = row.querySelector('.qty-val'); if(v) v.textContent = '0';
+        var carte = row.closest('.menu-card');
+        if(carte && !carte.querySelector('.soldout')){
+          carte.classList.add('is-soldout');
+          var e = document.createElement('div');
+          e.className = 'soldout'; e.textContent = T('soldout');
+          row.parentNode.insertBefore(e, row);
+        }
+      }
+      var ligne = document.querySelector('.pk-line[data-pk="' + id + '"]');
+      if(ligne){
+        ligne.classList.add('is-soldout');
+        ligne.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
+      }
+      var ajout = document.querySelector('.pick [data-add="' + id + '"]');
+      if(ajout) ajout.disabled = true;
+      // un cookie épuisé ne peut plus être choisi dans le lot
+      Object.keys(COOKIES_DU_LOT).forEach(function(cle){
+        if(COOKIES_DU_LOT[cle] !== id) return;
+        var chip = document.querySelector('#spreadCookie .chip[data-val="' + cle + '"]');
+        if(!chip) return;
+        chip.disabled = true; chip.classList.add('frozen');
+        if(S.spreadCookie === cle){ S.spreadCookie = null; chip.setAttribute('aria-pressed','false'); }
+      });
+    }
+
+    function appliquer(produits){
+      if(!produits || !produits.length) return;
+      produits.forEach(function(p){
+        var id = p && p.cle;
+        // « spread » n'existe pas dans l'app : son prix est composé sur le site.
+        // Le catalogue n'a donc pas à y toucher, même s'il contenait cette clé.
+        if(!id || id === 'spread' || !Object.prototype.hasOwnProperty.call(PRICES, id)) return;
+        var prix = Number(p.prix) || 0;
+        if(prix > 0 && prix !== PRICES[id]){ PRICES[id] = prix; ecrirePrix(id, prix); }
+        var delai = Number(p.delaiHeures) || 0;
+        if(delai > 0) CFG.lead[id] = delai; else delete CFG.lead[id];
+        if(p.disponible === false) retirerDeLaVente(id);
+      });
+      refresh();
+      if($('dateRail') && $('dateRail').children.length) syncDates();
+    }
+
+    if(typeof fetch !== 'function') return;
+    try{
+      fetch(URL_CATALOGUE, { cache: 'no-store' })
+        .then(function(r){ return r && r.ok ? r.json() : null; })
+        .then(function(j){
+          var f = j && j.fields;
+          if(!f) return;
+          appliquer(valeur(f.produits));
+        })
+        .catch(function(){ /* le menu de la page fait foi */ });
+    }catch(e){ /* le menu de la page fait foi */ }
   })();
 
   
