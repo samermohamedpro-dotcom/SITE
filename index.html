@@ -2283,7 +2283,22 @@
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
 
-  function NAME(id){ return T(id === 'spread' ? 'spread_name' : id + '_name'); }
+  // Un nom peut être renommé depuis l'app : le catalogue le remplace ici, et
+  // tout ce qui affiche un nom passe par cette fonction — carte, sélecteur,
+  // rail, panier, message. Une seule source, donc pas de moitié renommée.
+  var NOMS = {};
+  function NAME(id){
+    if(NOMS[id]) return NOMS[id];
+    return T(id === 'spread' ? 'spread_name' : id + '_name');
+  }
+  // Le cookie retenu dans le lot. La cliente doit le voir dans son panier,
+  // pas seulement dans le message qu'elle envoie — sinon rien ne lui confirme
+  // que son choix a été pris.
+  var COOKIE_DU_LOT = { choc:'item5', nutella:'item7', chamaral:'item8' };
+  function cookieChoisi(){
+    var id = S.spreadCookie && COOKIE_DU_LOT[S.spreadCookie];
+    return id ? NAME(id) : '';
+  }
   function QTY(id){ var k = id + '_qty'; var v = T(k); return v === k ? '' : v; }
 
   function L(){ return document.documentElement.lang === 'ar' ? 'ar' : 'en'; }
@@ -2531,8 +2546,9 @@
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] <= 0) return;
       var line = document.createElement('div'); line.className='cart-line';
+      var choix = (id === 'spread' && cookieChoisi()) ? ' (' + cookieChoisi() + ')' : '';
       line.innerHTML =
-        '<div class="cl-name">'+ NAME(id)
+        '<div class="cl-name">'+ NAME(id) + choix
       + (QTY(id) ? '<span class="cl-qty">' + QTY(id) + '</span>' : '')
       + '<span class="cl-sub">'+ ORDER[id] + ' \u00d7 ' + PRICES[id] +' '+T('qr')+'</span></div>'
       + '<div class="cl-step"><button type="button" data-a="dec">−</button><span>'+ORDER[id]+'</span><button type="button" data-a="inc">+</button></div>'
@@ -2696,8 +2712,7 @@
         var lbl = NAME(id);
         // la Full Spread annonce le cookie choisi, pas son inventaire complet
         if(id === 'spread'){
-          var COOKIE = { choc:'item5_name', nutella:'item7_name', chamaral:'item8_name' };
-          if(S.spreadCookie && COOKIE[S.spreadCookie]) lbl += ' (' + T(COOKIE[S.spreadCookie]) + ')';
+          if(cookieChoisi()) lbl += ' (' + cookieChoisi() + ')';
         } else if(QTY(id)){
           lbl += ' (' + QTY(id) + ')';
         }
@@ -2843,6 +2858,37 @@
       if(unit) unit.textContent = prix + ' ' + T('qr') + ' ' + T('each') + (QTY(id) ? ' · ' + QTY(id) : '');
     }
 
+    // Renommer un produit dans l'app le renomme ici : titre de la carte, nom
+    // arabe, rail, sélecteur — et, par `NOMS`, le panier et le message
+    // WhatsApp. Sans ce dernier point, la cliente commanderait un nom et
+    // l'app en lirait un autre : la ligne redeviendrait « non reconnue ».
+    function ecrireNom(id, nom, nomAr){
+      var page = document.documentElement.lang === 'ar' ? 'ar' : 'en';
+      var titre = page === 'ar' ? (nomAr || nom) : nom;
+      var second = page === 'ar' ? nom : nomAr;
+      if(!titre) return;
+      NOMS[id] = titre;
+
+      var h = document.querySelector('[data-i18n="' + id + '_name"]');
+      if(h){
+        h.textContent = titre;
+        var carte = h.closest('.menu-card');
+        var autre = carte && carte.querySelector('.arabic');
+        if(autre && second) autre.textContent = second;
+        var img = carte && carte.querySelector('img');
+        if(img) img.setAttribute('alt', titre);
+      }
+      var ajout = document.querySelector('.pick [data-add="' + id + '"]');
+      var carteRail = ajout && ajout.closest('.pick');
+      var nomRail = carteRail && carteRail.querySelector('.pick-n');
+      if(nomRail) nomRail.textContent = titre;
+      var imgRail = carteRail && carteRail.querySelector('img');
+      if(imgRail) imgRail.setAttribute('alt', titre);
+
+      var ligne = document.querySelector('.pk-line[data-pk="' + id + '"] .pk-name');
+      if(ligne && ligne.firstChild) ligne.firstChild.nodeValue = titre;
+    }
+
     function retirerDeLaVente(id){
       INDISPONIBLES[id] = true;
       ORDER[id] = 0;
@@ -2882,6 +2928,7 @@
         // « spread » n'existe pas dans l'app : son prix est composé sur le site.
         // Le catalogue n'a donc pas à y toucher, même s'il contenait cette clé.
         if(!id || id === 'spread' || !Object.prototype.hasOwnProperty.call(PRICES, id)) return;
+        if(p.nom || p.nomAr) ecrireNom(id, String(p.nom || ''), String(p.nomAr || ''));
         var prix = Number(p.prix) || 0;
         if(prix > 0 && prix !== PRICES[id]){ PRICES[id] = prix; ecrirePrix(id, prix); }
         var delai = Number(p.delaiHeures) || 0;
@@ -2949,6 +2996,7 @@
         host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
         c.setAttribute('aria-pressed','true');
         S.spreadCookie = c.getAttribute('data-val');
+        refresh();   // le panier doit confirmer le choix, pas seulement l'enregistrer
       });
     });
   })();
