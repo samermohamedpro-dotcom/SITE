@@ -776,6 +776,16 @@
     font-feature-settings:'lnum' 1;
   }
 
+  /* ================= DÉLAI : une information, pas un refus =================
+     Ce badge ne dit pas « indisponible ». Il dit quand c'est prêt. Il est
+     doré, pas rouge : on annonce, on n'interdit pas. */
+  .lead-badge{
+    display:inline-block;margin:0 0 6px;padding:3px 10px;border-radius:999px;
+    background:rgba(227,177,114,0.18);border:1px solid rgba(227,177,114,0.55);
+    color:var(--maroon-deep);font-family:'Lora',serif;
+    font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;
+  }
+
   /* ================= HERO : respiration + entrée en cascade ================= */
   .hero-content{padding-top:clamp(28px,6vh,64px);}
   .hero-eyebrow{
@@ -1660,7 +1670,8 @@
           <h3 data-i18n="item3_name">Brown Butter Banana Bread</h3>
           <div class="arabic">خبز الموز بالزبدة البنية</div>
           <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
-          <p class="qty-note">1 loaf</p>
+          <p class="lead-badge">Ready tomorrow</p>
+        <p class="qty-note">1 loaf</p>
         <div class="qty-row" data-item="item3" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1711,7 +1722,8 @@
           <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
           <div class="arabic">رسك "شبورة"</div>
           <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
-          <p class="qty-note">30 pieces</p>
+          <p class="lead-badge">Ready tomorrow</p>
+        <p class="qty-note">30 pieces</p>
         <div class="qty-row" data-item="item6" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1864,7 +1876,7 @@
     <div class="rules">
       <div class="rule">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span>Order 1 day ahead</span>
+        <span>Same day · before 3 PM</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
@@ -1894,7 +1906,7 @@
     <div class="fld">
       <span class="fld-label">Delivery day <span class="req">*</span></span>
       <div class="dates" id="dateRail"></div>
-      <div class="sameday-warn" id="sameDayWarn">Rusk “Shabora” and Brown Butter Banana Bread need more preparation time — the earliest slots are not available for them. Remove them, or choose a later slot.</div>
+      <div class="sameday-warn" id="sameDayWarn">Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.</div>
       <div class="sameday-warn" id="quotaWarn">Some dates are already fully booked. Pick another day.</div>
       <div class="err-msg">Please pick a day.</div>
     </div>
@@ -2098,7 +2110,8 @@
       order_items:"items",
       order_continue:"Continue",
       co_title:"Your order",
-      co_rule1:"Order 1 day ahead",
+      co_rule1:"Same day · before 3 PM",
+      lead_badge:"Ready tomorrow",
       co_rule2:"Closed Friday",
       co_rule3:"Delivery only",
       co_basket:"Your basket",
@@ -2179,7 +2192,7 @@
       del_driver_t:"About delivery",
       sameday_note:"Same-day delivery available · order before 3 PM",
       quota_block:"Some dates are already fully booked. Pick another day.",
-      sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread need more preparation time — the earliest slots are not available for them. Remove them, or choose a later slot.",
+      sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.",
       today:"Today",
       soldout:"Not available today",
       co_err_day:"Please pick a day.",
