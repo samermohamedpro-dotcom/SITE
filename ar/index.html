@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260827-2128">
+<meta name="pg-build" content="20260827-2143">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -766,6 +766,39 @@
   .menu-card.is-soldout .qty-row{opacity:0.4;pointer-events:none;}
   .pk-line.is-soldout{opacity:0.4;pointer-events:none;}
 
+
+  /* ================= FINS DE LIGNE ORPHELINES (ordinateur seulement) =========
+     Deux défauts de la même famille, invisibles sur téléphone :
+
+     — Le carrousel « nos choix » passait en grille de 4 au-delà de 1000 px.
+       Avec 5 cartes, la cinquième se retrouvait seule sur une deuxième ligne.
+       On garde le carrousel : c'est fluide, ça ne casse jamais, et une carte
+       qui dépasse invite à faire défiler au lieu de trouer la page.
+
+     — Le menu compte 8 produits (le lot prend toute la largeur). Sur trois
+       colonnes : 3 + 3 + 2, deux cartes seules en bas de page. Quatre colonnes
+       au-delà de 1200 px donnent deux lignes pleines.
+
+     Rien ici ne descend sous 900 px : le téléphone n'est pas concerné.
+     ========================================================================= */
+  @media(min-width:1000px){
+    .picks-rail{
+      display:flex;grid-template-columns:none;
+      overflow-x:auto;scroll-snap-type:x proximity;
+      scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+    }
+    .pick{flex:0 0 auto;width:min(24vw,270px);scroll-snap-align:start;}
+    /* le fondu de bord revient : il dit qu'il y a une suite */
+    .rail-wrap::after{display:block;}
+  }
+
+  @media(min-width:1200px){
+    .menu-grid{grid-template-columns:repeat(4,1fr);gap:28px;}
+  }
+
+  /* Le titre « what would you like » n'a plus d'objet quand tout est au panier. */
+  #pickerWrap.vide > .fld-label,
+  #pickerWrap.vide > .fld-help{display:none;}
 
   /* ================= CHIFFRES : lisibles avant d'être élégants =================
      Playfair Display compose ses chiffres « à l'ancienne » : le 0 et le 2 à
@@ -2537,10 +2570,23 @@
 
   /* ---------- rendu de la feuille ---------- */
   function paint(){
+    // Un produit déjà au panier disparaît de la liste du dessous : il y était
+    // affiché deux fois, avec deux fois les mêmes boutons. On l'ajuste
+    // là où il est ; à zéro, il revient se proposer.
+    var restants = 0;
     CATALOG.forEach(function(it){
-      var q = $('picker').querySelector('.pk-line[data-pk="' + it.id + '"] .pk-q');
+      var ligne = $('picker').querySelector('.pk-line[data-pk="' + it.id + '"]');
+      var q = ligne && ligne.querySelector('.pk-q');
       if(q) q.textContent = ORDER[it.id];
+      if(ligne){
+        var pris = ORDER[it.id] > 0;
+        ligne.style.display = pris ? 'none' : '';
+        if(!pris && !INDISPONIBLES[it.id]) restants++;
+      }
     });
+    // Plus rien à proposer : le titre et le conseil n'ont plus d'objet.
+    var titrePicker = $('pickerWrap');
+    if(titrePicker) titrePicker.classList.toggle('vide', restants === 0);
 
     var empty = count() === 0;
     $('cartEmpty').style.display = empty ? 'block' : 'none';
