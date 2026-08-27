@@ -2,6 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="pg-build" content="20260827-2128">
+<meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Petit Gâteau | مطبخ منزلي في الدوحة — كوكيز ومادلين وكيك</title>
 <meta name="description" content="لا محل، لا واجهة عرض — فقط مطبخ منزلي في الدوحة، حلويات بكميات صغيرة تصنعها أم تمنح وقتها للجميع. اطلب عبر واتساب، من السبت إلى الخميس.">
@@ -2750,8 +2753,74 @@
     if(S.optin) m.push('\u2713 ' + T('co_m_optin'));
     if(S.src) m.push(T('co_m_src') + ': ' + T('co_src' + ({instagram:'1',friend:'2',google:'3',before:'4'}[S.src])));
 
+    // La commande est déposée dans la boîte de l'app AVANT d'ouvrir WhatsApp.
+    // Elle n'attend rien : si le dépôt échoue, la cliente ne s'en aperçoit
+    // même pas et la commande part par WhatsApp comme avant. Le dépôt fait
+    // gagner une saisie, il ne porte jamais la vente.
+    deposer(m.join('\n'), sub);
     sendTo(m.join('\n'));
   });
+
+  /* ---------- dépôt de la commande dans la boîte de l'app ----------
+     Le site écrit dans une collection qu'il ne peut pas relire : il dépose,
+     il ne consulte rien. Ce qui est déposé est ce que la cliente vient
+     d'écrire elle-même — rien de plus, et champ par champ, jamais en bloc.
+
+     Ce n'est PAS une commande : c'est une proposition. Elle n'existe dans
+     l'agenda que lorsqu'une personne l'accepte dans l'app. Le pire cas d'un
+     dépôt malveillant est donc une ligne de plus à ignorer dans une boîte. */
+  var URL_ENTRANTES = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents/entrantes";
+  function txt(v){ return { stringValue: String(v == null ? '' : v) }; }
+  function num(v){ return { integerValue: String(Math.round(Number(v) || 0)) }; }
+
+  function deposer(message, total){
+    if(typeof fetch !== 'function' || !URL_ENTRANTES) return;
+    try{
+      var lignes = [];
+      Object.keys(ORDER).forEach(function(id){
+        if(ORDER[id] > 0){
+          lignes.push({ mapValue: { fields: {
+            cle: txt(id),
+            nom: txt(NAME(id)),
+            n: num(ORDER[id]),
+            prix: num(PRICES[id]),
+            variante: txt(id === 'spread' ? cookieChoisi() : ''),
+          } } });
+        }
+      });
+      if(!lignes.length) return;
+
+      var corps = { fields: {
+        recuLe: txt(new Date().toISOString()),
+        source: txt('site'),
+        langue: txt(L()),
+        etat: txt('nouvelle'),
+        total: num(total),
+        jour: txt(S.date || ''),
+        heure: txt(S.slot || ''),
+        message: txt(message),
+        lignes: { arrayValue: { values: lignes } },
+        client: { mapValue: { fields: {
+          prenom: txt($('fFirst').value.trim()),
+          nom: txt($('fName').value.trim()),
+          telephone: txt($('fPhone').value.trim()),
+          zone: txt($('fZone').value.trim()),
+          ville: txt($('fCity').value.trim()),
+          maison: txt($('fHouse').value.trim()),
+          note: txt($('fNote').value.trim()),
+          occasion: txt(S.occ || ''),
+          paiement: txt(S.pay || ''),
+          optin: { booleanValue: Boolean(S.optin) },
+        } } },
+      } };
+
+      fetch(URL_ENTRANTES, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(corps),
+      }).catch(function(){ /* la commande part quand même par WhatsApp */ });
+    }catch(e){ /* la commande part quand même par WhatsApp */ }
+  }
 
   /* ---------- suggestions de ville ---------- */
   // Le champ s'appuyait sur un <datalist> natif : rien ne s'affiche sur Safari
