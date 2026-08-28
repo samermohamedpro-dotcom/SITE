@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260828-0145">
+<meta name="pg-build" content="20260828-1820">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1388,6 +1388,54 @@
   .loc-else.err input{border-color:#B3261E;background:#FFF6F5;}
   .loc-else .err-msg{display:none;}
   .loc-else.err .err-msg{display:block;}
+
+  /* ================= LE PRIX À DROITE DU NOMBRE DE PIÈCES =================
+     Le prix était écrit une seconde fois dans la rangée de boutons. Sur une
+     demi-fiche il n'y tenait pas et cassait la rangée en trois lignes ; il
+     avait donc fallu le masquer sur téléphone, et le prix ne se lisait plus
+     qu'une fois, sur la photo.
+
+     Il est maintenant posé sur la ligne du nombre de pièces, qui était
+     presque vide. Les deux tiennent côte à côte à toutes les largeurs, et
+     les boutons gardent leurs 34 px de cible tactile.
+
+     « 200 » et « QR » sont liés par une espace insécable, et « 12 pieces »
+     ne se coupe pas : ce qui se lit ensemble reste ensemble. */
+  .menu-card .qty-note{
+    display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  }
+  .qty-note-t{white-space:nowrap;}
+  .qty-note-p{
+    flex:0 0 auto;white-space:nowrap;
+    font-family:'Playfair Display',serif;font-weight:700;font-size:0.95rem;
+    letter-spacing:0.01em;text-transform:none;
+    color:var(--maroon);unicode-bidi:isolate;
+  }
+  /* Le prix de la rangée de boutons disparaît partout : avec celui-ci et la
+     pastille sur la photo, il aurait été écrit trois fois sur la même fiche. */
+  .qty-price{display:none;}
+
+  /* ================= LES FICHES SE TERMINENT À LA MÊME HAUTEUR =============
+     Deux fiches côte à côte n'ont ni la même longueur de description ni le
+     même nombre de lignes — « Ready tomorrow » n'apparaît que sur deux
+     produits. Les compteurs se retrouvaient donc décalés d'une fiche à
+     l'autre, ce qui se voit immédiatement sur un menu à deux colonnes.
+
+     Le bloc « nombre de pièces + prix + boutons » est plaqué en bas de la
+     fiche : quelle que soit la hauteur du texte au-dessus, il tombe à la même
+     ligne partout. Même procédé que le carrousel, où `.pick-f` utilise déjà
+     `margin-top:auto`. */
+  .menu-card{display:flex;flex-direction:column;}
+  .menu-card .img-wrap{flex:0 0 auto;}
+  .menu-card-body{display:flex;flex-direction:column;flex:1 1 auto;}
+  .menu-card .qty-note{margin-top:auto;}
+
+  @media(max-width:560px){
+    /* Sur une demi-fiche, le prix descend d'un cran pour rester en dessous du
+       nom du produit dans la hiérarchie. */
+    .qty-note-p{font-size:0.8rem;}
+    .menu-card .qty-note{gap:8px;}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -1694,7 +1742,7 @@
       </article>
     </div></div>
     <div class="swipe-hint">Swipe for more</div>
-    <div class="picks-note reveal-up">Same-day delivery available · order before 3 PM</div>
+    <div class="picks-note reveal-up">Same-day delivery available · order before 3 PM</div>
   </div>
 </section>
 <section class="story" id="story">
@@ -1738,7 +1786,7 @@
           <h3 data-i18n="item1_name">Madeleine</h3>
           <div class="arabic">مادلين</div>
           <p class="desc" data-i18n="item1_desc">Classic shell-shaped sponge · dozen</p>
-          <p class="qty-note">12 pieces</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item1" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1755,7 +1803,7 @@
           <h3 data-i18n="item2_name">Petit Madeleine</h3>
           <div class="arabic">مادلين صغيرة</div>
           <p class="desc" data-i18n="item2_desc">Bite-size · 40 pieces</p>
-          <p class="qty-note">40 pieces</p>
+          <p class="qty-note"><span class="qty-note-t">40 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
         <div class="qty-row" data-item="item2" data-price="180">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1773,7 +1821,7 @@
           <div class="arabic">خبز الموز بالزبدة البنية</div>
           <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
           <p class="lead-badge">Ready tomorrow</p>
-        <p class="qty-note">1 loaf</p>
+        <p class="qty-note"><span class="qty-note-t">1 loaf</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
         <div class="qty-row" data-item="item3" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1790,7 +1838,7 @@
           <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
           <div class="arabic">كيكة الخوخ المقلوبة</div>
           <p class="desc" data-i18n="item4_desc">Caramelized peach, baked to order</p>
-          <p class="qty-note">1 cake</p>
+          <p class="qty-note"><span class="qty-note-t">1 cake</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
         <div class="qty-row" data-item="item4" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1807,7 +1855,7 @@
           <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
           <div class="arabic">كوكيز رقائق الشوكولاتة</div>
           <p class="desc" data-i18n="item5_desc">Dozen</p>
-          <p class="qty-note">12 pieces</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
         <div class="qty-row" data-item="item5" data-price="180">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1825,7 +1873,7 @@
           <div class="arabic">رسك "شبورة"</div>
           <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
           <p class="lead-badge">Ready tomorrow</p>
-        <p class="qty-note">30 pieces</p>
+        <p class="qty-note"><span class="qty-note-t">30 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item6" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1842,7 +1890,7 @@
           <h3 data-i18n="item7_name">Nutella Cookies</h3>
           <div class="arabic">كوكيز نوتيلا</div>
           <p class="desc" data-i18n="item7_desc">Soft-baked with a molten Nutella centre · dozen</p>
-          <p class="qty-note">12 pieces</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item7" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1859,7 +1907,7 @@
           <h3 data-i18n="item8_name">Chamaral Chocolate Chunk</h3>
           <div class="arabic">كوكيز شامارال بقطع الشوكولاتة</div>
           <p class="desc" data-i18n="item8_desc">Thick milk chocolate chunks, crackled tops · dozen</p>
-          <p class="qty-note">12 pieces</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item8" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1978,7 +2026,7 @@
     <div class="rules">
       <div class="rule">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span>Same day · before 3 PM</span>
+        <span>Same day · before 3 PM</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
@@ -2212,7 +2260,7 @@
       order_items:"items",
       order_continue:"Continue",
       co_title:"Your order",
-      co_rule1:"Same day · before 3 PM",
+      co_rule1:"Same day · before 3 PM",
       lead_badge:"Ready tomorrow",
       co_rule2:"Closed Friday",
       co_rule3:"Delivery only",
@@ -2292,7 +2340,7 @@
       co_m_loc:"Location",
       del_driver:"Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.",
       del_driver_t:"About delivery",
-      sameday_note:"Same-day delivery available · order before 3 PM",
+      sameday_note:"Same-day delivery available · order before 3 PM",
       quota_block:"Some dates are already fully booked. Pick another day.",
       sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.",
       today:"Today",
