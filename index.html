@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260828-0043">
+<meta name="pg-build" content="20260828-0145">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -320,7 +320,7 @@
   .menu-head .label{display:block;margin-bottom:14px;}
   .menu-head h2{font-size:clamp(2rem,4vw,2.8rem);}
   .menu-grid{
-    display:grid;grid-template-columns:repeat(4, 1fr);gap:36px;
+    display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:36px;
   }
   .menu-card{
     background:var(--cream);
@@ -501,11 +501,9 @@
 
   @media (max-width:860px){
     .nav-links{display:none;}
-    .menu-grid{grid-template-columns:repeat(2,1fr);}
     .visit-inner{grid-template-columns:1fr;}
   }
   @media (max-width:560px){
-    .menu-grid{grid-template-columns:1fr;}
     .story-frame{padding:44px 22px;}
     .hero{min-height:82vh;}
     .wa-float{width:52px;height:52px;bottom:18px;right:18px;}
@@ -779,10 +777,82 @@
        colonnes : 3 + 3 + 2, deux cartes seules en bas de page. Quatre colonnes
        au-delà de 1200 px donnent deux lignes pleines.
 
-     Rien ici ne descend sous 900 px : le téléphone n'est pas concerné.
+     Le seuil est à 980 px, pas plus bas : mesuré au navigateur, une fiche ne
+     peut pas descendre sous 213 px (les boutons + et − et le prix imposent ce
+     minimum), donc quatre colonnes réclament 967 px. À 861 px elles tenaient
+     sur le papier et débordaient la page sur le côté à l'écran.
+     En dessous de 980 px, deux colonnes — du plus petit téléphone à la
+     tablette. `minmax(0,1fr)` évite qu'un nom de produit très long repousse
+     à nouveau la page hors de l'écran.
      ========================================================================= */
-  @media(min-width:861px){
-    .menu-grid{grid-template-columns:repeat(4,1fr);gap:clamp(18px,2vw,28px);}
+  @media(min-width:980px){
+    .menu-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2vw,28px);}
+  }
+
+  /* ================= MENU SUR TÉLÉPHONE : DEUX FICHES PAR LIGNE ==============
+     Une fiche par ligne, c'est une fiche par écran : il faut faire défiler huit
+     fois pour voir le menu en entier, et on ne compare jamais deux produits.
+     Deux par ligne montrent le menu d'un coup. 8 se divise par 2 : aucune fiche
+     ne finit seule en bas.
+
+     La colonne « max-width:860px » du fichier de page donne déjà les deux
+     colonnes. Ce qui manquait, c'est le reste : la fiche perd la moitié de sa
+     largeur, et tout ce qui était calibré pour une pleine largeur déborde.
+     On redescend donc d'un cran le nom, le descriptif, la pastille de prix et
+     les boutons + et −. Mesuré à 320, 360 et 390 px, pas déduit.
+
+     Cette règle contredit volontairement la consigne « ne rien changer sur
+     téléphone » qui valait pour le carrousel : elle protégeait une mise en page
+     à une colonne qu'on vient de remplacer exprès.
+     ========================================================================== */
+  @media(max-width:560px){
+    .menu-grid{gap:12px;}
+    .menu-card-body{padding:13px 11px 15px;}
+    .menu-card h3{font-size:0.95rem;line-height:1.25;}
+    .menu-card .arabic{font-size:0.82rem;margin-bottom:6px;}
+    .menu-card p.desc{font-size:0.78rem;line-height:1.4;}
+    .menu-card .price-badge{font-size:0.74rem;padding:4px 8px;top:9px;right:9px;}
+    [dir="rtl"] .menu-card .price-badge{right:auto;left:9px;}
+    .menu-card .qty-note{font-size:0.7rem;letter-spacing:0.06em;margin-bottom:5px;}
+    /* Le prix écrit à côté des boutons répétait la pastille posée sur la photo,
+       à quinze centimètres au-dessus. Sur une fiche pleine largeur les deux
+       cohabitaient ; sur une demi-fiche il ne tenait plus sur la même ligne et
+       cassait la rangée de boutons en trois. Le prix reste affiché — une fois,
+       sur la photo — et les boutons gardent leur taille de doigt (34 px). */
+    .menu-card .qty-row{gap:8px;margin-top:10px;}
+    .menu-card .qty-price{display:none;}
+    /* « READY TOMORROW » tenait sur une ligne en pleine largeur ; sur une
+       demi-fiche il passait à deux et devenait le plus gros bloc de la fiche. */
+    .menu-card .lead-badge{font-size:0.62rem;letter-spacing:0.02em;padding:3px 8px;}
+  }
+  /* Sous 340 px (iPhone SE de 2016), les deux boutons et le compteur
+     réclament 110 px et n'en ont que 102 : le « + » tombait à la ligne.
+     Huit pixels manquants, repris sur la marge intérieure et l'écart. */
+  @media(max-width:340px){
+    .menu-card-body{padding:12px 8px 14px;}
+    .menu-card .qty-row{gap:5px;}
+  }
+
+  /* ================= LA BARRE DU HAUT DÉBORDAIT SUR TÉLÉPHONE ===============
+     Mesuré en passant : « Petit Gâteau » + « العربية » + « ORDER ON WHATSAPP »
+     réclament 436 px côte à côte, et les trois refusent de passer à la ligne.
+     Sur un téléphone de 360 ou 390 px, la page se décale donc de 46 à 76 px
+     vers la droite : on peut la faire glisser latéralement, la barre dépasse,
+     et c'était vrai bien avant le menu à deux colonnes.
+     On ne touche ni aux mots ni aux couleurs : juste le corps et les marges,
+     jusqu'à ce que les trois tiennent dans 320 px. Vérifié au navigateur.
+     ========================================================================= */
+  @media(max-width:560px){
+    nav .container{padding:13px 16px;gap:10px;}
+    .nav-mark{font-size:1.05rem;}
+    .lang-toggle{padding:7px 10px;font-size:0.7rem;letter-spacing:0.03em;}
+    .nav-cta{padding:9px 12px;font-size:0.68rem;letter-spacing:0.04em;}
+  }
+  @media(max-width:390px){
+    nav .container{padding:12px 12px;gap:8px;}
+    .nav-mark{font-size:0.95rem;}
+    .lang-toggle{padding:6px 8px;font-size:0.7rem;letter-spacing:0.02em;}
+    .nav-cta{padding:8px 9px;font-size:0.62rem;letter-spacing:0.01em;}
   }
 
   /* Le titre « what would you like » n'a plus d'objet quand tout est au panier. */
