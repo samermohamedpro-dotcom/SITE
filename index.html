@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260827-2143">
+<meta name="pg-build" content="20260828-0043">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -320,7 +320,7 @@
   .menu-head .label{display:block;margin-bottom:14px;}
   .menu-head h2{font-size:clamp(2rem,4vw,2.8rem);}
   .menu-grid{
-    display:grid;grid-template-columns:repeat(3, 1fr);gap:36px;
+    display:grid;grid-template-columns:repeat(4, 1fr);gap:36px;
   }
   .menu-card{
     background:var(--cream);
@@ -781,19 +781,8 @@
 
      Rien ici ne descend sous 900 px : le téléphone n'est pas concerné.
      ========================================================================= */
-  @media(min-width:1000px){
-    .picks-rail{
-      display:flex;grid-template-columns:none;
-      overflow-x:auto;scroll-snap-type:x proximity;
-      scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
-    }
-    .pick{flex:0 0 auto;width:min(24vw,270px);scroll-snap-align:start;}
-    /* le fondu de bord revient : il dit qu'il y a une suite */
-    .rail-wrap::after{display:block;}
-  }
-
-  @media(min-width:1200px){
-    .menu-grid{grid-template-columns:repeat(4,1fr);gap:28px;}
+  @media(min-width:861px){
+    .menu-grid{grid-template-columns:repeat(4,1fr);gap:clamp(18px,2vw,28px);}
   }
 
   /* Le titre « what would you like » n'a plus d'objet quand tout est au panier. */
@@ -1214,9 +1203,16 @@
     display:flex;flex-direction:column;
   }
   @media(min-width:700px){ .pick{width:min(30vw,240px);} }
+  /* Le carrousel RESTE un carrousel sur ordinateur.
+     Il passait en grille de 4 au-delà de 1000 px : avec 5 cartes, la
+     cinquième se retrouvait seule sur une deuxième ligne. Une grille à
+     nombre fixe casse dès que le nombre de produits change ; un carrousel,
+     jamais. Et une carte qui dépasse invite à faire défiler. */
   @media(min-width:1000px){
-    .picks-rail{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;}
-    .pick{width:auto;}
+    .picks-rail{display:flex;grid-template-columns:none;overflow-x:auto;}
+    .pick{flex:0 0 auto;width:min(24vw,270px);}
+    /* le fondu de bord revient : il dit qu'il y a une suite */
+    .rail-wrap::after{display:block;}
   }
   .pick-b{
     padding:18px 16px 20px;text-align:center;flex:1;
