@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260828-1820">
+<meta name="pg-build" content="20260828-1834">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1307,13 +1307,11 @@
     width:40px;top:0;bottom:16px;
     background:linear-gradient(to right, rgba(250,246,236,0) 0%, var(--cream) 78%);
   }
-  .rail-wrap::before{
-    content:"";position:absolute;top:0;bottom:16px;inset-inline-end:40px;width:26px;
-    pointer-events:none;z-index:2;
-    background:linear-gradient(to right, rgba(94,22,34,0) 0%, rgba(94,22,34,0.10) 100%);
-  }
-  [dir="rtl"] .rail-wrap::before{background:linear-gradient(to left, rgba(94,22,34,0) 0%, rgba(94,22,34,0.10) 100%);}
-  @media(min-width:1000px){ .rail-wrap::before,.rail-wrap::after{display:none;} }
+  /* Il y avait ici un SECOND voile, bordeaux, posé par-dessus le voile crème
+     à 40 px du bord. Superposés, les deux ne se lisaient pas comme une
+     profondeur mais comme une salissure verticale en travers de la carte
+     suivante. Un seul voile suffit, et « Swipe for more » dit le reste. */
+  @media(min-width:1000px){ .rail-wrap::after{display:none;} }
 
   /* ================= ADRESSE AU FORMAT QATARI ================= */
   .addr-grid{
@@ -1435,6 +1433,42 @@
        nom du produit dans la hiérarchie. */
     .qty-note-p{font-size:0.8rem;}
     .menu-card .qty-note{gap:8px;}
+  }
+
+  /* ================= LE CARROUSEL SUR TÉLÉPHONE =================
+     Une carte occupait 474 px de haut sur un écran de 844 : 56 % de l'écran
+     pour un seul produit, et il faut encore faire défiler pour voir le prix.
+     Un carrousel est une vitrine qu'on parcourt, pas une fiche qu'on lit.
+
+     Trois leviers, du plus au moins visible :
+       · la photo passe de 4/5 à un carré  — c'est là qu'est la hauteur ;
+       · la description et le filet doré disparaissent — ils font le charme
+         d'une fiche qu'on lit, et le menu, juste en dessous, les redonne
+         en entier ;
+       · le bloc de texte se resserre.
+
+     Le nom garde sa hauteur minimale de deux lignes : sans elle, « Madeleine »
+     et « Chamaral Chocolate Chunk » décalent tout ce qui suit d'une carte à
+     l'autre — le défaut qu'on vient de corriger sur les fiches du menu. */
+  @media(max-width:700px){
+    .pick{width:min(60vw,220px);}
+    .pick-img{aspect-ratio:1/1;}
+    .pick-b{padding:13px 12px 15px;}
+    .pick-n{font-size:0.92rem;min-height:2.4em;margin:0 0 4px;}
+    .pick-q{font-size:0.64rem;min-height:1.2em;margin:0 0 9px;}
+    .pick-d,.pick-rule{display:none;}
+    .pick-f{gap:10px;}
+    .pick-p{font-size:1rem;}
+    .pick-add{width:34px;height:34px;}
+    .pick-add span{font-size:1.15rem;}
+    /* Le voile de bord, seul et plus discret. */
+    .rail-wrap::after{
+      width:30px;bottom:18px;
+      background:linear-gradient(to right, rgba(250,246,236,0) 0%, var(--cream) 92%);
+    }
+    [dir="rtl"] .rail-wrap::after{
+      background:linear-gradient(to left, rgba(250,246,236,0) 0%, var(--cream) 92%);
+    }
   }
 </style>
 <script type="application/ld+json">
