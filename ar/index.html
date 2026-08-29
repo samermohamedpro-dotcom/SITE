@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260829-1749">
+<meta name="pg-build" content="20260829-2254">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1488,6 +1488,11 @@
       background:linear-gradient(to left, rgba(250,246,236,0) 0%, var(--cream) 92%);
     }
   }
+
+  /* La ligne secondaire d'une fiche disparaît quand elle répète le titre —
+     voir ecrireNom. La règle de base lui donne un `display`, qui l'emporterait
+     sinon sur l'attribut `hidden`. */
+  .menu-card .arabic[hidden]{display:none;}
 </style>
 <script type="application/ld+json">
 {
@@ -3274,7 +3279,18 @@
         h.textContent = titre;
         var carte = h.closest('.menu-card');
         var autre = carte && carte.querySelector('.arabic');
-        if(autre && second) autre.textContent = second;
+        // La ligne secondaire montre « l'autre langue ». Mais dès qu'on laisse
+        // un nom tel quel — « Nutella Cookies » ne se traduit pas, et c'est le
+        // bon choix — les deux langues portent le MÊME mot, et la fiche
+        // affichait le titre deux fois, l'un sous l'autre. C'était le cas de
+        // cinq fiches sur huit en ligne le 29/08.
+        //
+        // Une ligne qui répète le titre n'apprend rien : elle disparaît.
+        if(autre){
+          var montrer = Boolean(second) && second.trim() !== '' && second.trim() !== titre.trim();
+          autre.textContent = montrer ? second : '';
+          autre.hidden = !montrer;
+        }
         var img = carte && carte.querySelector('img');
         if(img) img.setAttribute('alt', titre);
       }
