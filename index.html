@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260829-1729">
+<meta name="pg-build" content="20260829-1749">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -763,6 +763,24 @@
   .menu-card.is-soldout .img-wrap{opacity:0.45;}
   .menu-card.is-soldout .qty-row{opacity:0.4;pointer-events:none;}
   .pk-line.is-soldout{opacity:0.4;pointer-events:none;}
+
+  /* ================= LA RARETÉ, QUAND ELLE EST VRAIE =================
+     Elle ne s'affiche que si le carnet dit qu'il reste 3 places ou moins.
+     Au-dessus, rien : une rareté annoncée en permanence n'est plus une
+     information, c'est une technique — et elle s'use. */
+  .date-chip i{
+    display:block;font-style:normal;font-size:0.56rem;line-height:1.3;
+    margin-top:3px;letter-spacing:0.02em;color:var(--gold);font-weight:600;
+  }
+  .date-chip[aria-pressed="true"] i{color:var(--cream);}
+  .scarce{
+    margin:10px 0 0;font-family:'Lora',serif;font-size:0.88rem;
+    color:var(--gold);letter-spacing:0.02em;
+  }
+  .scarce::before{
+    content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--gold);margin-inline-end:8px;vertical-align:middle;
+  }
 
 
   /* ================= FINS DE LIGNE ORPHELINES (ordinateur seulement) =========
@@ -1784,6 +1802,8 @@
     <div class="menu-head reveal">
       <span class="label" data-i18n="menu_label">Baked Fresh, Saturday–Thursday</span>
       <h2 data-i18n="menu_title">Menu</h2>
+    
+      <p class="scarce" id="scarce" hidden></p>
     </div>
     <div class="menu-grid">
       <div class="menu-card reveal">
@@ -2253,6 +2273,8 @@
       item7_qty:"12 pieces",
       item8_qty:"12 pieces",
       spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
+      rare_left:"%s left",
+      rare_line:"Only %s left for %s",
       spread_name:"The Full Spread",
       nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp",
       hero_eyebrow:"Home-Baked · Doha, Qatar",
@@ -2375,6 +2397,8 @@
       del_driver:"Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.",
       del_driver_t:"About delivery",
       sameday_note:"Same-day delivery available · order before 3 PM",
+      rare_left:"%s left",
+      rare_line:"Only %s left for %s",
       quota_block:"Some dates are already fully booked. Pick another day.",
       sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.",
       today:"Today",
@@ -2409,6 +2433,8 @@
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
       spread_qty:"12 كوكيز · 40 مادلين صغيرة · كيكة خوخ مقلوبة",
+      rare_left:"باقي %s",
+      rare_line:"باقي %s فقط ليوم %s",
       spread_name:"التشكيلة الكاملة",
       nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب",
       hero_eyebrow:"صناعة منزلية · الدوحة، قطر",
@@ -2500,6 +2526,12 @@
 
   function L(){ return document.documentElement.lang === 'ar' ? 'ar' : 'en'; }
   function T(k){ var d=translations[L()]; return (d && d[k]) || (translations.en[k]||k); }
+  // Remplace les %s dans l'ordre. Les nombres et les dates restent en
+  // chiffres et en mois anglais dans les deux langues, comme partout ici.
+  function TF(k){
+    var a = Array.prototype.slice.call(arguments, 1), i = 0;
+    return T(k).replace(/%s/g, function(){ return a[i++]; });
+  }
 
   /* ---------- panier ---------- */
   document.querySelectorAll('.qty-row').forEach(function(row){
@@ -2660,6 +2692,36 @@
   }
 
   // gèle les jours qu'aucune heure ne peut plus servir, selon le panier
+  /* ---------- la ligne « il reste N places », sous le titre du menu ----------
+     Elle doit s'afficher SANS que le tunnel soit ouvert : le carrousel de
+     dates n'est construit qu'à l'ouverture, on ne peut donc pas s'appuyer
+     dessus. On refait ici la même énumération des journées proposées —
+     heure limite, jour de fermeture — et on réutilise dayOk(), qui porte
+     déjà toutes les autres règles (journée pleine, produit au plafond,
+     délai de préparation).
+
+     Si rien n'est tendu, la ligne reste masquée. Une rareté annoncée en
+     permanence cesse d'être une information et devient une technique. */
+  function peindreRarete(){
+    var ligne = $('scarce');
+    if(!ligne) return;
+    var now = qatarNow();
+    var depart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if(now.getHours() >= CFG.cutoffHour) depart.setDate(depart.getDate() + 1);
+
+    var trouve = null;
+    for(var i = 0; i < CFG.railDays && !trouve; i++){
+      var d = new Date(depart); d.setDate(depart.getDate() + i);
+      if(d.getDay() === CFG.closedWeekday) continue;
+      var iso = isoOf(d), q = QUOTAS[iso];
+      if(q && q.restantes && dayOk(iso)) trouve = { d: d, n: q.restantes };
+    }
+    if(!trouve){ ligne.hidden = true; return; }
+    ligne.textContent = TF('rare_line', trouve.n,
+      trouve.d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' }));
+    ligne.hidden = false;
+  }
+
   function syncDates(){
     $('dateRail').querySelectorAll('.date-chip').forEach(function(chip){
       if(chip.classList.contains('closed')) return;
@@ -2668,7 +2730,17 @@
       chip.disabled = shut;
       chip.classList.toggle('frozen', shut);
       if(shut && S.date === iso){ S.date = null; chip.setAttribute('aria-pressed','false'); }
+
+      // La pastille de rareté, au moment même du choix.
+      var q = QUOTAS[iso], reste = (!shut && q && q.restantes) || 0;
+      var mark = chip.querySelector('i');
+      if(reste){
+        if(!mark){ mark = document.createElement('i'); chip.appendChild(mark); }
+        mark.textContent = TF('rare_left', reste);
+      }else if(mark){ mark.remove(); }
     });
+
+    peindreRarete();
     $('sameDayWarn').style.display = (blocked() && anyShut()) ? 'block' : 'none';
     var qw = $('quotaWarn');
     if(qw) qw.style.display = anyFull() ? 'block' : 'none';
@@ -3283,9 +3355,15 @@
         if(!j || !j.date) return;
         var produits = {};
         (j.produits || []).forEach(function(c){ if(c) produits[c] = true; });
-        QUOTAS[j.date] = { complet: j.complet === true, produits: produits };
+        // `restantes` n'existe QUE sur les journées tendues : l'app ne le
+        // publie pas au-dessus de 3. Son absence ne veut donc pas dire
+        // « plein », elle veut dire « il reste de la place ».
+        var q = { complet: j.complet === true, produits: produits };
+        if(typeof j.restantes === 'number' && j.restantes > 0) q.restantes = j.restantes;
+        QUOTAS[j.date] = q;
       });
       refresh();   // appelle paint(), qui resynchronise déjà le carrousel
+      peindreRarete();
     }
 
     if(typeof fetch !== 'function') return;
