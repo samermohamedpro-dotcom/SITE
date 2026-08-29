@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260828-1834">
+<meta name="pg-build" content="20260829-1729">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1779,31 +1779,6 @@
     <div class="picks-note reveal-up">Same-day delivery available · order before 3 PM</div>
   </div>
 </section>
-<section class="story" id="story">
-  <div class="container">
-    <div class="story-frame reveal">
-      <span class="label" data-i18n="story_label">Our Story</span>
-      <p data-i18n="story_p1">She spends her days making sure no one around her is missing anything. Her children. Her home. Everyone else, first.</p>
-      <p class="em" data-i18n="story_p2">Baking is the one thing she does just for her.</p>
-      <div class="rule"></div>
-      <p data-i18n="story_p3">People kept tasting it, and asking her to make it again. Family. Friends. Then friends of friends. So she stopped saying no.</p>
-      <p class="em" data-i18n="story_p4">Not a business plan. Not made to scale. Just something rare, made by someone who still finds an hour that belongs to no one but her.</p>
-      <div class="signature">Petit Gâteau</div>
-    </div>
-  </div>
-</section>
-
-<section class="sourcing">
-  <div class="container">
-    <div class="sourcing-inner reveal">
-      <span class="label" data-i18n="sourcing_label">Our Ingredients</span>
-      <h2 data-i18n="sourcing_title">How We Source</h2>
-      <p data-i18n="sourcing_p1">What started in our home kitchen is still made there: small batches, by hand, with ingredients we'd happily put on our own table.</p>
-      <p class="em" data-i18n="sourcing_p2">We hold every ingredient to the same standard: organic, high quality, nothing we'd hesitate to use ourselves. If we can't source it that way, we don't make it.</p>
-    </div>
-  </div>
-</section>
-
 <section class="menu" id="menu">
   <div class="container">
     <div class="menu-head reveal">
@@ -1977,6 +1952,31 @@
           <button class="qty-btn" data-action="inc" aria-label="+">+</button>
         <span class="qty-price" dir="ltr">590 QR</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="container">
+    <div class="story-frame reveal">
+      <span class="label" data-i18n="story_label">Our Story</span>
+      <p data-i18n="story_p1">She spends her days making sure no one around her is missing anything. Her children. Her home. Everyone else, first.</p>
+      <p class="em" data-i18n="story_p2">Baking is the one thing she does just for her.</p>
+      <div class="rule"></div>
+      <p data-i18n="story_p3">People kept tasting it, and asking her to make it again. Family. Friends. Then friends of friends. So she stopped saying no.</p>
+      <p class="em" data-i18n="story_p4">Not a business plan. Not made to scale. Just something rare, made by someone who still finds an hour that belongs to no one but her.</p>
+      <div class="signature">Petit Gâteau</div>
+    </div>
+  </div>
+</section>
+
+<section class="sourcing">
+  <div class="container">
+    <div class="sourcing-inner reveal">
+      <span class="label" data-i18n="sourcing_label">Our Ingredients</span>
+      <h2 data-i18n="sourcing_title">How We Source</h2>
+      <p data-i18n="sourcing_p1">What started in our home kitchen is still made there: small batches, by hand, with ingredients we'd happily put on our own table.</p>
+      <p class="em" data-i18n="sourcing_p2">We hold every ingredient to the same standard: organic, high quality, nothing we'd hesitate to use ourselves. If we can't source it that way, we don't make it.</p>
     </div>
   </div>
 </section>
@@ -2515,6 +2515,8 @@
 
   function bump(id, delta){
     if(delta > 0 && INDISPONIBLES[id]) return;
+    // Le premier article ajouté : c'est là que l'intention devient visible.
+    if(delta > 0) mesurer(['paniers']);
     ORDER[id] = Math.max(0, ORDER[id] + delta);
     var row = document.querySelector('.qty-row[data-item="'+id+'"]');
     if(row) row.querySelector('.qty-val').textContent = ORDER[id];
@@ -2959,6 +2961,7 @@
     // même pas et la commande part par WhatsApp comme avant. Le dépôt fait
     // gagner une saisie, il ne porte jamais la vente.
     deposer(m.join('\n'), sub);
+    mesurer(['commandes']);
     sendTo(m.join('\n'));
   });
 
@@ -3022,6 +3025,62 @@
       }).catch(function(){ /* la commande part quand même par WhatsApp */ });
     }catch(e){ /* la commande part quand même par WhatsApp */ }
   }
+
+  /* ---------- la mesure ----------
+     Trois compteurs, un document par jour. AUCUNE donnée personnelle : pas
+     d'identifiant, pas de cookie, rien qui permette de reconnaître quelqu'un
+     ni de le suivre d'un site à l'autre. C'est pour cette raison qu'aucun
+     bandeau de consentement n'est nécessaire — et c'est une raison de fond,
+     pas une commodité : on ne mesure que des totaux.
+
+     Ce que ça répond, et que personne ne savait jusqu'ici : combien de
+     personnes arrivent, combien ouvrent un panier, combien commandent. Sans
+     ces trois nombres, décider d'un budget publicitaire revient à piloter à
+     l'aveugle — on ne saurait dire si une campagne a amené du monde qui n'a
+     pas commandé, ou personne du tout. Ce sont deux pannes opposées, et
+     elles se corrigent de façons opposées.
+
+     Un document par jour dont on incrémente les compteurs, plutôt qu'un
+     document par visite : trente lignes par mois à relire au lieu de
+     plusieurs milliers.
+
+     La mesure n'attend rien et ne bloque rien. Si elle échoue, la cliente ne
+     s'en aperçoit pas et sa commande suit exactement le même chemin. */
+  var URL_MESURES = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents:commit", DOC_MESURES = "projects/petit-gateau-ab7de/databases/(default)/documents/mesures/";
+  var dejaMesure = {};
+
+  function mesurer(champs){
+    if(typeof fetch !== 'function' || !URL_MESURES || !champs.length) return;
+    if(dejaMesure[champs[0]]) return;
+    dejaMesure[champs[0]] = true;
+    // Une visite est une visite, pas un rechargement : le drapeau survit à un
+    // F5 dans le même onglet et disparaît quand l'onglet se ferme.
+    try{
+      var cle = 'pg-mesure-' + champs[0];
+      if(sessionStorage.getItem(cle)) return;
+      sessionStorage.setItem(cle, '1');
+    }catch(e){ /* navigation privée : on compte une fois par page, tant pis */ }
+    try{
+      var jour = isoOf(qatarNow());
+      fetch(URL_MESURES, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({ writes: [{
+          update: { name: DOC_MESURES + jour, fields: { jour: { stringValue: jour } } },
+          updateMask: { fieldPaths: ['jour'] },
+          updateTransforms: champs.map(function(c){
+            return { fieldPath: c, increment: { integerValue: '1' } };
+          }),
+        }] }),
+      }).catch(function(){});
+    }catch(e){}
+  }
+
+  // La visite. La page arabe compte deux fois : dans le total et dans son
+  // propre compteur — c'est la seule façon de savoir si « l'arabe d'abord »
+  // se vérifie sur le trafic réel.
+  mesurer(L() === 'ar' ? ['vues', 'vuesAr'] : ['vues']);
 
   /* ---------- suggestions de ville ---------- */
   // Le champ s'appuyait sur un <datalist> natif : rien ne s'affiche sur Safari
