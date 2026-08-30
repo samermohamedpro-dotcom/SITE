@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260829-2254">
+<meta name="pg-build" content="20260830-0414">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3091,10 +3091,34 @@
       fetch(URL_ENTRANTES, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        // La cliente bascule vers WhatsApp dans la foulée. Sur iPhone, ce
+        // basculement gèle la page, et une requête en vol peut être
+        // abandonnée sans que personne ne l'apprenne. `keepalive` engage le
+        // navigateur à l'envoyer quand même. `mesurer` l'avait déjà ; le
+        // dépôt, qui porte la commande, ne l'avait pas.
+        keepalive: true,
         body: JSON.stringify(corps),
-      }).catch(function(){ /* la commande part quand même par WhatsApp */ });
-    }catch(e){ /* la commande part quand même par WhatsApp */ }
+      }).then(function(r){
+        // Un refus de règles (403) ou un quota dépassé (429) renvoient une
+        // RÉPONSE, pas une erreur : `catch` ne se déclenche pas. Sans ce
+        // contrôle, le pire cas — plus aucune commande n'arrive dans l'app —
+        // est parfaitement silencieux.
+        if(!r || !r.ok) rate();
+      }).catch(function(){ rate(); });
+    }catch(e){ rate(); }
   }
+
+  /* Un dépôt raté se compte, dans une AUTRE collection que celle qui vient
+     d'échouer. Ce que ça couvre : une règle, un champ ou un quota qui bloque
+     `entrantes` seule — le cas le plus probable, et aujourd'hui invisible.
+     Ce que ça ne couvre pas, et c'est assumé : une panne totale de Firestore,
+     où ce compteur échoue aussi. Aucun compteur écrit dans la base ne peut
+     signaler que la base est fermée.
+
+     La commande n'est jamais perdue pour autant : elle part par WhatsApp, et
+     l'app sait recoller un message collé à la main. Ce qui manquait n'était
+     pas le rattrapage, c'était de SAVOIR qu'il fallait rattraper. */
+  function rate(){ incrementer(['depotsRates']); }
 
   /* ---------- la mesure ----------
      Trois compteurs, un document par jour. AUCUNE donnée personnelle : pas
@@ -3119,17 +3143,11 @@
   var URL_MESURES = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents:commit", DOC_MESURES = "projects/petit-gateau-ab7de/databases/(default)/documents/mesures/";
   var dejaMesure = {};
 
-  function mesurer(champs){
+  // L'écriture nue : chaque appel compte pour un. C'est ce qu'il faut pour
+  // les échecs de dépôt — deux échecs dans la même visite sont deux échecs,
+  // et les fondre en un seul cacherait précisément ce qu'on cherche à voir.
+  function incrementer(champs){
     if(typeof fetch !== 'function' || !URL_MESURES || !champs.length) return;
-    if(dejaMesure[champs[0]]) return;
-    dejaMesure[champs[0]] = true;
-    // Une visite est une visite, pas un rechargement : le drapeau survit à un
-    // F5 dans le même onglet et disparaît quand l'onglet se ferme.
-    try{
-      var cle = 'pg-mesure-' + champs[0];
-      if(sessionStorage.getItem(cle)) return;
-      sessionStorage.setItem(cle, '1');
-    }catch(e){ /* navigation privée : on compte une fois par page, tant pis */ }
     try{
       var jour = isoOf(qatarNow());
       fetch(URL_MESURES, {
@@ -3145,6 +3163,21 @@
         }] }),
       }).catch(function(){});
     }catch(e){}
+  }
+
+  // Le même compteur, mais une seule fois par visite : une visite est une
+  // visite, pas un rechargement. Le drapeau survit à un F5 dans le même
+  // onglet et disparaît quand l'onglet se ferme.
+  function mesurer(champs){
+    if(!champs.length) return;
+    if(dejaMesure[champs[0]]) return;
+    dejaMesure[champs[0]] = true;
+    try{
+      var cle = 'pg-mesure-' + champs[0];
+      if(sessionStorage.getItem(cle)) return;
+      sessionStorage.setItem(cle, '1');
+    }catch(e){ /* navigation privée : on compte une fois par page, tant pis */ }
+    incrementer(champs);
   }
 
   // La visite. La page arabe compte deux fois : dans le total et dans son
