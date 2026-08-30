@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260830-0414">
+<meta name="pg-build" content="20260830-1838">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1493,6 +1493,30 @@
      voir ecrireNom. La règle de base lui donne un `display`, qui l'emporterait
      sinon sur l'attribut `hidden`. */
   .menu-card .arabic[hidden]{display:none;}
+
+  /* ================= LE CARROUSEL DOIT SE DEVINER =================
+     Sur téléphone, la bannière occupait tout l'écran : « Our picks »
+     tombait à 823 px pour une hauteur visible de 812, et la première carte
+     à 877. Mesuré au navigateur sur 375×812. Une page qui semble finir
+     après la bannière ne donne aucune raison de faire défiler — et c'est
+     le carrousel qui fait entrer dans le menu.
+
+     On ne touche pas à la bannière sur grand écran : elle porte la marque,
+     et là-bas le carrousel est déjà visible. Ces réglages sont pour le
+     téléphone seulement, et ils viennent en fin de feuille pour l'emporter
+     sur les règles générales sans avoir à forcer leur poids. */
+  @media (max-width:560px){
+    .hero{min-height:64vh;}
+    .hero-content{padding-bottom:26px;}
+    .hero-content h1{font-size:2.05rem;line-height:1.1;}
+    .hero-content > p{font-size:1rem;margin-top:15px;}
+    .hero-eyebrow{margin-bottom:14px;}
+    .hero-mark{margin-top:14px;}
+    .hero-actions{margin-top:20px;}
+    .hero-actions .btn{padding-top:13px;padding-bottom:13px;}
+    .picks{padding-top:22px;}
+    .picks-head{margin-bottom:18px;}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -1733,6 +1757,19 @@
     </div>
     <div class="rail-wrap reveal-up"><div class="picks-rail">
       <article class="pick">
+        <div class="pick-img"><img src="/img/rusk-shabora-doha.webp" alt="Rusk "Shabora"" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-b">
+          <h3 class="pick-n">Rusk "Shabora"</h3>
+          <p class="pick-q">30 pieces</p>
+          <p class="pick-d">Crisp, twice-baked</p>
+          <div class="pick-rule"></div>
+          <div class="pick-f">
+            <span class="pick-p" dir="ltr">200 QR</span>
+            <button type="button" class="pick-add" data-add="item6" aria-label="Add"><span>+</span></button>
+          </div>
+        </div>
+      </article>
+      <article class="pick">
         <div class="pick-img"><img src="/img/nutella-cookies-doha.webp" alt="Nutella Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
           <h3 class="pick-n">Nutella Cookies</h3>
@@ -1967,7 +2004,7 @@
           <div class="chips" id="spreadCookie">
             <button type="button" class="chip" data-val="choc">Chocolate Chip Cookies</button>
             <button type="button" class="chip" data-val="nutella">Nutella Cookies</button>
-            <button type="button" class="chip" data-val="chamaral">Chamaral Chocolate Chunk</button>
+            <button type="button" class="chip" data-val="chamaral">Choco Chunk</button>
           </div>
         </div>
         <p class="qty-note">12 cookies · 40 petit madeleines · 1 upside-down peach cake</p>
@@ -3266,7 +3303,6 @@
   (function(){
     var URL_CATALOGUE = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents/vitrine/catalogue";   // injectée par build.py, guillemets compris
     var URL_DISPOS    = "https://firestore.googleapis.com/v1/projects/petit-gateau-ab7de/databases/(default)/documents/vitrine/disponibilites";      // idem
-    var COOKIES_DU_LOT = { choc:'item5', nutella:'item7', chamaral:'item8' };
 
     // Firestore répond en JSON typé : { "prix": { "integerValue": "200" } }
     function valeur(v){
@@ -3313,6 +3349,17 @@
       var second = page === 'ar' ? nom : nomAr;
       if(!titre) return;
       NOMS[id] = titre;
+
+      // Les trois pastilles du choix de cookie, dans le Full Spread, portaient
+      // leur nom ÉCRIT EN DUR. Le 30/08/2026 la fiche produit affichait
+      // « Choco Chunk » — nom venu du catalogue — et la pastille, sur la même
+      // page, « Chamaral Chocolate Chunk ». Deux noms pour le même cookie,
+      // dont un que l'app ne connaissait plus.
+      for(var cleLot in COOKIE_DU_LOT){
+        if(COOKIE_DU_LOT[cleLot] !== id) continue;
+        var pastille = document.querySelector('#spreadCookie .chip[data-val="' + cleLot + '"]');
+        if(pastille) pastille.textContent = titre;
+      }
 
       var h = document.querySelector('[data-i18n="' + id + '_name"]');
       if(h){
@@ -3368,8 +3415,8 @@
       var ajout = document.querySelector('.pick [data-add="' + id + '"]');
       if(ajout) ajout.disabled = true;
       // un cookie épuisé ne peut plus être choisi dans le lot
-      Object.keys(COOKIES_DU_LOT).forEach(function(cle){
-        if(COOKIES_DU_LOT[cle] !== id) return;
+      Object.keys(COOKIE_DU_LOT).forEach(function(cle){
+        if(COOKIE_DU_LOT[cle] !== id) return;
         var chip = document.querySelector('#spreadCookie .chip[data-val="' + cle + '"]');
         if(!chip) return;
         chip.disabled = true; chip.classList.add('frozen');
@@ -3391,8 +3438,36 @@
         if(delai > 0) CFG.lead[id] = delai; else delete CFG.lead[id];
         if(p.disponible === false) retirerDeLaVente(id);
       });
+      rangerLeRail(produits);
       refresh();
       if($('dateRail') && $('dateRail').children.length) syncDates();
+    }
+
+    /* L'ordre du carrousel suivait la liste écrite en dur dans build2.py.
+       Samer a mis « ordre 1 » sur le Shabora dans l'app et rien n'a bougé :
+       le champ `ordre` était publié par l'app et lu par personne. Un réglage
+       qui ne fait rien est pire qu'un réglage absent — on le change, on
+       constate que ça ne marche pas, et on cesse de faire confiance au reste.
+
+       Les cartes restent écrites dans la page (photo, texte, référencement) ;
+       seul leur ORDRE suit maintenant le catalogue. Une carte dont le produit
+       n'est pas au catalogue garde sa place d'origine, à la fin. */
+    function rangerLeRail(produits){
+      var rail = document.querySelector('.picks-rail');
+      if(!rail) return;
+      var rang = {};
+      produits.forEach(function(p){
+        if(p && p.cle && Number.isFinite(Number(p.ordre))) rang[p.cle] = Number(p.ordre);
+      });
+      var cartes = [].slice.call(rail.querySelectorAll('.pick'));
+      if(cartes.length < 2) return;
+      var avec = cartes.map(function(c, i){
+        var b = c.querySelector('[data-add]');
+        var cle = b && b.getAttribute('data-add');
+        return { el: c, place: i, rang: (cle && rang[cle] != null) ? rang[cle] : Infinity };
+      });
+      avec.sort(function(a, b){ return (a.rang - b.rang) || (a.place - b.place); });
+      avec.forEach(function(x){ rail.appendChild(x.el); });
     }
 
     // Le carnet ne dit que des « non » : telle date est prise, tel produit
