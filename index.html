@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260830-2341">
+<meta name="pg-build" content="20260902-1212">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3141,6 +3141,74 @@
     sendTo(m.join('\n'));
   });
 
+  /* ---------- d'où vient la visite : les paramètres UTM ----------
+     Trois paramètres posés par les publicités : utm_source, utm_medium,
+     utm_campaign. Ils ne disent RIEN de la personne — ils disent quelle
+     ANNONCE a été cliquée. Aucun identifiant, aucun cookie, rien qui
+     permette de reconnaître quelqu'un ni de le suivre d'un site à l'autre :
+     c'est pour cette raison qu'ils ne relèvent pas du bandeau de
+     consentement, au même titre que les compteurs.
+
+     Ils sont lus à l'arrivée et gardés le temps de l'onglet. C'est
+     indispensable : la cliente lit la page, passe à l'arabe — le sélecteur
+     de langue pointe vers « /ar/ » et perd donc les paramètres de l'URL —,
+     revient, puis commande. Sans cette mémoire, l'attribution serait perdue
+     au premier clic, et on ne saurait toujours pas quelle publicité paie.
+
+     Le dernier vu l'emporte, et EN BLOC. Deux raisons :
+       — les tableaux de bord Snap et Instagram comptent eux aussi le
+         dernier clic ; garder le premier ferait diverger deux chiffres
+         censés parler de la même chose ;
+       — remplacer champ par champ mélangerait la source d'une annonce avec
+         la campagne d'une autre, et fabriquerait une ligne qui n'a jamais
+         existé. Une visite vient d'UNE annonce, ou d'aucune.
+
+     Une URL sans UTM ne remplace rien : la navigation interne ne doit pas
+     effacer l'origine de la visite. */
+  var UTM_CLE = 'pg-utm';
+
+  // Tout ce qui arrive par l'URL vient de n'importe qui. On retire les
+  // caractères de contrôle (un retour à la ligne suffirait à disloquer un
+  // texte qui les afficherait un jour) et on borne la longueur — 80, la
+  // même valeur que dans les règles Firestore, qui refusent au-delà. On ne
+  // filtre PAS sur un alphabet : une campagne peut être nommée en arabe, et
+  // la réduire à l'ASCII la viderait en silence.
+  function utmPropre(v){
+    return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 80);
+  }
+
+  // Lecture à la main plutôt que URLSearchParams : quatre lignes, et aucune
+  // question de compatibilité. Une valeur mal encodée (« %zz ») fait lever
+  // decodeURIComponent — elle ne doit pas emporter le reste de la page.
+  function parametre(nom){
+    var m = String(location.search || '').match(new RegExp('[?&]' + nom + '=([^&]*)'));
+    if(!m) return '';
+    try{ return decodeURIComponent(m[1].replace(/\+/g, ' ')); }catch(e){ return ''; }
+  }
+
+  var UTM = (function(){
+    var vide = { utmSource: '', utmMedium: '', utmCampaign: '' };
+    var lu = {
+      utmSource:   utmPropre(parametre('utm_source')),
+      utmMedium:   utmPropre(parametre('utm_medium')),
+      utmCampaign: utmPropre(parametre('utm_campaign')),
+    };
+    var porteQuelqueChose = Boolean(lu.utmSource || lu.utmMedium || lu.utmCampaign);
+    try{
+      if(porteQuelqueChose){ sessionStorage.setItem(UTM_CLE, JSON.stringify(lu)); return lu; }
+      var garde = JSON.parse(sessionStorage.getItem(UTM_CLE) || '{}');
+      return {
+        utmSource:   utmPropre(garde.utmSource),
+        utmMedium:   utmPropre(garde.utmMedium),
+        utmCampaign: utmPropre(garde.utmCampaign),
+      };
+    }catch(e){
+      // Navigation privée, ou stockage refusé : la visite garde son origine
+      // tant qu'elle reste sur cette page, et la commande part quand même.
+      return porteQuelqueChose ? lu : vide;
+    }
+  })();
+
   /* ---------- dépôt de la commande dans la boîte de l'app ----------
      Le site écrit dans une collection qu'il ne peut pas relire : il dépose,
      il ne consulte rien. Ce qui est déposé est ce que la cliente vient
@@ -3174,6 +3242,11 @@
         recuLe: txt(new Date().toISOString()),
         source: txt('site'),
         langue: txt(L()),
+        // D'où vient la visite. Vides quand personne n'a cliqué de publicité :
+        // le champ existe toujours, sa valeur dit « on ne sait pas ».
+        utmSource: txt(UTM.utmSource),
+        utmMedium: txt(UTM.utmMedium),
+        utmCampaign: txt(UTM.utmCampaign),
         etat: txt('nouvelle'),
         total: num(total),
         jour: txt(S.date || ''),
