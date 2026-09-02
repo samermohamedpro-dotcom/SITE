@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260902-1212">
+<meta name="pg-build" content="20260902-2236">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1021,7 +1021,32 @@
   [dir="rtl"] .picks-note{letter-spacing:0;text-transform:none;font-size:0.85rem;}
 
   /* ================= FULL SPREAD ================= */
-  .spread-price{margin-top:18px;}
+  /* ================= CE QU'IL Y A DANS LA BOÎTE =================
+     La composition ne vivait que dans une petite note grise sous le pas-à-pas
+     de quantité : on lisait « 590 QR » sans savoir ce qu'on achetait, et un
+     coffret qu'on ne comprend pas ne se commande pas. Elle passe AVANT le
+     prix, et chaque ligne porte son nombre en gros — c'est le nombre qui
+     donne envie, pas la phrase.
+
+     Une grille à deux colonnes plutôt qu'une puce : les nombres s'alignent,
+     et 12 / 40 / 1 se comparent d'un coup d'œil. Les filets séparent sans
+     encadrer — on garde une liste, pas un tableau de caractéristiques. */
+  .spread-inside{margin-top:22px;}
+  .spread-inside ul{list-style:none;margin:10px 0 0;padding:0;}
+  .spread-inside li{
+    display:grid;grid-template-columns:2.6em 1fr;align-items:baseline;gap:14px;
+    padding:9px 0;border-top:1px solid rgba(94,22,34,0.12);
+  }
+  .spread-inside li:first-child{border-top:0;padding-top:0;}
+  .spread-inside li b{
+    font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;
+    line-height:1;color:var(--deep-maroon);text-align:right;unicode-bidi:isolate;
+  }
+  [dir="rtl"] .spread-inside li b{text-align:left;}
+  .spread-inside li span{font-family:'Lora',serif;font-size:0.98rem;color:var(--maroon);}
+  [dir="rtl"] .spread-inside li span{font-family:'Amiri',serif;font-size:1.05rem;}
+
+  .spread-price{margin-top:22px;}
   .spread-price b{
     font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:800;
     line-height:1;color:var(--deep-maroon);unicode-bidi:isolate;display:inline-block;
@@ -1856,7 +1881,7 @@
       </article>
     </div></div>
     <div class="swipe-hint">Swipe for more</div>
-    <div class="picks-note reveal-up">Same-day delivery available · order before 3 PM</div>
+    <div class="picks-note reveal-up">Same-day delivery available · order before 5 PM</div>
   </div>
 </section>
 <section class="menu" id="menu">
@@ -2015,9 +2040,17 @@
     <div class="spread-inner reveal">
       <img src="/img/full-spread-dessert-box-doha.webp" alt="Dessert box of homemade cookies, madeleines and peach cake in Doha" width="1300" height="1207" decoding="async" loading="lazy">
       <div class="spread-text">
-        <span class="label" data-i18n="spread_label">The Offer</span>
-        <h2 data-i18n="spread_title">The Full Spread</h2>
-        <p data-i18n="spread_desc">Can't choose? Neither can we. A little of everything — cookies, madeleines, and the peach cake — boxed together for the table.</p>
+        <span class="label" data-i18n="spread_label">Taste Everything</span>
+        <h2 data-i18n="spread_title">The Discovery Box</h2>
+        <p data-i18n="spread_desc">Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.</p>
+        <div class="spread-inside">
+          <span class="fld-label">What’s in the box</span>
+          <ul>
+            <li><b dir="ltr">12</b><span>cookies</span></li>
+            <li><b dir="ltr">40</b><span>petit madeleines</span></li>
+            <li><b dir="ltr">1</b><span>upside-down peach cake</span></li>
+          </ul>
+        </div>
         <div class="spread-price"><b dir="ltr">590 QR</b><em>Delivered with our compliments</em></div>
         <div class="fld" style="margin:20px 0 0;">
           <span class="fld-label">Choose your cookie</span>
@@ -2027,7 +2060,6 @@
             <button type="button" class="chip" data-val="chamaral">Choco Chunk</button>
           </div>
         </div>
-        <p class="qty-note">12 cookies · 40 petit madeleines · 1 upside-down peach cake</p>
         <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
           <button class="qty-btn" data-action="dec" aria-label="-">−</button>
           <span class="qty-val">0</span>
@@ -2152,7 +2184,7 @@
     <div class="rules">
       <div class="rule">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span>Same day · before 3 PM</span>
+        <span>Same day · before 5 PM</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
@@ -2190,15 +2222,13 @@
     <div class="fld">
       <span class="fld-label">Time <span class="req">*</span></span>
       <div class="chips" id="slotChips">
-        <button type="button" class="chip" data-val="9">9 AM</button>
-        <button type="button" class="chip" data-val="10">10 AM</button>
-        <button type="button" class="chip" data-val="11">11 AM</button>
         <button type="button" class="chip" data-val="12">12 PM</button>
         <button type="button" class="chip" data-val="13">1 PM</button>
         <button type="button" class="chip" data-val="14">2 PM</button>
         <button type="button" class="chip" data-val="15">3 PM</button>
         <button type="button" class="chip" data-val="16">4 PM</button>
         <button type="button" class="chip" data-val="17">5 PM</button>
+        <button type="button" class="chip" data-val="18">6 PM</button>
       </div>
       <div class="err-msg">Please pick a time.</div>
     </div>
@@ -2347,7 +2377,7 @@
       spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
-      spread_name:"The Full Spread",
+      spread_name:"The Discovery Box",
       nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp",
       hero_eyebrow:"Home-Baked · Doha, Qatar",
       hero_title:"The hour she keeps<br>for herself.",
@@ -2373,8 +2403,8 @@
       item8_name:"Chamaral Chocolate Chunk", item8_desc:"Thick milk chocolate chunks, crackled tops · dozen",
       order_items:"items", order_send:"Send Order via WhatsApp",
       order_greeting:"Hi! I'd like to order:", order_total:"Total",
-      spread_label:"The Offer", spread_title:"The Full Spread",
-      spread_desc:"Can't choose? Neither can we. A little of everything — cookies, madeleines, and the peach cake — boxed together for the table.",
+      spread_label:"Taste Everything", spread_title:"The Discovery Box",
+      spread_desc:"Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.",
       spread_btn:"Ask on WhatsApp",
       visit_label:"Ordering", visit_title:"Made to order, delivered to you.",
       visit_p1:"Everything is baked at home the day it reaches you — nothing sits waiting on a shelf. There is no shop and no counter: we deliver across Qatar, and every order starts with a message.",
@@ -2388,22 +2418,20 @@
       order_items:"items",
       order_continue:"Continue",
       co_title:"Your order",
-      co_rule1:"Same day · before 3 PM",
+      co_rule1:"Same day · before 5 PM",
       lead_badge:"Ready tomorrow",
       co_rule2:"Closed Friday",
       co_rule3:"Delivery only",
       co_basket:"Your basket",
       co_day:"Delivery day",
       co_slot:"Time",
-      co_slot_9:"9 AM",
-      co_slot_10:"10 AM",
-      co_slot_11:"11 AM",
       co_slot_12:"12 PM",
       co_slot_13:"1 PM",
       co_slot_14:"2 PM",
       co_slot_15:"3 PM",
       co_slot_16:"4 PM",
       co_slot_17:"5 PM",
+      co_slot_18:"6 PM",
       co_city:"City",
       co_city_h:"Start typing, we suggest",
       co_total:"Total",
@@ -2447,6 +2475,7 @@
       item7_qty:"12 pieces",
       item8_qty:"12 pieces",
       spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
+      spread_inside:"What’s in the box",
       swipe:"Swipe for more",
       co_addr:"Where do we deliver?",
       co_zoneno:"Zone",
@@ -2468,7 +2497,7 @@
       co_m_loc:"Location",
       del_driver:"Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.",
       del_driver_t:"About delivery",
-      sameday_note:"Same-day delivery available · order before 3 PM",
+      sameday_note:"Same-day delivery available · order before 5 PM",
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
       quota_block:"Some dates are already fully booked. Pick another day.",
@@ -2504,10 +2533,10 @@
       item6_qty:"30 قطعة",
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
-      spread_qty:"12 كوكيز · 40 مادلين صغيرة · كيكة خوخ مقلوبة",
+      spread_qty:"12 كوكيز · 40 مادلين صغيرة · 1 كيكة خوخ مقلوبة",
       rare_left:"باقي %s",
       rare_line:"باقي %s فقط ليوم %s",
-      spread_name:"التشكيلة الكاملة",
+      spread_name:"صندوق الاكتشاف",
       nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب",
       hero_eyebrow:"صناعة منزلية · الدوحة، قطر",
       hero_title:"الساعة التي تحتفظ بها لنفسها.",
@@ -2533,8 +2562,8 @@
       item8_name:"كوكيز شامارال بقطع الشوكولاتة", item8_desc:"قطع كبيرة من شوكولاتة الحليب، بسطح متشقّق · 12 حبة",
       order_items:"عناصر", order_send:"إرسال الطلب عبر واتساب",
       order_greeting:"مرحبًا! أرغب بطلب:", order_total:"المجموع",
-      spread_label:"العرض", spread_title:"التشكيلة الكاملة",
-      spread_desc:"لا تستطيع الاختيار؟ نحن أيضًا. القليل من كل شيء — كوكيز، مادلين، وكيكة الخوخ — معًا في صندوق واحد لطاولتك.",
+      spread_label:"تذوّق كل شيء", spread_title:"صندوق الاكتشاف",
+      spread_desc:"لا تستطيع الاختيار؟ نحن أيضًا. أفضل ما نخبزه في صندوق واحد — يكفي للمشاركة، ولاكتشاف ما تفضّله.",
       spread_btn:"اسأل عبر واتساب",
       visit_label:"الطلب", visit_title:"يُخبز حسب الطلب، ويصل إليك.",
       visit_p1:"كل شيء يُخبز في المنزل يوم وصوله إليك — لا شيء ينتظر على الرفوف. لا يوجد محل ولا واجهة: نوصل في جميع أنحاء قطر، وكل طلب يبدأ برسالة.",
@@ -2553,11 +2582,15 @@
   var CFG = {
     wa: '97450040617',
     tz: 3,                   // le Qatar est à UTC+3 toute l'année, sans changement d'heure
-    cutoffHour: 15,          // au-delà, le jour même n'est plus proposé
-    minGap: 0.75,            // 45 min de battement minimum, quel que soit le produit
+    // Au-delà, le jour même n'est plus proposé. Suit la fermeture : refuser
+    // toute commande du jour dès 15 h alors qu'on livre jusqu'à 18 h fermait
+    // la boutique trois heures avant l'heure. À 17 h il reste le créneau de
+    // 18 h, avec le battement d'une heure ci-dessous.
+    cutoffHour: 17,
+    minGap: 1,               // 1 h de battement minimum, quel que soit le produit
     closedWeekday: 5,        // 5 = vendredi
     railDays: 16,
-    slots: [9, 10, 11, 12, 13, 14, 15, 16, 17],        // heures pleines, injectées depuis strings.py
+    slots: [12, 13, 14, 15, 16, 17, 18],        // heures pleines, injectées depuis strings.py
     lead: { item3: 18, item6: 18 },  // heures minimum entre la commande et la livraison
     cities: [["Doha", "الدوحة"], ["Al Rayyan", "الريان"], ["Al Wakrah", "الوكرة"], ["Al Wukair", "الوكير"], ["Lusail", "لوسيل"], ["Al Daayen", "الظعاين"], ["Umm Salal", "أم صلال"], ["Al Khor", "الخور"], ["Al Thakhira", "الذخيرة"], ["Simaisma", "سميسمة"], ["Al Shahaniya", "الشحانية"], ["Mesaieed", "مسيعيد"], ["Dukhan", "دخان"], ["Al Shamal", "الشمال"], ["Ras Laffan", "راس لفان"]]       // [nom anglais, nom arabe]
   };
