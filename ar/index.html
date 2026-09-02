@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260902-2236">
+<meta name="pg-build" content="20260902-2326">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3604,31 +3604,48 @@
       if($('dateRail') && $('dateRail').children.length) syncDates();
     }
 
-    /* L'ordre du carrousel suivait la liste écrite en dur dans build2.py.
-       Samer a mis « ordre 1 » sur le Shabora dans l'app et rien n'a bougé :
-       le champ `ordre` était publié par l'app et lu par personne. Un réglage
-       qui ne fait rien est pire qu'un réglage absent — on le change, on
-       constate que ça ne marche pas, et on cesse de faire confiance au reste.
+    /* L'ordre suivait la liste écrite en dur dans build2.py. Samer a mis
+       « ordre 1 » sur le Shabora dans l'app et rien n'a bougé : le champ
+       `ordre` était publié par l'app et lu par personne. Un réglage qui ne
+       fait rien est pire qu'un réglage absent — on le change, on constate que
+       ça ne marche pas, et on cesse de faire confiance au reste.
 
-       Les cartes restent écrites dans la page (photo, texte, référencement) ;
-       seul leur ORDRE suit maintenant le catalogue. Une carte dont le produit
-       n'est pas au catalogue garde sa place d'origine, à la fin. */
-    function rangerLeRail(produits){
-      var rail = document.querySelector('.picks-rail');
-      if(!rail) return;
+       Il range DEUX listes : le carrousel de sélections et les cartes du
+       menu. Une seule fonction pour les deux, et ce n'est pas de l'élégance :
+       du 30/08 au 02/09, seul le rail suivait le catalogue. On réglait
+       `ordre`, la moitié de la page bougeait, l'autre non — plus déroutant
+       encore qu'un réglage inerte, parce qu'on croyait qu'il marchait.
+
+       Les cartes restent ÉCRITES dans la page (photo, texte, prix de repli) :
+       c'est ce que Google lit, et ce qu'une cliente sans réseau voit. Seul
+       leur ORDRE bouge. Une carte dont le produit n'est pas au catalogue garde
+       sa place d'origine, à la fin. */
+    function rangerParOrdre(hote, carte, cleDe, produits){
+      var conteneur = document.querySelector(hote);
+      if(!conteneur) return;
       var rang = {};
       produits.forEach(function(p){
         if(p && p.cle && Number.isFinite(Number(p.ordre))) rang[p.cle] = Number(p.ordre);
       });
-      var cartes = [].slice.call(rail.querySelectorAll('.pick'));
+      var cartes = [].slice.call(conteneur.querySelectorAll(carte));
       if(cartes.length < 2) return;
       var avec = cartes.map(function(c, i){
-        var b = c.querySelector('[data-add]');
-        var cle = b && b.getAttribute('data-add');
+        var cle = cleDe(c);
         return { el: c, place: i, rang: (cle && rang[cle] != null) ? rang[cle] : Infinity };
       });
       avec.sort(function(a, b){ return (a.rang - b.rang) || (a.place - b.place); });
-      avec.forEach(function(x){ rail.appendChild(x.el); });
+      avec.forEach(function(x){ conteneur.appendChild(x.el); });
+    }
+
+    function rangerLeRail(produits){
+      rangerParOrdre('.picks-rail', '.pick', function(c){
+        var b = c.querySelector('[data-add]');
+        return b && b.getAttribute('data-add');
+      }, produits);
+      rangerParOrdre('.menu-grid', '.menu-card', function(c){
+        var q = c.querySelector('.qty-row');
+        return q && q.getAttribute('data-item');
+      }, produits);
     }
 
     // Le carnet ne dit que des « non » : telle date est prise, tel produit
