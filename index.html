@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-0922">
+<meta name="pg-build" content="20260903-1112">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Petit Gâteau | Home Bakery in Doha — Cookies, Madeleines &amp; Cakes</title>
-<meta name="description" content="Home-baked madeleines, cookies and cakes in Doha, Qatar. Small batches, made to order in a home kitchen — not a shop. Order on WhatsApp, Saturday to Thursday.">
-<link rel="canonical" href="https://petit-gateau.com/">
+<title>Petit Gâteau | مطبخ منزلي في الدوحة — كوكيز ومادلين وكيك</title>
+<meta name="description" content="لا محل، لا واجهة عرض — فقط مطبخ منزلي في الدوحة، حلويات بكميات صغيرة تصنعها أم تمنح وقتها للجميع. اطلب عبر واتساب، من السبت إلى الخميس.">
+<link rel="canonical" href="https://petit-gateau.com/ar/">
 <link rel="alternate" hreflang="en" href="https://petit-gateau.com/">
 <link rel="alternate" hreflang="ar" href="https://petit-gateau.com/ar/">
 <link rel="alternate" hreflang="x-default" href="https://petit-gateau.com/">
@@ -18,16 +18,21 @@
 <meta name="geo.placename" content="Doha">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Petit Gâteau">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ar_QA">
-<meta property="og:title" content="Petit Gâteau | Home Bakery in Doha">
+<meta property="og:locale" content="ar_QA">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="Petit Gâteau | مطبخ منزلي في الدوحة">
 <meta property="og:description" content="Home-baked madeleines, cookies and cakes in Doha, Qatar. Small batches, made to order. Order on WhatsApp.">
-<meta property="og:url" content="https://petit-gateau.com/">
+<meta property="og:url" content="https://petit-gateau.com/ar/">
 <meta property="og:image" content="https://petit-gateau.com/img/madeleines-coffee-home-bakery-doha.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/amiri-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/img/hero-home-bakery-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" imagesizes="100vw">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icone-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icone-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icone-512.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src https://firestore.googleapis.com; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
@@ -624,6 +629,12 @@
 
   /* chips */
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  /* Le coffret peut demander PLUSIEURS choix — deux cookies depuis le
+     03/09/2026, et autant que l'app en déclarera ensuite. Les rangées
+     s'empilent ; chacune reste une rangée de pastilles ordinaire. Sans
+     cet écart, les deux rangées se touchaient et se lisaient comme une
+     seule liste de six cookies parmi lesquels choisir un. */
+  #spreadCookie{display:flex;flex-direction:column;gap:10px;}
   .chip{
     font-family:'Lora',serif;font-size:0.88rem;cursor:pointer;
     padding:10px 15px;border-radius:999px;
@@ -1581,7 +1592,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Bakery",
-  "@id": "https://petit-gateau.com/#bakery",
+  "@id": "https://petit-gateau.com/ar/#bakery",
   "name": "Petit Gâteau",
   "alternateName": "بوتي غاتو",
   "description": "Home bakery in Doha, Qatar. Madeleines, cookies and cakes baked by hand in small batches, made to order. Orders via WhatsApp only.",
@@ -1767,11 +1778,12 @@
         }
       ]
     }
-  }
+  },
+  "inLanguage": "ar"
 }
 </script>
 </head>
-<body>
+<body class="lang-ar">
 
 <div class="grain" aria-hidden="true"></div>
 
@@ -1779,130 +1791,130 @@
   <div class="container">
     <div class="nav-mark">Petit Gâteau</div>
     <div class="nav-links">
-      <a href="#story" data-i18n="nav_story">Our Story</a>
-      <a href="#menu" data-i18n="nav_menu">Menu</a>
-      <a href="#visit" data-i18n="nav_visit">Ordering</a>
+      <a href="#story" data-i18n="nav_story">قصتنا</a>
+      <a href="#menu" data-i18n="nav_menu">القائمة</a>
+      <a href="#visit" data-i18n="nav_visit">الطلب</a>
     </div>
     <div class="nav-right">
-      <a class="lang-toggle" id="langToggle" href="/ar/" hreflang="ar" lang="ar" rel="alternate">العربية</a>
-      <a class="nav-cta" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="nav_cta">Order on WhatsApp</a>
+      <a class="lang-toggle" id="langToggle" href="/" hreflang="en" lang="en" rel="alternate">English</a>
+      <a class="nav-cta" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="nav_cta">اطلب عبر واتساب</a>
     </div>
   </div>
 </nav>
 
 <section class="hero">
   <div class="hero-img-wrap" id="heroImgWrap">
-    <img id="heroImg" src="/img/hero-home-bakery-doha.webp" srcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" sizes="100vw" alt="Madeleines and cookies on a bright table in a home kitchen in Doha, Qatar" width="1440" height="736" decoding="async" fetchpriority="high"><div class="hero-veil" aria-hidden="true"></div>
+    <img id="heroImg" src="/img/hero-home-bakery-doha.webp" srcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" sizes="100vw" alt="مادلين وكوكيز على طاولة مضيئة في مطبخ منزلي في الدوحة، قطر" width="1440" height="736" decoding="async" fetchpriority="high"><div class="hero-veil" aria-hidden="true"></div>
   </div>
   <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow" data-i18n="hero_eyebrow">Home-Baked · Doha, Qatar</div>
-    <h1 data-i18n-html="hero_title">The hour she keeps<br>for herself.</h1>
-    <p data-i18n="hero_sub">No shop, no storefront — just a home kitchen in Doha, small-batch cakes made by a mother who gives everyone else her time.</p>
-    <div class="hero-mark">Small batches · Made to order · Delivered across Qatar</div>
+    <div class="hero-eyebrow" data-i18n="hero_eyebrow">صناعة منزلية · الدوحة، قطر</div>
+    <h1 data-i18n-html="hero_title">الساعة التي تحتفظ بها لنفسها.</h1>
+    <p data-i18n="hero_sub">لا محل، لا واجهة عرض — فقط مطبخ منزلي في الدوحة، حلويات بكميات صغيرة تصنعها أم تمنح وقتها للجميع.</p>
+    <div class="hero-mark">دفعات صغيرة · حسب الطلب · توصيل في كل قطر</div>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="hero_btn_order">Order via WhatsApp</a>
-      <a class="btn btn-outline" href="#menu" data-i18n="hero_btn_menu">See the Menu</a>
+      <a class="btn btn-primary" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="hero_btn_order">اطلب عبر واتساب</a>
+      <a class="btn btn-outline" href="#menu" data-i18n="hero_btn_menu">تصفح القائمة</a>
     </div>
   </div>
 </section>
 
 
-<section class="picks" aria-label="Our picks">
+<section class="picks" aria-label="اختياراتنا">
   <div class="container">
     <div class="picks-head reveal-up">
-      <span class="label">Our picks</span>
-      <a href="#menu" class="picks-all">See all 8 &rarr;</a>
+      <span class="label">اختياراتنا</span>
+      <a href="#menu" class="picks-all">شاهد الكل (8) &rarr;</a>
     </div>
     <div class="rail-wrap reveal-up"><div class="picks-rail">
       <article class="pick">
-        <div class="pick-img"><img src="/img/rusk-shabora-doha.webp" alt="Rusk "Shabora"" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-img"><img src="/img/rusk-shabora-doha.webp" alt="شبورة" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <h3 class="pick-n">Rusk "Shabora"</h3>
-          <p class="pick-q">30 pieces</p>
-          <p class="pick-d">Crisp, twice-baked</p>
+          <h3 class="pick-n">شبورة</h3>
+          <p class="pick-q">30 قطعة</p>
+          <p class="pick-d">مقرمشة، مخبوزة مرتين</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
             <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item6" aria-label="Add"><span>+</span></button>
+            <button type="button" class="pick-add" data-add="item6" aria-label="أضف"><span>+</span></button>
           </div>
         </div>
       </article>
       <article class="pick">
-        <div class="pick-img"><img src="/img/nutella-cookies-doha.webp" alt="Nutella Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-img"><img src="/img/nutella-cookies-doha.webp" alt="كوكيز نوتيلا" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <h3 class="pick-n">Nutella Cookies</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">A molten hazelnut centre</p>
+          <h3 class="pick-n">كوكيز نوتيلا</h3>
+          <p class="pick-q">12 حبة</p>
+          <p class="pick-d">قلب نوتيلا سائل</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
             <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item7" aria-label="Add"><span>+</span></button>
+            <button type="button" class="pick-add" data-add="item7" aria-label="أضف"><span>+</span></button>
           </div>
         </div>
       </article>
       <article class="pick">
-        <div class="pick-img"><img src="/img/madeleine-box-doha.webp" alt="Madeleine" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-img"><img src="/img/madeleine-box-doha.webp" alt="مادلين" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <h3 class="pick-n">Madeleine</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">The classic, shell-shaped</p>
+          <h3 class="pick-n">مادلين</h3>
+          <p class="pick-q">12 حبة</p>
+          <p class="pick-d">الكلاسيكية، بشكل الصدفة</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
             <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item1" aria-label="Add"><span>+</span></button>
+            <button type="button" class="pick-add" data-add="item1" aria-label="أضف"><span>+</span></button>
           </div>
         </div>
       </article>
       <article class="pick">
-        <div class="pick-img"><img src="/img/upside-down-peach-cake-doha.webp" alt="Upside-Down Peach Cake" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-img"><img src="/img/upside-down-peach-cake-doha.webp" alt="كيكة الخوخ المقلوبة" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <h3 class="pick-n">Upside-Down Peach Cake</h3>
-          <p class="pick-q">1 cake</p>
-          <p class="pick-d">Caramelised peach, baked to order</p>
+          <h3 class="pick-n">كيكة الخوخ المقلوبة</h3>
+          <p class="pick-q">كيكة واحدة</p>
+          <p class="pick-d">خوخ مكرمل، يُخبز حسب الطلب</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
             <span class="pick-p" dir="ltr">300 QR</span>
-            <button type="button" class="pick-add" data-add="item4" aria-label="Add"><span>+</span></button>
+            <button type="button" class="pick-add" data-add="item4" aria-label="أضف"><span>+</span></button>
           </div>
         </div>
       </article>
       <article class="pick">
-        <div class="pick-img"><img src="/img/chocolate-chip-cookies-doha.webp" alt="Chocolate Chip Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-img"><img src="/img/chocolate-chip-cookies-doha.webp" alt="كوكيز رقائق الشوكولاتة" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <h3 class="pick-n">Chocolate Chip Cookies</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">Soft in the middle</p>
+          <h3 class="pick-n">كوكيز رقائق الشوكولاتة</h3>
+          <p class="pick-q">12 حبة</p>
+          <p class="pick-d">طرية في الوسط</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
             <span class="pick-p" dir="ltr">180 QR</span>
-            <button type="button" class="pick-add" data-add="item5" aria-label="Add"><span>+</span></button>
+            <button type="button" class="pick-add" data-add="item5" aria-label="أضف"><span>+</span></button>
           </div>
         </div>
       </article>
       <article class="pick">
-        <div class="pick-img"><img src="/img/chamaral-chocolate-chunk-doha.webp" alt="Chamaral Chocolate Chunk" width="800" height="1000" decoding="async" loading="lazy"></div>
+        <div class="pick-img"><img src="/img/chamaral-chocolate-chunk-doha.webp" alt="كوكيز شامارال بقطع الشوكولاتة" width="800" height="1000" decoding="async" loading="lazy"></div>
         <div class="pick-b">
-          <h3 class="pick-n">Chamaral Chocolate Chunk</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">Chunks, not chips</p>
+          <h3 class="pick-n">كوكيز شامارال بقطع الشوكولاتة</h3>
+          <p class="pick-q">12 حبة</p>
+          <p class="pick-d">قطع، لا رقائق</p>
           <div class="pick-rule"></div>
           <div class="pick-f">
             <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item8" aria-label="Add"><span>+</span></button>
+            <button type="button" class="pick-add" data-add="item8" aria-label="أضف"><span>+</span></button>
           </div>
         </div>
       </article>
     </div></div>
-    <div class="swipe-hint">Swipe for more</div>
-    <div class="picks-note reveal-up">Same-day delivery available · order before 5 PM</div>
+    <div class="swipe-hint">اسحب لرؤية المزيد</div>
+    <div class="picks-note reveal-up">التوصيل في نفس اليوم متاح · اطلب قبل 5 PM</div>
   </div>
 </section>
 <section class="menu" id="menu">
   <div class="container">
     <div class="menu-head reveal">
-      <span class="label" data-i18n="menu_label">Baked Fresh, Saturday–Thursday</span>
-      <h2 data-i18n="menu_title">Menu</h2>
+      <span class="label" data-i18n="menu_label">طازج يوميًا، من السبت إلى الخميس</span>
+      <h2 data-i18n="menu_title">القائمة</h2>
     
       <p class="scarce" id="scarce" hidden></p>
     </div>
@@ -1913,10 +1925,9 @@
           <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item1_name">Madeleine</h3>
-          <div class="arabic">مادلين</div>
-          <p class="desc" data-i18n="item1_desc">Classic shell-shaped sponge · dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+          <h3 data-i18n="item1_name">مادلين</h3>
+          <p class="desc" data-i18n="item1_desc">إسفنجية كلاسيكية بشكل الصدفة · 12 حبة</p>
+          <p class="qty-note"><span class="qty-note-t">12 حبة</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item1" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1930,10 +1941,9 @@
           <span class="price-badge">180 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item2_name">Petit Madeleine</h3>
-          <div class="arabic">مادلين صغيرة</div>
-          <p class="desc" data-i18n="item2_desc">Bite-size · 40 pieces</p>
-          <p class="qty-note"><span class="qty-note-t">40 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
+          <h3 data-i18n="item2_name">مادلين صغيرة</h3>
+          <p class="desc" data-i18n="item2_desc">بحجم اللقمة · 40 قطعة</p>
+          <p class="qty-note"><span class="qty-note-t">40 قطعة</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
         <div class="qty-row" data-item="item2" data-price="180">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1947,11 +1957,10 @@
           <span class="price-badge">300 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item3_name">Brown Butter Banana Bread</h3>
-          <div class="arabic">خبز الموز بالزبدة البنية</div>
-          <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
-          <p class="lead-badge">Ready tomorrow</p>
-        <p class="qty-note"><span class="qty-note-t">1 loaf</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
+          <h3 data-i18n="item3_name">خبز الموز بالزبدة البنية</h3>
+          <p class="desc" data-i18n="item3_desc">يُخبز ببطء، بالموز الناضج والزبدة البنية</p>
+          <p class="lead-badge">جاهز غداً</p>
+        <p class="qty-note"><span class="qty-note-t">رغيف واحد</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
         <div class="qty-row" data-item="item3" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1965,10 +1974,9 @@
           <span class="price-badge">300 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
-          <div class="arabic">كيكة الخوخ المقلوبة</div>
-          <p class="desc" data-i18n="item4_desc">Caramelized peach, baked to order</p>
-          <p class="qty-note"><span class="qty-note-t">1 cake</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
+          <h3 data-i18n="item4_name">كيكة الخوخ المقلوبة</h3>
+          <p class="desc" data-i18n="item4_desc">خوخ مكرمل، يُخبز حسب الطلب</p>
+          <p class="qty-note"><span class="qty-note-t">كيكة واحدة</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
         <div class="qty-row" data-item="item4" data-price="300">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1982,10 +1990,9 @@
           <span class="price-badge">180 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
-          <div class="arabic">كوكيز رقائق الشوكولاتة</div>
-          <p class="desc" data-i18n="item5_desc">Dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
+          <h3 data-i18n="item5_name">كوكيز رقائق الشوكولاتة</h3>
+          <p class="desc" data-i18n="item5_desc">12 حبة</p>
+          <p class="qty-note"><span class="qty-note-t">12 حبة</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
         <div class="qty-row" data-item="item5" data-price="180">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -1999,11 +2006,10 @@
           <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
-          <div class="arabic">رسك "شبورة"</div>
-          <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
-          <p class="lead-badge">Ready tomorrow</p>
-        <p class="qty-note"><span class="qty-note-t">30 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+          <h3 data-i18n="item6_name">رسك "شبورة"</h3>
+          <p class="desc" data-i18n="item6_desc">يُخبز مرتين، ذهبي ومقرمش · 30 قطعة</p>
+          <p class="lead-badge">جاهز غداً</p>
+        <p class="qty-note"><span class="qty-note-t">30 قطعة</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item6" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -2017,10 +2023,9 @@
           <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item7_name">Nutella Cookies</h3>
-          <div class="arabic">كوكيز نوتيلا</div>
-          <p class="desc" data-i18n="item7_desc">Soft-baked with a molten Nutella centre · dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+          <h3 data-i18n="item7_name">كوكيز نوتيلا</h3>
+          <p class="desc" data-i18n="item7_desc">طري، بقلب نوتيلا ذائب · دزينة</p>
+          <p class="qty-note"><span class="qty-note-t">12 حبة</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item7" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -2034,10 +2039,9 @@
           <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
         </div>
         <div class="menu-card-body">
-          <h3 data-i18n="item8_name">Chamaral Chocolate Chunk</h3>
-          <div class="arabic">كوكيز شامارال بقطع الشوكولاتة</div>
-          <p class="desc" data-i18n="item8_desc">Thick milk chocolate chunks, crackled tops · dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+          <h3 data-i18n="item8_name">كوكيز شامارال بقطع الشوكولاتة</h3>
+          <p class="desc" data-i18n="item8_desc">قطع كبيرة من شوكولاتة الحليب، بسطح متشقّق · 12 حبة</p>
+          <p class="qty-note"><span class="qty-note-t">12 حبة</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item8" data-price="200">
             <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
             <span class="qty-val">0</span>
@@ -2054,24 +2058,31 @@
     <div class="spread-inner reveal">
       <img src="/img/full-spread-dessert-box-doha.webp" alt="Dessert box of homemade cookies, madeleines and peach cake in Doha" width="1300" height="1207" decoding="async" loading="lazy">
       <div class="spread-text">
-        <span class="label" data-i18n="spread_label">Taste Everything</span>
-        <h2 data-i18n="spread_title">The Discovery Box</h2>
-        <p data-i18n="spread_desc">Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.</p>
+        <span class="label" data-i18n="spread_label">تذوّق كل شيء</span>
+        <h2 data-i18n="spread_title">صندوق الاكتشاف</h2>
+        <p data-i18n="spread_desc">لا تستطيع الاختيار؟ نحن أيضًا. أفضل ما نخبزه في صندوق واحد — يكفي للمشاركة، ولاكتشاف ما تفضّله.</p>
         <div class="spread-inside">
-          <span class="fld-label">What’s in the box</span>
-          <ul>
-            <li><b dir="ltr">12</b><span>cookies</span></li>
-            <li><b dir="ltr">40</b><span>petit madeleines</span></li>
-            <li><b dir="ltr">1</b><span>upside-down peach cake</span></li>
+          <span class="fld-label">ما في الصندوق</span>
+          <ul id="spreadContenu">
+            <li data-cle="item7" data-n="1" data-slot="0"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item8" data-n="1" data-slot="1"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item2" data-n="1"><b dir="ltr">40</b><span>مادلين صغيرة</span></li>
           </ul>
         </div>
-        <div class="spread-price"><b dir="ltr">590 QR</b><em>Delivered with our compliments</em></div>
+        <div class="spread-price"><b dir="ltr">590 QR</b><em>التوصيل على حسابنا</em></div>
         <div class="fld" style="margin:20px 0 0;">
-          <span class="fld-label">Choose your cookie</span>
-          <div class="chips" id="spreadCookie">
-            <button type="button" class="chip" data-val="choc">Chocolate Chip Cookies</button>
-            <button type="button" class="chip" data-val="nutella">Nutella Cookies</button>
-            <button type="button" class="chip" data-val="chamaral">Choco Chunk</button>
+          <span class="fld-label" id="spreadPickLabel">اختر الكوكيز</span>
+          <div id="spreadCookie">
+            <div class="chips" data-slot="0">
+              <button type="button" class="chip" data-val="item5">كوكيز رقائق الشوكولاتة</button>
+              <button type="button" class="chip" data-val="item7" aria-pressed="true">كوكيز نوتيلا</button>
+              <button type="button" class="chip" data-val="item8">كوكيز بقطع الشوكولاتة</button>
+            </div>
+            <div class="chips" data-slot="1">
+              <button type="button" class="chip" data-val="item5">كوكيز رقائق الشوكولاتة</button>
+              <button type="button" class="chip" data-val="item7">كوكيز نوتيلا</button>
+              <button type="button" class="chip" data-val="item8" aria-pressed="true">كوكيز بقطع الشوكولاتة</button>
+            </div>
           </div>
         </div>
         <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
@@ -2087,12 +2098,12 @@
 <section class="story" id="story">
   <div class="container">
     <div class="story-frame reveal">
-      <span class="label" data-i18n="story_label">Our Story</span>
-      <p data-i18n="story_p1">She spends her days making sure no one around her is missing anything. Her children. Her home. Everyone else, first.</p>
-      <p class="em" data-i18n="story_p2">Baking is the one thing she does just for her.</p>
+      <span class="label" data-i18n="story_label">قصتنا</span>
+      <p data-i18n="story_p1">تقضي أيامها وهي تتأكد أن لا أحد حولها ينقصه شيء. أطفالها. بيتها. الجميع أولاً.</p>
+      <p class="em" data-i18n="story_p2">الخَبز هو الشيء الوحيد الذي تفعله لنفسها.</p>
       <div class="rule"></div>
-      <p data-i18n="story_p3">People kept tasting it, and asking her to make it again. Family. Friends. Then friends of friends. So she stopped saying no.</p>
-      <p class="em" data-i18n="story_p4">Not a business plan. Not made to scale. Just something rare, made by someone who still finds an hour that belongs to no one but her.</p>
+      <p data-i18n="story_p3">استمر الناس بتذوقه وطلبوا منها إعادة صنعه. العائلة. الأصدقاء. ثم أصدقاء الأصدقاء. فتوقفت عن الرفض.</p>
+      <p class="em" data-i18n="story_p4">ليست خطة عمل. ولم تُصنع لتكبر. مجرد شيء نادر، تصنعه امرأة ما زالت تجد ساعة لا تخص أحدًا سواها.</p>
       <div class="signature">Petit Gâteau</div>
     </div>
   </div>
@@ -2101,10 +2112,10 @@
 <section class="sourcing">
   <div class="container">
     <div class="sourcing-inner reveal">
-      <span class="label" data-i18n="sourcing_label">Our Ingredients</span>
-      <h2 data-i18n="sourcing_title">How We Source</h2>
-      <p data-i18n="sourcing_p1">What started in our home kitchen is still made there: small batches, by hand, with ingredients we'd happily put on our own table.</p>
-      <p class="em" data-i18n="sourcing_p2">We hold every ingredient to the same standard: organic, high quality, nothing we'd hesitate to use ourselves. If we can't source it that way, we don't make it.</p>
+      <span class="label" data-i18n="sourcing_label">مكوناتنا</span>
+      <h2 data-i18n="sourcing_title">كيف نختار مكوناتنا</h2>
+      <p data-i18n="sourcing_p1">ما بدأ في مطبخنا المنزلي ما زال يُصنع هناك: بكميات صغيرة، باليد، بمكونات يسعدنا وضعها على مائدتنا نحن.</p>
+      <p class="em" data-i18n="sourcing_p2">نلتزم بنفس المعيار في كل مكوّن: عضوي، عالي الجودة، لا نتردد في استخدامه بأنفسنا. وإن لم نستطع تأمينه بهذا المستوى، لا نصنعه.</p>
     </div>
   </div>
 </section>
@@ -2112,21 +2123,21 @@
 <section class="visit" id="visit">
   <div class="container visit-inner">
     <div class="reveal" style="position:relative;">
-      <span class="label" data-i18n="visit_label">Ordering</span>
-      <h2 data-i18n="visit_title">Made to order, delivered to you.</h2>
-      <p data-i18n="visit_p1">Everything is baked at home the day it reaches you — nothing sits waiting on a shelf. There is no shop and no counter: we deliver across Qatar, and every order starts with a message.</p>
-      <p data-i18n="visit_p2">Rare, on purpose: small batches only, so it's worth the wait.</p>
+      <span class="label" data-i18n="visit_label">الطلب</span>
+      <h2 data-i18n="visit_title">يُخبز حسب الطلب، ويصل إليك.</h2>
+      <p data-i18n="visit_p1">كل شيء يُخبز في المنزل يوم وصوله إليك — لا شيء ينتظر على الرفوف. لا يوجد محل ولا واجهة: نوصل في جميع أنحاء قطر، وكل طلب يبدأ برسالة.</p>
+      <p data-i18n="visit_p2">نادر عن قصد: كميات صغيرة فقط، لذا يستحق الانتظار.</p>
       <div class="visit-actions">
-        <a class="btn btn-dark" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="visit_btn1">Message on WhatsApp</a>
-        <a class="btn btn-ghost" href="https://instagram.com/petitgateau.qa" target="_blank" rel="noopener" data-i18n="visit_btn2">Follow on Instagram</a>
+        <a class="btn btn-dark" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="visit_btn1">راسلنا عبر واتساب</a>
+        <a class="btn btn-ghost" href="https://instagram.com/petitgateau.qa" target="_blank" rel="noopener" data-i18n="visit_btn2">تابعنا على إنستغرام</a>
       </div>
     </div>
     <div class="info-card reveal">
-      <div class="info-row"><span data-i18n="info_location">Location</span><span data-i18n="info_location_val">Home kitchen, Doha</span></div>
-      <div class="info-row"><span data-i18n="info_days">Baking Days</span><span data-i18n="info_days_val">Saturday – Thursday</span></div>
-      <div class="info-row"><span data-i18n="info_closed">Closed</span><span data-i18n="info_closed_val">Friday</span></div>
-      <div class="info-row"><span data-i18n="info_orders">Orders</span><span data-i18n="info_orders_val">Via WhatsApp only</span></div>
-      <div class="info-row"><span data-i18n="info_wa">WhatsApp</span><span><bdi dir="ltr">+974 5004 0617</bdi></span></div>
+      <div class="info-row"><span data-i18n="info_location">الموقع</span><span data-i18n="info_location_val">مطبخ منزلي، الدوحة</span></div>
+      <div class="info-row"><span data-i18n="info_days">أيام الخَبز</span><span data-i18n="info_days_val">السبت – الخميس</span></div>
+      <div class="info-row"><span data-i18n="info_closed">إغلاق</span><span data-i18n="info_closed_val">الجمعة</span></div>
+      <div class="info-row"><span data-i18n="info_orders">الطلبات</span><span data-i18n="info_orders_val">عبر واتساب فقط</span></div>
+      <div class="info-row"><span data-i18n="info_wa">واتساب</span><span><bdi dir="ltr">+974 5004 0617</bdi></span></div>
     </div>
   </div>
 </section>
@@ -2134,13 +2145,13 @@
 <footer>
   <div class="container">
     <div class="wordmark">Petit Gâteau</div>
-    <div class="tag" data-i18n="footer_tag">For the love of baking</div>
+    <div class="tag" data-i18n="footer_tag">حبًا بالخَبز</div>
     <div class="foot-links">
-      <a href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="footer_wa">WhatsApp</a>
-      <a href="https://instagram.com/petitgateau.qa" target="_blank" rel="noopener" data-i18n="footer_ig">Instagram</a>
-      <a href="#story" data-i18n="footer_story">Our Story</a>
+      <a href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="footer_wa">واتساب</a>
+      <a href="https://instagram.com/petitgateau.qa" target="_blank" rel="noopener" data-i18n="footer_ig">إنستغرام</a>
+      <a href="#story" data-i18n="footer_story">قصتنا</a>
     </div>
-    <div class="copyright" data-i18n="footer_copy">© Petit Gâteau · Home-Baked, Doha</div>
+    <div class="copyright" data-i18n="footer_copy">© Petit Gâteau · صناعة منزلية، الدوحة</div>
   </div>
 </footer>
 
@@ -2154,24 +2165,24 @@
   <div class="order-bar-inner">
     <div class="order-bar-info">
       <span class="order-bar-count" id="orderCount">0</span>
-      <span>items</span>
+      <span>منتج</span>
       <span class="order-bar-dot">·</span>
       <span class="order-bar-total" id="orderTotal">0 QR</span>
       <span class="order-bar-sub" id="orderBarSub"></span>
     </div>
-    <button class="order-bar-btn" id="orderSendBtn">Continue</button>
+    <button class="order-bar-btn" id="orderSendBtn">متابعة</button>
   </div>
 </div>
 
 
 <div class="fallback" id="fallback">
   <div class="fallback-card">
-    <h4>WhatsApp didn't open?</h4>
-    <p>Copy your order below and send it on WhatsApp to <bdi dir="ltr"><bdi dir="ltr">+974 5004 0617</bdi></bdi></p>
+    <h4>لم يفتح واتساب؟</h4>
+    <p>انسخ طلبك أدناه وأرسله عبر واتساب إلى <bdi dir="ltr"><bdi dir="ltr">+974 5004 0617</bdi></bdi></p>
     <pre id="fbMsg"></pre>
     <div class="fb-row">
-      <button class="fb-copy" id="fbCopy">Copy the order</button>
-      <button class="fb-num" id="fbClose">Close</button>
+      <button class="fb-copy" id="fbCopy">انسخ الطلب</button>
+      <button class="fb-num" id="fbClose">إغلاق</button>
     </div>
   </div>
 </div>
@@ -2179,7 +2190,7 @@
 
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
   <div class="sheet-head">
-    <h3 id="sheetTitle">Your order</h3>
+    <h3 id="sheetTitle">طلبك</h3>
     <button class="sheet-close" id="sheetClose" aria-label="Close">&times;</button>
   </div>
 
@@ -2188,43 +2199,43 @@
     <div class="rules">
       <div class="rule">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span>Same day · before 5 PM</span>
+        <span>في نفس اليوم · قبل 5 PM</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
-        <span>Closed Friday</span>
+        <span>مغلق الجمعة</span>
       </div>
       <div class="rule">
         <svg viewBox="0 0 24 24"><path d="M3 6l9 6 9-6M3 6h18v12H3z"/></svg>
-        <span>Delivery only</span>
+        <span>توصيل فقط</span>
       </div>
     </div>
 
     <div class="fld" style="margin-top:0;">
-      <span class="fld-label">Your basket</span>
+      <span class="fld-label">سلتك</span>
       <div id="cartLines"></div>
-      <p class="pick-empty" id="cartEmpty">Your basket is empty.</p>
+      <p class="pick-empty" id="cartEmpty">سلتك فارغة.</p>
     </div>
 
     <div class="fld" id="pickerWrap">
-      <span class="fld-label">What would you like?</span>
-      <p class="fld-help" style="margin:-4px 0 12px;">Tap + to add. Prices and delivery are worked out for you — nothing to ask.</p>
+      <span class="fld-label">ماذا تريد؟</span>
+      <p class="fld-help" style="margin:-4px 0 12px;">اضغط + للإضافة. نحسب الأسعار والتوصيل تلقائياً — لا حاجة للسؤال.</p>
       <div id="picker"></div>
     </div>
-    <button type="button" class="more-toggle" id="pickerBtn">+ Add another item</button>
+    <button type="button" class="more-toggle" id="pickerBtn">+ أضف صنفاً آخر</button>
 
     <div id="sheetRest">
 
     <div class="fld">
-      <span class="fld-label">Delivery day <span class="req">*</span></span>
+      <span class="fld-label">يوم التوصيل <span class="req">*</span></span>
       <div class="dates" id="dateRail"></div>
-      <div class="sameday-warn" id="sameDayWarn">Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.</div>
-      <div class="sameday-warn" id="quotaWarn">Some dates are already fully booked. Pick another day.</div>
-      <div class="err-msg">Please pick a day.</div>
+      <div class="sameday-warn" id="sameDayWarn">رسك “شبورة” وخبز الموز بالزبدة البنية يُخبزان حسب الطلب ويكونان جاهزين من الغد. اختر يومًا لاحقًا لهما — أو احذفهما ونوصّل لك الباقي اليوم.</div>
+      <div class="sameday-warn" id="quotaWarn">بعض التواريخ محجوزة بالكامل. اختر يومًا آخر.</div>
+      <div class="err-msg">الرجاء اختيار اليوم.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">Time <span class="req">*</span></span>
+      <span class="fld-label">الوقت <span class="req">*</span></span>
       <div class="chips" id="slotChips">
         <button type="button" class="chip" data-val="12">12 PM</button>
         <button type="button" class="chip" data-val="13">1 PM</button>
@@ -2234,116 +2245,116 @@
         <button type="button" class="chip" data-val="17">5 PM</button>
         <button type="button" class="chip" data-val="18">6 PM</button>
       </div>
-      <div class="err-msg">Please pick a time.</div>
+      <div class="err-msg">الرجاء اختيار الوقت.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">Where do we deliver? <span class="req">*</span></span>
+      <span class="fld-label">إلى أين نوصل؟ <span class="req">*</span></span>
       <div class="addr-grid">
         <div class="af">
-          <span class="af-l">Zone</span>
-          <input type="text" id="fZone" inputmode="numeric" placeholder="2 or 3 digits">
+          <span class="af-l">المنطقة</span>
+          <input type="text" id="fZone" inputmode="numeric" placeholder="رقمان أو ثلاثة">
         </div>
         <div class="af af-wide">
-          <span class="af-l">City</span>
+          <span class="af-l">المدينة</span>
           <input type="text" id="fCity" autocomplete="off" autocorrect="off" autocapitalize="words"
                  spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list"
-                 aria-controls="cityList" placeholder="Start typing, we suggest">
+                 aria-controls="cityList" placeholder="ابدأ بالكتابة، نقترح عليك">
           <div class="sugg" id="cityList" role="listbox"></div>
         </div>
         <div class="af">
-          <span class="af-l">House number</span>
-          <input type="text" id="fHouse" inputmode="numeric" placeholder="Building or villa no.">
+          <span class="af-l">رقم المنزل</span>
+          <input type="text" id="fHouse" inputmode="numeric" placeholder="رقم المبنى أو الفيلا">
         </div>
       </div>
-      <div class="err-msg" id="addrErr">Please add your zone number.</div>
+      <div class="err-msg" id="addrErr">الرجاء إضافة رقم المنطقة.</div>
 
       <button type="button" class="loc-btn" id="locBtn" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        <span id="locTxt">Attach my location</span>
+        <span id="locTxt">أرفق موقعي</span>
       </button>
-      <span class="fld-help">Use this only if you are standing at the delivery address.</span>
+      <span class="fld-help">استخدم هذا فقط إذا كنت في عنوان التوصيل نفسه.</span>
 
       <div class="loc-else">
-        <span class="af-l">Delivering somewhere else?</span>
-        <input type="url" id="locLink" inputmode="url" placeholder="Paste a Google Maps link">
-        <span class="fld-help">Open Google Maps, hold your finger on the spot, then Share → Copy link. Addresses in Doha are rarely precise — a pin saves the driver a call.</span>
-        <div class="err-msg" id="locErr">That does not look like a map link.</div>
+        <span class="af-l">التوصيل إلى مكان آخر؟</span>
+        <input type="url" id="locLink" inputmode="url" placeholder="الصق رابط خرائط جوجل">
+        <span class="fld-help">افتح خرائط جوجل، اضغط مطوّلاً على الموقع، ثم مشاركة ← نسخ الرابط. العناوين في الدوحة غالباً غير دقيقة — الموقع يوفّر اتصالاً على السائق.</span>
+        <div class="err-msg" id="locErr">هذا لا يبدو رابط خريطة.</div>
       </div>
     </div>
 
     <div class="totals">
-      <div class="tl grand"><span>Total</span><span id="tGrand">0 QR</span></div>
+      <div class="tl grand"><span>الإجمالي</span><span id="tGrand">0 QR</span></div>
     </div>
 
     <div class="driver-note">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="6" width="14" height="10" rx="1.5"/><path d="M15 9h4l3 3.5V16h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-      <div><b>About delivery</b>Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.</div>
+      <div><b>بخصوص التوصيل</b>التوصيل يُرتّب مع السائق أو شركة التوصيل، ويُدفع لهم مباشرة. وهو منفصل عن هذا الطلب وغير مشمول في المبلغ أعلاه.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">Name <span class="req">*</span></span>
+      <span class="fld-label">الاسم <span class="req">*</span></span>
       <input type="text" id="fName" autocomplete="family-name">
-      <div class="err-msg">Please tell us your name.</div>
+      <div class="err-msg">الرجاء كتابة اسمك.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">First name <span class="opt">optional</span></span>
+      <span class="fld-label">الاسم الأول <span class="opt">اختياري</span></span>
       <input type="text" id="fFirst" autocomplete="given-name">
     </div>
 
     <div class="fld">
-      <span class="fld-label">Phone of the person receiving <span class="req">*</span></span>
+      <span class="fld-label">رقم من سيستلم الطلب <span class="req">*</span></span>
       <input type="tel" id="fPhone" inputmode="tel" autocomplete="tel" placeholder="+974 …" dir="ltr">
-      <div class="err-msg">Please add a Qatar mobile number.</div>
+      <div class="err-msg">الرجاء إضافة رقم جوال قطري.</div>
     </div>
 
     <button type="button" class="gift-toggle" id="giftBtn" aria-pressed="false">
       <span class="gift-box"><svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg></span>
-      <span>This is a gift — someone else will receive it</span>
+      <span>هذا الطلب هدية — سيستلمه شخص آخر</span>
     </button>
 
     <div class="gift-fields" id="giftFields">
       <div class="fld">
-        <span class="fld-label">Your own number <span class="req">*</span></span>
+        <span class="fld-label">رقمك أنت <span class="req">*</span></span>
         <input type="tel" id="fPhone2" inputmode="tel" placeholder="+974 …" dir="ltr">
-        <div class="err-msg">Please add your own number.</div>
+        <div class="err-msg">الرجاء إضافة رقمك أنت.</div>
       </div>
-      <div class="fld"><span class="fld-label">Message on the card <span class="opt">optional</span></span><input type="text" id="fCard"></div>
+      <div class="fld"><span class="fld-label">رسالة على البطاقة <span class="opt">اختياري</span></span><input type="text" id="fCard"></div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">Occasion <span class="opt">optional</span></span>
+      <span class="fld-label">المناسبة <span class="opt">اختياري</span></span>
       <div class="chips" id="occChips">
-        <button type="button" class="chip" data-val="birthday">Birthday</button>
-        <button type="button" class="chip" data-val="majlis">Majlis / guests</button>
-        <button type="button" class="chip" data-val="gift">A gift</button>
-        <button type="button" class="chip" data-val="us">Just for us</button>
+        <button type="button" class="chip" data-val="birthday">عيد ميلاد</button>
+        <button type="button" class="chip" data-val="majlis">مجلس / ضيوف</button>
+        <button type="button" class="chip" data-val="gift">هدية</button>
+        <button type="button" class="chip" data-val="us">لنا فقط</button>
       </div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">Payment <span class="req">*</span></span>
+      <span class="fld-label">طريقة الدفع <span class="req">*</span></span>
       <div class="chips" id="payChips">
-        <button type="button" class="chip" data-val="fawran">Fawran transfer</button>
-        <button type="button" class="chip" data-val="bank">Bank transfer</button>
+        <button type="button" class="chip" data-val="fawran">تحويل فوران</button>
+        <button type="button" class="chip" data-val="bank">تحويل بنكي</button>
       </div>
-      <span class="fld-help">We send you the transfer details on WhatsApp once your order is confirmed.</span>
-      <div class="err-msg">Please pick a payment method.</div>
+      <span class="fld-help">نرسل لك تفاصيل التحويل عبر واتساب بعد تأكيد طلبك.</span>
+      <div class="err-msg">الرجاء اختيار طريقة الدفع.</div>
     </div>
 
     <div class="fld">
-      <span class="fld-label">Allergies or a note <span class="opt">optional</span></span>
+      <span class="fld-label">حساسية أو ملاحظة <span class="opt">اختياري</span></span>
       <textarea id="fNote"></textarea>
     </div>
 
     <div class="fld">
-      <span class="fld-label">How did you find us? <span class="opt">optional</span></span>
+      <span class="fld-label">كيف عرفتنا؟ <span class="opt">اختياري</span></span>
       <div class="chips" id="srcChips">
-        <button type="button" class="chip" data-val="instagram">Instagram</button>
-        <button type="button" class="chip" data-val="friend">A friend</button>
-        <button type="button" class="chip" data-val="google">Google</button>
-        <button type="button" class="chip" data-val="before">Ordered before</button>
+        <button type="button" class="chip" data-val="instagram">إنستغرام</button>
+        <button type="button" class="chip" data-val="friend">من صديق</button>
+        <button type="button" class="chip" data-val="google">جوجل</button>
+        <button type="button" class="chip" data-val="before">طلبت من قبل</button>
       </div>
     </div>
 
@@ -2351,7 +2362,7 @@
 
     <button type="button" class="gift-toggle" id="optinBtn" aria-pressed="false" style="margin-top:24px;">
       <span class="gift-box"><svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg></span>
-      <span>Keep me posted about new batches</span>
+      <span>أخبروني عن الدفعات الجديدة</span>
     </button>
 
   </div>
@@ -2359,9 +2370,9 @@
   <div class="sheet-foot">
     <button class="sheet-send" id="sheetSend">
       <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      <span>Send order on WhatsApp</span>
+      <span>أرسل الطلب عبر واتساب</span>
     </button>
-    <div class="sheet-reassure">Nothing is charged here. We confirm everything with you on WhatsApp.</div>
+    <div class="sheet-reassure">لا يُخصم أي مبلغ هنا. نؤكد كل التفاصيل معك عبر واتساب.</div>
   </div>
 </div>
 
@@ -2378,7 +2389,9 @@
       item6_qty:"30 pieces",
       item7_qty:"12 pieces",
       item8_qty:"12 pieces",
-      spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
+      spread_qty:"12 cookies · 12 cookies · 40 petit madeleines",
+      spread_pick:"Choose your cookie",
+      spread_picks:"Choose your cookies",
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
       spread_name:"The Discovery Box",
@@ -2419,16 +2432,16 @@
       info_orders:"Orders", info_orders_val:"Via WhatsApp only", info_wa:"WhatsApp",
       footer_tag:"For the love of baking", footer_wa:"WhatsApp", footer_ig:"Instagram", footer_story:"Our Story",
       footer_copy:"© Petit Gâteau · Home-Baked, Doha",
-      order_items:"items",
-      order_continue:"Continue",
-      co_title:"Your order",
-      co_rule1:"Same day · before 5 PM",
-      lead_badge:"Ready tomorrow",
-      co_rule2:"Closed Friday",
-      co_rule3:"Delivery only",
-      co_basket:"Your basket",
-      co_day:"Delivery day",
-      co_slot:"Time",
+      order_items:"منتج",
+      order_continue:"متابعة",
+      co_title:"طلبك",
+      co_rule1:"في نفس اليوم · قبل 5 PM",
+      lead_badge:"جاهز غداً",
+      co_rule2:"مغلق الجمعة",
+      co_rule3:"توصيل فقط",
+      co_basket:"سلتك",
+      co_day:"يوم التوصيل",
+      co_slot:"الوقت",
       co_slot_12:"12 PM",
       co_slot_13:"1 PM",
       co_slot_14:"2 PM",
@@ -2436,97 +2449,99 @@
       co_slot_16:"4 PM",
       co_slot_17:"5 PM",
       co_slot_18:"6 PM",
-      co_total:"Total",
-      co_name:"Name",
-      co_first:"First name",
-      co_phone:"Phone of the person receiving",
-      co_gift:"This is a gift — someone else will receive it",
-      co_yourphone:"Your own number",
-      co_card:"Message on the card",
-      co_occasion:"Occasion",
-      co_occ1:"Birthday",
-      co_occ2:"Majlis / guests",
-      co_occ3:"A gift",
-      co_occ4:"Just for us",
-      co_pay:"Payment",
-      co_pay_h:"We send you the transfer details on WhatsApp once your order is confirmed.",
-      co_pay1:"Fawran transfer",
-      co_pay2:"Bank transfer",
-      co_note:"Allergies or a note",
-      co_source:"How did you find us?",
-      co_src1:"Instagram",
-      co_src2:"A friend",
-      co_src3:"Google",
-      co_src4:"Ordered before",
-      optin_label:"Keep me posted about new batches",
-      co_send:"Send order on WhatsApp",
-      co_reassure:"Nothing is charged here. We confirm everything with you on WhatsApp.",
-      opt:"optional",
-      pick_title:"What would you like?",
-      pick_hint:"Tap + to add. Prices and delivery are worked out for you — nothing to ask.",
-      pick_more:"+ Add another item",
-      pick_hide:"− Done adding",
-      pick_empty:"Your basket is empty.",
-      each:"each",
-      item1_qty:"12 pieces",
-      item2_qty:"40 pieces",
-      item3_qty:"1 loaf",
-      item4_qty:"1 cake",
-      item5_qty:"12 pieces",
-      item6_qty:"30 pieces",
-      item7_qty:"12 pieces",
-      item8_qty:"12 pieces",
-      spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
-      spread_inside:"What’s in the box",
-      swipe:"Swipe for more",
-      co_addr:"Where do we deliver?",
-      co_zoneno:"Zone",
-      co_city:"City",
-      co_house:"House number",
-      co_zoneno_h:"2 or 3 digits",
-      co_city_h:"Start typing, we suggest",
-      co_house_h:"Building or villa no.",
-      co_err_zoneno:"Please add your zone number.",
-      co_err_city:"Please add your city.",
-      co_err_house:"Please add your house number.",
-      co_loc:"Attach my location",
-      co_loc_on:"Location attached ✓",
-      co_loc_wait:"Locating…",
-      co_loc_no:"Could not get it — share your pin on WhatsApp instead",
-      co_loc_hint:"Use this only if you are standing at the delivery address.",
-      co_loc_or:"Delivering somewhere else?",
-      co_loc_paste:"Paste a Google Maps link",
-      co_loc_how:"Open Google Maps, hold your finger on the spot, then Share → Copy link. Addresses in Doha are rarely precise — a pin saves the driver a call.",
-      co_loc_bad:"That does not look like a map link.",
-      co_m_loc:"Location",
-      del_driver:"Delivery is arranged with your own driver or delivery service, and paid to them directly. It is separate from this order and not part of the total above.",
-      del_driver_t:"About delivery",
-      sameday_note:"Same-day delivery available · order before 5 PM",
-      rare_left:"%s left",
-      rare_line:"Only %s left for %s",
-      quota_block:"Some dates are already fully booked. Pick another day.",
-      sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.",
-      today:"Today",
-      soldout:"Not available today",
-      co_err_day:"Please pick a day.",
-      co_err_slot:"Please pick a time.",
-      co_err_name:"Please tell us your name.",
-      co_err_phone:"Please add a Qatar mobile number.",
-      co_err_phone2:"Please add your own number.",
-      co_err_pay:"Please pick a payment method.",
-      co_m_total:"Total",
-      co_m_when:"When",
-      co_m_where:"Address",
-      co_m_who:"Name",
-      co_m_recv:"Receiver's number",
-      co_m_mine:"My number",
-      co_m_card:"Card message",
-      co_m_pay:"Payment",
-      co_m_occ:"Occasion",
-      co_m_note:"Note",
-      co_m_src:"Found us via",
-      co_m_optin:"Happy to hear about new batches",
-      fb_done:"Copied ✓"
+      co_total:"الإجمالي",
+      co_name:"الاسم",
+      co_first:"الاسم الأول",
+      co_phone:"رقم من سيستلم الطلب",
+      co_gift:"هذا الطلب هدية — سيستلمه شخص آخر",
+      co_yourphone:"رقمك أنت",
+      co_card:"رسالة على البطاقة",
+      co_occasion:"المناسبة",
+      co_occ1:"عيد ميلاد",
+      co_occ2:"مجلس / ضيوف",
+      co_occ3:"هدية",
+      co_occ4:"لنا فقط",
+      co_pay:"طريقة الدفع",
+      co_pay_h:"نرسل لك تفاصيل التحويل عبر واتساب بعد تأكيد طلبك.",
+      co_pay1:"تحويل فوران",
+      co_pay2:"تحويل بنكي",
+      co_note:"حساسية أو ملاحظة",
+      co_source:"كيف عرفتنا؟",
+      co_src1:"إنستغرام",
+      co_src2:"من صديق",
+      co_src3:"جوجل",
+      co_src4:"طلبت من قبل",
+      optin_label:"أخبروني عن الدفعات الجديدة",
+      co_send:"أرسل الطلب عبر واتساب",
+      co_reassure:"لا يُخصم أي مبلغ هنا. نؤكد كل التفاصيل معك عبر واتساب.",
+      opt:"اختياري",
+      pick_title:"ماذا تريد؟",
+      pick_hint:"اضغط + للإضافة. نحسب الأسعار والتوصيل تلقائياً — لا حاجة للسؤال.",
+      pick_more:"+ أضف صنفاً آخر",
+      pick_hide:"− انتهيت",
+      pick_empty:"سلتك فارغة.",
+      each:"للواحدة",
+      item1_qty:"12 حبة",
+      item2_qty:"40 قطعة",
+      item3_qty:"رغيف واحد",
+      item4_qty:"كيكة واحدة",
+      item5_qty:"12 حبة",
+      item6_qty:"30 قطعة",
+      item7_qty:"12 حبة",
+      item8_qty:"12 حبة",
+      spread_qty:"12 كوكيز · 12 كوكيز · 40 مادلين صغيرة",
+      spread_inside:"ما في الصندوق",
+      spread_pick:"اختر الكوكيز",
+      spread_picks:"اختر الكوكيز",
+      swipe:"اسحب لرؤية المزيد",
+      co_addr:"إلى أين نوصل؟",
+      co_zoneno:"المنطقة",
+      co_city:"المدينة",
+      co_house:"رقم المنزل",
+      co_zoneno_h:"رقمان أو ثلاثة",
+      co_city_h:"ابدأ بالكتابة، نقترح عليك",
+      co_house_h:"رقم المبنى أو الفيلا",
+      co_err_zoneno:"الرجاء إضافة رقم المنطقة.",
+      co_err_city:"الرجاء إضافة المدينة.",
+      co_err_house:"الرجاء إضافة رقم المنزل.",
+      co_loc:"أرفق موقعي",
+      co_loc_on:"تم إرفاق الموقع ✓",
+      co_loc_wait:"جارٍ تحديد الموقع…",
+      co_loc_no:"تعذّر تحديده — شارك موقعك عبر واتساب",
+      co_loc_hint:"استخدم هذا فقط إذا كنت في عنوان التوصيل نفسه.",
+      co_loc_or:"التوصيل إلى مكان آخر؟",
+      co_loc_paste:"الصق رابط خرائط جوجل",
+      co_loc_how:"افتح خرائط جوجل، اضغط مطوّلاً على الموقع، ثم مشاركة ← نسخ الرابط. العناوين في الدوحة غالباً غير دقيقة — الموقع يوفّر اتصالاً على السائق.",
+      co_loc_bad:"هذا لا يبدو رابط خريطة.",
+      co_m_loc:"الموقع",
+      del_driver:"التوصيل يُرتّب مع السائق أو شركة التوصيل، ويُدفع لهم مباشرة. وهو منفصل عن هذا الطلب وغير مشمول في المبلغ أعلاه.",
+      del_driver_t:"بخصوص التوصيل",
+      sameday_note:"التوصيل في نفس اليوم متاح · اطلب قبل 5 PM",
+      rare_left:"باقي %s",
+      rare_line:"باقي %s فقط ليوم %s",
+      quota_block:"بعض التواريخ محجوزة بالكامل. اختر يومًا آخر.",
+      sameday_block:"رسك “شبورة” وخبز الموز بالزبدة البنية يُخبزان حسب الطلب ويكونان جاهزين من الغد. اختر يومًا لاحقًا لهما — أو احذفهما ونوصّل لك الباقي اليوم.",
+      today:"اليوم",
+      soldout:"غير متاح اليوم",
+      co_err_day:"الرجاء اختيار اليوم.",
+      co_err_slot:"الرجاء اختيار الوقت.",
+      co_err_name:"الرجاء كتابة اسمك.",
+      co_err_phone:"الرجاء إضافة رقم جوال قطري.",
+      co_err_phone2:"الرجاء إضافة رقمك أنت.",
+      co_err_pay:"الرجاء اختيار طريقة الدفع.",
+      co_m_total:"الإجمالي",
+      co_m_when:"الموعد",
+      co_m_where:"العنوان",
+      co_m_who:"الاسم",
+      co_m_recv:"رقم المستلم",
+      co_m_mine:"رقمي",
+      co_m_card:"رسالة البطاقة",
+      co_m_pay:"الدفع",
+      co_m_occ:"المناسبة",
+      co_m_note:"ملاحظة",
+      co_m_src:"عرفنا عن طريق",
+      co_m_optin:"يرغب بمتابعة الجديد",
+      fb_done:"تم النسخ ✓"
     },
     ar: {
       item1_qty:"12 حبة",
@@ -2537,7 +2552,9 @@
       item6_qty:"30 قطعة",
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
-      spread_qty:"12 كوكيز · 40 مادلين صغيرة · 1 كيكة خوخ مقلوبة",
+      spread_qty:"12 كوكيز · 12 كوكيز · 40 مادلين صغيرة",
+      spread_pick:"اختر الكوكيز",
+      spread_picks:"اختر الكوكيز",
       rare_left:"باقي %s",
       rare_line:"باقي %s فقط ليوم %s",
       spread_name:"صندوق الاكتشاف",
@@ -2609,7 +2626,12 @@
   // veut dire ouvert. Une panne de réseau ne ferme pas la boutique.
   var QUOTAS = {};
   var S = { date:null, slot:null, gift:false, occ:null, pay:null, src:null,
-            optin:false, spreadCookie:null, loc:null, locFromDevice:null };
+            optin:false, loc:null, locFromDevice:null };
+  // Le choix du cookie n'est plus dans `S` : il vit dans les pastilles, comme
+  // celui de l'heure ou du moyen de paiement. Il y en avait UN, on pouvait le
+  // ranger dans une variable ; il y en a autant que l'offre en déclare, et
+  // c'est l'app qui le dit. Le DOM porte donc l'état, une copie de moins.
+  var PIECES = {};   // le nombre de pièces par produit, lu au catalogue
 
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
@@ -2625,15 +2647,129 @@
     // particulier qui n'en était pas un, et qu'on relisait à chaque passage.
     return T(id + '_name');
   }
-  // Le cookie retenu dans le lot. La cliente doit le voir dans son panier,
-  // pas seulement dans le message qu'elle envoie — sinon rien ne lui confirme
-  // que son choix a été pris.
-  var COOKIE_DU_LOT = { choc:'item5', nutella:'item7', chamaral:'item8' };
-  function cookieChoisi(){
-    var id = S.spreadCookie && COOKIE_DU_LOT[S.spreadCookie];
-    return id ? NAME(id) : '';
+  // Les emplacements « au choix » du coffret, dans l'ordre où l'app les a
+  // écrits. Cet ordre n'est pas décoratif : l'app répartit les choix un par
+  // emplacement, dans le même ordre, pour décompter le bon stock
+  // (`assignerVariantes`, lots.js). Les inverser ferait sortir le mauvais
+  // cookie de la cuisine.
+  function rangeesDeChoix(){
+    var host = $('spreadCookie');
+    return host ? [].slice.call(host.querySelectorAll('.chips')) : [];
   }
-  function QTY(id){ var k = id + '_qty'; var v = T(k); return v === k ? '' : v; }
+  // La clé retenue sur une rangée. À défaut de choix, le PREMIER bouton
+  // encore disponible : c'est exactement ce que l'app retiendra de son côté,
+  // et le message dit donc ce qui sortira vraiment de la cuisine.
+  function cleDeRangee(rangee){
+    var on = rangee.querySelector('.chip[aria-pressed="true"]:not([disabled])')
+          || rangee.querySelector('.chip:not([disabled])');
+    return on ? on.getAttribute('data-val') : '';
+  }
+  // Le choix retenu dans le lot. La cliente doit le voir dans son panier, pas
+  // seulement dans le message qu'elle envoie — sinon rien ne lui confirme que
+  // son choix a été pris. Plusieurs choix se joignent par ' · ', la forme que
+  // l'app sait redécouper.
+  function cookieChoisi(){
+    return rangeesDeChoix().map(function(r){
+      var cle = cleDeRangee(r);
+      return cle ? NAME(cle) : '';
+    }).filter(Boolean).join(' \u00b7 ');
+  }
+  /**
+   * Remet la liste « ce qu'il y a dans la boîte » d'accord avec les choix.
+   *
+   * Chaque ligne du coffret porte sa clé de site. Celles qui viennent d'un
+   * emplacement au choix portent en plus le rang de leur rangée : quand la
+   * cliente change de cookie, c'est CETTE ligne-là qui doit suivre. Sans ça,
+   * la page annonçait un cookie et le message en envoyait un autre.
+   */
+  function syncContenu(){
+    var ul = $('spreadContenu');
+    if(!ul) return;
+    var rangees = rangeesDeChoix();
+    ul.querySelectorAll('li[data-slot]').forEach(function(li){
+      var rangee = rangees[Number(li.getAttribute('data-slot'))];
+      if(!rangee) return;
+      var cle = cleDeRangee(rangee);
+      if(!cle) return;
+      li.setAttribute('data-cle', cle);
+      var n = Number(li.getAttribute('data-n')) || 1;
+      var b = li.querySelector('b'), nom = li.querySelector('span');
+      if(b && PIECES[cle]) b.textContent = String(n * PIECES[cle]);
+      if(nom) nom.textContent = NAME(cle);
+    });
+    // Le sélecteur porte la MÊME composition, dans son coin de page. Elle n'y
+    // était écrite qu'à l'arrivée du catalogue : la carte suivait la cliente,
+    // et lui restait sur le premier cookie. Deux compositions sur le même
+    // écran, dont une périmée dès le premier clic — ce que cette page passe
+    // justement son temps à faire disparaître.
+    var offre = ul.closest('.spread-text');
+    var rangee = offre && offre.querySelector('.qty-row[data-item]');
+    var quoi = rangee && document.querySelector(
+      '#picker .pk-line[data-pk="' + rangee.getAttribute('data-item') + '"] .pk-what');
+    if(quoi) quoi.textContent = QTY(rangee.getAttribute('data-item'));
+  }
+
+  /**
+   * Branche le choix des cookies, une fois pour toutes.
+   *
+   * La liaison est posée sur le CONTENEUR, pas sur les boutons : `appliquer`
+   * réécrit les rangées quand le catalogue arrive, et des écouteurs posés
+   * bouton par bouton seraient partis avec les anciens. Le choix aurait alors
+   * cessé de répondre exactement chez les clientes dont le réseau est lent —
+   * celles qu'on ne voit jamais échouer.
+   */
+  function brancherChoix(){
+    var host = $('spreadCookie');
+    if(!host || host.dataset.branche) return;
+    host.dataset.branche = '1';
+    host.addEventListener('click', function(e){
+      var c = e.target.closest ? e.target.closest('.chip') : null;
+      if(!c || c.disabled || !host.contains(c)) return;
+      var rangee = c.closest('.chips');
+      if(!rangee) return;
+      rangee.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      c.setAttribute('aria-pressed','true');
+      syncContenu();   // la liste doit dire ce qui sortira vraiment de la boîte
+      refresh();       // le panier doit confirmer le choix, pas seulement l'enregistrer
+    });
+  }
+
+  /**
+   * Aucune rangée ne reste sans choix visible.
+   *
+   * Quand le cookie retenu tombe en rupture, le geler ne suffit pas : la
+   * cliente ne voyait plus aucun cookie coché, pendant que le message, lui,
+   * repartait sur le premier disponible. L'écran disait « rien » et la boîte
+   * serait arrivée avec quelque chose.
+   */
+  function reparerRangees(){
+    rangeesDeChoix().forEach(function(r){
+      if(r.querySelector('.chip[aria-pressed="true"]:not([disabled])')) return;
+      var libre = r.querySelector('.chip:not([disabled])');
+      if(libre) libre.setAttribute('aria-pressed','true');
+    });
+  }
+
+  /**
+   * Ce que contient un produit, en une ligne — pour le panier et le sélecteur.
+   *
+   * Pour le coffret, elle se lit dans la liste DÉJÀ affichée, qui suit l'app.
+   * `spread_qty`, écrit dans la page, disait « 12 cookies · 40 petit
+   * madeleines · 1 upside-down peach cake » pendant que la carte, elle, avait
+   * suivi le catalogue : deux compositions sur le même écran, dont une fausse.
+   * Ce n'est plus que le repli, comme la liste elle-même.
+   */
+  function QTY(id){
+    if(id === 'spread'){
+      var lignes = $('spreadContenu') ? $('spreadContenu').querySelectorAll('li[data-cle]') : [];
+      if(lignes.length){
+        return [].map.call(lignes, function(li){
+          return li.querySelector('b').textContent.trim() + ' ' + li.querySelector('span').textContent.trim();
+        }).join(' \u00b7 ');
+      }
+    }
+    var k = id + '_qty'; var v = T(k); return v === k ? '' : v;
+  }
 
   function L(){ return document.documentElement.lang === 'ar' ? 'ar' : 'en'; }
   function T(k){ var d=translations[L()]; return (d && d[k]) || (translations.en[k]||k); }
@@ -2948,7 +3084,10 @@
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] <= 0) return;
       var line = document.createElement('div'); line.className='cart-line';
-      var choix = (id === 'spread' && cookieChoisi()) ? ' (' + cookieChoisi() + ')' : '';
+      // Le choix n'est plus répété ici : depuis que la ligne de composition
+      // nomme les produits retenus AVEC leurs quantités, l'écrire aussi
+      // derrière le titre le disait deux fois sur la même ligne.
+      var choix = '';
       line.innerHTML =
         '<div class="cl-name">'+ NAME(id) + choix
       + (QTY(id) ? '<span class="cl-qty">' + QTY(id) + '</span>' : '')
@@ -3570,16 +3709,14 @@
       if(!titre) return;
       NOMS[id] = titre;
 
-      // Les trois pastilles du choix de cookie, dans le Full Spread, portaient
-      // leur nom ÉCRIT EN DUR. Le 30/08/2026 la fiche produit affichait
-      // « Choco Chunk » — nom venu du catalogue — et la pastille, sur la même
-      // page, « Chamaral Chocolate Chunk ». Deux noms pour le même cookie,
-      // dont un que l'app ne connaissait plus.
-      for(var cleLot in COOKIE_DU_LOT){
-        if(COOKIE_DU_LOT[cleLot] !== id) continue;
-        var pastille = document.querySelector('#spreadCookie .chip[data-val="' + cleLot + '"]');
-        if(pastille) pastille.textContent = titre;
-      }
+      // Les pastilles du choix de cookie portaient leur nom ÉCRIT EN DUR. Le
+      // 30/08/2026 la fiche produit affichait « Choco Chunk » — nom venu du
+      // catalogue — et la pastille, sur la même page, « Chamaral Chocolate
+      // Chunk ». Deux noms pour le même cookie, dont un que l'app ne
+      // connaissait plus. Elles portent maintenant la clé de site : le même
+      // mot que le catalogue et que la composition, donc plus d'annuaire.
+      document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
+        .forEach(function(pastille){ pastille.textContent = titre; });
 
       var h = document.querySelector('[data-i18n="' + id + '_name"]');
       if(h){
@@ -3646,18 +3783,90 @@
       }
       var ajout = document.querySelector('.pick [data-add="' + id + '"]');
       if(ajout) ajout.disabled = true;
-      // un cookie épuisé ne peut plus être choisi dans le lot
-      Object.keys(COOKIE_DU_LOT).forEach(function(cle){
-        if(COOKIE_DU_LOT[cle] !== id) return;
-        var chip = document.querySelector('#spreadCookie .chip[data-val="' + cle + '"]');
-        if(!chip) return;
-        chip.disabled = true; chip.classList.add('frozen');
-        if(S.spreadCookie === cle){ S.spreadCookie = null; chip.setAttribute('aria-pressed','false'); }
+      // Un cookie épuisé ne peut plus être choisi dans le lot — et il peut
+      // apparaître sur PLUSIEURS rangées depuis que le coffret en contient
+      // deux : les geler toutes, pas seulement la première trouvée.
+      document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
+        .forEach(function(chip){
+          chip.disabled = true; chip.classList.add('frozen');
+          chip.setAttribute('aria-pressed','false');
+        });
+      reparerRangees();
+      syncContenu();
+    }
+
+    /**
+     * Réécrit ce que contient le coffret avec ce que dit l'APP.
+     *
+     * La liste vivait cuite dans la page (`SPREAD_CONTENU`, strings.py) alors
+     * que l'app tenait la vraie composition — celle qui décompte le stock. Le
+     * 03/09/2026 le peach cake est sorti du coffret dans l'app et la page a
+     * continué de le promettre : deux copies d'une même donnée, et c'est la
+     * seconde qui est devenue fausse en silence.
+     *
+     * Ce qui descend de l'app n'est que des CLÉS et des quantités. Les noms et
+     * les nombres de pièces, la page les a déjà : chaque composant est un
+     * produit du même catalogue. On ne recopie pas un nom, on le désigne.
+     *
+     * L'ORDRE des emplacements au choix est porteur : l'app répartit les
+     * choix un par emplacement, dans cet ordre (`assignerVariantes`). Les
+     * intervertir ferait sortir le mauvais cookie de la cuisine.
+     */
+    function ecrireComposition(cle, compo){
+      var ul = $('spreadContenu'), host = $('spreadCookie');
+      if(!ul || !host || !compo || !compo.length) return;
+
+      // Ce que la cliente avait déjà choisi, pour ne pas le lui reprendre si
+      // le catalogue arrive après son premier clic.
+      var deja = rangeesDeChoix().map(cleDeRangee);
+
+      var lignes = '', rangees = '', slot = 0;
+      compo.forEach(function(c){
+        var ligneCle = c && c.cle ? String(c.cle) : '';
+        if(!ligneCle) return;
+        var n = Math.max(1, Number(c.n) || 1);
+        var choix = (c.auChoix && c.auChoix.length > 1) ? c.auChoix : null;
+        var marque = '';
+        if(choix){
+          // Ce que la cliente avait déjà coché sur cette rangée survit à la
+          // réécriture, s'il fait toujours partie des possibilités.
+          var garde = deja[slot];
+          var retenu = (garde && choix.indexOf(garde) >= 0) ? garde : ligneCle;
+          rangees += '<div class="chips" data-slot="' + slot + '">'
+            + choix.map(function(alt){
+                return '<button type="button" class="chip" data-val="' + alt + '"'
+                     + (alt === retenu ? ' aria-pressed="true"' : ' aria-pressed="false"')
+                     + '>' + NAME(alt) + '</button>';
+              }).join('')
+            + '</div>';
+          marque = ' data-slot="' + slot + '"';
+          ligneCle = retenu;
+          slot += 1;
+        }
+        lignes += '<li data-cle="' + ligneCle + '" data-n="' + n + '"' + marque + '>'
+                + '<b dir="ltr">' + (n * (PIECES[ligneCle] || 1)) + '</b>'
+                + '<span>' + NAME(ligneCle) + '</span></li>';
       });
+      if(!lignes) return;
+      ul.innerHTML = lignes;
+      // Une offre sans choix ne montre pas une rangée vide, ni son étiquette.
+      host.innerHTML = rangees;
+      var bloc = host.closest('.fld');
+      if(bloc) bloc.hidden = slot === 0;
+      var etiquette = $('spreadPickLabel');
+      if(etiquette) etiquette.textContent = T(slot > 1 ? 'spread_picks' : 'spread_pick');
+      syncContenu();   // c'est elle qui remet aussi le sélecteur d'accord
     }
 
     function appliquer(produits){
       if(!produits || !produits.length) return;
+      // Le nombre de pièces d'abord, pour TOUS les produits : la composition
+      // du coffret s'en sert pour dire « 12 cookies » là où l'app dit « une
+      // boîte de cookies ». Lire dans le même passage ferait dépendre le
+      // résultat de l'ordre des produits dans le document.
+      produits.forEach(function(p){
+        if(p && p.cle && Number(p.pieces) > 0) PIECES[String(p.cle)] = Number(p.pieces);
+      });
       produits.forEach(function(p){
         var id = p && p.cle;
         /* Le coffret COMPRIS, depuis le 03/09/2026. Son prix vivait ici en dur
@@ -3676,6 +3885,23 @@
         if(delai > 0) CFG.lead[id] = delai; else delete CFG.lead[id];
         if(p.disponible === false) retirerDeLaVente(id);
       });
+      // Après les noms, jamais avant : les pastilles et la liste sont écrites
+      // avec les noms du catalogue, et une pastille sans nom n'apprend rien.
+      produits.forEach(function(p){
+        if(p && p.cle && p.composition) ecrireComposition(String(p.cle), p.composition);
+      });
+      // Un cookie retiré de la vente avant que les rangées existent doit être
+      // gelé sur celles qui viennent d'être écrites, sinon il redevient
+      // choisissable en silence.
+      Object.keys(INDISPONIBLES).forEach(function(id){
+        document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
+          .forEach(function(chip){
+            chip.disabled = true; chip.classList.add('frozen');
+            chip.setAttribute('aria-pressed','false');
+          });
+      });
+      reparerRangees();
+      syncContenu();
       rangerLeRail(produits);
       refresh();
       if($('dateRail') && $('dateRail').children.length) syncDates();
@@ -3778,20 +4004,13 @@
     });
   });
 
-  /* ---------- cookie de la Full Spread ---------- */
-  (function(){
-    var host = document.getElementById('spreadCookie');
-    if(!host) return;
-    host.querySelectorAll('.chip').forEach(function(c){
-      c.setAttribute('aria-pressed','false');
-      c.addEventListener('click', function(){
-        host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-        c.setAttribute('aria-pressed','true');
-        S.spreadCookie = c.getAttribute('data-val');
-        refresh();   // le panier doit confirmer le choix, pas seulement l'enregistrer
-      });
-    });
-  })();
+  /* ---------- cookies du coffret ----------
+     La liaison vivait ici, posée bouton par bouton, et le choix par défaut
+     était « aucun ». Les deux ont changé le 03/09/2026 : le coffret contient
+     autant de cookies au choix que l'app en déclare, et `appliquer` réécrit
+     les rangées à la lecture du catalogue. Une liaison posée sur les boutons
+     serait partie avec les anciens — voir `brancherChoix`. */
+  brancherChoix();
 
   /* ---------- consentement ---------- */
   (function(){

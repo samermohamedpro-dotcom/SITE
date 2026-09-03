@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-0922">
+<meta name="pg-build" content="20260903-1112">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +28,11 @@
 <link rel="preload" href="/fonts/amiri-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/img/hero-home-bakery-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" imagesizes="100vw">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icone-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icone-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icone-512.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; connect-src https://firestore.googleapis.com; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
@@ -624,6 +629,12 @@
 
   /* chips */
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  /* Le coffret peut demander PLUSIEURS choix — deux cookies depuis le
+     03/09/2026, et autant que l'app en déclarera ensuite. Les rangées
+     s'empilent ; chacune reste une rangée de pastilles ordinaire. Sans
+     cet écart, les deux rangées se touchaient et se lisaient comme une
+     seule liste de six cookies parmi lesquels choisir un. */
+  #spreadCookie{display:flex;flex-direction:column;gap:10px;}
   .chip{
     font-family:'Lora',serif;font-size:0.88rem;cursor:pointer;
     padding:10px 15px;border-radius:999px;
@@ -2052,19 +2063,26 @@
         <p data-i18n="spread_desc">لا تستطيع الاختيار؟ نحن أيضًا. أفضل ما نخبزه في صندوق واحد — يكفي للمشاركة، ولاكتشاف ما تفضّله.</p>
         <div class="spread-inside">
           <span class="fld-label">ما في الصندوق</span>
-          <ul>
-            <li><b dir="ltr">12</b><span>كوكيز</span></li>
-            <li><b dir="ltr">40</b><span>مادلين صغيرة</span></li>
-            <li><b dir="ltr">1</b><span>كيكة خوخ مقلوبة</span></li>
+          <ul id="spreadContenu">
+            <li data-cle="item7" data-n="1" data-slot="0"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item8" data-n="1" data-slot="1"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item2" data-n="1"><b dir="ltr">40</b><span>مادلين صغيرة</span></li>
           </ul>
         </div>
         <div class="spread-price"><b dir="ltr">590 QR</b><em>التوصيل على حسابنا</em></div>
         <div class="fld" style="margin:20px 0 0;">
-          <span class="fld-label">اختر الكوكيز</span>
-          <div class="chips" id="spreadCookie">
-            <button type="button" class="chip" data-val="choc">كوكيز رقائق الشوكولاتة</button>
-            <button type="button" class="chip" data-val="nutella">كوكيز نوتيلا</button>
-            <button type="button" class="chip" data-val="chamaral">كوكيز بقطع الشوكولاتة</button>
+          <span class="fld-label" id="spreadPickLabel">اختر الكوكيز</span>
+          <div id="spreadCookie">
+            <div class="chips" data-slot="0">
+              <button type="button" class="chip" data-val="item5">كوكيز رقائق الشوكولاتة</button>
+              <button type="button" class="chip" data-val="item7" aria-pressed="true">كوكيز نوتيلا</button>
+              <button type="button" class="chip" data-val="item8">كوكيز بقطع الشوكولاتة</button>
+            </div>
+            <div class="chips" data-slot="1">
+              <button type="button" class="chip" data-val="item5">كوكيز رقائق الشوكولاتة</button>
+              <button type="button" class="chip" data-val="item7">كوكيز نوتيلا</button>
+              <button type="button" class="chip" data-val="item8" aria-pressed="true">كوكيز بقطع الشوكولاتة</button>
+            </div>
           </div>
         </div>
         <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
@@ -2371,7 +2389,9 @@
       item6_qty:"30 pieces",
       item7_qty:"12 pieces",
       item8_qty:"12 pieces",
-      spread_qty:"12 cookies · 40 petit madeleines · 1 upside-down peach cake",
+      spread_qty:"12 cookies · 12 cookies · 40 petit madeleines",
+      spread_pick:"Choose your cookie",
+      spread_picks:"Choose your cookies",
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
       spread_name:"The Discovery Box",
@@ -2469,8 +2489,10 @@
       item6_qty:"30 قطعة",
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
-      spread_qty:"12 كوكيز · 40 مادلين صغيرة · 1 كيكة خوخ مقلوبة",
+      spread_qty:"12 كوكيز · 12 كوكيز · 40 مادلين صغيرة",
       spread_inside:"ما في الصندوق",
+      spread_pick:"اختر الكوكيز",
+      spread_picks:"اختر الكوكيز",
       swipe:"اسحب لرؤية المزيد",
       co_addr:"إلى أين نوصل؟",
       co_zoneno:"المنطقة",
@@ -2530,7 +2552,9 @@
       item6_qty:"30 قطعة",
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
-      spread_qty:"12 كوكيز · 40 مادلين صغيرة · 1 كيكة خوخ مقلوبة",
+      spread_qty:"12 كوكيز · 12 كوكيز · 40 مادلين صغيرة",
+      spread_pick:"اختر الكوكيز",
+      spread_picks:"اختر الكوكيز",
       rare_left:"باقي %s",
       rare_line:"باقي %s فقط ليوم %s",
       spread_name:"صندوق الاكتشاف",
@@ -2602,7 +2626,12 @@
   // veut dire ouvert. Une panne de réseau ne ferme pas la boutique.
   var QUOTAS = {};
   var S = { date:null, slot:null, gift:false, occ:null, pay:null, src:null,
-            optin:false, spreadCookie:null, loc:null, locFromDevice:null };
+            optin:false, loc:null, locFromDevice:null };
+  // Le choix du cookie n'est plus dans `S` : il vit dans les pastilles, comme
+  // celui de l'heure ou du moyen de paiement. Il y en avait UN, on pouvait le
+  // ranger dans une variable ; il y en a autant que l'offre en déclare, et
+  // c'est l'app qui le dit. Le DOM porte donc l'état, une copie de moins.
+  var PIECES = {};   // le nombre de pièces par produit, lu au catalogue
 
   var $ = function(id){ return document.getElementById(id); };
   var orderBar=$('orderBar'), waFloat=$('waFloat'), sheet=$('sheet'), veil=$('sheetVeil');
@@ -2618,15 +2647,129 @@
     // particulier qui n'en était pas un, et qu'on relisait à chaque passage.
     return T(id + '_name');
   }
-  // Le cookie retenu dans le lot. La cliente doit le voir dans son panier,
-  // pas seulement dans le message qu'elle envoie — sinon rien ne lui confirme
-  // que son choix a été pris.
-  var COOKIE_DU_LOT = { choc:'item5', nutella:'item7', chamaral:'item8' };
-  function cookieChoisi(){
-    var id = S.spreadCookie && COOKIE_DU_LOT[S.spreadCookie];
-    return id ? NAME(id) : '';
+  // Les emplacements « au choix » du coffret, dans l'ordre où l'app les a
+  // écrits. Cet ordre n'est pas décoratif : l'app répartit les choix un par
+  // emplacement, dans le même ordre, pour décompter le bon stock
+  // (`assignerVariantes`, lots.js). Les inverser ferait sortir le mauvais
+  // cookie de la cuisine.
+  function rangeesDeChoix(){
+    var host = $('spreadCookie');
+    return host ? [].slice.call(host.querySelectorAll('.chips')) : [];
   }
-  function QTY(id){ var k = id + '_qty'; var v = T(k); return v === k ? '' : v; }
+  // La clé retenue sur une rangée. À défaut de choix, le PREMIER bouton
+  // encore disponible : c'est exactement ce que l'app retiendra de son côté,
+  // et le message dit donc ce qui sortira vraiment de la cuisine.
+  function cleDeRangee(rangee){
+    var on = rangee.querySelector('.chip[aria-pressed="true"]:not([disabled])')
+          || rangee.querySelector('.chip:not([disabled])');
+    return on ? on.getAttribute('data-val') : '';
+  }
+  // Le choix retenu dans le lot. La cliente doit le voir dans son panier, pas
+  // seulement dans le message qu'elle envoie — sinon rien ne lui confirme que
+  // son choix a été pris. Plusieurs choix se joignent par ' · ', la forme que
+  // l'app sait redécouper.
+  function cookieChoisi(){
+    return rangeesDeChoix().map(function(r){
+      var cle = cleDeRangee(r);
+      return cle ? NAME(cle) : '';
+    }).filter(Boolean).join(' \u00b7 ');
+  }
+  /**
+   * Remet la liste « ce qu'il y a dans la boîte » d'accord avec les choix.
+   *
+   * Chaque ligne du coffret porte sa clé de site. Celles qui viennent d'un
+   * emplacement au choix portent en plus le rang de leur rangée : quand la
+   * cliente change de cookie, c'est CETTE ligne-là qui doit suivre. Sans ça,
+   * la page annonçait un cookie et le message en envoyait un autre.
+   */
+  function syncContenu(){
+    var ul = $('spreadContenu');
+    if(!ul) return;
+    var rangees = rangeesDeChoix();
+    ul.querySelectorAll('li[data-slot]').forEach(function(li){
+      var rangee = rangees[Number(li.getAttribute('data-slot'))];
+      if(!rangee) return;
+      var cle = cleDeRangee(rangee);
+      if(!cle) return;
+      li.setAttribute('data-cle', cle);
+      var n = Number(li.getAttribute('data-n')) || 1;
+      var b = li.querySelector('b'), nom = li.querySelector('span');
+      if(b && PIECES[cle]) b.textContent = String(n * PIECES[cle]);
+      if(nom) nom.textContent = NAME(cle);
+    });
+    // Le sélecteur porte la MÊME composition, dans son coin de page. Elle n'y
+    // était écrite qu'à l'arrivée du catalogue : la carte suivait la cliente,
+    // et lui restait sur le premier cookie. Deux compositions sur le même
+    // écran, dont une périmée dès le premier clic — ce que cette page passe
+    // justement son temps à faire disparaître.
+    var offre = ul.closest('.spread-text');
+    var rangee = offre && offre.querySelector('.qty-row[data-item]');
+    var quoi = rangee && document.querySelector(
+      '#picker .pk-line[data-pk="' + rangee.getAttribute('data-item') + '"] .pk-what');
+    if(quoi) quoi.textContent = QTY(rangee.getAttribute('data-item'));
+  }
+
+  /**
+   * Branche le choix des cookies, une fois pour toutes.
+   *
+   * La liaison est posée sur le CONTENEUR, pas sur les boutons : `appliquer`
+   * réécrit les rangées quand le catalogue arrive, et des écouteurs posés
+   * bouton par bouton seraient partis avec les anciens. Le choix aurait alors
+   * cessé de répondre exactement chez les clientes dont le réseau est lent —
+   * celles qu'on ne voit jamais échouer.
+   */
+  function brancherChoix(){
+    var host = $('spreadCookie');
+    if(!host || host.dataset.branche) return;
+    host.dataset.branche = '1';
+    host.addEventListener('click', function(e){
+      var c = e.target.closest ? e.target.closest('.chip') : null;
+      if(!c || c.disabled || !host.contains(c)) return;
+      var rangee = c.closest('.chips');
+      if(!rangee) return;
+      rangee.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      c.setAttribute('aria-pressed','true');
+      syncContenu();   // la liste doit dire ce qui sortira vraiment de la boîte
+      refresh();       // le panier doit confirmer le choix, pas seulement l'enregistrer
+    });
+  }
+
+  /**
+   * Aucune rangée ne reste sans choix visible.
+   *
+   * Quand le cookie retenu tombe en rupture, le geler ne suffit pas : la
+   * cliente ne voyait plus aucun cookie coché, pendant que le message, lui,
+   * repartait sur le premier disponible. L'écran disait « rien » et la boîte
+   * serait arrivée avec quelque chose.
+   */
+  function reparerRangees(){
+    rangeesDeChoix().forEach(function(r){
+      if(r.querySelector('.chip[aria-pressed="true"]:not([disabled])')) return;
+      var libre = r.querySelector('.chip:not([disabled])');
+      if(libre) libre.setAttribute('aria-pressed','true');
+    });
+  }
+
+  /**
+   * Ce que contient un produit, en une ligne — pour le panier et le sélecteur.
+   *
+   * Pour le coffret, elle se lit dans la liste DÉJÀ affichée, qui suit l'app.
+   * `spread_qty`, écrit dans la page, disait « 12 cookies · 40 petit
+   * madeleines · 1 upside-down peach cake » pendant que la carte, elle, avait
+   * suivi le catalogue : deux compositions sur le même écran, dont une fausse.
+   * Ce n'est plus que le repli, comme la liste elle-même.
+   */
+  function QTY(id){
+    if(id === 'spread'){
+      var lignes = $('spreadContenu') ? $('spreadContenu').querySelectorAll('li[data-cle]') : [];
+      if(lignes.length){
+        return [].map.call(lignes, function(li){
+          return li.querySelector('b').textContent.trim() + ' ' + li.querySelector('span').textContent.trim();
+        }).join(' \u00b7 ');
+      }
+    }
+    var k = id + '_qty'; var v = T(k); return v === k ? '' : v;
+  }
 
   function L(){ return document.documentElement.lang === 'ar' ? 'ar' : 'en'; }
   function T(k){ var d=translations[L()]; return (d && d[k]) || (translations.en[k]||k); }
@@ -2941,7 +3084,10 @@
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] <= 0) return;
       var line = document.createElement('div'); line.className='cart-line';
-      var choix = (id === 'spread' && cookieChoisi()) ? ' (' + cookieChoisi() + ')' : '';
+      // Le choix n'est plus répété ici : depuis que la ligne de composition
+      // nomme les produits retenus AVEC leurs quantités, l'écrire aussi
+      // derrière le titre le disait deux fois sur la même ligne.
+      var choix = '';
       line.innerHTML =
         '<div class="cl-name">'+ NAME(id) + choix
       + (QTY(id) ? '<span class="cl-qty">' + QTY(id) + '</span>' : '')
@@ -3563,16 +3709,14 @@
       if(!titre) return;
       NOMS[id] = titre;
 
-      // Les trois pastilles du choix de cookie, dans le Full Spread, portaient
-      // leur nom ÉCRIT EN DUR. Le 30/08/2026 la fiche produit affichait
-      // « Choco Chunk » — nom venu du catalogue — et la pastille, sur la même
-      // page, « Chamaral Chocolate Chunk ». Deux noms pour le même cookie,
-      // dont un que l'app ne connaissait plus.
-      for(var cleLot in COOKIE_DU_LOT){
-        if(COOKIE_DU_LOT[cleLot] !== id) continue;
-        var pastille = document.querySelector('#spreadCookie .chip[data-val="' + cleLot + '"]');
-        if(pastille) pastille.textContent = titre;
-      }
+      // Les pastilles du choix de cookie portaient leur nom ÉCRIT EN DUR. Le
+      // 30/08/2026 la fiche produit affichait « Choco Chunk » — nom venu du
+      // catalogue — et la pastille, sur la même page, « Chamaral Chocolate
+      // Chunk ». Deux noms pour le même cookie, dont un que l'app ne
+      // connaissait plus. Elles portent maintenant la clé de site : le même
+      // mot que le catalogue et que la composition, donc plus d'annuaire.
+      document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
+        .forEach(function(pastille){ pastille.textContent = titre; });
 
       var h = document.querySelector('[data-i18n="' + id + '_name"]');
       if(h){
@@ -3639,18 +3783,90 @@
       }
       var ajout = document.querySelector('.pick [data-add="' + id + '"]');
       if(ajout) ajout.disabled = true;
-      // un cookie épuisé ne peut plus être choisi dans le lot
-      Object.keys(COOKIE_DU_LOT).forEach(function(cle){
-        if(COOKIE_DU_LOT[cle] !== id) return;
-        var chip = document.querySelector('#spreadCookie .chip[data-val="' + cle + '"]');
-        if(!chip) return;
-        chip.disabled = true; chip.classList.add('frozen');
-        if(S.spreadCookie === cle){ S.spreadCookie = null; chip.setAttribute('aria-pressed','false'); }
+      // Un cookie épuisé ne peut plus être choisi dans le lot — et il peut
+      // apparaître sur PLUSIEURS rangées depuis que le coffret en contient
+      // deux : les geler toutes, pas seulement la première trouvée.
+      document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
+        .forEach(function(chip){
+          chip.disabled = true; chip.classList.add('frozen');
+          chip.setAttribute('aria-pressed','false');
+        });
+      reparerRangees();
+      syncContenu();
+    }
+
+    /**
+     * Réécrit ce que contient le coffret avec ce que dit l'APP.
+     *
+     * La liste vivait cuite dans la page (`SPREAD_CONTENU`, strings.py) alors
+     * que l'app tenait la vraie composition — celle qui décompte le stock. Le
+     * 03/09/2026 le peach cake est sorti du coffret dans l'app et la page a
+     * continué de le promettre : deux copies d'une même donnée, et c'est la
+     * seconde qui est devenue fausse en silence.
+     *
+     * Ce qui descend de l'app n'est que des CLÉS et des quantités. Les noms et
+     * les nombres de pièces, la page les a déjà : chaque composant est un
+     * produit du même catalogue. On ne recopie pas un nom, on le désigne.
+     *
+     * L'ORDRE des emplacements au choix est porteur : l'app répartit les
+     * choix un par emplacement, dans cet ordre (`assignerVariantes`). Les
+     * intervertir ferait sortir le mauvais cookie de la cuisine.
+     */
+    function ecrireComposition(cle, compo){
+      var ul = $('spreadContenu'), host = $('spreadCookie');
+      if(!ul || !host || !compo || !compo.length) return;
+
+      // Ce que la cliente avait déjà choisi, pour ne pas le lui reprendre si
+      // le catalogue arrive après son premier clic.
+      var deja = rangeesDeChoix().map(cleDeRangee);
+
+      var lignes = '', rangees = '', slot = 0;
+      compo.forEach(function(c){
+        var ligneCle = c && c.cle ? String(c.cle) : '';
+        if(!ligneCle) return;
+        var n = Math.max(1, Number(c.n) || 1);
+        var choix = (c.auChoix && c.auChoix.length > 1) ? c.auChoix : null;
+        var marque = '';
+        if(choix){
+          // Ce que la cliente avait déjà coché sur cette rangée survit à la
+          // réécriture, s'il fait toujours partie des possibilités.
+          var garde = deja[slot];
+          var retenu = (garde && choix.indexOf(garde) >= 0) ? garde : ligneCle;
+          rangees += '<div class="chips" data-slot="' + slot + '">'
+            + choix.map(function(alt){
+                return '<button type="button" class="chip" data-val="' + alt + '"'
+                     + (alt === retenu ? ' aria-pressed="true"' : ' aria-pressed="false"')
+                     + '>' + NAME(alt) + '</button>';
+              }).join('')
+            + '</div>';
+          marque = ' data-slot="' + slot + '"';
+          ligneCle = retenu;
+          slot += 1;
+        }
+        lignes += '<li data-cle="' + ligneCle + '" data-n="' + n + '"' + marque + '>'
+                + '<b dir="ltr">' + (n * (PIECES[ligneCle] || 1)) + '</b>'
+                + '<span>' + NAME(ligneCle) + '</span></li>';
       });
+      if(!lignes) return;
+      ul.innerHTML = lignes;
+      // Une offre sans choix ne montre pas une rangée vide, ni son étiquette.
+      host.innerHTML = rangees;
+      var bloc = host.closest('.fld');
+      if(bloc) bloc.hidden = slot === 0;
+      var etiquette = $('spreadPickLabel');
+      if(etiquette) etiquette.textContent = T(slot > 1 ? 'spread_picks' : 'spread_pick');
+      syncContenu();   // c'est elle qui remet aussi le sélecteur d'accord
     }
 
     function appliquer(produits){
       if(!produits || !produits.length) return;
+      // Le nombre de pièces d'abord, pour TOUS les produits : la composition
+      // du coffret s'en sert pour dire « 12 cookies » là où l'app dit « une
+      // boîte de cookies ». Lire dans le même passage ferait dépendre le
+      // résultat de l'ordre des produits dans le document.
+      produits.forEach(function(p){
+        if(p && p.cle && Number(p.pieces) > 0) PIECES[String(p.cle)] = Number(p.pieces);
+      });
       produits.forEach(function(p){
         var id = p && p.cle;
         /* Le coffret COMPRIS, depuis le 03/09/2026. Son prix vivait ici en dur
@@ -3669,6 +3885,23 @@
         if(delai > 0) CFG.lead[id] = delai; else delete CFG.lead[id];
         if(p.disponible === false) retirerDeLaVente(id);
       });
+      // Après les noms, jamais avant : les pastilles et la liste sont écrites
+      // avec les noms du catalogue, et une pastille sans nom n'apprend rien.
+      produits.forEach(function(p){
+        if(p && p.cle && p.composition) ecrireComposition(String(p.cle), p.composition);
+      });
+      // Un cookie retiré de la vente avant que les rangées existent doit être
+      // gelé sur celles qui viennent d'être écrites, sinon il redevient
+      // choisissable en silence.
+      Object.keys(INDISPONIBLES).forEach(function(id){
+        document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
+          .forEach(function(chip){
+            chip.disabled = true; chip.classList.add('frozen');
+            chip.setAttribute('aria-pressed','false');
+          });
+      });
+      reparerRangees();
+      syncContenu();
       rangerLeRail(produits);
       refresh();
       if($('dateRail') && $('dateRail').children.length) syncDates();
@@ -3771,20 +4004,13 @@
     });
   });
 
-  /* ---------- cookie de la Full Spread ---------- */
-  (function(){
-    var host = document.getElementById('spreadCookie');
-    if(!host) return;
-    host.querySelectorAll('.chip').forEach(function(c){
-      c.setAttribute('aria-pressed','false');
-      c.addEventListener('click', function(){
-        host.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-        c.setAttribute('aria-pressed','true');
-        S.spreadCookie = c.getAttribute('data-val');
-        refresh();   // le panier doit confirmer le choix, pas seulement l'enregistrer
-      });
-    });
-  })();
+  /* ---------- cookies du coffret ----------
+     La liaison vivait ici, posée bouton par bouton, et le choix par défaut
+     était « aucun ». Les deux ont changé le 03/09/2026 : le coffret contient
+     autant de cookies au choix que l'app en déclare, et `appliquer` réécrit
+     les rangées à la lecture du catalogue. Une liaison posée sur les boutons
+     serait partie avec les anciens — voir `brancherChoix`. */
+  brancherChoix();
 
   /* ---------- consentement ---------- */
   (function(){
