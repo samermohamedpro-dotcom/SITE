@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-0229">
+<meta name="pg-build" content="20260903-0840">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -762,6 +762,8 @@
   }
   .menu-card.is-soldout .img-wrap{opacity:0.45;}
   .menu-card.is-soldout .qty-row{opacity:0.4;pointer-events:none;}
+  /* Le coffret n'a pas de carte : son bloc porte l'état à sa place. */
+  .spread-text.is-soldout .qty-row{opacity:0.4;pointer-events:none;}
   .pk-line.is-soldout{opacity:0.4;pointer-events:none;}
 
   /* ================= LA RARETÉ, QUAND ELLE EST VRAIE =================
@@ -2593,7 +2595,10 @@
   var NOMS = {};
   function NAME(id){
     if(NOMS[id]) return NOMS[id];
-    return T(id === 'spread' ? 'spread_name' : id + '_name');
+    // Le coffret avait droit à un test à lui — qui rendait exactement la même
+    // chose : « spread » + « _name » vaut déjà « spread_name ». Un cas
+    // particulier qui n'en était pas un, et qu'on relisait à chaque passage.
+    return T(id + '_name');
   }
   // Le cookie retenu dans le lot. La cliente doit le voir dans son panier,
   // pas seulement dans le message qu'elle envoie — sinon rien ne lui confirme
@@ -3449,6 +3454,12 @@
       if(prixRail) prixRail.textContent = txt;
       var unit = document.querySelector('.pk-line[data-pk="' + id + '"] .pk-unit');
       if(unit) unit.textContent = prix + ' ' + T('qr') + ' ' + T('each') + (QTY(id) ? ' · ' + QTY(id) : '');
+      // Le coffret n'a pas de carte de menu : son grand prix vit dans son
+      // propre bloc. On le retrouve par la STRUCTURE et non par son nom de
+      // clé — ce qui vaudra pour le prochain coffret sans rien y changer.
+      var bloc = row && row.closest('.spread-text');
+      var gros = bloc && bloc.querySelector('.spread-price b');
+      if(gros) gros.textContent = txt;
     }
 
     // Renommer un produit dans l'app le renomme ici : titre de la carte, nom
@@ -3502,6 +3513,16 @@
 
       var ligne = document.querySelector('.pk-line[data-pk="' + id + '"] .pk-name');
       if(ligne && ligne.firstChild) ligne.firstChild.nodeValue = titre;
+
+      // Le coffret, encore : son titre vit dans son bloc, sous une autre clé
+      // de traduction (`spread_title`). Sans cette ligne, `NOMS` renommerait
+      // le panier et le message WhatsApp pendant que la page continuerait
+      // d'annoncer l'ancien nom — le défaut corrigé le 30/08 sur les
+      // pastilles de choix du cookie, exactement.
+      var rangee = document.querySelector('.qty-row[data-item="' + id + '"]');
+      var propre = rangee && rangee.closest('.spread-text');
+      var grandTitre = propre && propre.querySelector('h2[data-i18n]');
+      if(grandTitre) grandTitre.textContent = titre;
     }
 
     function retirerDeLaVente(id){
@@ -3511,7 +3532,9 @@
       if(row){
         row.querySelectorAll('.qty-btn').forEach(function(b){ b.disabled = true; });
         var v = row.querySelector('.qty-val'); if(v) v.textContent = '0';
-        var carte = row.closest('.menu-card');
+        // Le coffret n'a pas de carte de menu : son bloc à lui fait office
+        // de carte, sinon il resterait désactivé sans que rien ne le dise.
+        var carte = row.closest('.menu-card') || row.closest('.spread-text');
         if(carte && !carte.querySelector('.soldout')){
           carte.classList.add('is-soldout');
           var e = document.createElement('div');
@@ -3540,9 +3563,15 @@
       if(!produits || !produits.length) return;
       produits.forEach(function(p){
         var id = p && p.cle;
-        // « spread » n'existe pas dans l'app : son prix est composé sur le site.
-        // Le catalogue n'a donc pas à y toucher, même s'il contenait cette clé.
-        if(!id || id === 'spread' || !Object.prototype.hasOwnProperty.call(PRICES, id)) return;
+        /* Le coffret COMPRIS, depuis le 03/09/2026. Son prix vivait ici en dur
+           (`SP` dans build2.py) ET sur le produit dans l'app : deux nombres pour
+           une seule vérité, que rien ne comparait. Le jour où l'un bougeait
+           seul, le site vendait à un prix et la vente s'enregistrait à un autre,
+           sans que personne ne le voie. C'est l'app qui dit le prix, le nom et
+           la disponibilité — le nombre cuit dans la page n'est plus qu'un repli,
+           celui qu'on voit si le catalogue est illisible, et
+           `verifier-en-ligne.mjs` compare désormais les deux. */
+        if(!id || !Object.prototype.hasOwnProperty.call(PRICES, id)) return;
         if(p.nom || p.nomAr) ecrireNom(id, String(p.nom || ''), String(p.nomAr || ''));
         var prix = Number(p.prix) || 0;
         if(prix > 0 && prix !== PRICES[id]){ PRICES[id] = prix; ecrirePrix(id, prix); }
