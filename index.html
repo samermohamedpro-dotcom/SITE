@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-0205">
+<meta name="pg-build" content="20260903-0229">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1061,6 +1061,20 @@
   .menu-card .price-badge,.cl-price,.totals .tl span:last-child,
   .order-bar-total,.date-chip b{unicode-bidi:isolate;}
   [dir="rtl"] .menu-card .price-badge{direction:ltr;}
+
+  /* Un montant et sa devise se lisent ensemble : « 200 » et « QR » ne doivent
+     jamais se retrouver sur deux lignes. La règle existait déjà pour les prix
+     cuits dans la page (`qty-note-p`, via une espace insécable dans
+     build2.py) ; les prix ÉCRITS PAR LE JAVASCRIPT ne l'avaient pas, et la
+     barre de commande se cassait en deux sur tout téléphone — 148 px de haut
+     au lieu de 80, mesuré à 320, 360 et 390 px.
+
+     Corrigé ici et non dans le texte : le même montant part aussi dans le
+     message WhatsApp, que l'app relit pour recomposer la commande. Une
+     insécable glissée dans cette chaîne-là se serait promenée jusque dans
+     `analyseCommande.js`. Le CSS règle l'affichage sans toucher à la donnée,
+     et tient quelle que soit la chaîne qu'on écrira demain. */
+  .order-bar-total,.pk-unit,#tGrand,.rail-price{white-space:nowrap;}
 
   /* ================= ADRESSE ================= */
   .zones{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
