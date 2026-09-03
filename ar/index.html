@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-1500">
+<meta name="pg-build" content="20260903-1823">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +28,7 @@
 <link rel="preload" href="/fonts/amiri-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/img/hero-home-bakery-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/hero-home-bakery-doha-720.webp 720w, /img/hero-home-bakery-doha.webp 1440w" imagesizes="100vw">
-<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icone-site-20260903.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/icone-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icone-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/icone-512.png">
@@ -2482,7 +2482,6 @@
       swipe:"اسحب لرؤية المزيد",
       co_addr:"إلى أين نوصل؟",
       co_zoneno:"المنطقة",
-      co_city:"المدينة",
       co_house:"رقم المنزل",
       co_zoneno_h:"رقمان أو ثلاثة",
       co_city_h:"ابدأ بالكتابة، نقترح عليك",
@@ -2499,7 +2498,6 @@
       co_loc_paste:"الصق رابط خرائط جوجل",
       co_loc_how:"افتح خرائط جوجل، اضغط مطوّلاً على الموقع، ثم مشاركة ← نسخ الرابط. العناوين في الدوحة غالباً غير دقيقة — الموقع يوفّر اتصالاً على السائق.",
       co_loc_bad:"هذا لا يبدو رابط خريطة.",
-      co_m_loc:"الموقع",
       del_driver:"التوصيل يُرتّب مع السائق أو شركة التوصيل، ويُدفع لهم مباشرة. وهو منفصل عن هذا الطلب وغير مشمول في المبلغ أعلاه.",
       del_driver_t:"بخصوص التوصيل",
       sameday_note:"التوصيل في نفس اليوم متاح · اطلب قبل 5 PM",
@@ -2515,6 +2513,7 @@
       co_err_phone:"الرجاء إضافة رقم جوال قطري.",
       co_err_phone2:"الرجاء إضافة رقمك أنت.",
       co_err_pay:"الرجاء اختيار طريقة الدفع.",
+      fb_done:"تم النسخ ✓",
       co_m_total:"الإجمالي",
       co_m_when:"الموعد",
       co_m_where:"العنوان",
@@ -2527,7 +2526,8 @@
       co_m_note:"ملاحظة",
       co_m_src:"عرفنا عن طريق",
       co_m_optin:"يرغب بمتابعة الجديد",
-      fb_done:"تم النسخ ✓"
+      co_m_loc:"الموقع",
+      co_city:"المدينة"
     },
     ar: {
       item1_qty:"12 حبة",
@@ -2626,6 +2626,16 @@
   // tout ce qui affiche un nom passe par cette fonction — carte, sélecteur,
   // rail, panier, message. Une seule source, donc pas de moitié renommée.
   var NOMS = {};
+  // Ce qui vient du catalogue est du TEXTE. Il n'est écrit que par un compte
+  // connecté, mais une page publique n'a pas à faire confiance à sa propre
+  // base : le jour où un compte est compromis, un nom qui contiendrait une
+  // balise s'exécuterait dans le navigateur de chaque cliente. Partout où un
+  // nom entre dans une chaîne HTML, il passe ici. Audit du 03/09/2026.
+  function html(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
   function NAME(id){
     if(NOMS[id]) return NOMS[id];
     // Le coffret avait droit à un test à lui — qui rendait exactement la même
@@ -2713,6 +2723,11 @@
       if(!c || c.disabled || !host.contains(c)) return;
       var rangee = c.closest('.chips');
       if(!rangee) return;
+      // Ce clic-là est celui de la cliente. `ecrireComposition` ne garde un
+      // choix précédent que si ce drapeau est posé : au chargement, ce qui est
+      // coché n'est le choix de personne, c'est le défaut cuit dans la page —
+      // et c'est l'app qui doit décider du cookie proposé en premier.
+      host.dataset.choisi = '1';
       rangee.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
       c.setAttribute('aria-pressed','true');
       syncContenu();   // la liste doit dire ce qui sortira vraiment de la boîte
@@ -3014,9 +3029,9 @@
       // trop large : elle poussait le − 0 + hors de l'écran et faisait
       // défiler tout le panneau vers la droite sur téléphone.
       el.innerHTML =
-        '<div class="pk-name">' + NAME(it.id)
+        '<div class="pk-name">' + html(NAME(it.id))
         + '<span class="pk-unit">' + it.price + ' ' + T('qr') + ' ' + T('each') + '</span>'
-        + (QTY(it.id) ? '<span class="pk-what">' + QTY(it.id) + '</span>' : '')
+        + (QTY(it.id) ? '<span class="pk-what">' + html(QTY(it.id)) + '</span>' : '')
         + '</div>'
         + '<div class="cl-step"><button type="button" data-a="dec">\u2212</button>'
         + '<span class="pk-q">0</span>'
@@ -3075,8 +3090,8 @@
       // derrière le titre le disait deux fois sur la même ligne.
       var choix = '';
       line.innerHTML =
-        '<div class="cl-name">'+ NAME(id) + choix
-      + (QTY(id) ? '<span class="cl-qty">' + QTY(id) + '</span>' : '')
+        '<div class="cl-name">'+ html(NAME(id)) + choix
+      + (QTY(id) ? '<span class="cl-qty">' + html(QTY(id)) + '</span>' : '')
       + '<span class="cl-sub">'+ ORDER[id] + ' \u00d7 ' + PRICES[id] +' '+T('qr')+'</span></div>'
       + '<div class="cl-step"><button type="button" data-a="dec">−</button><span>'+ORDER[id]+'</span><button type="button" data-a="inc">+</button></div>'
       + '<div class="cl-price">'+ (ORDER[id]*PRICES[id]) +' '+T('qr')+'</div>';
@@ -3803,8 +3818,11 @@
       if(!ul || !host || !compo || !compo.length) return;
 
       // Ce que la cliente avait déjà choisi, pour ne pas le lui reprendre si
-      // le catalogue arrive après son premier clic.
-      var deja = rangeesDeChoix().map(cleDeRangee);
+      // le catalogue arrive après son premier clic. Mais SEULEMENT si elle a
+      // cliqué : sans le drapeau de `brancherChoix`, ce qui est coché est le
+      // repli cuit dans la page, et il présélectionnait Nutella pendant que
+      // l'app disait Chocolate Chip (03/09/2026, vu sur petit-gateau.com).
+      var deja = host.dataset.choisi ? rangeesDeChoix().map(cleDeRangee) : [];
 
       var lignes = '', rangees = '', slot = 0;
       compo.forEach(function(c){
@@ -3820,18 +3838,18 @@
           var retenu = (garde && choix.indexOf(garde) >= 0) ? garde : ligneCle;
           rangees += '<div class="chips" data-slot="' + slot + '">'
             + choix.map(function(alt){
-                return '<button type="button" class="chip" data-val="' + alt + '"'
+                return '<button type="button" class="chip" data-val="' + html(alt) + '"'
                      + (alt === retenu ? ' aria-pressed="true"' : ' aria-pressed="false"')
-                     + '>' + NAME(alt) + '</button>';
+                     + '>' + html(NAME(alt)) + '</button>';
               }).join('')
             + '</div>';
           marque = ' data-slot="' + slot + '"';
           ligneCle = retenu;
           slot += 1;
         }
-        lignes += '<li data-cle="' + ligneCle + '" data-n="' + n + '"' + marque + '>'
+        lignes += '<li data-cle="' + html(ligneCle) + '" data-n="' + n + '"' + marque + '>'
                 + '<b dir="ltr">' + (n * (PIECES[ligneCle] || 1)) + '</b>'
-                + '<span>' + NAME(ligneCle) + '</span></li>';
+                + '<span>' + html(NAME(ligneCle)) + '</span></li>';
       });
       if(!lignes) return;
       ul.innerHTML = lignes;
