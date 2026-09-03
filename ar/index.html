@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-0910">
+<meta name="pg-build" content="20260903-0922">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2429,8 +2429,6 @@
       co_slot_16:"4 PM",
       co_slot_17:"5 PM",
       co_slot_18:"6 PM",
-      co_city:"المدينة",
-      co_city_h:"ابدأ بالكتابة، نقترح عليك",
       co_total:"الإجمالي",
       co_name:"الاسم",
       co_first:"الاسم الأول",
@@ -2476,11 +2474,13 @@
       swipe:"اسحب لرؤية المزيد",
       co_addr:"إلى أين نوصل؟",
       co_zoneno:"المنطقة",
+      co_city:"المدينة",
       co_house:"رقم المنزل",
       co_zoneno_h:"رقمان أو ثلاثة",
+      co_city_h:"ابدأ بالكتابة، نقترح عليك",
       co_house_h:"رقم المبنى أو الفيلا",
       co_err_zoneno:"الرجاء إضافة رقم المنطقة.",
-      co_err_city:"الرجاء كتابة المنطقة.",
+      co_err_city:"الرجاء إضافة المدينة.",
       co_err_house:"الرجاء إضافة رقم المنزل.",
       co_loc:"أرفق موقعي",
       co_loc_on:"تم إرفاق الموقع ✓",
@@ -3106,6 +3106,23 @@
     return el.closest('.fld');
   }
 
+  // Le bloc adresse tient trois cases et UN seul message. Il nomme la
+  // première qui manque, dans l'ordre où elles se lisent, et il suit à mesure
+  // qu'elle les remplit. Avant, il disait « zone » quoi qu'il arrive — et
+  // depuis que la case remplie redevient normale, on le lisait sous une zone
+  // correctement saisie, ce qui ne veut plus rien dire.
+  var DIT_ADRESSE = [['fZone','co_err_zoneno'], ['fCity','co_err_city'], ['fHouse','co_err_house']];
+  function direCeQuiManque(ko){
+    for(var i = 0; i < DIT_ADRESSE.length; i++){
+      if(ko.indexOf($(DIT_ADRESSE[i][0])) >= 0){
+        $('addrErr').textContent = T(DIT_ADRESSE[i][1]);
+        return;
+      }
+    }
+    // Plus rien ne manque : on laisse le dernier message en place. Il est
+    // déjà masqué, et le vider ferait clignoter le bloc en se refermant.
+  }
+
   function netToutRouge(){
     document.querySelectorAll('.sheet .fld.err,.sheet .af.err').forEach(function(f){
       f.classList.remove('err');
@@ -3119,6 +3136,7 @@
   function repeindre(){
     if(!document.querySelector('.sheet .fld.err,.sheet .af.err')) return;
     var ko = manque();
+    direCeQuiManque(ko);
     document.querySelectorAll('.sheet .af.err').forEach(function(af){
       var champ = af.querySelector('input');
       if(champ && ko.indexOf(champ) < 0) af.classList.remove('err');
@@ -3136,8 +3154,9 @@
     netToutRouge();
 
     // toutes les erreurs sont signalées d'un coup, pas une par une
-    var errs = [];
-    manque().forEach(function(el){ var f = bad(el); if(errs.indexOf(f) < 0) errs.push(f); });
+    var errs = [], ko = manque();
+    ko.forEach(function(el){ var f = bad(el); if(errs.indexOf(f) < 0) errs.push(f); });
+    direCeQuiManque(ko);
 
     var first = errs[0] || null;
     if(first){ first.scrollIntoView({behavior:'smooth', block:'center'}); return; }
