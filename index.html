@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260903-0840">
+<meta name="pg-build" content="20260903-0910">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -716,11 +716,15 @@
     line-height:1.3;color:var(--deep-maroon);
   }
   [dir="rtl"] .pk-name{font-family:'Amiri',serif;}
-  .pk-unit{
+  /* Deux lignes de même allure sous le nom : le prix (`.pk-unit`, insécable
+     par style.css) et la composition (`.pk-what`, qui se replie). La seconde
+     n'est PAS dans la liste des insécables : c'est là que vit la composition
+     du coffret, trop longue pour tenir sur une ligne de téléphone. */
+  .pk-unit,.pk-what{
     display:block;margin-top:3px;font-family:'Lora',serif;font-style:italic;
     font-size:0.78rem;color:var(--dusty-rose);unicode-bidi:isolate;
   }
-  [dir="rtl"] .pk-unit{font-style:normal;font-family:'Lora',serif;}
+  [dir="rtl"] .pk-unit,[dir="rtl"] .pk-what{font-style:normal;font-family:'Lora',serif;}
   .pk-q{min-width:22px;text-align:center;font-weight:700;color:var(--deep-maroon);}
   .pick-empty{
     font-family:'Lora',serif;font-style:italic;font-size:0.88rem;
@@ -1389,6 +1393,20 @@
   }
   .af input:focus{border-color:var(--deep-maroon);}
   .af.err input{border-color:#B3261E;background:#FFF6F5;}
+
+  /* Le bloc adresse loge trois cases ET le lien Google Maps dans un seul
+     `.fld`. Le rouge général (`.fld.err input`, checkout.css) les accusait
+     toutes en même temps : celle qu'on venait justement de remplir, et le
+     lien de localisation, qui n'est jamais obligatoire. Ici, chaque case
+     porte sa propre faute ; le `.fld` ne garde que le message.
+     Les deux sélecteurs sont plus spécifiques que le rouge général : ils
+     gagnent quel que soit l'ordre d'assemblage des feuilles. */
+  .fld.err .addr-grid .af:not(.err) input,
+  .fld.err .loc-else:not(.err) input{
+    border-color:rgba(94,22,34,0.22);background:#fff;
+  }
+  .fld.err .addr-grid .af:not(.err) input:focus,
+  .fld.err .loc-else:not(.err) input:focus{border-color:var(--deep-maroon);}
 
   /* ================= POINT DE LOCALISATION ================= */
   .loc-btn{
@@ -2867,10 +2885,17 @@
       var el = document.createElement('div');
       el.className = 'pk-line';
       el.setAttribute('data-pk', it.id);
+      // Le prix garde sa ligne — `.pk-unit` est insécable, pour que « 590 »
+      // et « QR » ne se séparent jamais — et CE QUE CONTIENT le produit part
+      // à la ligne suivante, qui a le droit de se replier. Collés ensemble,
+      // les trois éléments du coffret formaient une ligne insécable de 130 px
+      // trop large : elle poussait le − 0 + hors de l'écran et faisait
+      // défiler tout le panneau vers la droite sur téléphone.
       el.innerHTML =
         '<div class="pk-name">' + NAME(it.id)
-        + '<span class="pk-unit">' + it.price + ' ' + T('qr') + ' ' + T('each')
-        + (QTY(it.id) ? ' \u00b7 ' + QTY(it.id) : '') + '</span></div>'
+        + '<span class="pk-unit">' + it.price + ' ' + T('qr') + ' ' + T('each') + '</span>'
+        + (QTY(it.id) ? '<span class="pk-what">' + QTY(it.id) + '</span>' : '')
+        + '</div>'
         + '<div class="cl-step"><button type="button" data-a="dec">\u2212</button>'
         + '<span class="pk-q">0</span>'
         + '<button type="button" data-a="inc">+</button></div>';
@@ -2960,6 +2985,7 @@
     S.gift = !S.gift;
     this.setAttribute('aria-pressed', S.gift ? 'true' : 'false');
     $('giftFields').classList.toggle('on', S.gift);
+    repeindre();   // décoché, le second numéro n'est plus exigé
   });
 
   /* ---------- mémoire locale ---------- */
@@ -3038,6 +3064,7 @@
   /* ---------- ouverture / fermeture ---------- */
   function open(){
     buildDates(); paint(); recall(); paint();
+    repeindre();   // l'adresse retenue peut avoir réparé un rouge d'avant
     sheet.classList.add('open'); veil.classList.add('open');
     document.body.classList.add('sheet-open');
   }
@@ -3057,25 +3084,67 @@
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
 
   /* ---------- validation + envoi ---------- */
-  function bad(el){ el.closest('.fld').classList.add('err'); return el.closest('.fld'); }
+  // Ce qui manque, à cet instant précis. Écrit ICI et nulle part ailleurs :
+  // le bouton d'envoi s'en sert pour peindre les fautes, et la saisie s'en
+  // ressert pour les effacer. Deux listes de règles auraient fini par se
+  // contredire, et c'est la cliente qui aurait vu un rouge sans raison.
+  function manque(){
+    var chiffres = function(el){ return el.value.replace(/\D/g, '').length; };
+    var ko = [];
+    if(!S.date)                            ko.push($('dateRail'));
+    if(!S.slot)                            ko.push($('slotChips'));
+    if(!$('fZone').value.trim())           ko.push($('fZone'));
+    if(!$('fCity').value.trim())           ko.push($('fCity'));
+    if(!$('fHouse').value.trim())          ko.push($('fHouse'));
+    if(!$('fName').value.trim())           ko.push($('fName'));
+    if(chiffres($('fPhone')) < 8)          ko.push($('fPhone'));
+    if(S.gift && chiffres($('fPhone2')) < 8) ko.push($('fPhone2'));
+    if(!S.pay)                             ko.push($('payChips'));
+    return ko;
+  }
+
+  // Une faute se pose sur la CASE quand elle en a une (`.af`, dans l'adresse),
+  // et sur le bloc, qui porte le message. Sans la case, remplir sa zone
+  // laissait le champ rouge parce que la ville d'à côté manquait encore.
+  function bad(el){
+    var af = el.closest('.af');
+    if(af) af.classList.add('err');
+    el.closest('.fld').classList.add('err');
+    return el.closest('.fld');
+  }
+
+  function netToutRouge(){
+    document.querySelectorAll('.sheet .fld.err,.sheet .af.err').forEach(function(f){
+      f.classList.remove('err');
+    });
+  }
+
+  // Le rouge n'apparaît qu'après un refus ; il doit repartir dès que la faute
+  // est réparée, sans attendre un second appui sur le bouton. On ne repeint
+  // rien tant que rien n'est rouge : tant qu'elle n'a rien vu, elle n'est
+  // accusée de rien pendant qu'elle tape.
+  function repeindre(){
+    if(!document.querySelector('.sheet .fld.err,.sheet .af.err')) return;
+    var ko = manque();
+    document.querySelectorAll('.sheet .af.err').forEach(function(af){
+      var champ = af.querySelector('input');
+      if(champ && ko.indexOf(champ) < 0) af.classList.remove('err');
+    });
+    document.querySelectorAll('.sheet .fld.err').forEach(function(f){
+      var reste = ko.some(function(el){ return f.contains(el); });
+      if(!reste) f.classList.remove('err');
+    });
+  }
+  ['fZone','fCity','fHouse','fName','fPhone','fPhone2'].forEach(function(id){
+    $(id).addEventListener('input', repeindre);
+  });
 
   $('sheetSend').addEventListener('click', function(){
-    document.querySelectorAll('.sheet .fld').forEach(function(f){ f.classList.remove('err'); });
+    netToutRouge();
 
     // toutes les erreurs sont signalées d'un coup, pas une par une
     var errs = [];
-    var flag = function(cond, el){ if(cond){ var f = bad(el); if(errs.indexOf(f) < 0) errs.push(f); } };
-    var digits = function(el){ return el.value.replace(/\D/g, '').length; };
-
-    flag(!S.date,                          $('dateRail'));
-    flag(!S.slot,                          $('slotChips'));
-    flag(!$('fZone').value.trim(),         $('fZone'));
-    flag(!$('fCity').value.trim(),         $('fCity'));
-    flag(!$('fHouse').value.trim(),        $('fHouse'));
-    flag(!$('fName').value.trim(),         $('fName'));
-    flag(digits($('fPhone')) < 8,          $('fPhone'));
-    flag(S.gift && digits($('fPhone2')) < 8, $('fPhone2'));
-    flag(!S.pay,                           $('payChips'));
+    manque().forEach(function(el){ var f = bad(el); if(errs.indexOf(f) < 0) errs.push(f); });
 
     var first = errs[0] || null;
     if(first){ first.scrollIntoView({behavior:'smooth', block:'center'}); return; }
@@ -3358,7 +3427,7 @@
   // iOS, le filtre ne portait que sur le début du mot, et la liste ne contenait
   // que la langue de la page. Liste maison, identique sur tous les téléphones.
   (function(){
-    var input = $('fCity'), list = $('cityList'), field = $('cityField');
+    var input = $('fCity'), list = $('cityList');
     if(!input || !list) return;
     var ix = L() === 'ar' ? 1 : 0, open = false;
 
@@ -3380,8 +3449,10 @@
       input.setAttribute('aria-expanded', 'false');
     }
     function choose(name){
+      // Une valeur posée par le code ne déclenche aucun évènement « input » :
+      // c'est ici, et pas ailleurs, qu'on redemande à repeindre.
       input.value = name; hide();
-      if(field) field.classList.remove('err');
+      repeindre();
     }
     function show(q){
       var n = norm(q);
