@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260904-0151">
+<meta name="pg-build" content="20260904-0227">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/img/discovery-box-hero-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/discovery-box-hero-doha-320.webp 320w, /img/discovery-box-hero-doha-640.webp 640w, /img/discovery-box-hero-doha.webp 1200w" imagesizes="(max-width: 899px) 40vw, 45vw">
+<link rel="preload" href="/img/discovery-box-hero-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" imagesizes="(max-width: 899px) 38vw, 210px">
 <link rel="icon" href="/icone-site-20260903.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/icone-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icone-192.png">
@@ -37,13 +37,10 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
 <style>
-@font-face{font-family:'Playfair Display';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/playfair-display-latin-600-normal.woff2') format('woff2');}
 @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/playfair-display-latin-700-normal.woff2') format('woff2');}
-@font-face{font-family:'Playfair Display';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/playfair-display-latin-800-normal.woff2') format('woff2');}
 @font-face{font-family:'Lora';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/lora-latin-400-normal.woff2') format('woff2');}
 @font-face{font-family:'Lora';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/lora-latin-600-normal.woff2') format('woff2');}
 @font-face{font-family:'Lora';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/lora-latin-400-italic.woff2') format('woff2');}
-@font-face{font-family:'Lora';font-style:italic;font-weight:600;font-display:swap;src:url('/fonts/lora-latin-600-italic.woff2') format('woff2');}
 @font-face{font-family:'Amiri';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/amiri-arabic-400-normal.woff2') format('woff2');}
 @font-face{font-family:'Amiri';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/amiri-arabic-700-normal.woff2') format('woff2');}
 
@@ -62,11 +59,6 @@
   html{scroll-behavior:smooth;}
   body{
     background:var(--cream);
-    background-image:repeating-linear-gradient(
-      90deg,
-      var(--cream) 0, var(--cream) 14.2857%,
-      var(--sage) 14.2857%, var(--sage) 28.5714%
-    );
     color:var(--deep-maroon);
     font-family:'Lora',serif;
     line-height:1.6;
@@ -79,13 +71,6 @@
   .wordmark,.nav-mark,.signature,footer .wordmark{font-family:'Playfair Display',serif !important;}
   a{color:inherit;}
 
-  .stripes{
-    background-image:repeating-linear-gradient(
-      90deg,
-      var(--cream) 0, var(--cream) 14.2857%,
-      var(--sage) 14.2857%, var(--sage) 28.5714%
-    );
-  }
   .label{
     text-transform:uppercase;
     letter-spacing:0.18em;
@@ -96,9 +81,6 @@
   body.lang-ar .label{letter-spacing:0.02em;}
   .container{max-width:1100px;margin:0 auto;padding:0 28px;}
 
-  /* ---------- scroll reveal ---------- */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease, transform .8s ease;}
-  .reveal.is-visible{opacity:1;transform:none;}
 
   /* ---------- decorative motif divider ---------- */
   .motif{display:none;}
@@ -234,34 +216,9 @@
   .menu-card .img-wrap{aspect-ratio:4/5;overflow:hidden;position:relative;}
   .menu-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
   .menu-card:hover img{transform:scale(1.04);}
-  .menu-card .price-badge{
-    position:absolute;top:16px;right:16px;
-    background:var(--cream);color:var(--deep-maroon);
-    font-family:'Playfair Display',serif;font-weight:700;font-size:0.95rem;
-    padding:7px 14px;border-radius:2px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.18);
-    letter-spacing:0.01em;
-    overflow:hidden;
-  }
-  .menu-card .price-badge::after{
-    content:"";position:absolute;top:0;left:-150%;width:60%;height:100%;
-    background:linear-gradient(120deg, transparent, rgba(227,177,114,0.55), transparent);
-    animation:priceShimmer 5s ease-in-out infinite;
-  }
-  @keyframes priceShimmer{
-    0%,70%{left:-150%;}
-    100%{left:150%;}
-  }
-  [dir="rtl"] .menu-card .price-badge{right:auto;left:16px;}
   .menu-card-body{padding:22px 22px 26px;}
   .menu-card h3{font-size:1.15rem;line-height:1.3;margin-bottom:4px;}
-  .menu-card .arabic{
-    direction:rtl;font-family:'Amiri',serif;font-size:0.95rem;color:var(--dusty-rose);
-    margin-bottom:10px;
-  }
-  body.lang-ar .menu-card .arabic{display:none;}
-  .menu-card p.desc{font-size:0.9rem;color:var(--maroon);font-style:italic;}
-  body.lang-ar .menu-card p.desc{font-style:normal;}
+  .menu-card p.desc{font-size:0.9rem;color:var(--maroon);}
 
   /* ---------- ORDERING: qty stepper + order bar ---------- */
   .qty-row{
@@ -319,30 +276,7 @@
     .order-bar-info{width:100%;justify-content:center;}
   }
 
-  /* ---------- FULL SPREAD BANNER ---------- */
-  .spread{
-    padding:80px 0;
-  }
-  .spread-inner{
-    position:relative;overflow:hidden;
-    border:1px solid rgba(94,22,34,0.2);
-    display:grid;grid-template-columns:1fr 1fr;
-    min-height:420px;
-  }
-  .spread-inner img{width:100%;height:100%;object-fit:cover;display:block;}
-  .spread-text{
-    padding:56px 56px;display:flex;flex-direction:column;justify-content:center;
-    background:var(--warm-cream);
-    position:relative;
-  }
-  .spread-text .label{display:block;margin-bottom:16px;}
-  .spread-text h2{font-size:clamp(1.8rem,3.2vw,2.4rem);margin-bottom:16px;}
-  .spread-text p{color:var(--maroon);margin-bottom:26px;max-width:420px;}
-  @media (max-width:760px){
-    .spread-inner{grid-template-columns:1fr;}
-    .spread-inner img{min-height:280px;}
-  }
-
+  /* Le coffret vit dans le premier écran depuis le 04/09/2026 (build2.py § 8, style.css). */
   /* ---------- VISIT / CONTACT ---------- */
   .visit{padding:90px 0 110px;}
   .visit-inner{
@@ -389,8 +323,6 @@
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important;}
     html{scroll-behavior:auto;}
-    .reveal{opacity:1;transform:none;}
-    .price-badge::after{animation:none;}
     .motif svg{animation:none;}
   }
 
@@ -707,10 +639,7 @@
     .menu-grid{gap:12px;}
     .menu-card-body{padding:13px 11px 15px;}
     .menu-card h3{font-size:0.95rem;line-height:1.25;}
-    .menu-card .arabic{font-size:0.82rem;margin-bottom:6px;}
     .menu-card p.desc{font-size:0.78rem;line-height:1.4;}
-    .menu-card .price-badge{font-size:0.74rem;padding:4px 8px;top:9px;right:9px;}
-    [dir="rtl"] .menu-card .price-badge{right:auto;left:9px;}
     .menu-card .qty-note{font-size:0.7rem;letter-spacing:0.06em;margin-bottom:5px;}
     /* Le prix écrit à côté des boutons répétait la pastille posée sur la photo,
        à quinze centimètres au-dessus. Sur une fiche pleine largeur les deux
@@ -779,98 +708,6 @@
     font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;
   }
 
-  /* ================= RÉVÉLATIONS AU SCROLL ================= */
-  .reveal-up{
-    opacity:0;transform:translateY(26px);filter:blur(5px);
-    transition:opacity .85s cubic-bezier(.16,1,.3,1),
-               transform .85s cubic-bezier(.16,1,.3,1),
-               filter .85s ease;
-  }
-  .reveal-up.in{opacity:1;transform:none;filter:none;}
-  @media(prefers-reduced-motion:reduce){
-    .reveal-up{opacity:1;transform:none;filter:none;transition:none;}
-    .hero-content > *{opacity:1;transform:none;animation:none;}
-  }
-
-  /* ================= NOS SÉLECTIONS ================= */
-  .picks{padding:clamp(52px,9vw,86px) 0 clamp(12px,3vw,28px);background:var(--cream);}
-  .picks-head{
-    display:flex;align-items:baseline;justify-content:space-between;
-    gap:16px;margin-bottom:26px;
-  }
-  .picks-head .label{margin:0;}
-  .picks-all{
-    font-family:'Lora',serif;font-size:0.82rem;letter-spacing:0.04em;
-    color:var(--maroon);text-decoration:none;white-space:nowrap;
-    border-bottom:1px solid rgba(123,34,48,0.3);padding-bottom:3px;
-    transition:border-color .25s ease,color .25s ease;
-  }
-  .picks-all:hover{color:var(--deep-maroon);border-color:var(--deep-maroon);}
-
-  .picks-rail{
-    display:grid;grid-auto-flow:column;
-    grid-auto-columns:minmax(190px,1fr);gap:clamp(12px,2vw,22px);
-    overflow-x:auto;padding:4px 0 16px;
-    scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  }
-  .picks-rail::-webkit-scrollbar{display:none;}
-  .pick{
-    scroll-snap-align:start;background:#fff;border-radius:3px;overflow:hidden;
-    display:flex;flex-direction:column;
-    box-shadow:0 1px 2px rgba(94,22,34,0.06), 0 10px 30px -14px rgba(94,22,34,0.32);
-    transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease;
-  }
-  .pick:hover{transform:translateY(-6px);box-shadow:0 1px 2px rgba(94,22,34,0.08), 0 22px 44px -18px rgba(94,22,34,0.42);}
-  .pick-img{position:relative;overflow:hidden;aspect-ratio:4/5;}
-  .pick-img img{width:100%;height:100%;object-fit:cover;display:block;
-    transform:scale(1.04);transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
-  .pick:hover .pick-img img{transform:scale(1.11);}
-  .pick-img::after{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(to bottom,transparent 55%,rgba(40,10,16,0.16) 100%);
-  }
-  .pick-b{
-    padding:20px 18px 22px;text-align:center;
-    display:flex;flex-direction:column;align-items:center;flex:1;
-  }
-  .pick-n{
-    font-family:'Playfair Display',serif;font-weight:700;
-    font-size:1.02rem;line-height:1.25;color:var(--deep-maroon);
-    margin:0 0 6px;
-  }
-  body.lang-ar .pick-n,[dir="rtl"] .pick-n{font-family:'Amiri',serif;}
-  .pick-d{
-    font-family:'Lora',serif;font-style:italic;font-size:0.82rem;line-height:1.4;
-    color:var(--dusty-rose);margin:0;flex:1;
-  }
-  [dir="rtl"] .pick-d{font-style:normal;font-family:'Amiri',serif;}
-  .pick-rule{
-    width:26px;height:1px;background:var(--gold);margin:14px auto 13px;
-  }
-  .pick-f{
-    display:flex;align-items:center;justify-content:center;gap:14px;
-  }
-  .pick-p{
-    font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;
-    color:var(--maroon);unicode-bidi:isolate;letter-spacing:0.01em;
-  }
-  .pick-add{
-    width:38px;height:38px;border-radius:50%;padding:0;cursor:pointer;flex:0 0 auto;
-    border:1px solid var(--deep-maroon);background:transparent;color:var(--deep-maroon);
-    display:flex;align-items:center;justify-content:center;
-    transition:background .28s ease,color .28s ease,transform .18s ease;
-  }
-  .pick-add span{font-family:'Playfair Display',serif;font-size:1.3rem;line-height:1;}
-  .pick-add:hover{background:var(--deep-maroon);color:var(--cream);}
-  .pick-add:active{transform:scale(0.88);}
-  .pick-add.on{background:var(--deep-green);border-color:var(--deep-green);color:var(--cream);}
-  .picks-note{
-    margin-top:22px;text-align:center;font-family:'Lora',serif;
-    font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;
-    color:var(--dusty-rose);
-  }
-  [dir="rtl"] .picks-note{letter-spacing:0;text-transform:none;font-size:0.85rem;}
-
   /* ================= FULL SPREAD ================= */
   /* ================= CE QU'IL Y A DANS LA BOÎTE =================
      La composition ne vivait que dans une petite note grise sous le pas-à-pas
@@ -899,7 +736,7 @@
 
   .spread-price{margin-top:22px;}
   .spread-price b{
-    font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:800;
+    font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;
     line-height:1;color:var(--deep-maroon);unicode-bidi:isolate;display:inline-block;
   }
   .spread-price em{
@@ -991,84 +828,11 @@
     color:var(--dusty-rose);margin:0 0 8px;
   }
   [dir="rtl"] .qty-note{letter-spacing:0;text-transform:none;font-size:0.86rem;}
-  .pick-q{
-    font-family:'Lora',serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--deep-green);margin:0 0 7px;
-  }
-  [dir="rtl"] .pick-q{letter-spacing:0;text-transform:none;font-size:0.82rem;}
   .cl-qty{
     display:block;font-family:'Lora',serif;font-size:0.74rem;
     letter-spacing:0.09em;text-transform:uppercase;color:var(--deep-green);margin-top:2px;
   }
   [dir="rtl"] .cl-qty{letter-spacing:0;text-transform:none;font-size:0.84rem;}
-
-  /* ================= CARROUSEL : on voit qu'il continue ================= */
-  .rail-wrap{position:relative;}
-  .rail-wrap::after{
-    content:"";position:absolute;top:0;bottom:14px;inset-inline-end:0;width:46px;
-    pointer-events:none;
-    background:linear-gradient(to right, transparent, var(--cream) 85%);
-  }
-  [dir="rtl"] .rail-wrap::after{background:linear-gradient(to left, transparent, var(--cream) 85%);}
-  @media(min-width:900px){ .rail-wrap::after{display:none;} }
-  .swipe-hint{
-    margin-top:2px;text-align:center;font-family:'Lora',serif;font-style:italic;
-    font-size:0.76rem;color:var(--dusty-rose);
-  }
-  [dir="rtl"] .swipe-hint{font-style:normal;}
-  @media(min-width:900px){ .swipe-hint{display:none;} }
-  /* le rail se révèle d'un seul bloc : plus de cartes qui sautent */
-  .pick{opacity:1;transform:none;filter:none;}
-
-  /* ================= CARROUSEL : 2 grandes cartes, tout aligné ================= */
-  .picks-rail{
-    display:flex;grid-auto-flow:unset;grid-auto-columns:unset;grid-template-columns:none;
-    gap:14px;align-items:stretch;
-  }
-  .pick{
-    flex:0 0 auto;width:min(52vw,250px);
-    display:flex;flex-direction:column;
-  }
-  @media(min-width:700px){ .pick{width:min(30vw,240px);} }
-  /* Le carrousel RESTE un carrousel sur ordinateur.
-     Il passait en grille de 4 au-delà de 1000 px : avec 5 cartes, la
-     cinquième se retrouvait seule sur une deuxième ligne. Une grille à
-     nombre fixe casse dès que le nombre de produits change ; un carrousel,
-     jamais. Et une carte qui dépasse invite à faire défiler. */
-  @media(min-width:1000px){
-    .picks-rail{display:flex;grid-template-columns:none;overflow-x:auto;}
-    .pick{flex:0 0 auto;width:min(24vw,270px);}
-    /* le fondu de bord revient : il dit qu'il y a une suite */
-    .rail-wrap::after{display:block;}
-  }
-  .pick-b{
-    padding:18px 16px 20px;text-align:center;flex:1;
-    display:flex;flex-direction:column;align-items:center;
-  }
-  /* hauteurs fixes : les lignes se répondent d'une carte à l'autre */
-  .pick-n{
-    font-size:1rem;line-height:1.3;margin:0 0 7px;
-    min-height:2.6em;display:flex;align-items:center;justify-content:center;
-  }
-  .pick-q{min-height:1.3em;margin:0 0 8px;}
-  .pick-d{
-    min-height:3.1em;margin:0;flex:0 0 auto;
-    display:flex;align-items:flex-start;justify-content:center;
-  }
-  .pick-rule{margin:14px auto 14px;}
-  .pick-f{margin-top:auto;gap:12px;}
-  .pick-p{white-space:nowrap;font-size:1.05rem;}
-
-  /* l'ombre latérale montre qu'il y a d'autres produits */
-  .rail-wrap::after{
-    width:40px;top:0;bottom:16px;
-    background:linear-gradient(to right, rgba(250,246,236,0) 0%, var(--cream) 78%);
-  }
-  /* Il y avait ici un SECOND voile, bordeaux, posé par-dessus le voile crème
-     à 40 px du bord. Superposés, les deux ne se lisaient pas comme une
-     profondeur mais comme une salissure verticale en travers de la carte
-     suivante. Un seul voile suffit, et « Swipe for more » dit le reste. */
-  @media(min-width:1000px){ .rail-wrap::after{display:none;} }
 
   /* ================= ADRESSE AU FORMAT QATARI ================= */
   .addr-grid{
@@ -1206,88 +970,30 @@
     .menu-card .qty-note{gap:8px;}
   }
 
-  /* ================= LE CARROUSEL SUR TÉLÉPHONE =================
-     Une carte occupait 474 px de haut sur un écran de 844 : 56 % de l'écran
-     pour un seul produit, et il faut encore faire défiler pour voir le prix.
-     Un carrousel est une vitrine qu'on parcourt, pas une fiche qu'on lit.
-
-     Trois leviers, du plus au moins visible :
-       · la photo passe de 4/5 à un carré  — c'est là qu'est la hauteur ;
-       · la description et le filet doré disparaissent — ils font le charme
-         d'une fiche qu'on lit, et le menu, juste en dessous, les redonne
-         en entier ;
-       · le bloc de texte se resserre.
-
-     Le nom garde sa hauteur minimale de deux lignes : sans elle, « Madeleine »
-     et « Chamaral Chocolate Chunk » décalent tout ce qui suit d'une carte à
-     l'autre — le défaut qu'on vient de corriger sur les fiches du menu. */
-  @media(max-width:700px){
-    .pick{width:min(60vw,220px);}
-    .pick-img{aspect-ratio:1/1;}
-    .pick-b{padding:13px 12px 15px;}
-    .pick-n{font-size:0.92rem;min-height:2.4em;margin:0 0 4px;}
-    .pick-q{font-size:0.64rem;min-height:1.2em;margin:0 0 9px;}
-    .pick-d,.pick-rule{display:none;}
-    .pick-f{gap:10px;}
-    .pick-p{font-size:1rem;}
-    .pick-add{width:34px;height:34px;}
-    .pick-add span{font-size:1.15rem;}
-    /* Le voile de bord, seul et plus discret. */
-    .rail-wrap::after{
-      width:30px;bottom:18px;
-      background:linear-gradient(to right, rgba(250,246,236,0) 0%, var(--cream) 92%);
-    }
-    [dir="rtl"] .rail-wrap::after{
-      background:linear-gradient(to left, rgba(250,246,236,0) 0%, var(--cream) 92%);
-    }
-  }
-
-  /* La ligne secondaire d'une fiche disparaît quand elle répète le titre —
-     voir ecrireNom. La règle de base lui donne un `display`, qui l'emporterait
-     sinon sur l'attribut `hidden`. */
-  .menu-card .arabic[hidden]{display:none;}
-
-  /* ================= LE CARROUSEL DOIT SE DEVINER =================
-     Sur téléphone, la bannière occupait tout l'écran : « Our picks »
-     tombait à 823 px pour une hauteur visible de 812, et la première carte
-     à 877. Mesuré au navigateur sur 375×812. Une page qui semble finir
-     après la bannière ne donne aucune raison de faire défiler — et c'est
-     le carrousel qui fait entrer dans le menu.
-
-     On ne touche pas à la bannière sur grand écran : elle porte la marque,
-     et là-bas le carrousel est déjà visible. Ces réglages sont pour le
-     téléphone seulement, et ils viennent en fin de feuille pour l'emporter
-     sur les règles générales sans avoir à forcer leur poids. */
-  @media (max-width:560px){
-    .picks{padding-top:22px;}
-    .picks-head{margin-bottom:18px;}
-  }
-
   /* ================= LE PREMIER ÉCRAN — 04/09/2026 =================
-     Texte à gauche, le coffret à droite ; sur téléphone, le texte puis le
-     coffret en carte couchée, photo à gauche, pour qu'un produit et son prix
-     tiennent dans le premier écran (mesuré : la carte finit vers 640 px sur
-     un écran de 812). Fond crème uni : rien derrière le texte, aucune
-     animation. Le bouton principal est bordeaux plein ; le second n'est
-     qu'un contour. */
-  .hero{background:var(--cream);border-bottom:1px solid rgba(94,22,34,0.12);position:static;min-height:0;overflow:visible;}
+     Texte à gauche ; à droite, toute l'offre du coffret dans une carte : photo
+     en colonne, titre, prix et « serves », « Add the box », puis composition
+     et choix du cookie. Sur téléphone, la carte se couche : photo à gauche,
+     titre + prix + « Add » à droite, le détail en dessous — un produit et son
+     prix tiennent dans le premier écran. Fond crème uni, aucune animation. */
+  .hero{background:var(--cream);position:static;min-height:0;overflow:visible;}
   .hero-grid{
-    display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
-    gap:clamp(28px,4vw,56px);align-items:center;
-    padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(28px,5vw,64px);
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:clamp(28px,4vw,52px);align-items:center;
+    padding-top:clamp(28px,5vw,60px);padding-bottom:clamp(28px,5vw,60px);
   }
   .hero-content{position:static;z-index:auto;color:var(--deep-maroon);padding:0;max-width:none;margin:0;text-align:start;display:block;}
   .hero-eyebrow{
     font-family:'Lora',serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--cocoa);margin:0 0 14px;
+    color:var(--maroon);margin:0 0 14px;
   }
   [dir="rtl"] .hero-eyebrow{letter-spacing:0;font-size:0.9rem;}
   .hero h1{
-    font-size:clamp(2.1rem,4.4vw,3.5rem);font-weight:700;line-height:1.08;
+    font-size:clamp(2.1rem,4.2vw,3.3rem);font-weight:700;line-height:1.08;
     color:var(--deep-maroon);letter-spacing:-0.012em;margin:0;text-wrap:balance;
   }
   .hero-sub{
-    font-family:'Lora',serif;font-size:clamp(1.02rem,1.5vw,1.18rem);line-height:1.55;
+    font-family:'Lora',serif;font-size:clamp(1.02rem,1.5vw,1.15rem);line-height:1.55;
     color:var(--maroon);margin:18px 0 0;max-width:34em;
   }
   .delivery-line{
@@ -1300,48 +1006,53 @@
   .hero .btn-outline{border:1px solid rgba(94,22,34,0.42);color:var(--deep-maroon);background:transparent;}
   .hero .btn-outline:hover{border-color:var(--deep-maroon);color:var(--deep-maroon);}
 
+  /* la carte du coffret */
   .hero-box{
+    display:grid;grid-template-columns:40% minmax(0,1fr);
     background:#fff;border:1px solid rgba(94,22,34,0.14);border-radius:4px;overflow:hidden;
     box-shadow:0 1px 2px rgba(94,22,34,0.06), 0 14px 34px -18px rgba(94,22,34,0.35);
-    display:flex;flex-direction:column;
   }
-  .hero-box-img{display:block;aspect-ratio:4/3;overflow:hidden;}
-  .hero-box-img img{width:100%;height:100%;object-fit:cover;display:block;}
-  .hero-box-body{
-    padding:16px 18px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;
+  .hero-box-img{width:100%;height:100%;min-height:100%;object-fit:cover;object-position:60% 50%;display:block;}
+  .hero-box .spread-text{
+    background:none;position:static;padding:16px 18px 18px;
+    display:flex;flex-direction:column;justify-content:flex-start;gap:12px;min-width:0;
   }
-  .hero-box-body .label{flex:1 1 100%;margin:0;font-size:0.7rem;color:var(--deep-green);}
-  .hero-box-name{
-    font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;line-height:1.2;
-    color:var(--deep-maroon);margin:0;flex:1 1 auto;
+  .hero-box-head{display:flex;flex-direction:column;gap:6px;}
+  .hero-box-head .label{margin:0;font-size:0.68rem;color:var(--maroon);}
+  .hero-box-head h2{font-size:clamp(1.35rem,2vw,1.6rem);line-height:1.15;margin:0;}
+  .hero-box .spread-price{margin:2px 0 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .hero-box .spread-price b{font-size:1.5rem;font-weight:700;line-height:1;display:inline;}
+  .hero-box .spread-price em{
+    display:inline;margin:0;font-family:'Lora',serif;font-style:normal;
+    font-size:0.76rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--maroon);
   }
-  body.lang-ar .hero-box-name{font-family:'Amiri',serif;}
-  .hero-box-price{
-    font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;
-    color:var(--deep-maroon);white-space:nowrap;unicode-bidi:isolate;
+  [dir="rtl"] .hero-box .spread-price em{letter-spacing:0;text-transform:none;font-size:0.9rem;}
+  .hero-box .qty-row{margin-top:8px;}
+  .hero-box-details{
+    display:flex;flex-direction:column;gap:10px;
+    border-top:1px solid rgba(94,22,34,0.12);padding-top:12px;
   }
-  .hero-box-add{padding:12px 20px;cursor:pointer;border:1px solid var(--deep-maroon);font-family:'Lora',serif;font-weight:600;}
-  .hero-box-add.on{background:var(--deep-green);border-color:var(--deep-green);color:var(--cream);}
-  .hero-box-add:disabled{opacity:0.4;cursor:not-allowed;}
-  .hero-box-pick{
-    font-family:'Lora',serif;font-size:0.86rem;color:var(--maroon);
-    text-decoration:underline;text-underline-offset:3px;
-  }
+  .hero-box-desc{font-family:'Lora',serif;font-size:0.9rem;line-height:1.5;color:var(--maroon);margin:0;max-width:none;}
+  .hero-box .spread-inside{margin:0;}
+  .hero-box .spread-inside .fld-label{margin-bottom:2px;}
+  .hero-box .spread-inside li{padding:5px 0;gap:10px;grid-template-columns:2.2em 1fr;}
+  .hero-box .spread-inside li b{font-size:1rem;}
+  .hero-box .spread-inside li span{font-size:0.9rem;}
+  .hero-box .fld{margin:0;}
+  .hero-box .fld-label{font-size:0.7rem;margin-bottom:6px;}
+  .hero-box .chips{gap:6px;}
+  .hero-box .chip{padding:7px 11px;font-size:0.82rem;}
   @media(max-width:899px){
-    .hero-grid{grid-template-columns:1fr;gap:20px;padding-top:24px;padding-bottom:22px;}
-    .hero-box{flex-direction:row;align-items:stretch;}
-    .hero-box-img{flex:0 0 38%;aspect-ratio:auto;}
-    /* En colonne, `flex-wrap:wrap` fait déborder les lignes dans une seconde
-       colonne dès que l'étiquette réclame 100 % de la hauteur : le nom se
-       retrouvait à côté de l'étiquette, coupé par le bord de la carte.
-       Mesuré à 390 px. Pas de retour à la ligne, et l'étiquette ne réclame
-       que sa hauteur. */
-    .hero-box-body{flex:1 1 auto;min-width:0;flex-direction:column;flex-wrap:nowrap;align-items:flex-start;gap:6px;padding:12px 14px;}
-    .hero-box-body .label{flex:0 0 auto;font-size:0.64rem;}
-    .hero-box-name{flex:0 0 auto;font-size:1.1rem;}
-    .hero-box-price{font-size:1.1rem;}
-    .hero-box-add{padding:10px 16px;font-size:0.8rem;margin-top:2px;}
-    .hero-box-pick{font-size:0.8rem;}
+    .hero-grid{grid-template-columns:1fr;gap:18px;padding-top:24px;padding-bottom:22px;}
+    .hero-box{grid-template-columns:38% minmax(0,1fr);}
+    .hero-box-img{grid-column:1;grid-row:1;}
+    /* La carte se couche : le corps se dissout dans la grille, sa tête à
+       droite de la photo, son détail sur toute la largeur en dessous. */
+    .hero-box .spread-text{display:contents;}
+    .hero-box-head{grid-column:2;grid-row:1;padding:12px 14px;justify-content:center;min-width:0;}
+    .hero-box-head h2{font-size:1.1rem;}
+    .hero-box .spread-price b{font-size:1.2rem;}
+    .hero-box-details{grid-column:1 / -1;grid-row:2;padding:12px 14px 14px;}
   }
   @media(max-width:560px){
     .hero h1{font-size:2.05rem;}
@@ -1349,6 +1060,111 @@
     .delivery-line{font-size:0.86rem;}
     .hero-actions{margin-top:18px;}
     .hero-actions .btn{padding:13px 22px;}
+  }
+
+  /* ================= « ADD », PUIS LE COMPTEUR — 04/09/2026 =================
+     Neuf compteurs « − 0 + » à zéro alignés donnaient au menu l'allure d'une
+     caisse. Au repos, un bouton « Add » ; dès que le produit est au panier
+     (classe has-qty, posée par checkout.js), le compteur le remplace. */
+  .qty-row{align-items:center;}
+  .qty-row .qty-btn,.qty-row .qty-val{display:none;}
+  .qty-row.has-qty .qty-btn{display:flex;}
+  .qty-row.has-qty .qty-val{display:inline-block;}
+  .qty-row.has-qty .qty-add{display:none;}
+  .qty-btn{width:40px;height:40px;}
+  .qty-add{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    min-height:40px;padding:0 18px;border-radius:2px;cursor:pointer;
+    background:var(--deep-maroon);color:var(--cream);border:1px solid var(--deep-maroon);
+    font-family:'Lora',serif;font-weight:600;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;
+    transition:background .2s ease;
+  }
+  .qty-add:hover{background:var(--maroon);}
+  .qty-add.on{background:var(--gold);border-color:var(--gold);color:var(--deep-maroon);}
+  .qty-add:disabled{opacity:0.4;cursor:not-allowed;}
+  [dir="rtl"] .qty-add{letter-spacing:0;text-transform:none;font-size:0.9rem;}
+  .menu-card .qty-add{width:100%;}
+  .hero-box .qty-add{min-height:44px;padding:0 22px;}
+
+  /* ================= LA NOTE DU JOUR MÊME, SOUS LE TITRE DU MENU ================= */
+  .menu-note{font-family:'Lora',serif;font-size:0.95rem;line-height:1.5;color:var(--maroon);margin:12px auto 0;max-width:34em;}
+
+  /* ================= LES RAYURES, EN SIGNATURE — 04/09/2026 =================
+     Elles étaient le fond de toute la page, visibles là où une section restait
+     transparente : du texte sur des bandes vertes. Elles restent la marque :
+     un ruban rayé sous le premier écran et avant le pied de page, et l'histoire
+     entourée de rayures sur un panneau crème uni. */
+  .ribbon{height:12px;background:repeating-linear-gradient(90deg, var(--sage) 0 22px, var(--cream) 22px 44px);}
+  .story{
+    background:repeating-linear-gradient(90deg, var(--cream) 0 14.2857%, var(--sage) 14.2857% 28.5714%);
+    padding:72px 0 64px;
+  }
+  .story-frame{background:var(--cream);}
+  .story-frame::before{display:none;}
+  .sourcing{padding:56px 0 48px;}
+
+  /* ================= PALETTE ET TYPOGRAPHIE — 04/09/2026 =================
+     Bordeaux, crème, doré pour un seul accent, sauge pour les rayures. Le rose
+     poudré, le cacao et le vert profond quittent les textes ; l'italique ne
+     sert plus qu'à l'histoire. Deux polices : Playfair pour les titres, Lora
+     pour tout le reste. */
+  .qty-note,.cl-qty,.scarce,.tl-note,.date-chip.is-today small,.hero-eyebrow{color:var(--maroon);}
+  .fld-help,.pk-unit,.pk-what,.cart-line .cl-sub,.sheet-reassure,.driver-note div,.date-chip small,.pick-empty{color:var(--maroon);font-style:normal;}
+  [dir="rtl"] .pk-unit,[dir="rtl"] .pk-what{font-family:'Lora',serif;}
+  .driver-note svg{stroke:var(--maroon);}
+  .loc-btn{color:var(--deep-maroon);border-color:rgba(94,22,34,0.35);}
+  .loc-btn[aria-pressed="true"]{background:var(--deep-maroon);border-color:var(--deep-maroon);color:var(--cream);}
+  .lead-badge{color:var(--deep-maroon);}
+  .sourcing-inner p{font-weight:400;}
+  .sourcing-inner p.em{font-weight:600;}
+  .label{font-weight:600;}
+
+  /* ================= APRÈS L'ENVOI : « ORDER SENT » — 04/09/2026 ================= */
+  .sheet-sent{display:none;padding:28px 22px 30px;text-align:center;}
+  .sheet.sent .sheet-body,.sheet.sent .sheet-foot{display:none;}
+  .sheet.sent .sheet-sent{display:block;}
+  .sheet-sent svg{
+    width:52px;height:52px;display:block;margin:0 auto 12px;
+    stroke:var(--deep-maroon);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
+  }
+  .sheet-sent h3{font-size:1.5rem;color:var(--deep-maroon);margin:0 0 8px;}
+  .sheet-sent p{font-family:'Lora',serif;font-size:0.95rem;line-height:1.5;color:var(--maroon);margin:0 auto 6px;max-width:34em;}
+  .sheet-sent .sent-when{font-weight:600;color:var(--deep-maroon);margin-top:10px;}
+  .sent-actions{display:flex;flex-direction:column;gap:10px;margin:22px auto 0;max-width:340px;}
+  .sent-actions .btn{text-align:center;}
+  .sent-close{
+    margin-top:16px;background:none;border:none;cursor:pointer;
+    font-family:'Lora',serif;font-size:0.88rem;color:var(--maroon);
+    text-decoration:underline;text-underline-offset:3px;
+  }
+
+  /* ================= LE MOUVEMENT QUI RESTE — 04/09/2026 =================
+     Samer voulait un site qui bouge, mais pas des blocs qui apparaissent en
+     retard. Ce qui bouge est donc court, et soit n'arrive qu'une fois, à
+     l'ouverture — le premier écran qui se pose, la photo qui se cale —,
+     soit répond à un geste : le compteur qui surgit à la place de « Add »,
+     le nombre de la barre qui rebondit, la fiche qui se soulève au survol.
+     La photo ne change que d'échelle, jamais d'opacité : le LCP ne bouge pas.
+     Rien de tout cela ne dépend du défilement. */
+  @keyframes hero-in{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @keyframes photo-settle{from{transform:scale(1.06);}to{transform:scale(1);}}
+  @keyframes pop{from{transform:scale(0.85);opacity:0.5;}to{transform:scale(1);opacity:1;}}
+  @keyframes bump{0%{transform:scale(1);}40%{transform:scale(1.35);}100%{transform:scale(1);}}
+  .hero-content > *{animation:hero-in .55s cubic-bezier(.16,1,.3,1) both;}
+  .hero-content > :nth-child(2){animation-delay:.06s;}
+  .hero-content > :nth-child(3){animation-delay:.12s;}
+  .hero-content > :nth-child(4){animation-delay:.18s;}
+  .hero-content > :nth-child(5){animation-delay:.24s;}
+  .hero-box{animation:hero-in .6s cubic-bezier(.16,1,.3,1) .1s both;}
+  .hero-box-img{animation:photo-settle 1.2s cubic-bezier(.16,1,.3,1) both;}
+  .qty-row.has-qty .qty-btn,.qty-row.has-qty .qty-val{animation:pop .22s cubic-bezier(.16,1,.3,1) both;}
+  .order-bar-count.bump{display:inline-block;animation:bump .3s ease;}
+  .menu-card{transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;}
+  .qty-add{transition:background .2s ease, transform .15s ease;}
+  .qty-add:hover{transform:translateY(-1px);}
+  .qty-add:active{transform:scale(0.97);}
+  @media(prefers-reduced-motion:reduce){
+    .hero-content > *,.hero-box,.hero-box-img,.qty-row.has-qty .qty-btn,.qty-row.has-qty .qty-val,.order-bar-count.bump{animation:none;}
   }
 </style>
 <script type="application/ld+json">
@@ -1571,308 +1387,201 @@
       <p class="hero-eyebrow">Home bakery · Doha</p>
       <h1>Fresh from our oven to your table, today.</h1>
       <p class="hero-sub">Madeleines, cookies and cakes, baked to order in small batches. Order before 5 PM and it is delivered today.</p>
-      <p class="delivery-line">Delivery only, anywhere in Qatar: your driver or delivery app collects from our kitchen in Doha and you pay them directly. Delivery is not included in your order.</p>
+      <p class="delivery-line">Delivered to your door anywhere in Qatar by our driver. You pay the delivery to the driver when it arrives, it is not included in your order.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://wa.me/97450040617" target="_blank" rel="noopener">Order now</a>
         <a class="btn btn-outline" href="#menu">See the menu</a>
       </div>
     </div>
-    <div class="hero-box">
-      <a class="hero-box-img" href="#box"><img src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-320.webp 320w, /img/discovery-box-hero-doha-640.webp 640w, /img/discovery-box-hero-doha.webp 1200w" sizes="(max-width: 899px) 40vw, 45vw" alt="The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha" width="1200" height="900" decoding="async" fetchpriority="high"></a>
-      <div class="hero-box-body">
-        <span class="label">Taste Everything</span>
-        <h2 class="hero-box-name" data-nom-de="spread">The Discovery Box</h2>
-        <span class="hero-box-price" dir="ltr" data-prix-de="spread">590 QR</span>
-        <button type="button" class="btn btn-primary hero-box-add" data-add="spread"><span>Add the box</span></button>
-        <a class="hero-box-pick" href="#box">Choose your cookies</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="picks" aria-label="Our picks">
-  <div class="container">
-    <div class="picks-head reveal-up">
-      <span class="label">Our picks</span>
-      <a href="#menu" class="picks-all">See all 8 &rarr;</a>
-    </div>
-    <div class="rail-wrap reveal-up"><div class="picks-rail">
-      <article class="pick">
-        <div class="pick-img"><img src="/img/rusk-shabora-doha.webp" alt="Rusk "Shabora"" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Rusk "Shabora"</h3>
-          <p class="pick-q">30 pieces</p>
-          <p class="pick-d">Crisp, twice-baked</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item6" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-      <article class="pick">
-        <div class="pick-img"><img src="/img/nutella-cookies-doha.webp" alt="Nutella Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Nutella Cookies</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">A molten hazelnut centre</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item7" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-      <article class="pick">
-        <div class="pick-img"><img src="/img/madeleine-box-doha.webp" alt="Madeleine" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Madeleine</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">The classic, shell-shaped</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item1" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-      <article class="pick">
-        <div class="pick-img"><img src="/img/upside-down-peach-cake-doha.webp" alt="Upside-Down Peach Cake" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Upside-Down Peach Cake</h3>
-          <p class="pick-q">1 cake</p>
-          <p class="pick-d">Caramelised peach, baked to order</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">300 QR</span>
-            <button type="button" class="pick-add" data-add="item4" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-      <article class="pick">
-        <div class="pick-img"><img src="/img/chocolate-chip-cookies-doha.webp" alt="Chocolate Chip Cookies" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Chocolate Chip Cookies</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">Soft in the middle</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">180 QR</span>
-            <button type="button" class="pick-add" data-add="item5" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-      <article class="pick">
-        <div class="pick-img"><img src="/img/chamaral-chocolate-chunk-doha.webp" alt="Chamaral Chocolate Chunk" width="800" height="1000" decoding="async" loading="lazy"></div>
-        <div class="pick-b">
-          <h3 class="pick-n">Chamaral Chocolate Chunk</h3>
-          <p class="pick-q">12 pieces</p>
-          <p class="pick-d">Chunks, not chips</p>
-          <div class="pick-rule"></div>
-          <div class="pick-f">
-            <span class="pick-p" dir="ltr">200 QR</span>
-            <button type="button" class="pick-add" data-add="item8" aria-label="Add"><span>+</span></button>
-          </div>
-        </div>
-      </article>
-    </div></div>
-    <div class="swipe-hint">Swipe for more</div>
-    <div class="picks-note reveal-up">Same-day delivery available · order before 5 PM</div>
-  </div>
-</section>
-<section class="menu" id="menu">
-  <div class="container">
-    <div class="menu-head reveal">
-      <span class="label" data-i18n="menu_label">Baked Fresh, Saturday–Thursday</span>
-      <h2 data-i18n="menu_title">Menu</h2>
-    
-      <p class="scarce" id="scarce" hidden></p>
-    </div>
-    <div class="menu-grid">
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/madeleine-box-doha.webp" alt="Box of homemade madeleines baked in Doha" width="800" height="1130" decoding="async" loading="lazy">
-          <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item1_name">Madeleine</h3>
-          <div class="arabic">مادلين</div>
-          <p class="desc" data-i18n="item1_desc">Classic shell-shaped sponge · dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
-        <div class="qty-row" data-item="item1" data-price="200">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">200 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/petit-madeleine-doha.webp" alt="Bite-size petit madeleines, home-baked in Doha" width="800" height="1083" decoding="async" loading="lazy">
-          <span class="price-badge">180 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item2_name">Petit Madeleine</h3>
-          <div class="arabic">مادلين صغيرة</div>
-          <p class="desc" data-i18n="item2_desc">Bite-size · 40 pieces</p>
-          <p class="qty-note"><span class="qty-note-t">40 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
-        <div class="qty-row" data-item="item2" data-price="180">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">180 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/brown-butter-banana-bread-doha.webp" alt="Brown butter banana bread, homemade in Doha" width="800" height="1000" decoding="async" loading="lazy">
-          <span class="price-badge">300 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item3_name">Brown Butter Banana Bread</h3>
-          <div class="arabic">خبز الموز بالزبدة البنية</div>
-          <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
-          <p class="lead-badge">Ready tomorrow</p>
-        <p class="qty-note"><span class="qty-note-t">1 loaf</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
-        <div class="qty-row" data-item="item3" data-price="300">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">300 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/upside-down-peach-cake-doha.webp" alt="Upside-down peach cake baked to order in Doha" width="800" height="901" decoding="async" loading="lazy">
-          <span class="price-badge">300 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
-          <div class="arabic">كيكة الخوخ المقلوبة</div>
-          <p class="desc" data-i18n="item4_desc">Caramelized peach, baked to order</p>
-          <p class="qty-note"><span class="qty-note-t">1 cake</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
-        <div class="qty-row" data-item="item4" data-price="300">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">300 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/chocolate-chip-cookies-doha.webp" alt="Homemade chocolate chip cookies from a Doha home bakery" width="800" height="1000" decoding="async" loading="lazy">
-          <span class="price-badge">180 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
-          <div class="arabic">كوكيز رقائق الشوكولاتة</div>
-          <p class="desc" data-i18n="item5_desc">Dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
-        <div class="qty-row" data-item="item5" data-price="180">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">180 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/rusk-shabora-doha.webp" alt="Rusk Shabora, twice-baked homemade biscuits in Doha" width="800" height="975" decoding="async" loading="lazy">
-          <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
-          <div class="arabic">رسك "شبورة"</div>
-          <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
-          <p class="lead-badge">Ready tomorrow</p>
-        <p class="qty-note"><span class="qty-note-t">30 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
-        <div class="qty-row" data-item="item6" data-price="200">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">200 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/nutella-cookies-doha.webp" alt="Nutella-filled cookies, home-baked in Doha, Qatar" width="800" height="1000" decoding="async" loading="lazy">
-          <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item7_name">Nutella Cookies</h3>
-          <div class="arabic">كوكيز نوتيلا</div>
-          <p class="desc" data-i18n="item7_desc">Soft-baked with a molten Nutella centre · dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
-        <div class="qty-row" data-item="item7" data-price="200">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">200 QR</span></div>
-        </div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="img-wrap">
-          <img src="/img/chamaral-chocolate-chunk-doha.webp" alt="Homemade milk chocolate chunk cookies from a Doha home bakery" width="800" height="1000" decoding="async" loading="lazy">
-          <span class="price-badge">200 <span data-i18n="qr">QR</span></span>
-        </div>
-        <div class="menu-card-body">
-          <h3 data-i18n="item8_name">Chamaral Chocolate Chunk</h3>
-          <div class="arabic">كوكيز شامارال بقطع الشوكولاتة</div>
-          <p class="desc" data-i18n="item8_desc">Thick milk chocolate chunks, crackled tops · dozen</p>
-          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
-        <div class="qty-row" data-item="item8" data-price="200">
-            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
-            <span class="qty-val">0</span>
-            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
-          <span class="qty-price" dir="ltr">200 QR</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="spread" id="box">
-  <div class="container">
-    <div class="spread-inner reveal">
-      <img src="/img/full-spread-dessert-box-doha.webp" alt="Dessert box of homemade cookies, madeleines and peach cake in Doha" width="1300" height="1207" decoding="async" loading="lazy">
+    <div class="hero-box" id="box">
+      <img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 210px" alt="The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha" width="900" height="1200" decoding="async" fetchpriority="high">
       <div class="spread-text">
-        <span class="label" data-i18n="spread_label">Taste Everything</span>
-        <h2 data-i18n="spread_title">The Discovery Box</h2>
-        <p data-i18n="spread_desc">Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.</p>
-        <div class="spread-inside">
-          <span class="fld-label">What’s in the box</span>
-          <ul id="spreadContenu">
+        <div class="hero-box-head">
+          <span class="label" data-i18n="spread_label">Taste Everything</span>
+          <h2 data-i18n="spread_title">The Discovery Box</h2>
+          <div class="spread-price"><b dir="ltr">590 QR</b><em>Serves 3–4</em></div>
+          <div class="qty-row" data-item="spread" data-price="590">
+          <button type="button" class="qty-add" data-add="spread"><span>Add the box</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="-">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="+">+</button>
+          <span class="qty-price" dir="ltr">590 QR</span></div>
+        </div>
+        <div class="hero-box-details">
+          <p class="hero-box-desc" data-i18n="spread_desc">Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.</p>
+          <div class="spread-inside">
+            <span class="fld-label">What’s in the box</span>
+            <ul id="spreadContenu">
             <li data-cle="item4" data-n="1"><b dir="ltr">1</b><span>upside-down peach cake</span></li>
             <li data-cle="item5" data-n="1" data-slot="0"><b dir="ltr">12</b><span>cookies</span></li>
             <li data-cle="item2" data-n="1"><b dir="ltr">40</b><span>petit madeleines</span></li>
-          </ul>
-        </div>
-        <div class="spread-price"><b dir="ltr">590 QR</b></div>
-        <p class="delivery-line">Delivery only, anywhere in Qatar: your driver or delivery app collects from our kitchen in Doha and you pay them directly. Delivery is not included in your order.</p>
-        <div class="fld" style="margin:20px 0 0;">
-          <span class="fld-label" id="spreadPickLabel">Choose your cookie</span>
-          <div id="spreadCookie">
+            </ul>
+          </div>
+          <div class="fld">
+            <span class="fld-label" id="spreadPickLabel">Choose your cookie</span>
+            <div id="spreadCookie">
             <div class="chips" data-slot="0">
               <button type="button" class="chip" data-val="item5" aria-pressed="true">Chocolate Chip Cookies</button>
               <button type="button" class="chip" data-val="item8">Choco Chunk</button>
               <button type="button" class="chip" data-val="item7">Nutella Cookies</button>
             </div>
+            </div>
           </div>
         </div>
-        <div class="qty-row" data-item="spread" data-price="590" style="align-self:flex-start;">
-          <button class="qty-btn" data-action="dec" aria-label="-">−</button>
-          <span class="qty-val">0</span>
-          <button class="qty-btn" data-action="inc" aria-label="+">+</button>
-        <span class="qty-price" dir="ltr">590 QR</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="ribbon" aria-hidden="true"></div>
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu-head">
+      <span class="label" data-i18n="menu_label">Baked Fresh, Saturday–Thursday</span>
+      <h2 data-i18n="menu_title">Menu</h2>
+      <p class="menu-note">Same-day delivery available · order before 5 PM</p>
+    
+      <p class="scarce" id="scarce" hidden></p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/madeleine-box-doha.webp" alt="Box of homemade madeleines baked in Doha" width="800" height="1130" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item1_name">Madeleine</h3>
+          <p class="desc" data-i18n="item1_desc">Classic shell-shaped sponge · dozen</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+        <div class="qty-row" data-item="item1" data-price="200">
+          <button type="button" class="qty-add" data-add="item1"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/petit-madeleine-doha.webp" alt="Bite-size petit madeleines, home-baked in Doha" width="800" height="1083" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item2_name">Petit Madeleine</h3>
+          <p class="desc" data-i18n="item2_desc">Bite-size · 40 pieces</p>
+          <p class="qty-note"><span class="qty-note-t">40 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
+        <div class="qty-row" data-item="item2" data-price="180">
+          <button type="button" class="qty-add" data-add="item2"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">180 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/brown-butter-banana-bread-doha.webp" alt="Brown butter banana bread, homemade in Doha" width="800" height="1000" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item3_name">Brown Butter Banana Bread</h3>
+          <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
+          <p class="lead-badge">Ready tomorrow</p>
+        <p class="qty-note"><span class="qty-note-t">1 loaf</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
+        <div class="qty-row" data-item="item3" data-price="300">
+          <button type="button" class="qty-add" data-add="item3"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">300 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/upside-down-peach-cake-doha.webp" alt="Upside-down peach cake baked to order in Doha" width="800" height="901" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
+          <p class="desc" data-i18n="item4_desc">Caramelized peach, baked to order</p>
+          <p class="qty-note"><span class="qty-note-t">1 cake</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
+        <div class="qty-row" data-item="item4" data-price="300">
+          <button type="button" class="qty-add" data-add="item4"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">300 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/chocolate-chip-cookies-doha.webp" alt="Homemade chocolate chip cookies from a Doha home bakery" width="800" height="1000" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
+          <p class="desc" data-i18n="item5_desc">Dozen</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
+        <div class="qty-row" data-item="item5" data-price="180">
+          <button type="button" class="qty-add" data-add="item5"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">180 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/rusk-shabora-doha.webp" alt="Rusk Shabora, twice-baked homemade biscuits in Doha" width="800" height="975" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
+          <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
+          <p class="lead-badge">Ready tomorrow</p>
+        <p class="qty-note"><span class="qty-note-t">30 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+        <div class="qty-row" data-item="item6" data-price="200">
+          <button type="button" class="qty-add" data-add="item6"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/nutella-cookies-doha.webp" alt="Nutella-filled cookies, home-baked in Doha, Qatar" width="800" height="1000" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item7_name">Nutella Cookies</h3>
+          <p class="desc" data-i18n="item7_desc">Soft-baked with a molten Nutella centre · dozen</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+        <div class="qty-row" data-item="item7" data-price="200">
+          <button type="button" class="qty-add" data-add="item7"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="img-wrap">
+          <img src="/img/chamaral-chocolate-chunk-doha.webp" alt="Homemade milk chocolate chunk cookies from a Doha home bakery" width="800" height="1000" decoding="async" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3 data-i18n="item8_name">Chamaral Chocolate Chunk</h3>
+          <p class="desc" data-i18n="item8_desc">Thick milk chocolate chunks, crackled tops · dozen</p>
+          <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
+        <div class="qty-row" data-item="item8" data-price="200">
+          <button type="button" class="qty-add" data-add="item8"><span>Add</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+          <span class="qty-price" dir="ltr">200 QR</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="story" id="story">
   <div class="container">
-    <div class="story-frame reveal">
+    <div class="story-frame">
       <span class="label" data-i18n="story_label">Our Story</span>
       <p data-i18n="story_p1">She spends her days making sure no one around her is missing anything. Her children. Her home. Everyone else, first.</p>
       <p class="em" data-i18n="story_p2">Baking is the one thing she does just for her.</p>
@@ -1886,7 +1595,7 @@
 
 <section class="sourcing">
   <div class="container">
-    <div class="sourcing-inner reveal">
+    <div class="sourcing-inner">
       <span class="label" data-i18n="sourcing_label">Our Ingredients</span>
       <h2 data-i18n="sourcing_title">How We Source</h2>
       <p data-i18n="sourcing_p1">What started in our home kitchen is still made there: small batches, by hand, with ingredients we'd happily put on our own table.</p>
@@ -1897,7 +1606,7 @@
 
 <section class="visit" id="visit">
   <div class="container visit-inner">
-    <div class="reveal" style="position:relative;">
+    <div style="position:relative;">
       <span class="label" data-i18n="visit_label">Ordering</span>
       <h2 data-i18n="visit_title">Made to order, delivered to you.</h2>
       <p data-i18n="visit_p1">Everything is baked at home the day it reaches you — nothing sits waiting on a shelf. There is no shop and no counter: we deliver across Qatar, and every order starts with a message.</p>
@@ -1907,7 +1616,7 @@
         <a class="btn btn-ghost" href="https://instagram.com/petitgateau.qa" target="_blank" rel="noopener" data-i18n="visit_btn2">Follow on Instagram</a>
       </div>
     </div>
-    <div class="info-card reveal">
+    <div class="info-card">
       <div class="info-row"><span data-i18n="info_location">Location</span><span data-i18n="info_location_val">Home kitchen, Doha</span></div>
       <div class="info-row"><span data-i18n="info_days">Baking Days</span><span data-i18n="info_days_val">Saturday – Thursday</span></div>
       <div class="info-row"><span data-i18n="info_closed">Closed</span><span data-i18n="info_closed_val">Friday</span></div>
@@ -1917,6 +1626,7 @@
   </div>
 </section>
 
+<div class="ribbon" aria-hidden="true"></div>
 <footer>
   <div class="container">
     <div class="wordmark">Petit Gâteau</div>
@@ -2045,7 +1755,7 @@
 
     <div class="driver-note">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="6" width="14" height="10" rx="1.5"/><path d="M15 9h4l3 3.5V16h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-      <div><b>About delivery</b>Delivery only, anywhere in Qatar: your driver or delivery app collects from our kitchen in Doha and you pay them directly. Delivery is not included in your order.</div>
+      <div><b>About delivery</b>Delivered to your door anywhere in Qatar by our driver. You pay the delivery to the driver when it arrives, it is not included in your order.</div>
     </div>
 
     <div class="fld">
@@ -2096,6 +1806,18 @@
       <span>Keep me posted about new batches</span>
     </button>
 
+  </div>
+
+  <div class="sheet-sent" id="sheetSent">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg>
+    <h3>Order sent!</h3>
+    <p>We'll confirm everything with you on WhatsApp shortly.</p>
+    <p class="sent-when" id="sentWhen"></p>
+    <div class="sent-actions">
+      <a class="btn btn-dark" href="https://instagram.com/petitgateau.qa" target="_blank" rel="noopener">Follow us on Instagram</a>
+      <a class="btn btn-ghost" href="/petit-gateau.vcf" download="Petit Gateau.vcf">Save our number</a>
+    </div>
+    <button type="button" class="sent-close" id="sentClose">Back to the menu</button>
   </div>
 
   <div class="sheet-foot">
@@ -2228,7 +1950,7 @@
       co_loc_paste:"Paste a Google Maps link",
       co_loc_how:"Open Google Maps, hold your finger on the spot, then Share → Copy link. Addresses in Doha are rarely precise — a pin saves the driver a call.",
       co_loc_bad:"That does not look like a map link.",
-      delivery_line:"Delivery only, anywhere in Qatar: your driver or delivery app collects from our kitchen in Doha and you pay them directly. Delivery is not included in your order.",
+      delivery_line:"Delivered to your door anywhere in Qatar by our driver. You pay the delivery to the driver when it arrives, it is not included in your order.",
       del_driver_t:"About delivery",
       hero_eyebrow:"Home bakery · Doha",
       hero_title:"Fresh from our oven to your table, today.",
@@ -2236,9 +1958,15 @@
       hero_btn_order:"Order now",
       hero_btn_menu:"See the menu",
       hero_box_add:"Add the box",
-      hero_box_pick:"Choose your cookies",
+      spread_serves:"Serves 3–4",
       hero_box_alt:"The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha",
       added:"Added",
+      sent_title:"Order sent!",
+      sent_sub:"We'll confirm everything with you on WhatsApp shortly.",
+      sent_when:"Delivery: %s at %s",
+      sent_ig:"Follow us on Instagram",
+      sent_save:"Save our number",
+      sent_close:"Back to the menu",
       sameday_note:"Same-day delivery available · order before 5 PM",
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
@@ -2554,6 +2282,16 @@
     // « 1 items » : le mot suit le nombre.
     var mot = $('orderItems');
     if(mot) mot.textContent = T(c === 1 ? 'order_item' : 'order_items');
+    // Le nombre rebondit quand il change : la réponse au geste, rien de plus.
+    var compteur = $('orderCount');
+    if(compteur && compteur.textContent !== String(c)){
+      compteur.classList.remove('bump'); void compteur.offsetWidth; compteur.classList.add('bump');
+    }
+    // « Add », puis le compteur : la rangée porte la classe tant que le
+    // produit est au panier, et le CSS échange le bouton contre le − 1 +.
+    document.querySelectorAll('.qty-row[data-item]').forEach(function(row){
+      row.classList.toggle('has-qty', (ORDER[row.getAttribute('data-item')] || 0) > 0);
+    });
     orderBar.classList.toggle('active', active);
     if(sheet.classList.contains('open')) paint();
   }
@@ -2939,13 +2677,14 @@
 
   /* ---------- ouverture / fermeture ---------- */
   function open(){
+    sheet.classList.remove('sent');   // une nouvelle commande repart de la feuille
     buildDates(); paint(); recall(); paint();
     repeindre();   // l'adresse retenue peut avoir réparé un rouge d'avant
     sheet.classList.add('open'); veil.classList.add('open');
     document.body.classList.add('sheet-open');
   }
   function close(){
-    sheet.classList.remove('open'); veil.classList.remove('open');
+    sheet.classList.remove('open'); sheet.classList.remove('sent'); veil.classList.remove('open');
     document.body.classList.remove('sheet-open');
   }
   $('orderSendBtn').addEventListener('click', function(){ open(); });
@@ -2956,6 +2695,26 @@
     a.addEventListener('click', function(e){ e.preventDefault(); open(); });
   });
   $('sheetClose').addEventListener('click', close);
+  $('sentClose').addEventListener('click', close);
+
+  /* ---------- après l'envoi : « Order sent » ----------
+     La commande est partie sur WhatsApp ; la page ne le disait pas. Elle le
+     dit, rappelle le jour et l'heure choisis, propose de suivre le compte et
+     d'enregistrer le numéro — c'est là que se joue « ne pas nous oublier ».
+     Le panier se vide : un second envoi doublerait la commande. */
+  function montrerEnvoye(){
+    var quand = $('sentWhen');
+    if(quand && S.date && S.slot){
+      var d = new Date(S.date + 'T00:00:00');
+      quand.textContent = TF('sent_when',
+        d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' }),
+        T('co_slot_' + S.slot));
+    }
+    Object.keys(ORDER).forEach(function(id){ ORDER[id] = 0; });
+    document.querySelectorAll('.qty-row .qty-val').forEach(function(v){ v.textContent = '0'; });
+    sheet.classList.add('sent');
+    refresh();
+  }
   veil.addEventListener('click', close);
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
 
@@ -3097,6 +2856,7 @@
     deposer(m.join('\n'), sub, recoit);
     mesurer(['commandes']);
     sendTo(m.join('\n'));
+    montrerEnvoye();
   });
 
   /* ---------- d'où vient la visite : les paramètres UTM ----------
@@ -3426,15 +3186,12 @@
         var p = row.querySelector('.qty-price');
         if(p) p.textContent = txt;
         var carte = row.closest('.menu-card');
-        var badge = carte && carte.querySelector('.price-badge');
-        // la pastille contient « 200 <span>QR</span> » : on ne touche qu'au nombre
-        if(badge && badge.firstChild) badge.firstChild.nodeValue = prix + ' ';
+        // Le prix visible de la fiche, sur la ligne du nombre de pièces. La
+        // pastille sur la photo est partie le 04/09/2026 — et cette ligne-ci
+        // ne suivait pas l'app alors que c'est elle que la cliente lit.
+        var note = carte && carte.querySelector('.qty-note-p');
+        if(note) note.textContent = prix + '\u00a0' + T('qr');
       }
-      var rail = document.querySelector('.pick [data-add="' + id + '"]');
-      var prixRail = rail && rail.closest('.pick-f') && rail.closest('.pick-f').querySelector('.pick-p');
-      if(prixRail) prixRail.textContent = txt;
-      // Le premier écran affiche le prix du coffret : il suit l'app aussi.
-      document.querySelectorAll('[data-prix-de="' + id + '"]').forEach(function(e){ e.textContent = txt; });
       var unit = document.querySelector('.pk-line[data-pk="' + id + '"] .pk-unit');
       if(unit) unit.textContent = prix + ' ' + T('qr') + ' ' + T('each') + (QTY(id) ? ' · ' + QTY(id) : '');
       // Le coffret n'a pas de carte de menu : son grand prix vit dans son
@@ -3452,11 +3209,8 @@
     function ecrireNom(id, nom, nomAr){
       var page = document.documentElement.lang === 'ar' ? 'ar' : 'en';
       var titre = page === 'ar' ? (nomAr || nom) : nom;
-      var second = page === 'ar' ? nom : nomAr;
       if(!titre) return;
       NOMS[id] = titre;
-      // Le premier écran nomme le coffret : il suit un renommage aussi.
-      document.querySelectorAll('[data-nom-de="' + id + '"]').forEach(function(e){ e.textContent = titre; });
 
       // Les pastilles du choix de cookie portaient leur nom ÉCRIT EN DUR. Le
       // 30/08/2026 la fiche produit affichait « Choco Chunk » — nom venu du
@@ -3471,29 +3225,12 @@
       if(h){
         h.textContent = titre;
         var carte = h.closest('.menu-card');
-        var autre = carte && carte.querySelector('.arabic');
-        // La ligne secondaire montre « l'autre langue ». Mais dès qu'on laisse
-        // un nom tel quel — « Nutella Cookies » ne se traduit pas, et c'est le
-        // bon choix — les deux langues portent le MÊME mot, et la fiche
-        // affichait le titre deux fois, l'un sous l'autre. C'était le cas de
-        // cinq fiches sur huit en ligne le 29/08.
-        //
-        // Une ligne qui répète le titre n'apprend rien : elle disparaît.
-        if(autre){
-          var montrer = Boolean(second) && second.trim() !== '' && second.trim() !== titre.trim();
-          autre.textContent = montrer ? second : '';
-          autre.hidden = !montrer;
-        }
+        // Plus de seconde ligne dans « l'autre langue » sous le titre depuis le
+        // 04/09/2026 : la page anglaise ne montre que l'anglais, la page arabe
+        // que l'arabe. Le nom arabe ne sert donc qu'au titre de la page arabe.
         var img = carte && carte.querySelector('img');
         if(img) img.setAttribute('alt', titre);
       }
-      var ajout = document.querySelector('.pick [data-add="' + id + '"]');
-      var carteRail = ajout && ajout.closest('.pick');
-      var nomRail = carteRail && carteRail.querySelector('.pick-n');
-      if(nomRail) nomRail.textContent = titre;
-      var imgRail = carteRail && carteRail.querySelector('img');
-      if(imgRail) imgRail.setAttribute('alt', titre);
-
       var ligne = document.querySelector('.pk-line[data-pk="' + id + '"] .pk-name');
       if(ligne && ligne.firstChild) ligne.firstChild.nodeValue = titre;
 
@@ -3654,7 +3391,7 @@
       });
       reparerRangees();
       syncContenu();
-      rangerLeRail(produits);
+      rangerLeMenu(produits);
       refresh();
       if($('dateRail') && $('dateRail').children.length) syncDates();
     }
@@ -3692,11 +3429,8 @@
       avec.forEach(function(x){ conteneur.appendChild(x.el); });
     }
 
-    function rangerLeRail(produits){
-      rangerParOrdre('.picks-rail', '.pick', function(c){
-        var b = c.querySelector('[data-add]');
-        return b && b.getAttribute('data-add');
-      }, produits);
+    // Le rail est parti le 04/09/2026 au soir : il ne reste que le menu à ranger.
+    function rangerLeMenu(produits){
       rangerParOrdre('.menu-grid', '.menu-card', function(c){
         var q = c.querySelector('.qty-row');
         return q && q.getAttribute('data-item');
@@ -3756,7 +3490,7 @@
       bump(b.getAttribute('data-add'), 1);
       var lbl = b.querySelector('span'), avant = lbl.textContent;
       b.classList.add('on');
-      lbl.textContent = b.classList.contains('pick-add') ? '\u2713' : '\u2713 ' + T('added');
+      lbl.textContent = '\u2713 ' + T('added');
       setTimeout(function(){ b.classList.remove('on'); lbl.textContent = avant; }, 1000);
     });
   });
@@ -3778,24 +3512,10 @@
     });
   })();
 
-  /* ---------- révélations au scroll ---------- */
-  (function(){
-    var els = document.querySelectorAll('.reveal-up');
-    if(!('IntersectionObserver' in window)){
-      els.forEach(function(e){ e.classList.add('in'); }); return;
-    }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en, n){
-        if(!en.isIntersecting) return;
-        var d = en.target.closest('.picks-rail')
-              ? Array.prototype.indexOf.call(en.target.parentNode.children, en.target) * 110
-              : 0;
-        setTimeout(function(){ en.target.classList.add('in'); }, d);
-        io.unobserve(en.target);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    els.forEach(function(e){ io.observe(e); });
-  })();
+  /* Plus d'apparitions au défilement depuis le 04/09/2026 : tout est là au
+     chargement. Sur un téléphone moyen, les blocs qui se révélaient en fondu
+     flou donnaient une page en retard, et un défilement rapide montrait des
+     trous. */
 
   /* ---------- repli si WhatsApp ne s'ouvre pas ---------- */
   function sendTo(msg){
@@ -3821,21 +3541,7 @@
 
   refresh();
 
-  // scroll reveal
-  var reveals = document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.15});
-    reveals.forEach(function(el){ obs.observe(el); });
-  } else {
-    reveals.forEach(function(el){ el.classList.add('is-visible'); });
-  }
+  // ---------- fin du module de commande (ancre de build.py) ----------
 })();
 </script>
 
