@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260904-0908">
+<meta name="pg-build" content="20260904-0927">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1323,7 +1323,7 @@
      Dessins vectoriels en ligne (stickers.py) : un liseré crème dans le dessin,
      ici l'ombre douce, la rotation et la place. Aucune image, aucune requête. */
   .stk-sheet{position:absolute;width:0;height:0;overflow:hidden;}
-  .stk{width:44px;height:44px;display:inline-block;vertical-align:middle;overflow:visible;
+  .stk{width:44px;height:44px;display:inline-block;vertical-align:middle;overflow:visible;color:var(--deep-maroon);
        filter:drop-shadow(0 3px 5px rgba(94,22,34,0.22));transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
   .stk-inline{width:26px;height:26px;margin-inline-start:6px;vertical-align:-8px;transform:rotate(-10deg);}
   .stk-card{position:absolute;inset-inline-end:10px;bottom:10px;width:46px;height:46px;transform:rotate(8deg);z-index:2;}
@@ -1332,17 +1332,6 @@
   .stk-corner{position:absolute;top:-20px;inset-inline-start:-12px;width:56px;height:56px;transform:rotate(-14deg);z-index:2;}
   .ribbon{position:relative;overflow:visible;}
   .stk-ribbon{position:absolute;left:50%;top:50%;width:48px;height:48px;transform:translate(-50%,-50%) rotate(-8deg);z-index:2;}
-  /* le sceau rond, sur la photo du premier écran */
-  .hero-box{position:relative;}
-  .stk-seal{
-    position:absolute;top:12px;inset-inline-start:12px;z-index:3;width:90px;height:90px;border-radius:50%;
-    background:var(--cream);color:var(--deep-maroon);border:2px dashed rgba(94,22,34,0.35);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.05;
-    box-shadow:0 0 0 4px #fff,0 8px 18px -8px rgba(94,22,34,0.45);transform:rotate(-8deg);
-  }
-  .stk-seal .stk{width:30px;height:30px;filter:none;margin-bottom:2px;}
-  .stk-seal b{font-size:0.72rem;font-weight:800;}
-  .stk-seal i{font-style:normal;font-size:0.66rem;font-weight:700;color:var(--coral);}
   /* les pastilles-stickers : la note du jour même, les badges, le pied de page, « serves » */
   .stk-pill{
     display:inline-block;padding:8px 16px;border-radius:999px;background:#fff;color:var(--coral);font-weight:700;
@@ -1354,18 +1343,12 @@
   .hero-box .spread-price em{display:inline-block;background:var(--peach);padding:3px 10px;border-radius:999px;transform:rotate(-3deg);}
   .sheet-sent .stk-burst{width:100px;height:100px;stroke:none;fill:none;transform:rotate(-8deg);margin-bottom:8px;}
   #sheetTitle .stk-inline{width:24px;height:24px;vertical-align:-5px;}
-  @keyframes stamp{from{transform:scale(.4) rotate(-30deg);opacity:0;}to{transform:scale(1) rotate(-8deg);opacity:1;}}
-  .hero .stk-seal{animation:stamp .55s cubic-bezier(.34,1.56,.64,1) .5s both;}
   @media(max-width:899px){
-    .stk-seal{width:70px;height:70px;top:8px;inset-inline-start:8px;}
-    .stk-seal .stk{width:22px;height:22px;}
-    .stk-seal b{font-size:0.58rem;}
-    .stk-seal i{font-size:0.54rem;}
     .stk-card{width:40px;height:40px;inset-inline-end:8px;bottom:8px;}
     .stk-corner{width:46px;height:46px;top:-16px;inset-inline-start:-8px;}
     .stk-ribbon{width:40px;height:40px;}
   }
-  @media(prefers-reduced-motion:reduce){.hero .stk-seal{animation:none;}.stk{transition:none;}}
+  @media(prefers-reduced-motion:reduce){.stk{transition:none;}}
 </style>
 <script type="application/ld+json">
 {
@@ -1562,7 +1545,7 @@
 </script>
 </head>
 <body>
-<svg class="stk-sheet" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="stk-cookie" viewBox="0 0 64 64"><path d="M32 8a24 24 0 1 0 0 48a24 24 0 1 0 0-48Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 8a24 24 0 1 0 0 48a24 24 0 1 0 0-48Z" fill="#E3B172" stroke="#5E1622" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="23" cy="25" r="3.3" fill="#5E1622"/><circle cx="37" cy="21" r="3.3" fill="#5E1622"/><circle cx="43" cy="36" r="3.3" fill="#5E1622"/><circle cx="28" cy="41" r="3.3" fill="#5E1622"/><circle cx="35" cy="32" r="3.3" fill="#5E1622"/><circle cx="20" cy="35" r="3.3" fill="#5E1622"/></symbol><symbol id="stk-madeleine" viewBox="0 0 64 64"><path d="M32 9C46 9 55 21 55 36C55 47 44 56 32 56C20 56 9 47 9 36C9 21 18 9 32 9Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 9C46 9 55 21 55 36C55 47 44 56 32 56C20 56 9 47 9 36C9 21 18 9 32 9Z" fill="#F0C57A" stroke="#5E1622" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 51L19 22M32 51L32 15M32 51L45 22M32 51L13 33M32 51L51 33" fill="none" stroke="#5E1622" stroke-width="2.4" stroke-linecap="round" opacity=".75"/></symbol><symbol id="stk-heart" viewBox="0 0 64 64"><path d="M32 55C29 52 11 40 11 26a11 11 0 0 1 21-4a11 11 0 0 1 21 4c0 14-18 26-21 29Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 55C29 52 11 40 11 26a11 11 0 0 1 21-4a11 11 0 0 1 21 4c0 14-18 26-21 29Z" fill="#E4634A" stroke="#5E1622" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol><symbol id="stk-sparkle" viewBox="0 0 64 64"><path d="M32 5C34 22 42 30 59 32C42 34 34 42 32 59C30 42 22 34 5 32C22 30 30 22 32 5Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 5C34 22 42 30 59 32C42 34 34 42 32 59C30 42 22 34 5 32C22 30 30 22 32 5Z" fill="#E3B172" stroke="#5E1622" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol><symbol id="stk-cake" viewBox="0 0 64 64"><path d="M7 44L32 9L57 44C57 44 45 52 32 52C19 52 7 44 7 44Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M7 44L32 9L57 44C57 44 45 52 32 52C19 52 7 44 7 44Z" fill="#FBEFE3" stroke="#5E1622" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M17 40L32 21L47 40" fill="none" stroke="#E4634A" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="11" r="5" fill="#E4634A" stroke="#5E1622" stroke-width="2.4"/></symbol><symbol id="stk-burst" viewBox="0 0 64 64"><path d="M32.0 4.0L37.4 11.7L46.0 7.8L46.8 17.2L56.2 18.0L52.3 26.6L60.0 32.0L52.3 37.4L56.2 46.0L46.8 46.8L46.0 56.2L37.4 52.3L32.0 60.0L26.6 52.3L18.0 56.2L17.2 46.8L7.8 46.0L11.7 37.4L4.0 32.0L11.7 26.6L7.8 18.0L17.2 17.2L18.0 7.8L26.6 11.7Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32.0 4.0L37.4 11.7L46.0 7.8L46.8 17.2L56.2 18.0L52.3 26.6L60.0 32.0L52.3 37.4L56.2 46.0L46.8 46.8L46.0 56.2L37.4 52.3L32.0 60.0L26.6 52.3L18.0 56.2L17.2 46.8L7.8 46.0L11.7 37.4L4.0 32.0L11.7 26.6L7.8 18.0L17.2 17.2L18.0 7.8L26.6 11.7Z" fill="#E4634A" stroke="#5E1622" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol></svg>
+<svg class="stk-sheet" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="stk-cookie" viewBox="0 0 64 64"><path d="M32 8a24 24 0 1 0 0 48a24 24 0 1 0 0-48Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 8a24 24 0 1 0 0 48a24 24 0 1 0 0-48Z" fill="#E3B172" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="23" cy="25" r="3.3" fill="currentColor"/><circle cx="37" cy="21" r="3.3" fill="currentColor"/><circle cx="43" cy="36" r="3.3" fill="currentColor"/><circle cx="28" cy="41" r="3.3" fill="currentColor"/><circle cx="35" cy="32" r="3.3" fill="currentColor"/><circle cx="20" cy="35" r="3.3" fill="currentColor"/></symbol><symbol id="stk-madeleine" viewBox="0 0 64 64"><path d="M32 9C46 9 55 21 55 36C55 47 44 56 32 56C20 56 9 47 9 36C9 21 18 9 32 9Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 9C46 9 55 21 55 36C55 47 44 56 32 56C20 56 9 47 9 36C9 21 18 9 32 9Z" fill="#F0C57A" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 51L19 22M32 51L32 15M32 51L45 22M32 51L13 33M32 51L51 33" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".75"/></symbol><symbol id="stk-heart" viewBox="0 0 64 64"><path d="M32 55C29 52 11 40 11 26a11 11 0 0 1 21-4a11 11 0 0 1 21 4c0 14-18 26-21 29Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 55C29 52 11 40 11 26a11 11 0 0 1 21-4a11 11 0 0 1 21 4c0 14-18 26-21 29Z" fill="#E4634A" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol><symbol id="stk-sparkle" viewBox="0 0 64 64"><path d="M32 5C34 22 42 30 59 32C42 34 34 42 32 59C30 42 22 34 5 32C22 30 30 22 32 5Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32 5C34 22 42 30 59 32C42 34 34 42 32 59C30 42 22 34 5 32C22 30 30 22 32 5Z" fill="#E3B172" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol><symbol id="stk-cake" viewBox="0 0 64 64"><path d="M7 44L32 9L57 44C57 44 45 52 32 52C19 52 7 44 7 44Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M7 44L32 9L57 44C57 44 45 52 32 52C19 52 7 44 7 44Z" fill="#FBEFE3" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M17 40L32 21L47 40" fill="none" stroke="#E4634A" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="11" r="5" fill="#E4634A" stroke="currentColor" stroke-width="2.4"/></symbol><symbol id="stk-burst" viewBox="0 0 64 64"><path d="M32.0 4.0L37.4 11.7L46.0 7.8L46.8 17.2L56.2 18.0L52.3 26.6L60.0 32.0L52.3 37.4L56.2 46.0L46.8 46.8L46.0 56.2L37.4 52.3L32.0 60.0L26.6 52.3L18.0 56.2L17.2 46.8L7.8 46.0L11.7 37.4L4.0 32.0L11.7 26.6L7.8 18.0L17.2 17.2L18.0 7.8L26.6 11.7Z" fill="#FAF6EC" stroke="#FAF6EC" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><path d="M32.0 4.0L37.4 11.7L46.0 7.8L46.8 17.2L56.2 18.0L52.3 26.6L60.0 32.0L52.3 37.4L56.2 46.0L46.8 46.8L46.0 56.2L37.4 52.3L32.0 60.0L26.6 52.3L18.0 56.2L17.2 46.8L7.8 46.0L11.7 37.4L4.0 32.0L11.7 26.6L7.8 18.0L17.2 17.2L18.0 7.8L26.6 11.7Z" fill="#E4634A" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol></svg>
 
 <nav>
   <div class="container">
@@ -1596,7 +1579,6 @@
     </div>
     <div class="hero-box" id="box">
       <img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 210px" alt="The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha" width="900" height="1200" decoding="async" fetchpriority="high">
-      <span class="stk-seal" aria-hidden="true"><svg class="stk stk-madeleine" aria-hidden="true" focusable="false"><use href="#stk-madeleine"/></svg><b>Home baked</b><i>Doha</i></span>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="spread_label">Taste Everything</span>
@@ -1649,7 +1631,6 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/madeleine-box-doha.webp" alt="Box of homemade madeleines baked in Doha" width="800" height="1130" decoding="async" loading="lazy">
-          <svg class="stk stk-madeleine stk-card" aria-hidden="true" focusable="false"><use href="#stk-madeleine"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item1_name">Madeleine</h3>
@@ -1666,7 +1647,7 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/petit-madeleine-doha.webp" alt="Bite-size petit madeleines, home-baked in Doha" width="800" height="1083" decoding="async" loading="lazy">
-          <svg class="stk stk-madeleine stk-card" aria-hidden="true" focusable="false"><use href="#stk-madeleine"/></svg>
+          <svg class="stk stk-heart stk-card" aria-hidden="true" focusable="false"><use href="#stk-heart"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item2_name">Petit Madeleine</h3>
@@ -1701,7 +1682,7 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/upside-down-peach-cake-doha.webp" alt="Upside-down peach cake baked to order in Doha" width="800" height="901" decoding="async" loading="lazy">
-          <svg class="stk stk-cake stk-card" aria-hidden="true" focusable="false"><use href="#stk-cake"/></svg>
+          <svg class="stk stk-sparkle stk-card" aria-hidden="true" focusable="false"><use href="#stk-sparkle"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
@@ -1718,7 +1699,6 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/chocolate-chip-cookies-doha.webp" alt="Homemade chocolate chip cookies from a Doha home bakery" width="800" height="1000" decoding="async" loading="lazy">
-          <svg class="stk stk-cookie stk-card" aria-hidden="true" focusable="false"><use href="#stk-cookie"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
@@ -1735,7 +1715,6 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/rusk-shabora-doha.webp" alt="Rusk Shabora, twice-baked homemade biscuits in Doha" width="800" height="975" decoding="async" loading="lazy">
-          <svg class="stk stk-sparkle stk-card" aria-hidden="true" focusable="false"><use href="#stk-sparkle"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
@@ -1753,7 +1732,7 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/nutella-cookies-doha.webp" alt="Nutella-filled cookies, home-baked in Doha, Qatar" width="800" height="1000" decoding="async" loading="lazy">
-          <svg class="stk stk-cookie stk-card" aria-hidden="true" focusable="false"><use href="#stk-cookie"/></svg>
+          <svg class="stk stk-heart stk-card" aria-hidden="true" focusable="false"><use href="#stk-heart"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item7_name">Nutella Cookies</h3>
@@ -1770,7 +1749,7 @@
       <div class="menu-card">
         <div class="img-wrap">
           <img src="/img/chamaral-chocolate-chunk-doha.webp" alt="Homemade milk chocolate chunk cookies from a Doha home bakery" width="800" height="1000" decoding="async" loading="lazy">
-          <svg class="stk stk-cookie stk-card" aria-hidden="true" focusable="false"><use href="#stk-cookie"/></svg>
+          <svg class="stk stk-sparkle stk-card" aria-hidden="true" focusable="false"><use href="#stk-sparkle"/></svg>
         </div>
         <div class="menu-card-body">
           <h3 data-i18n="item8_name">Chamaral Chocolate Chunk</h3>
@@ -2171,8 +2150,6 @@
       hero_box_add:"Add the box",
       spread_serves:"Serves 3–4",
       hero_box_alt:"The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha",
-      stk_seal_1:"Home baked",
-      stk_seal_2:"Doha",
       added:"Added",
       sent_title:"Order sent!",
       sent_sub:"We'll confirm everything with you on WhatsApp shortly.",
