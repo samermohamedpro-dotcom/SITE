@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260904-0958">
+<meta name="pg-build" content="20260904-1841">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1372,6 +1372,28 @@
   .loc-btn[aria-pressed="true"]{background:var(--vert);border-color:var(--vert);color:var(--cream);}
   .menu,.visit{background:var(--vert-clair);}
   .lead-badge,.hero-box .spread-price em{background:var(--sage);color:var(--vert);}
+
+  /* ================= LA BANDE DE PREUVES — 04/09/2026 =================
+     Entre le menu et l'histoire : trois faits en pastilles, quatre voix de
+     clientes dans des cartes crème, signées de deux initiales — on ne donne
+     jamais un nom. Figtree comme le reste ; Cairo sur la page arabe. */
+  .proof{padding:44px 0 8px;}
+  .proof .label{display:block;margin-bottom:12px;}
+  .proof-facts{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px;}
+  .proof-facts li{background:var(--sage);color:var(--vert);border-radius:999px;padding:7px 14px;font-family:'Figtree',sans-serif;font-weight:700;font-size:0.86rem;line-height:1.3;}
+  .proof-quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+  .quote{margin:0;background:var(--cream);border:1px solid rgba(94,22,34,0.12);border-radius:var(--r);padding:16px 18px;}
+  .quote blockquote{margin:0;font-family:'Figtree',sans-serif;font-size:0.98rem;line-height:1.5;color:var(--maroon);}
+  .quote figcaption{margin-top:10px;font-family:'Figtree',sans-serif;font-weight:800;font-size:0.76rem;letter-spacing:0.1em;color:var(--vert);}
+  body.lang-ar .proof-facts li,body.lang-ar .quote blockquote{font-family:'Cairo','Figtree',sans-serif;}
+  body.lang-ar .quote figcaption{letter-spacing:0;}
+
+  /* Les allergènes, descendus de l'app sous chaque fiche : une ligne discrète,
+     cachée tant que le catalogue n'a rien dit — on n'affirme pas « sans
+     allergène ». */
+  .allergens{margin:2px 0 6px;font-family:'Figtree',sans-serif;font-size:0.74rem;line-height:1.35;color:rgba(94,22,34,0.72);}
+  .hero-box .allergens{font-size:0.8rem;margin:6px 0 0;}
+  body.lang-ar .allergens{font-family:'Cairo','Figtree',sans-serif;font-size:0.82rem;}
 </style>
 <script type="application/ld+json">
 {
@@ -1616,6 +1638,7 @@
         </div>
         <div class="hero-box-details">
           <p class="hero-box-desc" data-i18n="spread_desc">Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.</p>
+          <p class="allergens" data-allergens="spread" hidden></p>
           <div class="spread-inside">
             <span class="fld-label">What’s in the box</span>
             <ul id="spreadContenu">
@@ -1658,6 +1681,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item1_name">Madeleine</h3>
           <p class="desc" data-i18n="item1_desc">Classic shell-shaped sponge · dozen</p>
+          <p class="allergens" data-allergens="item1" hidden></p>
           <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item1" data-price="200">
           <button type="button" class="qty-add" data-add="item1"><span>Add</span></button>
@@ -1675,6 +1699,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item2_name">Petit Madeleine</h3>
           <p class="desc" data-i18n="item2_desc">Bite-size · 40 pieces</p>
+          <p class="allergens" data-allergens="item2" hidden></p>
           <p class="qty-note"><span class="qty-note-t">40 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
         <div class="qty-row" data-item="item2" data-price="180">
           <button type="button" class="qty-add" data-add="item2"><span>Add</span></button>
@@ -1692,6 +1717,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item3_name">Brown Butter Banana Bread</h3>
           <p class="desc" data-i18n="item3_desc">Slow-baked, ripe banana &amp; brown butter</p>
+          <p class="allergens" data-allergens="item3" hidden></p>
           <p class="lead-badge">Order now for tomorrow</p>
         <p class="qty-note"><span class="qty-note-t">1 loaf</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
         <div class="qty-row" data-item="item3" data-price="300">
@@ -1710,6 +1736,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item4_name">Upside-Down Peach Cake</h3>
           <p class="desc" data-i18n="item4_desc">Caramelized peach, baked to order</p>
+          <p class="allergens" data-allergens="item4" hidden></p>
           <p class="qty-note"><span class="qty-note-t">1 cake</span><span class="qty-note-p" dir="ltr">300 QR</span></p>
         <div class="qty-row" data-item="item4" data-price="300">
           <button type="button" class="qty-add" data-add="item4"><span>Add</span></button>
@@ -1726,6 +1753,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item5_name">Chocolate Chip Cookies</h3>
           <p class="desc" data-i18n="item5_desc">Dozen</p>
+          <p class="allergens" data-allergens="item5" hidden></p>
           <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">180 QR</span></p>
         <div class="qty-row" data-item="item5" data-price="180">
           <button type="button" class="qty-add" data-add="item5"><span>Add</span></button>
@@ -1742,6 +1770,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item6_name">Rusk "Shabora"</h3>
           <p class="desc" data-i18n="item6_desc">Twice-baked, golden &amp; crumbly · 30 pieces</p>
+          <p class="allergens" data-allergens="item6" hidden></p>
           <p class="lead-badge">Order now for tomorrow</p>
         <p class="qty-note"><span class="qty-note-t">30 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item6" data-price="200">
@@ -1760,6 +1789,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item7_name">Nutella Cookies</h3>
           <p class="desc" data-i18n="item7_desc">Soft-baked with a molten Nutella centre · dozen</p>
+          <p class="allergens" data-allergens="item7" hidden></p>
           <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item7" data-price="200">
           <button type="button" class="qty-add" data-add="item7"><span>Add</span></button>
@@ -1777,6 +1807,7 @@
         <div class="menu-card-body">
           <h3 data-i18n="item8_name">Chamaral Chocolate Chunk</h3>
           <p class="desc" data-i18n="item8_desc">Thick milk chocolate chunks, crackled tops · dozen</p>
+          <p class="allergens" data-allergens="item8" hidden></p>
           <p class="qty-note"><span class="qty-note-t">12 pieces</span><span class="qty-note-p" dir="ltr">200 QR</span></p>
         <div class="qty-row" data-item="item8" data-price="200">
           <button type="button" class="qty-add" data-add="item8"><span>Add</span></button>
@@ -1790,6 +1821,39 @@
   </div>
 </section>
 
+
+<section class="proof" id="proof">
+  <!-- La bande de preuves — 04/09/2026. Trois faits, quatre voix de clientes
+     signées de deux initiales : on ne donne jamais un nom. Les citations sont
+     celles que Samer a rapportées, reformulées. Le numéro de licence viendra
+     ici le jour où il l'aura retrouvé. -->
+  <div class="container">
+    <span class="label" data-i18n="proof_label">Why they come back</span>
+    <ul class="proof-facts">
+      <li data-i18n="proof_fact1">Baked the same morning</li>
+      <li data-i18n="proof_fact2">Same-day orders until 5 pm</li>
+      <li data-i18n="proof_fact3">Registered home bakery in Doha</li>
+    </ul>
+    <div class="proof-quotes">
+      <figure class="quote">
+        <blockquote data-i18n="proof_q1">The peach cake was the surprise. I didn't expect to love it this much.</blockquote>
+        <figcaption>N.A.</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote data-i18n="proof_q2">The cookies are just a little crunchy, and the chocolate with that touch of salt makes all the difference.</blockquote>
+        <figcaption>S.K.</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote data-i18n="proof_q3">I didn't expect the petit madeleines to be that small. Luckily there are forty of them!</blockquote>
+        <figcaption>H.M.</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote data-i18n="proof_q4">The Nutella cookie should come with a warning, it's that good. Is that Nutella even from Doha? It tastes different.</blockquote>
+        <figcaption>A.R.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 
 <section class="story" id="story">
   <div class="container">
@@ -2093,6 +2157,23 @@
       info_closed:"Closed", info_closed_val:"Friday",
       info_orders:"Orders", info_orders_val:"Via WhatsApp only", info_wa:"WhatsApp",
       footer_tag:"For the love of baking", footer_wa:"WhatsApp", footer_ig:"Instagram", footer_story:"Our Story",
+      proof_label:"Why they come back",
+      proof_fact1:"Baked the same morning",
+      proof_fact2:"Same-day orders until 5 pm",
+      proof_fact3:"Registered home bakery in Doha",
+      proof_q1:"The peach cake was the surprise. I didn't expect to love it this much.",
+      proof_q2:"The cookies are just a little crunchy, and the chocolate with that touch of salt makes all the difference.",
+      proof_q3:"I didn't expect the petit madeleines to be that small. Luckily there are forty of them!",
+      proof_q4:"The Nutella cookie should come with a warning, it's that good. Is that Nutella even from Doha? It tastes different.",
+      allerg_contains:"Contains",
+      allerg_sep:", ",
+      allerg_gluten:"gluten",
+      allerg_oeufs:"eggs",
+      allerg_lait:"milk",
+      allerg_fruits_a_coque:"nuts",
+      allerg_soja:"soy",
+      allerg_arachide:"peanuts",
+      allerg_sesame:"sesame",
       footer_copy:"© Petit Gâteau · Home-Baked, Doha",
       order_item:"item",
       order_items:"items",
@@ -2255,6 +2336,23 @@
       info_closed:"إغلاق", info_closed_val:"الجمعة",
       info_orders:"الطلبات", info_orders_val:"عبر واتساب فقط", info_wa:"واتساب",
       footer_tag:"حبًا بالخَبز", footer_wa:"واتساب", footer_ig:"إنستغرام", footer_story:"قصتنا",
+      proof_label:"لماذا يعودون إلينا",
+      proof_fact1:"يُخبز في صباح اليوم نفسه",
+      proof_fact2:"طلبات اليوم نفسه حتى الساعة 5 مساءً",
+      proof_fact3:"مخبز منزلي مسجّل في الدوحة",
+      proof_q1:"كيكة الخوخ كانت المفاجأة. لم أتوقع أن أحبها إلى هذا الحد.",
+      proof_q2:"الكوكيز مقرمشة قليلاً، والشوكولاتة مع لمسة الملح تصنع كل الفرق.",
+      proof_q3:"لم أتوقع أن تكون المادلين الصغيرة بهذا الصغر. لحسن الحظ هناك أربعون قطعة!",
+      proof_q4:"كوكيز النوتيلا يحتاج إلى تحذير من شدة لذّته. هل هذه النوتيلا من الدوحة أصلاً؟ طعمها مختلف.",
+      allerg_contains:"يحتوي على",
+      allerg_sep:"، ",
+      allerg_gluten:"غلوتين",
+      allerg_oeufs:"بيض",
+      allerg_lait:"حليب",
+      allerg_fruits_a_coque:"مكسرات",
+      allerg_soja:"صويا",
+      allerg_arachide:"فول سوداني",
+      allerg_sesame:"سمسم",
       footer_copy:"© Petit Gâteau · صناعة منزلية، الدوحة"
     }
   };
@@ -3425,6 +3523,25 @@
     // arabe, rail, sélecteur — et, par `NOMS`, le panier et le message
     // WhatsApp. Sans ce dernier point, la cliente commanderait un nom et
     // l'app en lirait un autre : la ligne redeviendrait « non reconnue ».
+    // Les allergènes descendent de l'app — déduits des recettes — depuis le
+    // 04/09/2026. Jamais écrits à la main ici : ce serait une seconde copie,
+    // et c'est la seconde qui devient fausse le jour où une recette change.
+    // Une liste vide laisse la ligne cachée : on n'affirme pas « sans
+    // allergène ». Un mot que le dictionnaire ne connaît pas n'est pas écrit
+    // brut : mieux vaut un allergène de moins affiché qu'une clé technique.
+    function ecrireAllergenes(id, liste){
+      var p = document.querySelector('.allergens[data-allergens="' + id + '"]');
+      if(!p) return;
+      var mots = [];
+      (liste || []).forEach(function(a){
+        var mot = T('allerg_' + a);
+        if(mot && mot.indexOf('allerg_') !== 0) mots.push(mot);
+      });
+      if(!mots.length){ p.hidden = true; p.textContent = ''; return; }
+      p.textContent = T('allerg_contains') + ' ' + mots.join(T('allerg_sep'));
+      p.hidden = false;
+    }
+
     function ecrireNom(id, nom, nomAr){
       var page = document.documentElement.lang === 'ar' ? 'ar' : 'en';
       var titre = page === 'ar' ? (nomAr || nom) : nom;
@@ -3587,6 +3704,7 @@
            `verifier-en-ligne.mjs` compare désormais les deux. */
         if(!id || !Object.prototype.hasOwnProperty.call(PRICES, id)) return;
         if(p.nom || p.nomAr) ecrireNom(id, String(p.nom || ''), String(p.nomAr || ''));
+        if(Array.isArray(p.allergenes)) ecrireAllergenes(id, p.allergenes);
         var prix = Number(p.prix) || 0;
         if(prix > 0 && prix !== PRICES[id]){ PRICES[id] = prix; ecrirePrix(id, prix); }
         var delai = Number(p.delaiHeures) || 0;
