@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260904-0927">
+<meta name="pg-build" content="20260904-0940">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1178,7 +1178,7 @@
      pastilles ronds ; cartes arrondies sans bordure sur fond pêche ; des blancs
      généreux et moins de texte sur téléphone. Bordeaux, crème et rayures
      restent : c'est l'ADN. */
-  :root{--peach:#FBEFE3;--coral:#E4634A;--r:18px;}
+  :root{--coral:#E4634A;--r:18px;}
   body,button,input,textarea,select{font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;}
   body{line-height:1.55;}
   h1,h2,h3,h4{font-family:'Figtree',system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:1.1;}
@@ -1216,16 +1216,14 @@
   .lang-toggle{border-radius:999px;}
 
   /* les surfaces : cartes arrondies sans bordure, fond pêche pour le menu */
-  .menu{background:var(--peach);}
   .menu-card{border:none;border-radius:var(--r);overflow:hidden;background:#fff;box-shadow:0 2px 14px -8px rgba(94,22,34,0.3);}
   .menu-card .img-wrap{border-radius:0;}
   .hero-box{border:none;border-radius:var(--r);}
   .story-frame{border-radius:var(--r);border-color:rgba(94,22,34,0.15);}
   .info-card{border:none;border-radius:var(--r);background:#fff;}
-  .visit{background:var(--peach);}
   .sheet,.sheet-head{border-radius:24px 24px 0 0;}
   .totals,.driver-note,.sameday-warn,.nudge{border-radius:14px;}
-  .lead-badge{background:var(--peach);color:var(--coral);border:none;border-radius:999px;font-weight:700;text-transform:none;letter-spacing:0;}
+  .lead-badge{border:none;border-radius:999px;font-weight:700;text-transform:none;letter-spacing:0;}
   .soldout{font-weight:600;}
 
   /* les prix et les titres des fiches */
@@ -1340,7 +1338,7 @@
   .lead-badge{transform:rotate(-3deg);box-shadow:0 0 0 3px #fff,0 6px 12px -8px rgba(94,22,34,0.4);}
   .soldout{display:inline-block;transform:rotate(-2deg);background:#fff;padding:4px 10px;border-radius:999px;box-shadow:0 0 0 3px #fff;font-size:0.82rem;margin:6px 0 4px;}
   footer .tag{display:inline-block;padding:7px 16px;border-radius:999px;background:var(--gold);color:var(--deep-maroon);transform:rotate(-2deg);box-shadow:0 0 0 3px var(--cream);}
-  .hero-box .spread-price em{display:inline-block;background:var(--peach);padding:3px 10px;border-radius:999px;transform:rotate(-3deg);}
+  .hero-box .spread-price em{display:inline-block;padding:3px 10px;border-radius:999px;transform:rotate(-3deg);}
   .sheet-sent .stk-burst{width:100px;height:100px;stroke:none;fill:none;transform:rotate(-8deg);margin-bottom:8px;}
   #sheetTitle .stk-inline{width:24px;height:24px;vertical-align:-5px;}
   @media(max-width:899px){
@@ -1349,6 +1347,31 @@
     .stk-ribbon{width:40px;height:40px;}
   }
   @media(prefers-reduced-motion:reduce){.stk{transition:none;}}
+
+  /* ================= LES ACTIONS EN VERT — 05/09/2026 =================
+     Choix de Samer entre trois essais montrés en captures. Les textes et les
+     titres restent bordeaux — la marque, le sceau « PG », les stickers — ;
+     les boutons, la barre de commande et le pied de page passent au vert
+     profond ; son vert clair, celui des rayures, remplace le pêche en fond du
+     menu et de la commande et sur les petites pastilles. Un seul bloc pour la
+     couleur des actions : pour en changer, c'est ici et nulle part ailleurs. */
+  :root{--vert:#2E5A3E;--vert-hover:#3B6E4E;--vert-clair:#DDEAD6;}
+  .btn-primary,.hero .btn-primary,.qty-add,.nav-cta,.sheet-send,.btn-dark,.sent-actions .btn-dark,
+  .chip[aria-pressed="true"],.date-chip[aria-pressed="true"]{background:var(--vert);color:var(--cream);border-color:var(--vert);}
+  .btn-primary:hover,.hero .btn-primary:hover,.qty-add:hover,.nav-cta:hover,.btn-dark:hover,.sheet-send:hover{background:var(--vert-hover);}
+  .qty-add.on{background:var(--gold);border-color:var(--gold);color:var(--deep-maroon);}
+  .order-bar,footer{background:var(--vert);}
+  .order-bar-btn{background:var(--gold);color:var(--vert);}
+  .hero .btn-outline{color:var(--vert);border-color:rgba(46,90,62,0.45);}
+  .hero .btn-outline:hover{border-color:var(--vert);color:var(--vert);}
+  .lang-toggle{color:var(--vert);border-color:rgba(46,90,62,0.4);}
+  .btn-ghost{color:var(--vert);border-color:var(--vert);}
+  .btn-ghost:hover{background:var(--vert);color:var(--cream);}
+  .gift-toggle[aria-pressed="true"],.loc-btn{background:var(--sage);border-color:var(--vert);color:var(--vert);}
+  .gift-toggle[aria-pressed="true"] .gift-box{background:var(--vert);border-color:var(--vert);}
+  .loc-btn[aria-pressed="true"]{background:var(--vert);border-color:var(--vert);color:var(--cream);}
+  .menu,.visit{background:var(--vert-clair);}
+  .lead-badge,.hero-box .spread-price em{background:var(--sage);color:var(--vert);}
 </style>
 <script type="application/ld+json">
 {
