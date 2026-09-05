@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260905-1322">
+<meta name="pg-build" content="20260905-1614">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -670,18 +670,27 @@
      et c'était vrai bien avant le menu à deux colonnes.
      On ne touche ni aux mots ni aux couleurs : juste le corps et les marges,
      jusqu'à ce que les trois tiennent dans 320 px. Vérifié au navigateur.
+     Le 05/09/2026 au soir, sa femme trouvait le mot-marque petit : il remonte
+     (1,4 rem, puis 1,28 et 1,1 sur les plus étroits), la place restant
+     vérifiée par verif-mise-en-page.mjs — la page ne déborde à aucune largeur.
      ========================================================================= */
   @media(max-width:560px){
     nav .container{padding:13px 16px;gap:10px;}
-    .nav-mark{font-size:1.05rem;}
+    .nav-mark{font-size:1.4rem;}
     .lang-toggle{padding:7px 10px;font-size:0.7rem;letter-spacing:0.03em;}
     .nav-cta{padding:9px 12px;font-size:0.68rem;letter-spacing:0.04em;}
   }
   @media(max-width:390px){
     nav .container{padding:12px 12px;gap:8px;}
-    .nav-mark{font-size:0.95rem;}
+    .nav-mark{font-size:1.28rem;}
     .lang-toggle{padding:6px 8px;font-size:0.7rem;letter-spacing:0.02em;}
     .nav-cta{padding:8px 9px;font-size:0.62rem;letter-spacing:0.01em;}
+  }
+  @media(max-width:340px){
+    .nav-mark{font-size:1.1rem;}
+  }
+  @media(max-width:330px){
+    .nav-mark{font-size:0.95rem;}
   }
 
   /* Le titre « what would you like » n'a plus d'objet quand tout est au panier. */
@@ -980,11 +989,18 @@
      prix tiennent dans le premier écran. Fond crème uni, aucune animation. */
   .hero{background:var(--cream);position:static;min-height:0;overflow:visible;}
   .hero-grid{
-    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:clamp(28px,4vw,52px);align-items:center;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto;
+    column-gap:clamp(28px,4vw,52px);row-gap:14px;align-items:center;
     padding-top:clamp(28px,5vw,60px);padding-bottom:clamp(28px,5vw,60px);
   }
-  .hero-content{position:static;z-index:auto;color:var(--deep-maroon);padding:0;max-width:none;margin:0;text-align:start;display:block;}
+  /* Depuis le 05/09/2026 au soir, la phrase de livraison n'est plus DANS le
+     bloc de texte : elle le suit, sous les boutons, pour que le bloc puisse
+     devenir un panneau sur téléphone. Sur ordinateur, le bloc en bas de la
+     première rangée et la phrase en haut de la seconde restent collés, la
+     carte du coffret couvrant les deux rangées. */
+  .hero-content{position:static;z-index:auto;color:var(--deep-maroon);padding:0;max-width:none;margin:0;text-align:start;display:block;grid-column:1;grid-row:1;align-self:end;}
+  .hero .delivery-line{grid-column:1;grid-row:2;align-self:start;margin:0;}
+  .hero-box{grid-column:2;grid-row:1 / 3;}
   .hero-eyebrow{
     font-family:'Figtree',sans-serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--maroon);margin:0 0 14px;
@@ -1014,7 +1030,11 @@
     background:#fff;border:1px solid rgba(94,22,34,0.14);border-radius:4px;overflow:hidden;
     box-shadow:0 1px 2px rgba(94,22,34,0.06), 0 14px 34px -18px rgba(94,22,34,0.35);
   }
-  .hero-box-img{width:100%;height:100%;min-height:100%;object-fit:cover;object-position:60% 50%;display:block;}
+  /* Recadrée le 05/09/2026 au soir depuis la photo de table (cup de petit
+     madeleines, cookies, boîte) : « on ne voyait que la boîte ». Sur téléphone
+     la photo se voit entière ; la colonne étroite de l'ordinateur garde
+     l'étiquette de la boîte, à droite. */
+  .hero-box-img{width:100%;height:100%;min-height:100%;object-fit:cover;object-position:100% 50%;display:block;}
   .hero-box .spread-text{
     background:none;position:static;padding:16px 18px 18px;
     display:flex;flex-direction:column;justify-content:flex-start;gap:12px;min-width:0;
@@ -1047,7 +1067,7 @@
   @media(max-width:899px){
     .hero-grid{grid-template-columns:1fr;gap:18px;padding-top:24px;padding-bottom:22px;}
     .hero-box{grid-template-columns:38% minmax(0,1fr);}
-    .hero-box-img{grid-column:1;grid-row:1;}
+    .hero-box-img{grid-column:1;grid-row:1;object-position:50% 50%;}
     /* La carte se couche : le corps se dissout dans la grille, sa tête à
        droite de la photo, son détail sur toute la largeur en dessous. */
     .hero-box .spread-text{display:contents;}
@@ -1302,18 +1322,22 @@
     font-family:'Playfair Display',Georgia,serif!important;font-weight:700;letter-spacing:0;
   }
 
-  /* Téléphone : la phrase de livraison passe SOUS la carte du coffret. Le
-     premier écran garde le titre, le sous-titre, le bouton et le produit avec
-     son prix ; le détail de la livraison vient juste après, avant le menu. */
+  /* Téléphone — le premier écran, en panneau (05/09/2026 au soir). Sa femme :
+     « on dirait un forum, pas un site ». Le bloc du premier écran devient un
+     PANNEAU vert clair, détaché de la barre et de la carte du coffret — la
+     zone d'action, comme le menu et la commande. La phrase de livraison suit
+     la carte, avant le menu, comme depuis le 05/09 au matin. Pour un panneau
+     crème chaud à la place : `background:var(--warm-cream)` et l'ombre des
+     cartes (`0 2px 14px -8px rgba(94,22,34,0.3)`). */
   @media(max-width:899px){
-    .hero-content{display:contents;}
-    .hero-content > *{max-width:none;}
-    .hero-box{order:2;}
-    .hero .delivery-line{order:3;margin:0;font-size:0.9rem;color:var(--maroon);}
-    .hero-actions{margin-bottom:2px;}
-    .hero-grid{gap:16px;}
-    .hero h1{margin-top:0;}
-    .hero-sub{margin-top:0;}
+    .hero-grid{gap:16px;padding-top:18px;}
+    .hero-content,.hero-box,.hero .delivery-line{grid-column:auto;grid-row:auto;align-self:auto;}
+    .hero-content{display:block;background:var(--vert-clair);border-radius:var(--r);padding:24px 20px 22px;}
+    .hero-content > *{margin:0;max-width:none;}
+    .hero h1{margin-top:10px;}
+    .hero-sub{margin-top:12px;}
+    .hero-actions{margin-top:18px;margin-bottom:0;}
+    .hero .delivery-line{margin:0;font-size:0.9rem;color:var(--maroon);}
     .hero-eyebrow{margin-bottom:0;}
   }
 
@@ -1404,7 +1428,7 @@
      tampon et « Made in Qatar, by Qatari hands. ». Le dosage discret est
      gardé dans 4-BRANDING/qatar/LISEZ-MOI.md pour le jour où on baisse le
      ton : ces règles-ci ne bougent pas, seuls les textes et la bande. */
-  .nav-place{display:block;font-family:'Figtree',sans-serif;font-size:0.62rem;font-weight:600;color:var(--maroon);letter-spacing:0;line-height:1;margin-top:3px;}
+  .nav-place{display:block;font-family:'Figtree',sans-serif;font-size:0.68rem;font-weight:600;color:var(--maroon);letter-spacing:0;line-height:1;margin-top:3px;}
   body.lang-ar .nav-place{font-family:'Cairo','Figtree',sans-serif;font-size:0.72rem;}
   .stk-inline-sceau{width:40px;height:40px;vertical-align:-14px;transform:rotate(-8deg);margin-inline-start:8px;}
   .proof-facts li.proof-qatar{background:var(--gold);color:var(--deep-maroon);}
@@ -1421,6 +1445,21 @@
     .qatar-t{font-size:1.35rem;}
     .qatar-s{font-size:1rem;}
   }
+
+  /* ================= LA BARRE VERTE — 05/09/2026 au soir =================
+     Sa femme : le nom ne se détache pas. La barre du haut prend le vert
+     profond des actions, comme la barre de commande et le pied de page : le
+     mot-marque en crème, « Doha · Qatar » en sauge, la langue en crème
+     cerclé, le bouton en or sur vert — le couple de la barre de commande. */
+  nav{background:rgba(46,90,62,0.97);border-bottom:none;}
+  nav .nav-mark,.nav-mark{color:var(--cream);}
+  .nav-place{color:var(--sage);}
+  .nav-links a{color:var(--cream);}
+  .nav-links a:hover{border-color:var(--gold);}
+  .lang-toggle{color:var(--cream);border-color:rgba(250,246,236,0.6);}
+  .lang-toggle:hover{background:var(--cream);color:var(--vert);}
+  .nav-cta{background:var(--gold);color:var(--vert);}
+  .nav-cta:hover{background:var(--cream);color:var(--vert);}
 </style>
 <script type="application/ld+json">
 {
@@ -1643,7 +1682,6 @@
       <p class="hero-eyebrow">Made in Qatar · Doha <svg class="stk stk-sceau stk-inline stk-inline-sceau" aria-hidden="true" focusable="false"><use href="#stk-sceau"/></svg></p>
       <h1>From a Qatari home kitchen to your table, today.</h1>
       <p class="hero-sub">Madeleines, cookies and cakes, baked to order in small batches. Order before 5 PM and it is delivered today.</p>
-      <p class="delivery-line">Delivered to your door anywhere in Qatar by our driver. You pay the delivery to the driver when it arrives, it is not included in your order.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://wa.me/97450040617" target="_blank" rel="noopener">Order now</a>
         <a class="btn btn-outline" href="#menu">See the menu</a>
@@ -1687,6 +1725,7 @@
         </div>
       </div>
     </div>
+    <p class="delivery-line">Delivered to your door anywhere in Qatar by our driver. You pay the delivery to the driver when it arrives, it is not included in your order.</p>
   </div>
 </section>
 
