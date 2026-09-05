@@ -2,8 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260905-1649">
-<meta name="pg-features" content="carnet,depot,catalogue,jour-meme">
+<meta name="pg-build" content="20260905-2338">
+<meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Petit Gâteau | Qatari Home Bakery in Doha — Cookies, Madeleines &amp; Cakes</title>
@@ -2064,6 +2064,7 @@
         <button type="button" class="chip" data-val="17">5 PM</button>
         <button type="button" class="chip" data-val="18">6 PM</button>
       </div>
+      <div class="sameday-warn" id="hoursWarn">Some times are already taken that day. Pick another time.</div>
       <div class="err-msg">Please pick a time.</div>
     </div>
 
@@ -2345,6 +2346,7 @@
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
       quota_block:"Some dates are already fully booked. Pick another day.",
+      hours_block:"Some times are already taken that day. Pick another time.",
       sameday_block:"Rusk “Shabora” and Brown Butter Banana Bread are baked to order and ready from tomorrow. Pick a later day for them — or leave them out and we deliver the rest today.",
       today:"Today",
       soldout:"Not available today",
@@ -2710,9 +2712,18 @@
   }
   function blocked(){ return leadNeeded() > 0; }
 
+  // Une heure FERMÉE À LA MAIN depuis l'app — « pas disponible à 15 h et
+  // 16 h samedi » (05/09/2026). Le carnet la publie sur son jour, sans dire
+  // pourquoi ; ici on ne sait qu'une chose : cette heure-là ne se propose pas.
+  function slotFerme(iso, hour){
+    var q = QUOTAS[iso];
+    return Boolean(q && q.heures && q.heures[hour]);
+  }
   // un créneau tient s'il est à venir, hors jour même passé l'heure limite,
-  // et assez loin pour le délai de préparation du panier
-  function slotOk(iso, hour){
+  // et assez loin pour le délai de préparation du panier — les règles de
+  // TEMPS seules, sans les fermetures : c'est ce qui permet de dire à la
+  // cliente qu'une heure est prise plutôt que passée
+  function slotLibre(iso, hour){
     var now = qatarNow();
     if(iso === isoOf(now) && now.getHours() >= CFG.cutoffHour) return false;
     var d = new Date(iso + 'T00:00:00');
@@ -2721,6 +2732,33 @@
     // 45 min de battement pour tout le monde, davantage si un produit du
     // panier demande plus de préparation
     return gap >= Math.max(CFG.minGap, leadNeeded());
+  }
+  // et un créneau se propose s'il est libre ET pas fermé depuis l'app
+  function slotOk(iso, hour){
+    return !slotFerme(iso, hour) && slotLibre(iso, hour);
+  }
+  // Un jour que seules des heures fermées depuis l'app ont vidé : les règles
+  // de temps y laissaient au moins une heure, et il n'en reste aucune. Il se
+  // grise comme un jour plein — et se DIT comme un jour plein, plutôt que de
+  // passer pour une panne.
+  function jourFermeParHeures(iso){
+    if(jourPlein(iso)) return false;
+    var libre = false, ouvert = false;
+    for(var i = 0; i < CFG.slots.length; i++){
+      if(!slotLibre(iso, CFG.slots[i])) continue;
+      libre = true;
+      if(!slotFerme(iso, CFG.slots[i])) ouvert = true;
+    }
+    return libre && !ouvert;
+  }
+  // Une heure du jour retenu qui serait proposée sans la fermeture : c'est
+  // ce qui justifie d'expliquer à la cliente qu'un créneau est pris.
+  function heureFermeeVisible(iso){
+    if(!iso) return false;
+    for(var i = 0; i < CFG.slots.length; i++){
+      if(slotFerme(iso, CFG.slots[i]) && slotLibre(iso, CFG.slots[i])) return true;
+    }
+    return false;
   }
   // Une journée pleine, ou pleine POUR CE PANIER.
   //
@@ -2802,7 +2840,8 @@
     var chips = $('dateRail').querySelectorAll('.date-chip');
     for(var i = 0; i < chips.length; i++){
       if(chips[i].classList.contains('closed')) continue;
-      if(jourPlein(chips[i].getAttribute('data-iso'))) return true;
+      var iso = chips[i].getAttribute('data-iso');
+      if(jourPlein(iso) || jourFermeParHeures(iso)) return true;
     }
     return false;
   }
@@ -2863,7 +2902,7 @@
     syncSlots();
   }
 
-  // gèle les heures trop proches pour le jour retenu
+  // gèle les heures trop proches — ou fermées depuis l'app — pour le jour retenu
   function syncSlots(){
     var host = $('slotChips');
     if(!host) return;
@@ -2876,6 +2915,10 @@
         c.setAttribute('aria-pressed','false');
       }
     });
+    // Une heure grisée au milieu d'heures ouvertes se lit comme une panne :
+    // on dit qu'elle est prise. Seulement quand le jour retenu en a une.
+    var hw = $('hoursWarn');
+    if(hw) hw.style.display = heureFermeeVisible(S.date) ? 'block' : 'none';
   }
 
 
@@ -3856,8 +3899,9 @@
     }
 
     // Le carnet ne dit que des « non » : telle date est prise, tel produit
-    // l'est ce jour-là. Aucun compte n'y figure — savoir combien de commandes
-    // ils ont ce jeudi ne regarde pas une page publique.
+    // l'est ce jour-là, telle heure est fermée. Aucun compte n'y figure —
+    // savoir combien de commandes ils ont ce jeudi ne regarde pas une page
+    // publique — et aucune raison non plus.
     function appliquerDispos(jours){
       QUOTAS = {};
       (jours || []).forEach(function(j){
@@ -3869,6 +3913,14 @@
         // « plein », elle veut dire « il reste de la place ».
         var q = { complet: j.complet === true, produits: produits };
         if(typeof j.restantes === 'number' && j.restantes > 0) q.restantes = j.restantes;
+        // Les heures fermées à la main depuis l'app (05/09/2026) : des
+        // nombres, ceux que la page propose ; le reste ne ferme rien.
+        var heures = {};
+        (j.heures || []).forEach(function(h){
+          var n = Number(h);
+          if(CFG.slots.indexOf(n) !== -1) heures[n] = true;
+        });
+        q.heures = heures;
         QUOTAS[j.date] = q;
       });
       refresh();   // appelle paint(), qui resynchronise déjà le carrousel
