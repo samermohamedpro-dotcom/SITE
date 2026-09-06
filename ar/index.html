@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260905-2338">
+<meta name="pg-build" content="20260906-1252">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -668,6 +668,8 @@
 
   /* ================= LA BARRE DU HAUT DÉBORDAIT SUR TÉLÉPHONE ===============
      Mesuré en passant : « Petit Gâteau » + « العربية » + « ORDER ON WHATSAPP »
+     (« ASK ON WHATSAPP » depuis le 06/09/2026 : plus court, la place mesurée
+     ici reste vraie)
      réclament 436 px côte à côte, et les trois refusent de passer à la ligne.
      Sur un téléphone de 360 ou 390 px, la page se décale donc de 46 à 76 px
      vers la droite : on peut la faire glisser latéralement, la barre dépasse,
@@ -1673,7 +1675,7 @@
     </div>
     <div class="nav-right">
       <a class="lang-toggle" id="langToggle" href="/" hreflang="en" lang="en" rel="alternate">English</a>
-      <a class="nav-cta" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="nav_cta">اطلب عبر واتساب</a>
+      <a class="nav-cta" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="nav_cta">اسأل عبر واتساب</a>
     </div>
   </div>
 </nav>
@@ -2204,7 +2206,7 @@
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
       spread_name:"The Discovery Box",
-      nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Order on WhatsApp", nav_place:"Doha · Qatar",
+      nav_story:"Our Story", nav_menu:"Menu", nav_visit:"Ordering", nav_cta:"Ask on WhatsApp", nav_place:"Doha · Qatar",
       story_label:"Our Story",
       story_p1:"She spends her days making sure no one around her is missing anything. Her children. Her home. Everyone else, first.",
       story_p2:"Baking is the one thing she does just for her.",
@@ -2387,7 +2389,7 @@
       rare_left:"باقي %s",
       rare_line:"باقي %s فقط ليوم %s",
       spread_name:"صندوق الاكتشاف",
-      nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اطلب عبر واتساب", nav_place:"الدوحة · قطر",
+      nav_story:"قصتنا", nav_menu:"القائمة", nav_visit:"الطلب", nav_cta:"اسأل عبر واتساب", nav_place:"الدوحة · قطر",
       story_label:"قصتنا",
       story_p1:"تقضي أيامها وهي تتأكد أن لا أحد حولها ينقصه شيء. أطفالها. بيتها. الجميع أولاً.",
       story_p2:"الخَبز هو الشيء الوحيد الذي تفعله لنفسها.",
@@ -3128,9 +3130,16 @@
   }
   $('orderSendBtn').addEventListener('click', function(){ open(); });
 
-  // aucun bouton d'appel n'envoie vers WhatsApp à vide : ils ouvrent le tunnel
-  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function(a){
-    if(a.closest('.sheet') || a.closest('.fallback')) return;
+  /* ---------- deux sorties : la conversation, ou le tunnel ----------
+     Jusqu'au 06/09/2026, tout lien wa.me de la page ouvrait le tunnel : on ne
+     laissait personne partir vers WhatsApp à vide. Samer a tranché autrement :
+     les boutons qui DISENT WhatsApp — « Ask on WhatsApp » en haut, « Message
+     on WhatsApp » dans Ordering, le lien du pied — sont de vrais liens vers la
+     conversation, à vide, exprès : venir parler, poser ses questions avant de
+     commander. Seul « Order now », au premier écran, ouvre le tunnel ; il
+     garde son lien wa.me pour que, sans JavaScript, la cliente arrive quand
+     même quelque part. La feuille et le repli ont leurs propres envois. */
+  document.querySelectorAll('.hero a[href^="https://wa.me/"]').forEach(function(a){
     a.addEventListener('click', function(e){ e.preventDefault(); open(); });
   });
   $('sheetClose').addEventListener('click', close);
