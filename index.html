@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260906-1827">
+<meta name="pg-build" content="20260906-2135">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1042,7 +1042,18 @@
      madeleines, cookies, boîte) : « on ne voyait que la boîte ». Sur téléphone
      la photo se voit entière ; la colonne étroite de l'ordinateur garde
      l'étiquette de la boîte, à droite. */
-  .hero-box-img{width:100%;height:100%;min-height:100%;object-fit:cover;object-position:100% 50%;display:block;}
+  /* La photo remplit son cadre EN ABSOLU, jamais par une hauteur en pourcentage.
+     `height:100%` et `min-height:100%` sur une image posée directement dans la
+     grille de la carte se résolvent contre la RANGÉE dans Chrome, mais contre
+     la CARTE ENTIÈRE dans Safari dès que la carte reçoit une hauteur imposée —
+     ce que fait la piste des quatre boîtes, qui les met toutes à la hauteur de
+     la plus haute. Sur l'iPhone de Samer, le 06/09/2026 au soir, la photo du
+     Majlis couvrait donc tout le texte de sa carte, pendant que les mesures au
+     navigateur (Chromium) la disaient bien rangée. Un cadre positionné et une
+     image en absolu ne dépendent d'aucun pourcentage : la photo occupe
+     exactement sa case, dans les deux moteurs. */
+  .hero-box-photo{position:relative;overflow:hidden;min-width:0;}
+  .hero-box-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:100% 50%;display:block;}
   .hero-box .spread-text{
     background:none;position:static;padding:16px 18px 18px;
     display:flex;flex-direction:column;justify-content:flex-start;gap:12px;min-width:0;
@@ -1075,7 +1086,8 @@
   @media(max-width:899px){
     .hero-grid{grid-template-columns:1fr;gap:18px;padding-top:24px;padding-bottom:22px;}
     .hero-box{grid-template-columns:38% minmax(0,1fr);}
-    .hero-box-img{grid-column:1;grid-row:1;object-position:50% 50%;}
+    .hero-box-photo{grid-column:1;grid-row:1;}
+    .hero-box-img{object-position:50% 50%;}
     /* La carte se couche : le corps se dissout dans la grille, sa tête à
        droite de la photo, son détail sur toute la largeur en dessous. */
     .hero-box .spread-text{display:contents;}
@@ -1694,7 +1706,7 @@
           "image": "https://petit-gateau.com/img/discovery-box-hero-doha.webp",
           "offers": {
             "@type": "Offer",
-            "price": "390",
+            "price": "490",
             "priceCurrency": "QAR",
             "availability": "https://schema.org/InStock"
           }
@@ -1779,18 +1791,18 @@
     <div class="hero-boxes" id="box">
       <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="Our boxes">
     <div class="hero-box" data-offre="spread" data-famille="coffret">
-      <img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 210px" alt="The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha" width="900" height="1200" decoding="async" fetchpriority="high">
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 210px" alt="The Discovery Box, open: peach cake, cookies and petit madeleines, home-baked in Doha" width="900" height="1200" decoding="async" fetchpriority="high"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="spread_label">Taste Everything</span>
           <h2 data-i18n="spread_title">The Discovery Box</h2>
-          <div class="spread-price"><b dir="ltr">390 QR</b><em>Serves 3–4</em></div>
-          <div class="qty-row" data-item="spread" data-price="390">
+          <div class="spread-price"><b dir="ltr">490 QR</b><em>Serves 3–4</em></div>
+          <div class="qty-row" data-item="spread" data-price="490">
           <button type="button" class="qty-add" data-add="spread"><span>Add the box</span></button>
             <button class="qty-btn" data-action="dec" aria-label="-">−</button>
             <span class="qty-val">0</span>
             <button class="qty-btn" data-action="inc" aria-label="+">+</button>
-          <span class="qty-price" dir="ltr">390 QR</span></div>
+          <span class="qty-price" dir="ltr">490 QR</span></div>
         </div>
         <div class="hero-box-details">
           <p class="hero-box-desc" data-i18n="spread_desc">Can't choose? Neither can we. Everything we bake best, in one box — enough to share, and to find your favourite.</p>
@@ -1816,7 +1828,7 @@
       </div>
     </div>
     <div class="hero-box" data-offre="majlis4" data-famille="majlis">
-      <img class="hero-box-img" src="/img/majlis-4-doha.webp" srcset="/img/majlis-4-doha-300.webp 300w, /img/majlis-4-doha-450.webp 450w, /img/majlis-4-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="The Majlis box for 4 guests, open on a table with cookies and madeleines, home-baked in Doha" width="720" height="960" decoding="async" fetchpriority="low">
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-4-doha.webp" srcset="/img/majlis-4-doha-300.webp 300w, /img/majlis-4-doha-450.webp 450w, /img/majlis-4-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="The Majlis box for 4 guests, open on a table with cookies and madeleines, home-baked in Doha" width="720" height="960" decoding="async" fetchpriority="low"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">The Gathering Box</span>
@@ -1862,7 +1874,7 @@
       </div>
     </div>
     <div class="hero-box" data-offre="majlis6" data-famille="majlis">
-      <img class="hero-box-img" src="/img/majlis-6-doha.webp" srcset="/img/majlis-6-doha-300.webp 300w, /img/majlis-6-doha-450.webp 450w, /img/majlis-6-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="The Majlis box for 6 guests, open on a table with cookies and madeleines, home-baked in Doha" width="720" height="960" decoding="async" fetchpriority="low">
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-6-doha.webp" srcset="/img/majlis-6-doha-300.webp 300w, /img/majlis-6-doha-450.webp 450w, /img/majlis-6-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="The Majlis box for 6 guests, open on a table with cookies and madeleines, home-baked in Doha" width="720" height="960" decoding="async" fetchpriority="low"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">The Gathering Box</span>
@@ -1909,7 +1921,7 @@
       </div>
     </div>
     <div class="hero-box" data-offre="majlis10" data-famille="majlis">
-      <img class="hero-box-img" src="/img/majlis-10-doha.webp" srcset="/img/majlis-10-doha-300.webp 300w, /img/majlis-10-doha-450.webp 450w, /img/majlis-10-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="The Majlis box for 10 guests, open on a table with cookies and madeleines, home-baked in Doha" width="720" height="960" decoding="async" fetchpriority="low">
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-10-doha.webp" srcset="/img/majlis-10-doha-300.webp 300w, /img/majlis-10-doha-450.webp 450w, /img/majlis-10-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="The Majlis box for 10 guests, open on a table with cookies and madeleines, home-baked in Doha" width="720" height="960" decoding="async" fetchpriority="low"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">The Gathering Box</span>
