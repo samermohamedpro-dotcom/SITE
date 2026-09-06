@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260906-2135">
+<meta name="pg-build" content="20260906-2205">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4336,11 +4336,11 @@
   /* ---------- les quatre boîtes : le défilement ----------
      Le coffret et les trois Majlis se suivent sur une piste qui défile à
      l'horizontale (style.css, « LES QUATRE BOÎTES »). Elle avance seule
-     toutes les trois secondes et s'arrête POUR DE BON dès qu'un doigt se
-     pose ou bouge dessus, qu'une souris y passe, qu'un point est touché ou
-     qu'un clavier y entre : à partir de là, c'est la cliente qui décide.
-     Rien ne bouge non plus pour qui a demandé moins de mouvement, ni tant
-     que l'onglet est caché. Demande de Samer, 06/09/2026. */
+     toutes les trois secondes, et s'arrête POUR DE BON quand la cliente AGIT
+     dessus : à partir de là, c'est elle qui décide. Rien ne bouge non plus
+     pour qui a demandé moins de mouvement, ni tant que l'onglet est caché.
+     Demande de Samer, 06/09/2026 ; la règle de l'arrêt réécrite le soir même
+     (voir plus bas). */
   (function(){
     var piste = document.getElementById('heroTrack');
     var boite = piste && piste.closest('.hero-boxes');
@@ -4389,8 +4389,48 @@
       if(!arrete) boite.setAttribute('data-auto', 'pause');
     }
 
-    ['touchstart', 'touchmove', 'pointerdown', 'pointermove', 'wheel', 'keydown', 'focusin']
-      .forEach(function(ev){ boite.addEventListener(ev, arreter, { passive: true }); });
+    /* ── Ce qui arrête le défilement, et ce qui ne l'arrête pas ──
+       Il s'arrêtait au premier contact : `touchstart`, `pointermove`, la
+       molette. Samer, le 06/09/2026 au soir : « quand on touche pour
+       descendre plus bas ça s'arrête, et je ne veux pas que ça s'arrête à ce
+       moment-là ; c'est quand on clique sur quelque chose de la carte qu'on
+       arrête. » Poser le doigt sur une carte pour faire défiler la PAGE n'est
+       pas une intention sur le carrousel — il continue.
+
+       Ce qui l'arrête, c'est d'agir sur lui :
+       — CLIQUER quelque chose dans la boîte (une pastille, « Add the box »,
+         un point, le fond d'une carte). `click` est la mesure exacte de « on
+         a touché quelque chose » : le navigateur l'annule dès que le doigt
+         glisse, donc un défilement de page n'en produit jamais ;
+       — BALAYER les cartes de côté. Sans ça, le minuteur reprendrait la main
+         trois secondes après, sur la carte qu'elle vient de choisir ;
+       — y ENTRER AU CLAVIER.
+       Une souris qui passe, elle, n'arrête plus rien : ce n'est pas une
+       intention non plus. */
+    boite.addEventListener('click', arreter);
+    ['keydown', 'focusin'].forEach(function(ev){ boite.addEventListener(ev, arreter, { passive: true }); });
+
+    // Le balayage : horizontal, il prend la main sur les cartes ; vertical,
+    // c'est la page qui descend et le carrousel n'en sait rien. 12 px, c'est
+    // au-dessus du tremblement d'un doigt posé et en dessous d'un vrai geste.
+    var depart = null;
+    piste.addEventListener('touchstart', function(e){
+      var t = e.touches && e.touches[0];
+      depart = t ? { x: t.clientX, y: t.clientY } : null;
+    }, { passive: true });
+    piste.addEventListener('touchmove', function(e){
+      var t = depart && e.touches && e.touches[0];
+      if(!t) return;
+      var dx = Math.abs(t.clientX - depart.x), dy = Math.abs(t.clientY - depart.y);
+      if(dx > 12 && dx > dy){ depart = null; arreter(); }
+    }, { passive: true });
+    piste.addEventListener('touchend', function(){ depart = null; }, { passive: true });
+    // La molette : de côté, c'est le même geste que le balayage ; de haut en
+    // bas, c'est la page qui descend.
+    piste.addEventListener('wheel', function(e){
+      if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) arreter();
+    }, { passive: true });
+
     points.forEach(function(p, i){ p.addEventListener('click', function(){ arreter(); aller(i, true); }); });
     // Le doigt qui fait défiler la piste sans passer par un point : les
     // points suivent.
