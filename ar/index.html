@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260906-1252">
+<meta name="pg-build" content="20260906-1646">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -430,12 +430,14 @@
 
   /* chips */
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
-  /* Le coffret peut demander PLUSIEURS choix — deux cookies depuis le
-     03/09/2026, et autant que l'app en déclarera ensuite. Les rangées
-     s'empilent ; chacune reste une rangée de pastilles ordinaire. Sans
-     cet écart, les deux rangées se touchaient et se lisaient comme une
-     seule liste de six cookies parmi lesquels choisir un. */
-  #spreadCookie{display:flex;flex-direction:column;gap:10px;}
+  /* Une offre peut demander PLUSIEURS choix — les cookies, puis le cake
+     d'un Majlis — et autant que l'app en déclarera ensuite. Les rangées
+     s'empilent, chacune sous son étiquette ; chacune reste une rangée de
+     pastilles ordinaire. Sans cet écart, deux rangées se touchaient et se
+     lisaient comme une seule liste de six cookies parmi lesquels choisir un.
+     Par classe depuis le 06/09/2026 : il y a une rangée par carte, dans
+     quatre cartes, et un id ne désigne qu'un seul endroit. */
+  .offre-choix{display:flex;flex-direction:column;gap:10px;}
   .chip{
     font-family:'Figtree',sans-serif;font-size:0.88rem;cursor:pointer;
     padding:10px 15px;border-radius:999px;
@@ -1006,7 +1008,7 @@
      carte du coffret couvrant les deux rangées. */
   .hero-content{position:static;z-index:auto;color:var(--deep-maroon);padding:0;max-width:none;margin:0;text-align:start;display:block;grid-column:1;grid-row:1;align-self:end;}
   .hero .delivery-line{grid-column:1;grid-row:2;align-self:start;margin:0;}
-  .hero-box{grid-column:2;grid-row:1 / 3;}
+  .hero-boxes{grid-column:2;grid-row:1 / 3;min-width:0;}
   .hero-eyebrow{
     font-family:'Figtree',sans-serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--maroon);margin:0 0 14px;
@@ -1337,7 +1339,7 @@
      cartes (`0 2px 14px -8px rgba(94,22,34,0.3)`). */
   @media(max-width:899px){
     .hero-grid{gap:16px;padding-top:18px;}
-    .hero-content,.hero-box,.hero .delivery-line{grid-column:auto;grid-row:auto;align-self:auto;}
+    .hero-content,.hero-boxes,.hero .delivery-line{grid-column:auto;grid-row:auto;align-self:auto;}
     .hero-content{display:block;background:var(--vert-clair);border-radius:var(--r);padding:24px 20px 22px;}
     .hero-content > *{margin:0;max-width:none;}
     .hero h1{margin-top:10px;}
@@ -1466,6 +1468,37 @@
   .lang-toggle:hover{background:var(--cream);color:var(--vert);}
   .nav-cta{background:var(--gold);color:var(--vert);}
   .nav-cta:hover{background:var(--cream);color:var(--vert);}
+
+  /* ================= LES QUATRE BOÎTES — 06/09/2026 =================
+     Le coffret et les trois Majlis, dans le premier écran, sur une piste qui
+     défile à l'horizontale : une carte par écran, la même pour les quatre
+     (demande de Samer : « exactement la même carte, même taille, même
+     bouton »). La piste est une grille en colonnes — toutes les cartes
+     prennent la hauteur de la plus haute, et rien ne saute d'une carte à
+     l'autre. Elle avance seule toutes les trois secondes (extra.js) et
+     s'arrête dès qu'un doigt se pose. */
+  .hero-track{
+    display:grid;grid-auto-flow:column;grid-auto-columns:100%;
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+    /* la place de l'ombre des cartes, que le défilement couperait sinon */
+    padding-bottom:20px;margin-bottom:-20px;
+  }
+  .hero-track::-webkit-scrollbar{display:none;}
+  .hero-track > .hero-box{scroll-snap-align:start;scroll-snap-stop:always;min-width:0;}
+  .hero-dots{display:flex;justify-content:center;gap:8px;margin-top:14px;}
+  .hero-dot{
+    width:10px;height:10px;padding:0;border:0;border-radius:999px;cursor:pointer;
+    background:rgba(94,22,34,0.18);transition:width .25s ease,background .25s ease;
+  }
+  .hero-dot[aria-current="true"]{width:26px;background:var(--vert);}
+  /* Les rangées de choix : une pastille qui compte (« ×2 ») sur une rangée
+     à plusieurs emplacements — deux cookies parmi trois tiennent sur une
+     ligne, au lieu de deux rangées empilées. */
+  .offre-choix .chip{display:inline-flex;align-items:center;gap:6px;}
+  .chip-n{font-size:0.72rem;font-weight:800;line-height:1;padding:3px 6px;border-radius:999px;background:rgba(94,22,34,0.08);}
+  .chip[aria-pressed="true"] .chip-n{background:rgba(250,246,236,0.22);}
+  .chip-n:empty{display:none;}
 </style>
 <script type="application/ld+json">
 {
@@ -1477,7 +1510,7 @@
   "description": "Qatari home bakery in Doha, Qatar. Madeleines, cookies and cakes baked by hand in small batches, made to order. Orders via WhatsApp only.",
   "url": "https://petit-gateau.com/",
   "telephone": "+97450040617",
-  "priceRange": "180-590 QAR",
+  "priceRange": "180-990 QAR",
   "currenciesAccepted": "QAR",
   "image": "https://petit-gateau.com/img/petit-gateau-table-doha.jpg",
   "address": {
@@ -1644,13 +1677,52 @@
         },
         {
           "@type": "MenuItem",
-          "name": "The Full Spread",
-          "alternateName": "التشكيلة الكاملة",
+          "name": "The Discovery Box",
+          "alternateName": "صندوق الاكتشاف",
           "description": "A box of everything: cookies of your choice, petit madeleines and the upside-down peach cake.",
-          "image": "https://petit-gateau.com/img/full-spread-dessert-box-doha.webp",
+          "image": "https://petit-gateau.com/img/discovery-box-hero-doha.webp",
           "offers": {
             "@type": "Offer",
             "price": "590",
+            "priceCurrency": "QAR",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "MenuItem",
+          "name": "Majlis — 4 Guests",
+          "alternateName": "مجلس — 4 ضيوف",
+          "description": "Built for when guests are coming — cookies, madeleines and a cake, sized to your table.",
+          "image": "https://petit-gateau.com/img/majlis-4-doha.webp",
+          "offers": {
+            "@type": "Offer",
+            "price": "590",
+            "priceCurrency": "QAR",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "MenuItem",
+          "name": "Majlis — 6 Guests",
+          "alternateName": "مجلس — 6 ضيوف",
+          "description": "Built for when guests are coming — cookies, madeleines and a cake, sized to your table.",
+          "image": "https://petit-gateau.com/img/majlis-6-doha.webp",
+          "offers": {
+            "@type": "Offer",
+            "price": "840",
+            "priceCurrency": "QAR",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "MenuItem",
+          "name": "Majlis — 10 Guests",
+          "alternateName": "مجلس — 10 ضيوف",
+          "description": "Built for when guests are coming — cookies, madeleines and a cake, sized to your table.",
+          "image": "https://petit-gateau.com/img/majlis-10-doha.webp",
+          "offers": {
+            "@type": "Offer",
+            "price": "990",
             "priceCurrency": "QAR",
             "availability": "https://schema.org/InStock"
           }
@@ -1694,7 +1766,9 @@
         <a class="btn btn-outline" href="#menu">تصفح القائمة</a>
       </div>
     </div>
-    <div class="hero-box" id="box">
+    <div class="hero-boxes" id="box">
+      <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="صناديقنا">
+    <div class="hero-box" data-offre="spread">
       <img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق الاكتشاف مفتوحًا: كيكة الخوخ والكوكيز والمادلين الصغيرة، صناعة منزلية في الدوحة" width="900" height="1200" decoding="async" fetchpriority="high">
       <div class="spread-text">
         <div class="hero-box-head">
@@ -1713,24 +1787,166 @@
           <p class="allergens" data-allergens="spread" hidden></p>
           <div class="spread-inside">
             <span class="fld-label">ما في الصندوق</span>
-            <ul id="spreadContenu">
+            <ul class="offre-contenu" data-offre="spread">
             <li data-cle="item4" data-n="1"><b dir="ltr">1</b><span>كيكة خوخ مقلوبة</span></li>
             <li data-cle="item5" data-n="1" data-slot="0"><b dir="ltr">12</b><span>كوكيز</span></li>
             <li data-cle="item2" data-n="1"><b dir="ltr">40</b><span>مادلين صغيرة</span></li>
             </ul>
           </div>
-          <div class="fld">
-            <span class="fld-label" id="spreadPickLabel">اختر الكوكيز</span>
-            <div id="spreadCookie">
-            <div class="chips" data-slot="0">
-              <button type="button" class="chip" data-val="item5" aria-pressed="true">كوكيز رقائق الشوكولاتة</button>
-              <button type="button" class="chip" data-val="item8">كوكيز بقطع الشوكولاتة</button>
-              <button type="button" class="chip" data-val="item7">كوكيز نوتيلا</button>
-            </div>
+          <div class="offre-choix">
+            <div class="fld">
+              <span class="fld-label">اختر واحدًا</span>
+              <div class="chips" data-slot="0" data-slots="1" data-picks="item5">
+                <button type="button" class="chip" data-val="item5" aria-pressed="true"><span>كوكيز رقائق الشوكولاتة</span></button>
+                <button type="button" class="chip" data-val="item8" aria-pressed="false"><span>كوكيز بقطع الشوكولاتة</span></button>
+                <button type="button" class="chip" data-val="item7" aria-pressed="false"><span>كوكيز نوتيلا</span></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="hero-box" data-offre="majlis4">
+      <img class="hero-box-img" src="/img/majlis-4-doha.webp" srcset="/img/majlis-4-doha-300.webp 300w, /img/majlis-4-doha-450.webp 450w, /img/majlis-4-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق المجلس لأربعة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low">
+      <div class="spread-text">
+        <div class="hero-box-head">
+          <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
+          <h2 data-i18n="majlis4_name">مجلس — 4 ضيوف</h2>
+          <div class="spread-price"><b dir="ltr">590 QR</b><em>يكفي 4 أشخاص</em></div>
+          <div class="qty-row" data-item="majlis4" data-price="590">
+          <button type="button" class="qty-add" data-add="majlis4"><span>أضف الصندوق</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="-">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="+">+</button>
+          <span class="qty-price" dir="ltr">590 QR</span></div>
+        </div>
+        <div class="hero-box-details">
+          <p class="hero-box-desc" data-i18n="majlis_desc">مُعدّ لاستقبال الضيوف — كوكيز، مادلين وكيكة، بالحجم الذي يناسب طاولتك.</p>
+          <p class="allergens" data-allergens="majlis4" hidden></p>
+          <div class="spread-inside">
+            <span class="fld-label">ما في الصندوق</span>
+            <ul class="offre-contenu" data-offre="majlis4">
+            <li data-cle="item1" data-n="1"><b dir="ltr">12</b><span>مادلين</span></li>
+            <li data-cle="item5" data-n="1" data-slot="0"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item3" data-n="1" data-slot="1"><b dir="ltr">1</b><span>خبز الموز بالزبدة البنية</span></li>
+            </ul>
+          </div>
+          <div class="offre-choix">
+            <div class="fld">
+              <span class="fld-label">اختر واحدًا</span>
+              <div class="chips" data-slot="0" data-slots="1" data-picks="item5">
+                <button type="button" class="chip" data-val="item5" aria-pressed="true"><span>كوكيز رقائق الشوكولاتة</span></button>
+                <button type="button" class="chip" data-val="item8" aria-pressed="false"><span>كوكيز بقطع الشوكولاتة</span></button>
+              </div>
+            </div>
+            <div class="fld">
+              <span class="fld-label">اختر واحدًا</span>
+              <div class="chips" data-slot="1" data-slots="1" data-picks="item3">
+                <button type="button" class="chip" data-val="item3" aria-pressed="true"><span>خبز الموز بالزبدة البنية</span></button>
+                <button type="button" class="chip" data-val="item4" aria-pressed="false"><span>كيكة الخوخ المقلوبة</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-box" data-offre="majlis6">
+      <img class="hero-box-img" src="/img/majlis-6-doha.webp" srcset="/img/majlis-6-doha-300.webp 300w, /img/majlis-6-doha-450.webp 450w, /img/majlis-6-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق المجلس لستة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low">
+      <div class="spread-text">
+        <div class="hero-box-head">
+          <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
+          <h2 data-i18n="majlis6_name">مجلس — 6 ضيوف</h2>
+          <div class="spread-price"><b dir="ltr">840 QR</b><em>يكفي 6 أشخاص</em></div>
+          <div class="qty-row" data-item="majlis6" data-price="840">
+          <button type="button" class="qty-add" data-add="majlis6"><span>أضف الصندوق</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="-">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="+">+</button>
+          <span class="qty-price" dir="ltr">840 QR</span></div>
+        </div>
+        <div class="hero-box-details">
+          <p class="hero-box-desc" data-i18n="majlis_desc">مُعدّ لاستقبال الضيوف — كوكيز، مادلين وكيكة، بالحجم الذي يناسب طاولتك.</p>
+          <p class="allergens" data-allergens="majlis6" hidden></p>
+          <div class="spread-inside">
+            <span class="fld-label">ما في الصندوق</span>
+            <ul class="offre-contenu" data-offre="majlis6">
+            <li data-cle="item2" data-n="1"><b dir="ltr">40</b><span>مادلين صغيرة</span></li>
+            <li data-cle="item5" data-n="1" data-slot="0"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item5" data-n="1" data-slot="1"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item6" data-n="1" data-slot="2"><b dir="ltr">30</b><span>رسك “شبورة”</span></li>
+            </ul>
+          </div>
+          <div class="offre-choix">
+            <div class="fld">
+              <span class="fld-label">اختر 2</span>
+              <div class="chips" data-slot="0" data-slots="2" data-picks="item5,item5">
+                <button type="button" class="chip" data-val="item5" aria-pressed="true"><span>كوكيز رقائق الشوكولاتة</span><i class="chip-n">×2</i></button>
+                <button type="button" class="chip" data-val="item8" aria-pressed="false"><span>كوكيز بقطع الشوكولاتة</span><i class="chip-n"></i></button>
+                <button type="button" class="chip" data-val="item7" aria-pressed="false"><span>كوكيز نوتيلا</span><i class="chip-n"></i></button>
+              </div>
+            </div>
+            <div class="fld">
+              <span class="fld-label">اختر واحدًا</span>
+              <div class="chips" data-slot="2" data-slots="1" data-picks="item6">
+                <button type="button" class="chip" data-val="item6" aria-pressed="true"><span>رسك “شبورة”</span></button>
+                <button type="button" class="chip" data-val="item4" aria-pressed="false"><span>كيكة الخوخ المقلوبة</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-box" data-offre="majlis10">
+      <img class="hero-box-img" src="/img/majlis-10-doha.webp" srcset="/img/majlis-10-doha-300.webp 300w, /img/majlis-10-doha-450.webp 450w, /img/majlis-10-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق المجلس لعشرة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low">
+      <div class="spread-text">
+        <div class="hero-box-head">
+          <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
+          <h2 data-i18n="majlis10_name">مجلس — 10 ضيوف</h2>
+          <div class="spread-price"><b dir="ltr">990 QR</b><em>يكفي 10 أشخاص</em></div>
+          <div class="qty-row" data-item="majlis10" data-price="990">
+          <button type="button" class="qty-add" data-add="majlis10"><span>أضف الصندوق</span></button>
+            <button class="qty-btn" data-action="dec" aria-label="-">−</button>
+            <span class="qty-val">0</span>
+            <button class="qty-btn" data-action="inc" aria-label="+">+</button>
+          <span class="qty-price" dir="ltr">990 QR</span></div>
+        </div>
+        <div class="hero-box-details">
+          <p class="hero-box-desc" data-i18n="majlis_desc">مُعدّ لاستقبال الضيوف — كوكيز، مادلين وكيكة، بالحجم الذي يناسب طاولتك.</p>
+          <p class="allergens" data-allergens="majlis10" hidden></p>
+          <div class="spread-inside">
+            <span class="fld-label">ما في الصندوق</span>
+            <ul class="offre-contenu" data-offre="majlis10">
+            <li data-cle="item1" data-n="1"><b dir="ltr">12</b><span>مادلين</span></li>
+            <li data-cle="item2" data-n="1"><b dir="ltr">40</b><span>مادلين صغيرة</span></li>
+            <li data-cle="item5" data-n="1" data-slot="0"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item5" data-n="1" data-slot="1"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item5" data-n="1" data-slot="2"><b dir="ltr">12</b><span>كوكيز</span></li>
+            <li data-cle="item3" data-n="1" data-slot="3"><b dir="ltr">1</b><span>خبز الموز بالزبدة البنية</span></li>
+            </ul>
+          </div>
+          <div class="offre-choix">
+            <div class="fld">
+              <span class="fld-label">اختر 3</span>
+              <div class="chips" data-slot="0" data-slots="3" data-picks="item5,item5,item5">
+                <button type="button" class="chip" data-val="item5" aria-pressed="true"><span>كوكيز رقائق الشوكولاتة</span><i class="chip-n">×3</i></button>
+                <button type="button" class="chip" data-val="item8" aria-pressed="false"><span>كوكيز بقطع الشوكولاتة</span><i class="chip-n"></i></button>
+                <button type="button" class="chip" data-val="item7" aria-pressed="false"><span>كوكيز نوتيلا</span><i class="chip-n"></i></button>
+              </div>
+            </div>
+            <div class="fld">
+              <span class="fld-label">اختر واحدًا</span>
+              <div class="chips" data-slot="3" data-slots="1" data-picks="item3">
+                <button type="button" class="chip" data-val="item3" aria-pressed="true"><span>خبز الموز بالزبدة البنية</span></button>
+                <button type="button" class="chip" data-val="item4" aria-pressed="false"><span>كيكة الخوخ المقلوبة</span></button>
+                <button type="button" class="chip" data-val="item6" aria-pressed="false"><span>رسك “شبورة”</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+      <div class="hero-dots"><button type="button" class="hero-dot" data-dot="0" aria-label="اعرض صندوق الاكتشاف" aria-current="true"></button><button type="button" class="hero-dot" data-dot="1" aria-label="اعرض مجلس — 4 ضيوف" aria-current="false"></button><button type="button" class="hero-dot" data-dot="2" aria-label="اعرض مجلس — 6 ضيوف" aria-current="false"></button><button type="button" class="hero-dot" data-dot="3" aria-label="اعرض مجلس — 10 ضيوف" aria-current="false"></button></div>
     </div>
     <p class="delivery-line">نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. تدفع رسوم التوصيل للسائق عند الوصول، وهي غير مشمولة في طلبك.</p>
   </div>
@@ -2201,8 +2417,11 @@
       item7_qty:"12 pieces",
       item8_qty:"12 pieces",
       spread_qty:"1 upside-down peach cake · 12 cookies · 40 petit madeleines",
-      spread_pick:"Choose your cookie",
-      spread_picks:"Choose your cookies",
+      majlis4_qty:"12 madeleines · 12 cookies · 1 brown butter banana bread",
+      majlis6_qty:"40 petit madeleines · 12 cookies · 12 cookies · 30 rusk “Shabora”",
+      majlis10_qty:"12 madeleines · 40 petit madeleines · 12 cookies · 12 cookies · 12 cookies · 1 brown butter banana bread",
+      pick_one:"Choose one",
+      pick_n:"Choose %s",
       rare_left:"%s left",
       rare_line:"Only %s left for %s",
       spread_name:"The Discovery Box",
@@ -2304,9 +2523,12 @@
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
       spread_qty:"1 كيكة خوخ مقلوبة · 12 كوكيز · 40 مادلين صغيرة",
+      majlis4_qty:"12 مادلين · 12 كوكيز · 1 خبز الموز بالزبدة البنية",
+      majlis6_qty:"40 مادلين صغيرة · 12 كوكيز · 12 كوكيز · 30 رسك “شبورة”",
+      majlis10_qty:"12 مادلين · 40 مادلين صغيرة · 12 كوكيز · 12 كوكيز · 12 كوكيز · 1 خبز الموز بالزبدة البنية",
       spread_inside:"ما في الصندوق",
-      spread_pick:"اختر الكوكيز",
-      spread_picks:"اختر الكوكيز",
+      pick_one:"اختر واحدًا",
+      pick_n:"اختر %s",
       swipe:"اسحب لرؤية المزيد",
       co_addr:"إلى أين نوصل؟",
       co_zoneno:"المنطقة",
@@ -2338,6 +2560,19 @@
       hero_box_add:"أضف الصندوق",
       spread_serves:"يكفي 3 إلى 4 أشخاص",
       hero_box_alt:"صندوق الاكتشاف مفتوحًا: كيكة الخوخ والكوكيز والمادلين الصغيرة، صناعة منزلية في الدوحة",
+      majlis_label:"صندوق الضيافة",
+      majlis_desc:"مُعدّ لاستقبال الضيوف — كوكيز، مادلين وكيكة، بالحجم الذي يناسب طاولتك.",
+      majlis4_name:"مجلس — 4 ضيوف",
+      majlis6_name:"مجلس — 6 ضيوف",
+      majlis10_name:"مجلس — 10 ضيوف",
+      majlis4_serves:"يكفي 4 أشخاص",
+      majlis6_serves:"يكفي 6 أشخاص",
+      majlis10_serves:"يكفي 10 أشخاص",
+      majlis4_alt:"صندوق المجلس لأربعة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة",
+      majlis6_alt:"صندوق المجلس لستة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة",
+      majlis10_alt:"صندوق المجلس لعشرة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة",
+      hero_boxes:"صناديقنا",
+      hero_dot:"اعرض %s",
       added:"أُضيف",
       sent_title:"تم إرسال الطلب!",
       sent_sub:"سنؤكد كل التفاصيل معك عبر واتساب قريبًا.",
@@ -2384,8 +2619,11 @@
       item7_qty:"12 حبة",
       item8_qty:"12 حبة",
       spread_qty:"1 كيكة خوخ مقلوبة · 12 كوكيز · 40 مادلين صغيرة",
-      spread_pick:"اختر الكوكيز",
-      spread_picks:"اختر الكوكيز",
+      majlis4_qty:"12 مادلين · 12 كوكيز · 1 خبز الموز بالزبدة البنية",
+      majlis6_qty:"40 مادلين صغيرة · 12 كوكيز · 12 كوكيز · 30 رسك “شبورة”",
+      majlis10_qty:"12 مادلين · 40 مادلين صغيرة · 12 كوكيز · 12 كوكيز · 12 كوكيز · 1 خبز الموز بالزبدة البنية",
+      pick_one:"اختر واحدًا",
+      pick_n:"اختر %s",
       rare_left:"باقي %s",
       rare_line:"باقي %s فقط ليوم %s",
       spread_name:"صندوق الاكتشاف",
@@ -2504,49 +2742,96 @@
     // particulier qui n'en était pas un, et qu'on relisait à chaque passage.
     return T(id + '_name');
   }
-  // Les emplacements « au choix » du coffret, dans l'ordre où l'app les a
-  // écrits. Cet ordre n'est pas décoratif : l'app répartit les choix un par
+  /* ---------- les offres du premier écran : le coffret et les trois Majlis ----------
+     Une carte par offre (`.hero-box[data-offre]`), et la carte porte tout :
+     sa liste « What's in the box » (`.offre-contenu`, une ligne par
+     emplacement) et ses rangées de choix (`.offre-choix .chips`). Le DOM
+     porte l'état, une copie de moins. Il y avait UNE rangée, dans UN
+     coffret, désignée par un id ; il y en a autant que l'app en déclare,
+     dans quatre cartes (06/09/2026). */
+  function carteDe(cle){ return document.querySelector('.hero-box[data-offre="' + cle + '"]'); }
+  function cartes(){ return [].slice.call(document.querySelectorAll('.hero-box[data-offre]')); }
+  // Les rangées de choix d'une carte, dans l'ordre où l'app les a écrites.
+  // Cet ordre n'est pas décoratif : l'app répartit les choix un par
   // emplacement, dans le même ordre, pour décompter le bon stock
   // (`assignerVariantes`, lots.js). Les inverser ferait sortir le mauvais
   // cookie de la cuisine.
-  function rangeesDeChoix(){
-    var host = $('spreadCookie');
-    return host ? [].slice.call(host.querySelectorAll('.chips')) : [];
+  function rangeesDeChoix(carte){
+    return carte ? [].slice.call(carte.querySelectorAll('.offre-choix .chips')) : [];
   }
-  // La clé retenue sur une rangée. À défaut de choix, le PREMIER bouton
-  // encore disponible : c'est exactement ce que l'app retiendra de son côté,
-  // et le message dit donc ce qui sortira vraiment de la cuisine.
-  function cleDeRangee(rangee){
-    var on = rangee.querySelector('.chip[aria-pressed="true"]:not([disabled])')
-          || rangee.querySelector('.chip:not([disabled])');
-    return on ? on.getAttribute('data-val') : '';
+  // Une rangée vaut pour un ou plusieurs emplacements (`data-slots`) : « deux
+  // cookies parmi trois » est UNE rangée à compter, pas deux rangées. C'est
+  // ce qui garde aux Majlis la hauteur du coffret.
+  function nbSlots(rangee){ return Math.max(1, parseInt(rangee.getAttribute('data-slots'), 10) || 1); }
+  function clesLibres(rangee){
+    return [].slice.call(rangee.querySelectorAll('.chip:not([disabled])'))
+      .map(function(c){ return c.getAttribute('data-val'); });
   }
-  // Le choix retenu dans le lot. La cliente doit le voir dans son panier, pas
-  // seulement dans le message qu'elle envoie — sinon rien ne lui confirme que
-  // son choix a été pris. Plusieurs choix se joignent par ' · ', la forme que
-  // l'app sait redécouper.
-  function cookieChoisi(){
-    return rangeesDeChoix().map(function(r){
-      var cle = cleDeRangee(r);
-      return cle ? NAME(cle) : '';
-    }).filter(Boolean).join(' \u00b7 ');
+  // Les clés retenues sur une rangée : une par emplacement, dans l'ordre des
+  // appuis (`data-picks`). Un choix jamais fait, ou tombé en rupture, devient
+  // le PREMIER encore disponible : c'est exactement ce que l'app retiendra
+  // de son côté, et le message dit donc ce qui sortira vraiment de la cuisine.
+  function clesDeRangee(rangee){
+    var libres = clesLibres(rangee);
+    if(!libres.length) return [];
+    var picks = (rangee.getAttribute('data-picks') || '').split(',');
+    var out = [];
+    for(var i = 0; i < nbSlots(rangee); i++){
+      out.push(libres.indexOf(picks[i]) >= 0 ? picks[i] : libres[0]);
+    }
+    return out;
+  }
+  // Toutes les clés choisies d'une carte, emplacement par emplacement.
+  function clesChoisies(carte){
+    return rangeesDeChoix(carte).reduce(function(acc, r){ return acc.concat(clesDeRangee(r)); }, []);
+  }
+  // Repeint une rangée d'après ses choix : la pastille cochée, et sur une
+  // rangée à compter, « ×2 » sur celle prise deux fois. C'est aussi ce qui
+  // normalise `data-picks` — un choix gelé en sort ici.
+  function peindreRangee(rangee){
+    var cles = clesDeRangee(rangee), k = nbSlots(rangee), n = {};
+    cles.forEach(function(c){ n[c] = (n[c] || 0) + 1; });
+    rangee.setAttribute('data-picks', cles.join(','));
+    rangee.querySelectorAll('.chip').forEach(function(c){
+      var q = n[c.getAttribute('data-val')] || 0;
+      c.setAttribute('aria-pressed', q > 0 ? 'true' : 'false');
+      var badge = c.querySelector('.chip-n');
+      if(k > 1 && !badge){ badge = document.createElement('i'); badge.className = 'chip-n'; c.appendChild(badge); }
+      if(badge) badge.textContent = (k > 1 && q > 0) ? '×' + q : '';
+    });
+  }
+  // Un appui sur une pastille. Une rangée à un emplacement retient ce choix
+  // et lui seul. Une rangée à compter l'AJOUTE, et quand elle est pleine le
+  // plus ancien s'efface : la cliente appuie sur ce qu'elle veut, sans moins
+  // ni case à décocher, et la liste juste au-dessus dit ce que la boîte
+  // contient.
+  function choisir(rangee, val){
+    var k = nbSlots(rangee), cles = k === 1 ? [val] : clesDeRangee(rangee).concat([val]);
+    while(cles.length > k) cles.shift();
+    rangee.setAttribute('data-picks', cles.join(','));
+    peindreRangee(rangee);
+  }
+  // Le choix retenu dans une offre. La cliente doit le voir dans son panier,
+  // pas seulement dans le message qu'elle envoie — sinon rien ne lui confirme
+  // que son choix a été pris. Plusieurs choix se joignent par ' · ', la forme
+  // que l'app sait redécouper : un par emplacement, dans l'ordre.
+  function cookieChoisi(cle){
+    return clesChoisies(carteDe(cle)).map(function(c){ return NAME(c); }).join(' · ');
   }
   /**
    * Remet la liste « ce qu'il y a dans la boîte » d'accord avec les choix.
    *
-   * Chaque ligne du coffret porte sa clé de site. Celles qui viennent d'un
-   * emplacement au choix portent en plus le rang de leur rangée : quand la
-   * cliente change de cookie, c'est CETTE ligne-là qui doit suivre. Sans ça,
-   * la page annonçait un cookie et le message en envoyait un autre.
+   * Chaque ligne de l'offre porte sa clé de site. Celles qui viennent d'un
+   * emplacement au choix portent en plus le rang de cet emplacement : quand
+   * la cliente change de cookie, c'est CETTE ligne-là qui doit suivre. Sans
+   * ça, la page annonçait un cookie et le message en envoyait un autre.
    */
-  function syncContenu(){
-    var ul = $('spreadContenu');
+  function syncContenu(carte){
+    var ul = carte && carte.querySelector('.offre-contenu');
     if(!ul) return;
-    var rangees = rangeesDeChoix();
+    var cles = clesChoisies(carte);
     ul.querySelectorAll('li[data-slot]').forEach(function(li){
-      var rangee = rangees[Number(li.getAttribute('data-slot'))];
-      if(!rangee) return;
-      var cle = cleDeRangee(rangee);
+      var cle = cles[Number(li.getAttribute('data-slot'))];
       if(!cle) return;
       li.setAttribute('data-cle', cle);
       var n = Number(li.getAttribute('data-n')) || 1;
@@ -2559,15 +2844,14 @@
     // et lui restait sur le premier cookie. Deux compositions sur le même
     // écran, dont une périmée dès le premier clic — ce que cette page passe
     // justement son temps à faire disparaître.
-    var offre = ul.closest('.spread-text');
-    var rangee = offre && offre.querySelector('.qty-row[data-item]');
-    var quoi = rangee && document.querySelector(
-      '#picker .pk-line[data-pk="' + rangee.getAttribute('data-item') + '"] .pk-what');
-    if(quoi) quoi.textContent = QTY(rangee.getAttribute('data-item'));
+    var id = carte.getAttribute('data-offre');
+    var quoi = document.querySelector('#picker .pk-line[data-pk="' + id + '"] .pk-what');
+    if(quoi) quoi.textContent = QTY(id);
   }
+  function syncContenuPartout(){ cartes().forEach(syncContenu); }
 
   /**
-   * Branche le choix des cookies, une fois pour toutes.
+   * Branche le choix des cookies, une fois pour toutes, sur chaque carte.
    *
    * La liaison est posée sur le CONTENEUR, pas sur les boutons : `appliquer`
    * réécrit les rangées quand le catalogue arrive, et des écouteurs posés
@@ -2576,23 +2860,23 @@
    * celles qu'on ne voit jamais échouer.
    */
   function brancherChoix(){
-    var host = $('spreadCookie');
-    if(!host || host.dataset.branche) return;
-    host.dataset.branche = '1';
-    host.addEventListener('click', function(e){
-      var c = e.target.closest ? e.target.closest('.chip') : null;
-      if(!c || c.disabled || !host.contains(c)) return;
-      var rangee = c.closest('.chips');
-      if(!rangee) return;
-      // Ce clic-là est celui de la cliente. `ecrireComposition` ne garde un
-      // choix précédent que si ce drapeau est posé : au chargement, ce qui est
-      // coché n'est le choix de personne, c'est le défaut cuit dans la page —
-      // et c'est l'app qui doit décider du cookie proposé en premier.
-      host.dataset.choisi = '1';
-      rangee.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-      c.setAttribute('aria-pressed','true');
-      syncContenu();   // la liste doit dire ce qui sortira vraiment de la boîte
-      refresh();       // le panier doit confirmer le choix, pas seulement l'enregistrer
+    document.querySelectorAll('.offre-choix').forEach(function(host){
+      if(host.dataset.branche) return;
+      host.dataset.branche = '1';
+      host.addEventListener('click', function(e){
+        var c = e.target.closest ? e.target.closest('.chip') : null;
+        if(!c || c.disabled || !host.contains(c)) return;
+        var rangee = c.closest('.chips');
+        if(!rangee) return;
+        // Ce clic-là est celui de la cliente. `ecrireComposition` ne garde un
+        // choix précédent que si ce drapeau est posé : au chargement, ce qui
+        // est coché n'est le choix de personne, c'est le défaut cuit dans la
+        // page — et c'est l'app qui doit décider du cookie proposé en premier.
+        host.dataset.choisi = '1';
+        choisir(rangee, c.getAttribute('data-val'));
+        syncContenu(host.closest('.hero-box'));   // la liste doit dire ce qui sortira vraiment de la boîte
+        refresh();                                // le panier doit confirmer le choix, pas seulement l'enregistrer
+      });
     });
   }
 
@@ -2602,28 +2886,26 @@
    * Quand le cookie retenu tombe en rupture, le geler ne suffit pas : la
    * cliente ne voyait plus aucun cookie coché, pendant que le message, lui,
    * repartait sur le premier disponible. L'écran disait « rien » et la boîte
-   * serait arrivée avec quelque chose.
+   * serait arrivée avec quelque chose. Repeindre normalise aussi les rangées
+   * à compter, dont les choix vivent dans `data-picks`.
    */
   function reparerRangees(){
-    rangeesDeChoix().forEach(function(r){
-      if(r.querySelector('.chip[aria-pressed="true"]:not([disabled])')) return;
-      var libre = r.querySelector('.chip:not([disabled])');
-      if(libre) libre.setAttribute('aria-pressed','true');
-    });
+    cartes().forEach(function(carte){ rangeesDeChoix(carte).forEach(peindreRangee); });
   }
 
   /**
    * Ce que contient un produit, en une ligne — pour le panier et le sélecteur.
    *
-   * Pour le coffret, elle se lit dans la liste DÉJÀ affichée, qui suit l'app.
+   * Pour une offre, elle se lit dans la liste DÉJÀ affichée, qui suit l'app.
    * `spread_qty`, écrit dans la page, disait « 12 cookies · 40 petit
    * madeleines · 1 upside-down peach cake » pendant que la carte, elle, avait
    * suivi le catalogue : deux compositions sur le même écran, dont une fausse.
    * Ce n'est plus que le repli, comme la liste elle-même.
    */
   function QTY(id){
-    if(id === 'spread'){
-      var lignes = $('spreadContenu') ? $('spreadContenu').querySelectorAll('li[data-cle]') : [];
+    var carte = carteDe(id);
+    if(carte){
+      var lignes = carte.querySelectorAll('.offre-contenu li[data-cle]');
       if(lignes.length){
         return [].map.call(lignes, function(li){
           return li.querySelector('b').textContent.trim() + ' ' + li.querySelector('span').textContent.trim();
@@ -2705,15 +2987,38 @@
     return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2);
   }
 
+  // Ce que le panier contient VRAIMENT, produit par produit : les articles,
+  // et ce que chaque offre au panier renferme — ses lignes fixes comme ses
+  // choix (la liste de la carte, que `syncContenu` tient à jour). Un Majlis
+  // qui contient un Shabora demande autant de temps que le Shabora, et se
+  // heurte au même plafond du carnet (06/09/2026).
+  function clesAuPanier(){
+    var au = {};
+    Object.keys(ORDER).forEach(function(id){
+      if(ORDER[id] <= 0) return;
+      au[id] = true;
+      var carte = carteDe(id);
+      if(!carte) return;
+      carte.querySelectorAll('.offre-contenu li[data-cle]').forEach(function(li){
+        au[li.getAttribute('data-cle')] = true;
+      });
+    });
+    return au;
+  }
   // délai de préparation exigé par le panier courant, en heures
   function leadNeeded(){
-    var h = 0;
+    var h = 0, au = clesAuPanier();
     Object.keys(CFG.lead).forEach(function(id){
-      if(ORDER[id] > 0 && CFG.lead[id] > h) h = CFG.lead[id];
+      if(au[id] && CFG.lead[id] > h) h = CFG.lead[id];
     });
     return h;
   }
-  function blocked(){ return leadNeeded() > 0; }
+  // Bloqué, c'est-à-dire : le délai du panier ferme au moins une heure que
+  // les règles de temps laissaient ouverte. Un délai d'une heure — celui que
+  // l'app publie pour les cookies — ne dépasse pas le battement commun et ne
+  // ferme rien : il ne justifie pas l'avertissement du jour même, qui parle
+  // du Shabora et du Banana Bread.
+  function blocked(){ return leadNeeded() > CFG.minGap; }
 
   // Une heure FERMÉE À LA MAIN depuis l'app — « pas disponible à 15 h et
   // 16 h samedi » (05/09/2026). Le carnet la publie sur son jour, sans dire
@@ -2773,8 +3078,9 @@
     var q = QUOTAS[iso];
     if(!q) return false;
     if(q.complet) return true;
+    var au = clesAuPanier();
     for(var id in q.produits){
-      if(Object.prototype.hasOwnProperty.call(q.produits, id) && ORDER[id] > 0) return true;
+      if(Object.prototype.hasOwnProperty.call(q.produits, id) && au[id]) return true;
     }
     return false;
   }
@@ -3142,6 +3448,14 @@
   document.querySelectorAll('.hero a[href^="https://wa.me/"]').forEach(function(a){
     a.addEventListener('click', function(e){ e.preventDefault(); open(); });
   });
+  // Celles qui partent parler se comptent aussi, une fois par visite comme
+  // les autres étapes (`conversations`, à autoriser dans les règles). Le
+  // clic n'est pas retenu : le lien fait son travail, et l'écriture, avec
+  // keepalive, survit au passage vers WhatsApp.
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function(a){
+    if(a.closest('.hero') || a.closest('.sheet') || a.closest('.fallback')) return;
+    a.addEventListener('click', function(){ mesurer(['conversations']); });
+  });
   $('sheetClose').addEventListener('click', close);
   $('sentClose').addEventListener('click', close);
 
@@ -3260,9 +3574,10 @@
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] > 0){
         var lbl = NAME(id);
-        // la Full Spread annonce le cookie choisi, pas son inventaire complet
-        if(id === 'spread'){
-          if(cookieChoisi()) lbl += ' (' + cookieChoisi() + ')';
+        // une offre annonce ses choix, pas son inventaire complet
+        if(carteDe(id)){
+          var choix = cookieChoisi(id);
+          if(choix) lbl += ' (' + choix + ')';
         } else if(QTY(id)){
           lbl += ' (' + QTY(id) + ')';
         }
@@ -3401,7 +3716,7 @@
             nom: txt(NAME(id)),
             n: num(ORDER[id]),
             prix: num(PRICES[id]),
-            variante: txt(id === 'spread' ? cookieChoisi() : ''),
+            variante: txt(carteDe(id) ? cookieChoisi(id) : ''),
           } } });
         }
       });
@@ -3688,8 +4003,8 @@
       // Chunk ». Deux noms pour le même cookie, dont un que l'app ne
       // connaissait plus. Elles portent maintenant la clé de site : le même
       // mot que le catalogue et que la composition, donc plus d'annuaire.
-      document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
-        .forEach(function(pastille){ pastille.textContent = titre; });
+      document.querySelectorAll('.offre-choix .chip[data-val="' + id + '"]')
+        .forEach(function(pastille){ (pastille.querySelector('span') || pastille).textContent = titre; });
 
       var h = document.querySelector('[data-i18n="' + id + '_name"]');
       if(h){
@@ -3739,20 +4054,18 @@
       }
       // Tous les boutons « + » ou « Add » du produit, rail et premier écran compris.
       document.querySelectorAll('[data-add="' + id + '"]').forEach(function(b){ b.disabled = true; });
-      // Un cookie épuisé ne peut plus être choisi dans le lot — et il peut
-      // apparaître sur PLUSIEURS rangées depuis que le coffret en contient
-      // deux : les geler toutes, pas seulement la première trouvée.
-      document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
-        .forEach(function(chip){
-          chip.disabled = true; chip.classList.add('frozen');
-          chip.setAttribute('aria-pressed','false');
-        });
+      // Un cookie épuisé ne peut plus être choisi dans une offre — et il peut
+      // apparaître sur PLUSIEURS rangées, dans PLUSIEURS cartes : les geler
+      // toutes, pas seulement la première trouvée. Repeindre retire ensuite
+      // le choix gelé des rangées qui le portaient.
+      document.querySelectorAll('.offre-choix .chip[data-val="' + id + '"]')
+        .forEach(function(chip){ chip.disabled = true; chip.classList.add('frozen'); });
       reparerRangees();
-      syncContenu();
+      syncContenuPartout();
     }
 
     /**
-     * Réécrit ce que contient le coffret avec ce que dit l'APP.
+     * Réécrit ce que contient une offre avec ce que dit l'APP.
      *
      * La liste vivait cuite dans la page (`SPREAD_CONTENU`, strings.py) alors
      * que l'app tenait la vraie composition — celle qui décompte le stock. Le
@@ -3766,10 +4079,15 @@
      *
      * L'ORDRE des emplacements au choix est porteur : l'app répartit les
      * choix un par emplacement, dans cet ordre (`assignerVariantes`). Les
-     * intervertir ferait sortir le mauvais cookie de la cuisine.
+     * intervertir ferait sortir le mauvais cookie de la cuisine. Des
+     * emplacements qui se suivent avec les MÊMES possibilités deviennent une
+     * seule rangée à compter — le premier de la rangée garde le rang du
+     * premier emplacement, et `clesChoisies` rend les clés dans l'ordre.
      */
     function ecrireComposition(cle, compo){
-      var ul = $('spreadContenu'), host = $('spreadCookie');
+      var carte = carteDe(cle);
+      var ul = carte && carte.querySelector('.offre-contenu');
+      var host = carte && carte.querySelector('.offre-choix');
       if(!ul || !host || !compo || !compo.length) return;
 
       // Ce que la cliente avait déjà choisi, pour ne pas le lui reprendre si
@@ -3777,27 +4095,23 @@
       // cliqué : sans le drapeau de `brancherChoix`, ce qui est coché est le
       // repli cuit dans la page, et il présélectionnait Nutella pendant que
       // l'app disait Chocolate Chip (03/09/2026, vu sur petit-gateau.com).
-      var deja = host.dataset.choisi ? rangeesDeChoix().map(cleDeRangee) : [];
+      var deja = host.dataset.choisi ? clesChoisies(carte) : [];
 
-      var lignes = '', rangees = '', slot = 0;
+      var lignes = '', groupes = [], slot = 0;
       compo.forEach(function(c){
         var ligneCle = c && c.cle ? String(c.cle) : '';
         if(!ligneCle) return;
         var n = Math.max(1, Number(c.n) || 1);
-        var choix = (c.auChoix && c.auChoix.length > 1) ? c.auChoix : null;
+        var choix = (c.auChoix && c.auChoix.length > 1) ? c.auChoix.map(String) : null;
         var marque = '';
         if(choix){
-          // Ce que la cliente avait déjà coché sur cette rangée survit à la
+          // Ce que la cliente avait déjà coché sur cet emplacement survit à la
           // réécriture, s'il fait toujours partie des possibilités.
           var garde = deja[slot];
           var retenu = (garde && choix.indexOf(garde) >= 0) ? garde : ligneCle;
-          rangees += '<div class="chips" data-slot="' + slot + '">'
-            + choix.map(function(alt){
-                return '<button type="button" class="chip" data-val="' + html(alt) + '"'
-                     + (alt === retenu ? ' aria-pressed="true"' : ' aria-pressed="false"')
-                     + '>' + html(NAME(alt)) + '</button>';
-              }).join('')
-            + '</div>';
+          var dernier = groupes[groupes.length - 1];
+          if(dernier && dernier.choix.join() === choix.join()){ dernier.k += 1; dernier.picks.push(retenu); }
+          else groupes.push({ slot: slot, k: 1, picks: [retenu], choix: choix });
           marque = ' data-slot="' + slot + '"';
           ligneCle = retenu;
           slot += 1;
@@ -3808,13 +4122,19 @@
       });
       if(!lignes) return;
       ul.innerHTML = lignes;
+      host.innerHTML = groupes.map(function(g){
+        return '<div class="fld"><span class="fld-label">' + html(g.k > 1 ? TF('pick_n', g.k) : T('pick_one')) + '</span>'
+          + '<div class="chips" data-slot="' + g.slot + '" data-slots="' + g.k + '" data-picks="' + html(g.picks.join(',')) + '">'
+          + g.choix.map(function(alt){
+              return '<button type="button" class="chip" data-val="' + html(alt) + '" aria-pressed="false">'
+                   + '<span>' + html(NAME(alt)) + '</span></button>';
+            }).join('')
+          + '</div></div>';
+      }).join('');
       // Une offre sans choix ne montre pas une rangée vide, ni son étiquette.
-      host.innerHTML = rangees;
-      var bloc = host.closest('.fld');
-      if(bloc) bloc.hidden = slot === 0;
-      var etiquette = $('spreadPickLabel');
-      if(etiquette) etiquette.textContent = T(slot > 1 ? 'spread_picks' : 'spread_pick');
-      syncContenu();   // c'est elle qui remet aussi le sélecteur d'accord
+      host.hidden = groupes.length === 0;
+      rangeesDeChoix(carte).forEach(peindreRangee);
+      syncContenu(carte);   // c'est elle qui remet aussi le sélecteur d'accord
     }
 
     function appliquer(produits){
@@ -3854,14 +4174,11 @@
       // gelé sur celles qui viennent d'être écrites, sinon il redevient
       // choisissable en silence.
       Object.keys(INDISPONIBLES).forEach(function(id){
-        document.querySelectorAll('#spreadCookie .chip[data-val="' + id + '"]')
-          .forEach(function(chip){
-            chip.disabled = true; chip.classList.add('frozen');
-            chip.setAttribute('aria-pressed','false');
-          });
+        document.querySelectorAll('.offre-choix .chip[data-val="' + id + '"]')
+          .forEach(function(chip){ chip.disabled = true; chip.classList.add('frozen'); });
       });
       reparerRangees();
-      syncContenu();
+      syncContenuPartout();
       rangerLeMenu(produits);
       refresh();
       if($('dateRail') && $('dateRail').children.length) syncDates();
@@ -3982,6 +4299,84 @@
      les rangées à la lecture du catalogue. Une liaison posée sur les boutons
      serait partie avec les anciens — voir `brancherChoix`. */
   brancherChoix();
+  // Les rangées cuites dans la page portent leurs choix par défaut : les
+  // repeindre pose « ×1 » sur les rangées à compter et met la liste de chaque
+  // carte d'accord, avant même que le catalogue n'arrive.
+  reparerRangees();
+  syncContenuPartout();
+
+  /* ---------- les quatre boîtes : le défilement ----------
+     Le coffret et les trois Majlis se suivent sur une piste qui défile à
+     l'horizontale (style.css, « LES QUATRE BOÎTES »). Elle avance seule
+     toutes les trois secondes et s'arrête POUR DE BON dès qu'un doigt se
+     pose ou bouge dessus, qu'une souris y passe, qu'un point est touché ou
+     qu'un clavier y entre : à partir de là, c'est la cliente qui décide.
+     Rien ne bouge non plus pour qui a demandé moins de mouvement, ni tant
+     que l'onglet est caché. Demande de Samer, 06/09/2026. */
+  (function(){
+    var piste = document.getElementById('heroTrack');
+    var boite = piste && piste.closest('.hero-boxes');
+    if(!piste || !boite) return;
+    var cartes = [].slice.call(piste.querySelectorAll('.hero-box'));
+    var points = [].slice.call(boite.querySelectorAll('.hero-dot'));
+    if(cartes.length < 2) return;
+    var TOUTES_LES = 3000, minuterie = null, arrete = false;
+
+    // La carte à l'écran : celle dont le bord de départ est le plus près du
+    // bord de la piste — vrai de gauche à droite comme de droite à gauche.
+    function courante(){
+      var bord = piste.getBoundingClientRect().left, meilleure = 0, dist = Infinity;
+      cartes.forEach(function(c, i){
+        var d = Math.abs(c.getBoundingClientRect().left - bord);
+        if(d < dist){ dist = d; meilleure = i; }
+      });
+      return meilleure;
+    }
+    function peindre(i){
+      points.forEach(function(p, j){ p.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+      boite.setAttribute('data-carte', String(i));
+    }
+    // Aller à une carte : un déplacement RELATIF, mesuré à l'écran, pour ne
+    // pas raisonner sur le signe de scrollLeft sur la page arabe.
+    function aller(i, doux){
+      var c = cartes[i];
+      if(!c) return;
+      var delta = c.getBoundingClientRect().left - piste.getBoundingClientRect().left;
+      if(typeof piste.scrollBy === 'function') piste.scrollBy({ left: delta, top: 0, behavior: doux ? 'smooth' : 'auto' });
+      else piste.scrollLeft += delta;
+      peindre(i);
+    }
+    function arreter(){
+      arrete = true;
+      if(minuterie){ clearInterval(minuterie); minuterie = null; }
+      boite.setAttribute('data-auto', 'off');
+    }
+    function lancer(){
+      if(arrete || minuterie) return;
+      minuterie = setInterval(function(){ aller((courante() + 1) % cartes.length, true); }, TOUTES_LES);
+      boite.setAttribute('data-auto', 'on');
+    }
+    function suspendre(){
+      if(minuterie){ clearInterval(minuterie); minuterie = null; }
+      if(!arrete) boite.setAttribute('data-auto', 'pause');
+    }
+
+    ['touchstart', 'touchmove', 'pointerdown', 'pointermove', 'wheel', 'keydown', 'focusin']
+      .forEach(function(ev){ boite.addEventListener(ev, arreter, { passive: true }); });
+    points.forEach(function(p, i){ p.addEventListener('click', function(){ arreter(); aller(i, true); }); });
+    // Le doigt qui fait défiler la piste sans passer par un point : les
+    // points suivent.
+    var attente = null;
+    piste.addEventListener('scroll', function(){
+      if(attente) return;
+      attente = setTimeout(function(){ attente = null; peindre(courante()); }, 80);
+    }, { passive: true });
+
+    var moins = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(moins && moins.matches){ arreter(); return; }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) suspendre(); else lancer(); });
+    lancer();
+  })();
 
   /* ---------- consentement ---------- */
   (function(){
