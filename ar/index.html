@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260906-2205">
+<meta name="pg-build" content="20260907-1145">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1516,12 +1516,83 @@
      premier écran — la même carte, une autre couleur (Samer, 06/09/2026 au
      soir). Sur le vert, la pastille « Serves » passe en blanc et les filets
      de la liste virent au vert, pour rester lisibles. */
-  .hero-box[data-famille="majlis"]{background:var(--vert-clair);}
+  /* Les Majlis reviennent au BEIGE le 07/09/2026 — la variante montrée la
+     veille à côté du vert clair. Sur beige, les filets de la carte restent
+     ceux du blanc (du bordeaux très clair), et la pastille « Serves » passe
+     en blanc pour se détacher. */
+  .hero-box[data-famille="majlis"]{background:var(--warm-cream);}
   .hero-box[data-famille="majlis"] .spread-price em{background:#fff;}
-  .hero-box[data-famille="majlis"] .hero-box-details{border-top-color:rgba(46,90,62,0.22);}
-  .hero-box[data-famille="majlis"] .spread-inside li{border-top-color:rgba(46,90,62,0.18);}
   .hero-box[data-famille="majlis"] .chip{background:#fff;}
   .hero-box[data-famille="majlis"] .chip[aria-pressed="true"]{background:var(--vert);}
+
+  /* ================= LES TITRES DES BOÎTES, ET LE PANNEAU — 07/09/2026 =======
+     Samer : « les titres sont trop petits et on n'y voit aucune différence
+     entre Discovery Box et Majlis ; fais en sorte que ce soit plus visible,
+     écrits d'un style tape-à-l'œil ».
+
+     Trois signaux disent la famille, du plus voyant au plus discret :
+     l'étiquette au-dessus du titre devient une PASTILLE pleine — corail pour
+     le coffret, or pour les Majlis, collée un peu de travers comme les
+     stickers —, le fond de la carte est blanc ou beige, et la pastille
+     « Serves » suit. Le titre, lui, gagne un tiers de corps et passe en 900 :
+     c'est lui qu'on doit lire en premier sur la carte, avant le prix. */
+  .hero-box-head .label{
+    align-self:start;display:inline-block;width:fit-content;margin:0 0 2px;
+    padding:5px 13px;border-radius:999px;font-size:0.78rem;font-weight:800;letter-spacing:0;
+    background:var(--coral);color:var(--cream);transform:rotate(-2deg);
+    box-shadow:0 0 0 3px #fff,0 6px 14px -9px rgba(94,22,34,0.5);
+  }
+  .hero-box[data-famille="majlis"] .hero-box-head .label{
+    background:var(--gold);color:var(--deep-maroon);
+    box-shadow:0 0 0 3px var(--warm-cream),0 6px 14px -9px rgba(94,22,34,0.5);
+  }
+  .hero-box-head h2{
+    font-size:clamp(1.55rem,6.4vw,2.2rem);font-weight:900;line-height:1.02;
+    letter-spacing:-0.03em;text-wrap:balance;margin:2px 0 0;
+  }
+  .hero-box .spread-price b{font-size:clamp(1.35rem,4.6vw,1.65rem);}
+
+  /* Le panneau du premier écran, en carte posée (07/09/2026). Samer le
+     trouvait « moche, pas à l'image d'une entreprise de home baking, qui
+     devrait être joyeux » : un aplat vert uni, beaucoup de texte serré, rien
+     de fait maison. Il reçoit un liseré sauge et une ombre douce — le cadre
+     d'une carte qu'on aurait posée là —, un cookie collé de travers qui
+     déborde du coin, et de l'air entre ses blocs. Le vert clair reste : c'est
+     la couleur des zones où l'on agit, celle du menu et de la commande. */
+  @media(max-width:899px){
+    .hero-content{
+      position:relative;border:4px solid var(--sage);
+      box-shadow:0 12px 32px -20px rgba(94,22,34,0.5);
+      padding:28px 20px 26px;
+    }
+    .hero-content .stk-hero{
+      position:absolute;top:-18px;inset-inline-end:-12px;
+      width:66px;height:66px;transform:rotate(14deg);z-index:2;
+    }
+    /* Le sur-titre en pastille blanche : posé sur le vert, il se lit comme un
+       badge cousu plutôt que comme une ligne de texte de plus. Le rond « made
+       in Qatar » reste dedans. */
+    .hero-eyebrow{
+      display:inline-block;background:#fff;padding:6px 14px;border-radius:999px;
+      transform:rotate(-1.5deg);box-shadow:0 0 0 3px #fff,0 8px 18px -12px rgba(94,22,34,0.5);
+    }
+    .hero h1{margin-top:14px;}
+    .hero-sub{margin-top:15px;}
+    .hero-actions{margin-top:24px;}
+  }
+  /* Sur ordinateur il n'y a pas de panneau : le cookie n'aurait pas de coin
+     où se coller, il flotterait à côté du titre. */
+  @media(min-width:900px){ .hero-content .stk-hero{display:none;} }
+
+  /* L'arabe a besoin d'air entre ses lignes. Les titres sont serrés à 1,02 —
+     réglage fait pour Figtree, où les lettres ne descendent presque pas. En
+     Cairo, les voyelles et les points passent SOUS la ligne : sur la page
+     arabe, le grand titre du premier écran se chevauchait ligne à ligne
+     (« من مطبخ بيتٍ » mordait sur « قطري إلى »). Vu le 07/09/2026 en
+     regardant les captures, pas demandé — mais c'était illisible. */
+  body.lang-ar .hero h1{line-height:1.28;}
+  body.lang-ar .hero-box-head h2{line-height:1.24;}
+  body.lang-ar .menu-head h2,body.lang-ar .visit h2,body.lang-ar .sourcing h2{line-height:1.25;}
 </style>
 <script type="application/ld+json">
 {
@@ -1713,8 +1784,8 @@
         },
         {
           "@type": "MenuItem",
-          "name": "Majlis — 4 Guests",
-          "alternateName": "مجلس — 4 ضيوف",
+          "name": "Majlis for 4 +",
+          "alternateName": "مجلس 4 +",
           "description": "Built for when guests are coming — cookies, madeleines and a cake, sized to your table.",
           "image": "https://petit-gateau.com/img/majlis-4-doha.webp",
           "offers": {
@@ -1726,8 +1797,8 @@
         },
         {
           "@type": "MenuItem",
-          "name": "Majlis — 6 Guests",
-          "alternateName": "مجلس — 6 ضيوف",
+          "name": "Majlis for 6 +",
+          "alternateName": "مجلس 6 +",
           "description": "Built for when guests are coming — cookies, madeleines and a cake, sized to your table.",
           "image": "https://petit-gateau.com/img/majlis-6-doha.webp",
           "offers": {
@@ -1739,8 +1810,8 @@
         },
         {
           "@type": "MenuItem",
-          "name": "Majlis — 10 Guests",
-          "alternateName": "مجلس — 10 ضيوف",
+          "name": "Majlis for 10 +",
+          "alternateName": "مجلس 10 +",
           "description": "Built for when guests are coming — cookies, madeleines and a cake, sized to your table.",
           "image": "https://petit-gateau.com/img/majlis-10-doha.webp",
           "offers": {
@@ -1788,6 +1859,7 @@
         <a class="btn btn-primary" href="https://wa.me/97450040617" target="_blank" rel="noopener">اطلب الآن</a>
         <a class="btn btn-outline" href="#menu">تصفح القائمة</a>
       </div>
+      <svg class="stk stk-cookie stk-hero" aria-hidden="true" focusable="false"><use href="#stk-cookie"/></svg>
     </div>
     <div class="hero-boxes" id="box">
       <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="صناديقنا">
@@ -1833,7 +1905,7 @@
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
-          <h2 data-i18n="majlis4_name">مجلس — 4 ضيوف</h2>
+          <h2 data-i18n="majlis4_name">مجلس 4 +</h2>
           <div class="spread-price"><b dir="ltr">590 QR</b><em>يكفي 4 أشخاص</em></div>
           <div class="qty-row" data-item="majlis4" data-price="590">
           <button type="button" class="qty-add" data-add="majlis4"><span>أضف الصندوق</span></button>
@@ -1879,7 +1951,7 @@
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
-          <h2 data-i18n="majlis6_name">مجلس — 6 ضيوف</h2>
+          <h2 data-i18n="majlis6_name">مجلس 6 +</h2>
           <div class="spread-price"><b dir="ltr">840 QR</b><em>يكفي 6 أشخاص</em></div>
           <div class="qty-row" data-item="majlis6" data-price="840">
           <button type="button" class="qty-add" data-add="majlis6"><span>أضف الصندوق</span></button>
@@ -1926,7 +1998,7 @@
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
-          <h2 data-i18n="majlis10_name">مجلس — 10 ضيوف</h2>
+          <h2 data-i18n="majlis10_name">مجلس 10 +</h2>
           <div class="spread-price"><b dir="ltr">990 QR</b><em>يكفي 10 أشخاص</em></div>
           <div class="qty-row" data-item="majlis10" data-price="990">
           <button type="button" class="qty-add" data-add="majlis10"><span>أضف الصندوق</span></button>
@@ -1969,7 +2041,7 @@
       </div>
     </div>
       </div>
-      <div class="hero-dots"><button type="button" class="hero-dot" data-dot="0" aria-label="اعرض صندوق الاكتشاف" aria-current="true"></button><button type="button" class="hero-dot" data-dot="1" aria-label="اعرض مجلس — 4 ضيوف" aria-current="false"></button><button type="button" class="hero-dot" data-dot="2" aria-label="اعرض مجلس — 6 ضيوف" aria-current="false"></button><button type="button" class="hero-dot" data-dot="3" aria-label="اعرض مجلس — 10 ضيوف" aria-current="false"></button></div>
+      <div class="hero-dots"><button type="button" class="hero-dot" data-dot="0" aria-label="اعرض صندوق الاكتشاف" aria-current="true"></button><button type="button" class="hero-dot" data-dot="1" aria-label="اعرض مجلس 4 +" aria-current="false"></button><button type="button" class="hero-dot" data-dot="2" aria-label="اعرض مجلس 6 +" aria-current="false"></button><button type="button" class="hero-dot" data-dot="3" aria-label="اعرض مجلس 10 +" aria-current="false"></button></div>
     </div>
     <p class="delivery-line">نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. تدفع رسوم التوصيل للسائق عند الوصول، وهي غير مشمولة في طلبك.</p>
   </div>
@@ -2585,9 +2657,9 @@
       hero_box_alt:"صندوق الاكتشاف مفتوحًا: كيكة الخوخ والكوكيز والمادلين الصغيرة، صناعة منزلية في الدوحة",
       majlis_label:"صندوق الضيافة",
       majlis_desc:"مُعدّ لاستقبال الضيوف — كوكيز، مادلين وكيكة، بالحجم الذي يناسب طاولتك.",
-      majlis4_name:"مجلس — 4 ضيوف",
-      majlis6_name:"مجلس — 6 ضيوف",
-      majlis10_name:"مجلس — 10 ضيوف",
+      majlis4_name:"مجلس 4 +",
+      majlis6_name:"مجلس 6 +",
+      majlis10_name:"مجلس 10 +",
       majlis4_serves:"يكفي 4 أشخاص",
       majlis6_serves:"يكفي 6 أشخاص",
       majlis10_serves:"يكفي 10 أشخاص",
