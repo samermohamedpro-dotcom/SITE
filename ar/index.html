@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260907-1201">
+<meta name="pg-build" content="20260907-1241">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1584,6 +1584,47 @@
      où se coller, il flotterait à côté du titre. */
   @media(min-width:900px){ .hero-content .stk-hero{display:none;} }
 
+  /* ================= LES QUATRE PHOTOS À LA MÊME TAILLE — 07/09/2026 =========
+     Samer : « pourquoi les photos dans les cartes ne sont pas toutes de la
+     même taille que la 10 ? Arrange-moi ce problème une bonne fois pour
+     toutes. » Mesuré à 430 px avant correction : 337, 301, 265 et 196 px.
+
+     La cause n'était pas la photo, c'était la RANGÉE. Sur téléphone chaque
+     carte est une grille à deux rangées — la photo et la tête en haut, le
+     détail en bas — et les quatre cartes sont mises à la hauteur de la plus
+     haute par la piste. Le détail prend ce qu'il lui faut, la rangée du haut
+     reçoit le reste : plus une offre a de lignes et de choix, plus sa photo
+     rétrécit. Le Majlis 10, le plus fourni, avait donc la plus petite.
+
+     La rangée du haut n'appartient plus à chaque carte : elle appartient à la
+     PISTE, et les quatre cartes la partagent (`subgrid`). Elle prend la
+     hauteur de la plus grande tête, et les quatre photos la remplissent — à
+     l'identique, quelle que soit la longueur du détail. Aucun calcul, aucun
+     nombre écrit à la main : c'est la grille qui l'impose, et ça vaudra encore
+     quand une offre gagnera trois lignes.
+
+     Sur ordinateur le problème n'existe pas : la carte n'a qu'une rangée et la
+     photo occupe toute sa hauteur, déjà égale d'une carte à l'autre. Sur un
+     navigateur sans `subgrid` (avant Safari 16), rien ne s'applique et on
+     retrouve exactement le comportement d'avant — jamais une mise en page
+     cassée. */
+  /* Le sticker du pied de carte : il tombe en bas (`margin-top:auto`) et se
+     range du côté fin de ligne — à droite en anglais, à gauche en arabe. Il
+     comble le vide des cartes les moins fournies, et sur la plus fournie il
+     se pose simplement après les pastilles : jamais par-dessus. */
+  .hero-box-details .stk-pied{
+    margin-top:auto;align-self:flex-end;width:50px;height:50px;
+    transform:rotate(-9deg);flex:0 0 auto;
+  }
+  .hero-box[data-famille="majlis"] .stk-pied{transform:rotate(7deg);}
+
+  @media(max-width:899px){
+    @supports (grid-template-rows: subgrid){
+      .hero-track{grid-template-rows:auto auto;}
+      .hero-track > .hero-box{grid-row:1 / -1;grid-template-rows:subgrid;}
+    }
+  }
+
   /* L'arabe a besoin d'air entre ses lignes. Les titres sont serrés à 1,02 —
      réglage fait pour Figtree, où les lettres ne descendent presque pas. En
      Cairo, les voyelles et les points passent SOUS la ligne : sur la page
@@ -1897,6 +1938,7 @@
               </div>
             </div>
           </div>
+          <svg class="stk stk-sparkle stk-pied" aria-hidden="true" focusable="false"><use href="#stk-sparkle"/></svg>
         </div>
       </div>
     </div>
@@ -1941,6 +1983,7 @@
               </div>
             </div>
           </div>
+          <svg class="stk stk-heart stk-pied" aria-hidden="true" focusable="false"><use href="#stk-heart"/></svg>
         </div>
       </div>
     </div>
@@ -1987,6 +2030,7 @@
               </div>
             </div>
           </div>
+          <svg class="stk stk-heart stk-pied" aria-hidden="true" focusable="false"><use href="#stk-heart"/></svg>
         </div>
       </div>
     </div>
@@ -2042,6 +2086,7 @@
               </div>
             </div>
           </div>
+          <svg class="stk stk-heart stk-pied" aria-hidden="true" focusable="false"><use href="#stk-heart"/></svg>
         </div>
       </div>
     </div>
