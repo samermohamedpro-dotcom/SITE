@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260907-1325">
+<meta name="pg-build" content="20260907-1551">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2124,7 +2124,7 @@
       </div>
       <div class="hero-dots"><button type="button" class="hero-dot" data-dot="0" aria-label="اعرض صندوق الاكتشاف" aria-current="true"></button><button type="button" class="hero-dot" data-dot="1" aria-label="اعرض مجلس 4 +" aria-current="false"></button><button type="button" class="hero-dot" data-dot="2" aria-label="اعرض مجلس 6 +" aria-current="false"></button><button type="button" class="hero-dot" data-dot="3" aria-label="اعرض مجلس 10 +" aria-current="false"></button></div>
     </div>
-    <p class="delivery-line">نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. تدفع رسوم التوصيل للسائق عند الوصول، وهي غير مشمولة في طلبك.</p>
+    <p class="delivery-line">نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. التوصيل مشمول في طلبك حسب المنطقة: 15 QR حول الوكرة، و33 QR في الدوحة، و70 QR لما هو أبعد.</p>
   </div>
 </section>
 
@@ -2499,13 +2499,16 @@
     </div>
 
     <div class="totals">
+      <div class="tl"><span>المجموع</span><span id="tSub">0 QR</span></div>
+      <div class="tl"><span>التوصيل</span><span id="tDeliv">0 QR</span></div>
+      <p class="tl-note">منطقتك تحدد التوصيل: 15 QR حول الوكرة · 33 QR في الدوحة · 70 QR لما هو أبعد — مشمول في الإجمالي.</p>
       <div class="tl grand"><span>الإجمالي</span><span id="tGrand">0 QR</span></div>
       <p class="pay-info">ادفع عبر فوران أو بتحويل بنكي بعد تأكيد طلبك عبر واتساب.</p>
     </div>
 
     <div class="driver-note">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="6" width="14" height="10" rx="1.5"/><path d="M15 9h4l3 3.5V16h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-      <div><b>بخصوص التوصيل</b>نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. تدفع رسوم التوصيل للسائق عند الوصول، وهي غير مشمولة في طلبك.</div>
+      <div><b>بخصوص التوصيل</b>نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. التوصيل مشمول في طلبك حسب المنطقة: 15 QR حول الوكرة، و33 QR في الدوحة، و70 QR لما هو أبعد.</div>
     </div>
 
     <div class="fld">
@@ -2724,8 +2727,9 @@
       co_loc_paste:"الصق رابط خرائط جوجل",
       co_loc_how:"افتح خرائط جوجل، اضغط مطوّلاً على الموقع، ثم مشاركة ← نسخ الرابط. العناوين في الدوحة غالباً غير دقيقة — الموقع يوفّر اتصالاً على السائق.",
       co_loc_bad:"هذا لا يبدو رابط خريطة.",
-      delivery_line:"نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. تدفع رسوم التوصيل للسائق عند الوصول، وهي غير مشمولة في طلبك.",
+      delivery_line:"نوصّل إلى بابك في أي مكان في قطر عبر سائقنا. التوصيل مشمول في طلبك حسب المنطقة: 15 QR حول الوكرة، و33 QR في الدوحة، و70 QR لما هو أبعد.",
       del_driver_t:"بخصوص التوصيل",
+      co_deliv_h:"منطقتك تحدد التوصيل: 15 QR حول الوكرة · 33 QR في الدوحة · 70 QR لما هو أبعد — مشمول في الإجمالي.",
       hero_eyebrow:"صنع في قطر · الدوحة",
       hero_title:"من مطبخ بيتٍ قطري، اليوم.",
       qatar_t:"صنع في قطر، بأيدٍ قطرية.",
@@ -2783,7 +2787,9 @@
       co_m_src:"عرفنا عن طريق",
       co_m_optin:"يرغب بمتابعة الجديد",
       co_m_loc:"الموقع",
-      co_city:"المدينة"
+      co_city:"المدينة",
+      co_m_sub:"المجموع",
+      co_m_deliv:"التوصيل"
     },
     ar: {
       item1_qty:"12 حبة",
@@ -2872,7 +2878,8 @@
     railDays: 16,
     slots: [12, 13, 14, 15, 16, 17, 18],        // heures pleines, injectées depuis strings.py
     lead: { item3: 18, item6: 18 },  // heures minimum entre la commande et la livraison
-    cities: [["Doha", "الدوحة"], ["Al Rayyan", "الريان"], ["Al Wakrah", "الوكرة"], ["Al Wukair", "الوكير"], ["Lusail", "لوسيل"], ["Al Daayen", "الظعاين"], ["Umm Salal", "أم صلال"], ["Al Khor", "الخور"], ["Al Thakhira", "الذخيرة"], ["Simaisma", "سميسمة"], ["Al Shahaniya", "الشحانية"], ["Mesaieed", "مسيعيد"], ["Dukhan", "دخان"], ["Al Shamal", "الشمال"], ["Ras Laffan", "راس لفان"]]       // [nom anglais, nom arabe]
+    cities: [["Doha", "الدوحة", 33], ["Al Rayyan", "الريان", 33], ["Al Wakrah", "الوكرة", 15], ["Al Wukair", "الوكير", 15], ["Lusail", "لوسيل", 70], ["Al Daayen", "الظعاين", 70], ["Umm Salal", "أم صلال", 70], ["Al Khor", "الخور", 70], ["Al Thakhira", "الذخيرة", 70], ["Simaisma", "سميسمة", 70], ["Al Shahaniya", "الشحانية", 70], ["Mesaieed", "مسيعيد", 33], ["Dukhan", "دخان", 70], ["Al Shamal", "الشمال", 70], ["Ras Laffan", "راس لفان", 70]],      // [nom anglais, nom arabe, tarif de livraison de secours]
+    livraison: {"zones": {"90": 15, "91": 15, "1": 33, "2": 33, "3": 33, "4": 33, "5": 33, "6": 33, "7": 33, "10": 33, "11": 33, "12": 33, "13": 33, "14": 33, "15": 33, "16": 33, "17": 33, "18": 33, "19": 33, "20": 33, "21": 33, "22": 33, "23": 33, "24": 33, "25": 33, "26": 33, "27": 33, "28": 33, "30": 33, "31": 33, "32": 33, "33": 33, "34": 33, "35": 33, "36": 33, "37": 33, "38": 33, "39": 33, "40": 33, "41": 33, "42": 33, "43": 33, "44": 33, "45": 33, "46": 33, "47": 33, "48": 33, "49": 33, "50": 33, "51": 33, "52": 33, "53": 33, "54": 33, "55": 33, "56": 33, "57": 33, "58": 33, "61": 33, "63": 33, "64": 33, "65": 33, "66": 33, "67": 33, "68": 33, "92": 33, "69": 70, "70": 70, "71": 70, "72": 70, "73": 70, "80": 70, "82": 70, "84": 70, "85": 70, "86": 70, "74": 70, "75": 70, "76": 70, "77": 70, "78": 70, "79": 70, "81": 70, "83": 70, "96": 70, "97": 70, "93": 70, "94": 70, "95": 70, "98": 70}, "defaut": 33} // { zones: { "90": 15, … }, defaut: 33 } — la table de strings.py
   };
 
   var ORDER = {}, PRICES = {}, NAMES = {};
@@ -3127,6 +3134,49 @@
   }
   function count(){
     var c=0; Object.keys(ORDER).forEach(function(id){ c += ORDER[id]; }); return c;
+  }
+
+  /* ---------- la livraison, incluse dans la commande (07/09/2026) ----------
+     Sa femme livre par Snoonu, et la cliente voit le vrai prix de la course à
+     la livraison : le site annonce donc le tarif de SA zone — 15 QR près
+     d'Al Wakrah, 33 QR à Doha, 70 QR au-delà, d'après la carte officielle des
+     zones du Qatar. La table vient de strings.py (CFG.livraison, CFG.cities) :
+     aucun nombre n'est écrit ici. Le numéro de zone décide ; la ville tapée
+     sert de secours quand il n'est pas reconnu (chaque ville porte son
+     tarif) ; sans rien de reconnu, c'est le tarif de Doha. */
+  function normVille(s){
+    return (s || '').toString().toLowerCase()
+      .replace(/[ً-ْـ]/g, '')      // voyelles brèves et tatweel
+      .replace(/[أإآ]/g, 'ا') // alif sous toutes ses formes
+      .replace(/ى/g, 'ي')               // alif maqsura -> ya
+      .replace(/ة/g, 'ه')               // ta marbuta -> ha
+      .replace(/[^a-z0-9؀-ۿ]+/g, ' ')
+      .trim();
+  }
+  // La ville reconnue dans le champ, ou null : le nom entier, ou un morceau
+  // d'au moins quatre lettres qui ne désigne qu'une ville (« wakra », « lusail »).
+  function villeTapee(){
+    var n = normVille($('fCity') ? $('fCity').value : '');
+    if(!n) return null;
+    var cles = function(c){ return [normVille(c[0]), normVille(c[1])]; };
+    var hits = CFG.cities.filter(function(c){
+      return cles(c).some(function(k){ return k === n || n.indexOf(k) >= 0 || (n.length >= 4 && k.indexOf(n) >= 0); });
+    });
+    if(hits.length === 1) return hits[0];
+    return hits.filter(function(c){ return cles(c).some(function(k){ return k === n; }); })[0] || null;
+  }
+  function livraison(){
+    var z = parseInt(($('fZone') ? $('fZone').value : '').replace(/\D/g, ''), 10);
+    if(!isNaN(z) && CFG.livraison.zones[String(z)] != null) return CFG.livraison.zones[String(z)];
+    var c = villeTapee();
+    if(c && c[2] != null) return c[2];
+    return CFG.livraison.defaut;
+  }
+  function peindreTotaux(){
+    var sub = subtotal(), liv = livraison();
+    $('tSub').textContent = sub + ' ' + T('qr');
+    $('tDeliv').textContent = liv + ' ' + T('qr');
+    $('tGrand').textContent = (sub + liv) + ' ' + T('qr');
   }
 
   function refresh(){
@@ -3497,7 +3547,7 @@
       box.appendChild(line);
     });
 
-    $('tGrand').textContent = subtotal() + ' ' + T('qr');
+    peindreTotaux();
   }
 
   /* ---------- chips ---------- */
@@ -3713,6 +3763,8 @@
   // rien tant que rien n'est rouge : tant qu'elle n'a rien vu, elle n'est
   // accusée de rien pendant qu'elle tape.
   function repeindre(){
+    // Les totaux suivent la ville, rouge ou pas : c'est elle qui fixe la course.
+    peindreTotaux();
     if(!document.querySelector('.sheet .fld.err,.sheet .af.err')) return;
     var ko = manque();
     direCeQuiManque(ko);
@@ -3745,7 +3797,7 @@
 
     remember();
 
-    var sub = subtotal();
+    var sub = subtotal(), liv = livraison();
     var lines = [];
     Object.keys(ORDER).forEach(function(id){
       if(ORDER[id] > 0){
@@ -3766,7 +3818,9 @@
     m.push('');
     m.push(lines.join('\n'));
     m.push('');
-    m.push(T('co_m_total') + ': ' + sub + ' ' + T('qr'));
+    m.push(T('co_m_sub') + ': ' + sub + ' ' + T('qr'));
+    m.push(T('co_m_deliv') + ': ' + liv + ' ' + T('qr'));
+    m.push(T('co_m_total') + ': ' + (sub + liv) + ' ' + T('qr'));
     m.push('');
     m.push(T('co_m_when') + ': ' + S.date + ' — ' + T('co_slot_' + S.slot));
     m.push(T('co_m_where') + ': ' + T('co_zoneno') + ' ' + $('fZone').value.trim()
@@ -3795,7 +3849,7 @@
     // Elle n'attend rien : si le dépôt échoue, la cliente ne s'en aperçoit
     // même pas et la commande part par WhatsApp comme avant. Le dépôt fait
     // gagner une saisie, il ne porte jamais la vente.
-    deposer(m.join('\n'), sub, recoit);
+    deposer(m.join('\n'), sub, recoit, liv);
     mesurer(['commandes']);
     sendTo(m.join('\n'));
     montrerEnvoye();
@@ -3881,7 +3935,7 @@
   function txt(v){ return { stringValue: String(v == null ? '' : v) }; }
   function num(v){ return { integerValue: String(Math.round(Number(v) || 0)) }; }
 
-  function deposer(message, total, telephone){
+  function deposer(message, total, telephone, course){
     if(typeof fetch !== 'function' || !URL_ENTRANTES) return;
     try{
       var lignes = [];
@@ -3909,6 +3963,9 @@
         utmCampaign: txt(UTM.utmCampaign),
         etat: txt('nouvelle'),
         total: num(total),
+        // La course, incluse dans la commande depuis le 07/09/2026 : à part
+        // du total des produits, que l'app compare aux lignes.
+        livraison: num(course),
         jour: txt(S.date || ''),
         heure: txt(S.slot || ''),
         message: txt(message),
@@ -4036,15 +4093,7 @@
     if(!input || !list) return;
     var ix = L() === 'ar' ? 1 : 0, open = false;
 
-    function norm(s){
-      return (s || '').toString().toLowerCase()
-        .replace(/[ً-ْـ]/g, '')      // voyelles brèves et tatweel
-        .replace(/[أإآ]/g, 'ا') // alif sous toutes ses formes
-        .replace(/ى/g, 'ي')               // alif maqsura -> ya
-        .replace(/ة/g, 'ه')               // ta marbuta -> ha
-        .replace(/[^a-z0-9؀-ۿ]+/g, ' ')
-        .trim();
-    }
+    var norm = normVille;   // la même mise au propre que pour la livraison
     // La recherche porte sur n'importe quel morceau du nom, dans les deux
     // langues : « khor » trouve « Al Khor », « lusail » trouve « لوسيل ».
     function keys(c){ return [norm(c[0]), norm(c[1])]; }
