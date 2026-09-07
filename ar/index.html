@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260907-1551">
-<meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees">
+<meta name="pg-build" content="20260907-1718">
+<meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees,panier-haut">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Petit Gâteau | مطبخ منزلي قطري في الدوحة — كوكيز ومادلين وكيك</title>
@@ -689,12 +689,16 @@
     .nav-cta{padding:9px 12px;font-size:0.68rem;letter-spacing:0.04em;}
   }
   @media(max-width:390px){
-    nav .container{padding:12px 12px;gap:8px;}
+    nav .container{padding:12px 12px;gap:6px;}
     .nav-mark{font-size:1.28rem;}
-    .lang-toggle{padding:6px 8px;font-size:0.7rem;letter-spacing:0.02em;}
-    .nav-cta{padding:8px 9px;font-size:0.62rem;letter-spacing:0.01em;}
+    .lang-toggle{padding:6px 6px;font-size:0.66rem;letter-spacing:0;}
+    /* Le bouton WhatsApp : sa règle d'ici vit en fin de fichier, avec le
+       panier (« LE PANIER DE LA BARRE DU HAUT »). Écrite ici, elle perdait
+       contre « joie et air » (0,74 rem à 560 px), plus bas — la page tenait
+       quand même, jusqu'au panier. Mesuré le 07/09/2026. */
   }
   @media(max-width:340px){
+    nav .container{padding-left:10px;padding-right:10px;}
     .nav-mark{font-size:1.1rem;}
   }
   @media(max-width:330px){
@@ -1206,7 +1210,7 @@
   .qty-add:hover{transform:translateY(-1px);}
   .qty-add:active{transform:scale(0.97);}
   @media(prefers-reduced-motion:reduce){
-    .hero-content > *,.hero-box,.hero-box-img,.qty-row.has-qty .qty-btn,.qty-row.has-qty .qty-val,.order-bar-count.bump{animation:none;}
+    .hero-content > *,.hero-box,.hero-box-img,.qty-row.has-qty .qty-btn,.qty-row.has-qty .qty-val,.order-bar-count.bump,.nav-cart-n.bump{animation:none;}
   }
 
   /* ================= JOIE ET AIR — 05/09/2026 =================
@@ -1665,6 +1669,44 @@
     .hero .btn-outline{flex:0 0 auto;padding:4px 0;font-size:0.95rem;}
     .hero-content .stk-hero{width:54px;height:54px;top:-14px;inset-inline-end:-8px;}
   }
+
+  /* ================= LE PANIER DE LA BARRE DU HAUT — 07/09/2026 =============
+     Samer, capture à l'appui : « un panier pour avoir order en un clic, si
+     quelqu'un veut aller directement dans order au lieu de se balader sur le
+     site ». Un rond cerclé de crème, comme le bouton de langue à côté, un
+     panier dessiné au trait ; le nombre de produits en pastille or sur vert —
+     le couple de la barre de commande — qui disparaît à zéro (`hidden`, posé
+     par checkout.js). La barre tenait juste dans 320 px (« LA BARRE DU HAUT
+     DÉBORDAIT ») : l'écart entre ses boutons se resserre sur téléphone pour
+     lui faire place, et verif-mise-en-page mesure à chaque largeur qu'il est
+     là, sur la ligne du mot-marque, sans rien faire déborder. */
+  .nav-cart{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;
+    width:40px;height:40px;padding:0;border-radius:999px;border:1px solid rgba(250,246,236,0.6);
+    background:transparent;color:var(--cream);cursor:pointer;-webkit-appearance:none;appearance:none;
+    transition:background .2s,color .2s;}
+  .nav-cart:hover{background:var(--cream);color:var(--vert);}
+  .nav-cart svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .nav-cart-n{position:absolute;top:-7px;inset-inline-end:-7px;min-width:21px;height:21px;padding:0 5px;box-sizing:border-box;
+    border-radius:999px;background:var(--gold);color:var(--vert);font-family:'Figtree',sans-serif;font-weight:800;
+    font-size:0.74rem;line-height:21px;text-align:center;letter-spacing:0;}
+  .nav-cart-n[hidden]{display:none;}
+  .nav-cart-n.bump{animation:bump .3s ease;}
+  @media(max-width:560px){
+    .nav-right{gap:8px;}
+    .nav-cart{width:36px;height:36px;}
+    .nav-cart svg{width:19px;height:19px;}
+  }
+  /* Mesuré à 320, 340, 360 et 390 px dans les deux langues : le mot-marque,
+     le panier, la langue et le bouton WhatsApp tiennent avec 7 px de marge au
+     plus serré (l'arabe à 320 px). Le bouton WhatsApp reprend la taille que
+     « LA BARRE DU HAUT DÉBORDAIT » lui donnait déjà à 390 px — écrite là-haut,
+     elle perdait contre « joie et air » et ne s'appliquait pas. */
+  @media(max-width:390px){
+    .nav-right{gap:4px;}
+    .nav-cart{width:34px;height:34px;}
+    .nav-cart svg{width:18px;height:18px;}
+    .nav-cta{padding:8px 9px;font-size:0.62rem;letter-spacing:0.01em;}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -1912,6 +1954,7 @@
       <a href="#visit" data-i18n="nav_visit">الطلب</a>
     </div>
     <div class="nav-right">
+      <button type="button" class="nav-cart" id="navCart" aria-label="طلبك"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.5 10h19"/><path d="M4 10l1.6 8.4A2 2 0 0 0 7.6 20h8.8a2 2 0 0 0 2-1.6L20 10"/><path d="M8.5 10L12 3.5L15.5 10"/><path d="M9.5 14v3M12 14v3M14.5 14v3"/></svg><span class="nav-cart-n" id="navCartN" hidden>0</span></button>
       <a class="lang-toggle" id="langToggle" href="/" hreflang="en" lang="en" rel="alternate">English</a>
       <a class="nav-cta" href="https://wa.me/97450040617" target="_blank" rel="noopener" data-i18n="nav_cta">اسأل عبر واتساب</a>
     </div>
@@ -3181,17 +3224,26 @@
 
   function refresh(){
     var c = count(), sub = subtotal(), active = c > 0;
-    $('orderCount').textContent = c;
     $('orderTotal').textContent = sub + ' ' + T('qr');
     $('orderBarSub').textContent = '';
     // « 1 items » : le mot suit le nombre.
+    var produits = T(c === 1 ? 'order_item' : 'order_items');
     var mot = $('orderItems');
-    if(mot) mot.textContent = T(c === 1 ? 'order_item' : 'order_items');
-    // Le nombre rebondit quand il change : la réponse au geste, rien de plus.
-    var compteur = $('orderCount');
-    if(compteur && compteur.textContent !== String(c)){
+    if(mot) mot.textContent = produits;
+    // Le nombre, à deux endroits : la barre du bas et le panier de la barre
+    // du haut (07/09/2026). Il rebondit quand il change : la réponse au
+    // geste, rien de plus. (Il était écrit AVANT d'être comparé à lui-même,
+    // et ne rebondissait donc jamais — vu en branchant le second.)
+    ['orderCount', 'navCartN'].forEach(function(id){
+      var compteur = $(id);
+      if(!compteur || compteur.textContent === String(c)) return;
+      compteur.textContent = c;
       compteur.classList.remove('bump'); void compteur.offsetWidth; compteur.classList.add('bump');
-    }
+    });
+    // Le panier du haut se tait à zéro, et dit son compte au lecteur d'écran.
+    var badge = $('navCartN'), panier = $('navCart');
+    if(badge) badge.hidden = !active;
+    if(panier) panier.setAttribute('aria-label', T('co_title') + (active ? ', ' + c + ' ' + produits : ''));
     // « Add », puis le compteur : la rangée porte la classe tant que le
     // produit est au panier, et le CSS échange le bouton contre le − 1 +.
     document.querySelectorAll('.qty-row[data-item]').forEach(function(row){
@@ -3661,6 +3713,10 @@
     document.body.classList.remove('sheet-open');
   }
   $('orderSendBtn').addEventListener('click', function(){ open(); });
+  // Le panier de la barre du haut (07/09/2026) : le même geste, d'où qu'on
+  // soit dans la page — la barre est collée à l'écran — et panier vide
+  // compris, puisque la feuille sait composer. Voir build.py, NAV_CART.
+  $('navCart').addEventListener('click', function(){ open(); });
 
   /* ---------- deux sorties : la conversation, ou le tunnel ----------
      Jusqu'au 06/09/2026, tout lien wa.me de la page ouvrait le tunnel : on ne
