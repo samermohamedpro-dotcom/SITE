@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260907-1856">
+<meta name="pg-build" content="20260908-1327">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees,panier-haut">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/cairo-arabic-900-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/cairo-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/img/discovery-box-hero-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" imagesizes="(max-width: 899px) 38vw, 210px">
+<link rel="preload" href="/img/discovery-box-hero-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" imagesizes="(max-width: 899px) 38vw, 220px">
 <link rel="icon" href="/icone-site-20260903.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/icone-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icone-192.png">
@@ -1707,6 +1707,55 @@
     .nav-cart svg{width:18px;height:18px;}
     .nav-cta{padding:8px 9px;font-size:0.62rem;letter-spacing:0.01em;}
   }
+
+  /* ================= LA CARTE, SUR ORDINATEUR — 08/09/2026 ==================
+     Samer, capture à l'appui : « sur ordinateur la carte est trop longue,
+     alors que tu peux la rendre plus large pour gagner de la hauteur ; et
+     arrange-la pour que l'image apparaisse correctement ».
+
+     Mesuré avant, à 1440 px : la carte faisait 496 px de large pour 952 de
+     haut — près de deux fois le bloc de texte posé à côté —, et sa photo
+     n'était qu'une bande de 198 px de large sur ces 952 px : d'un portrait
+     3:4 on ne voyait qu'une tranche du bord de la boîte.
+
+     Deux leviers :
+     — LA LARGEUR : le premier écran donne 7/12 à la carte et 5/12 au texte,
+       au lieu de moitié-moitié ;
+     — L'AGENCEMENT : la carte se couche comme sur téléphone — photo à
+       gauche, titre + prix + « Add » à droite — et son détail passe SOUS les
+       deux, en deux colonnes : la composition à gauche, les choix à droite.
+       La photo occupe une case presque carrée, plus une colonne étroite :
+       on y voit la boîte, le cup et les cookies, comme sur téléphone.
+     Les quatre cartes partagent les rangées de la piste (subgrid), comme sur
+     téléphone : la même hauteur de photo pour les quatre, quelle que soit la
+     longueur du détail, et la rangée du haut ne descend jamais sous 250 px
+     pour que la photo garde de son portrait. Sans subgrid, chaque carte fait
+     ses rangées seule — la même mise en page, des photos un peu inégales.
+     Le sticker du pied tombe sous la composition, en bas à gauche du
+     détail : c'est là qu'il reste de la place sur la carte la plus fournie,
+     et il ne coûte pas un pixel de hauteur aux trois autres. */
+  @media(min-width:900px){
+    .hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);}
+    .hero-box{grid-template-columns:38% minmax(0,1fr);grid-template-rows:auto auto;}
+    .hero-box-photo{grid-column:1;grid-row:1;}
+    .hero-box-img{object-position:50% 50%;}
+    .hero-box .spread-text{display:contents;}
+    .hero-box-head{grid-column:2;grid-row:1;padding:18px 22px;justify-content:center;min-width:0;}
+    .hero-box-details{
+      grid-column:1 / -1;grid-row:2;padding:16px 22px 18px;
+      display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);grid-template-rows:auto auto auto 1fr;
+      column-gap:22px;row-gap:0;align-content:stretch;
+    }
+    .hero-box-desc{grid-column:1 / -1;grid-row:1;margin:0 0 12px;}
+    .hero-box .allergens{grid-column:1 / -1;grid-row:2;margin:0 0 12px;}
+    .hero-box .spread-inside{grid-column:1;grid-row:3;}
+    .hero-box .offre-choix{grid-column:2;grid-row:3 / 5;}
+    .hero-box-details .stk-pied{grid-column:1;grid-row:4;align-self:end;justify-self:start;margin:12px 0 0;}
+    @supports (grid-template-rows: subgrid){
+      .hero-track{grid-template-rows:minmax(250px,auto) auto;}
+      .hero-track > .hero-box{grid-row:1 / -1;grid-template-rows:subgrid;}
+    }
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -1979,7 +2028,7 @@
     <div class="hero-boxes" id="box">
       <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="صناديقنا">
     <div class="hero-box" data-offre="spread" data-famille="coffret">
-      <div class="hero-box-photo"><img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق الاكتشاف مفتوحًا: كيكة الخوخ والكوكيز والمادلين الصغيرة، صناعة منزلية في الدوحة" width="900" height="1200" decoding="async" fetchpriority="high"></div>
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/discovery-box-hero-doha.webp" srcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" sizes="(max-width: 899px) 38vw, 220px" alt="صندوق الاكتشاف مفتوحًا: كيكة الخوخ والكوكيز والمادلين الصغيرة، صناعة منزلية في الدوحة" width="900" height="1200" decoding="async" fetchpriority="high"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="spread_label">تذوّق كل شيء</span>
@@ -2017,7 +2066,7 @@
       </div>
     </div>
     <div class="hero-box" data-offre="majlis4" data-famille="majlis">
-      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-4-doha.webp" srcset="/img/majlis-4-doha-300.webp 300w, /img/majlis-4-doha-450.webp 450w, /img/majlis-4-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق المجلس لأربعة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low"></div>
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-4-doha.webp" srcset="/img/majlis-4-doha-300.webp 300w, /img/majlis-4-doha-450.webp 450w, /img/majlis-4-doha.webp 720w" sizes="(max-width: 899px) 38vw, 220px" alt="صندوق المجلس لأربعة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
@@ -2062,7 +2111,7 @@
       </div>
     </div>
     <div class="hero-box" data-offre="majlis6" data-famille="majlis">
-      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-6-doha.webp" srcset="/img/majlis-6-doha-300.webp 300w, /img/majlis-6-doha-450.webp 450w, /img/majlis-6-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق المجلس لستة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low"></div>
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-6-doha.webp" srcset="/img/majlis-6-doha-300.webp 300w, /img/majlis-6-doha-450.webp 450w, /img/majlis-6-doha.webp 720w" sizes="(max-width: 899px) 38vw, 220px" alt="صندوق المجلس لستة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
@@ -2109,7 +2158,7 @@
       </div>
     </div>
     <div class="hero-box" data-offre="majlis10" data-famille="majlis">
-      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-10-doha.webp" srcset="/img/majlis-10-doha-300.webp 300w, /img/majlis-10-doha-450.webp 450w, /img/majlis-10-doha.webp 720w" sizes="(max-width: 899px) 38vw, 210px" alt="صندوق المجلس لعشرة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low"></div>
+      <div class="hero-box-photo"><img class="hero-box-img" src="/img/majlis-10-doha.webp" srcset="/img/majlis-10-doha-300.webp 300w, /img/majlis-10-doha-450.webp 450w, /img/majlis-10-doha.webp 720w" sizes="(max-width: 899px) 38vw, 220px" alt="صندوق المجلس لعشرة ضيوف مفتوحًا على الطاولة مع كوكيز ومادلين، صناعة منزلية في الدوحة" width="720" height="960" decoding="async" fetchpriority="low"></div>
       <div class="spread-text">
         <div class="hero-box-head">
           <span class="label" data-i18n="majlis_label">صندوق الضيافة</span>
