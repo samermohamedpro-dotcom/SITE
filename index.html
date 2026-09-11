@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="pg-build" content="20260911-1217">
+<meta name="pg-build" content="20260911-2332">
 <meta name="pg-features" content="carnet,depot,catalogue,jour-meme,heures-fermees,panier-haut">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@
 <meta property="og:image:height" content="628">
 <meta property="og:image:alt" content="Cookies, a cup of petit madeleines and the peach cake in its Petit Gâteau box, on the table">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/fonts/figtree-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fraunces-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/img/discovery-box-hero-doha.webp" as="image" fetchpriority="high" imagesrcset="/img/discovery-box-hero-doha-300.webp 300w, /img/discovery-box-hero-doha-450.webp 450w, /img/discovery-box-hero-doha.webp 900w" imagesizes="(max-width: 899px) 38vw, 220px">
 <link rel="icon" href="/icone-site-20260909.ico" sizes="any">
@@ -41,7 +41,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-site-verification" content="sLGZutcmCAUhPWWQJYqbQLJw86AqBhID5rr3kiyexcc">
 <style>
-@font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/playfair-display-latin-700-normal.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/fraunces-latin-700-normal.woff2') format('woff2');}
 @font-face{font-family:'Figtree';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/figtree-latin-400-normal.woff2') format('woff2');}
 @font-face{font-family:'Figtree';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/figtree-latin-500-normal.woff2') format('woff2');}
 @font-face{font-family:'Figtree';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/figtree-latin-700-normal.woff2') format('woff2');}
@@ -66,15 +66,13 @@
   body{
     background:var(--cream);
     color:var(--deep-maroon);
-    font-family:'Figtree',sans-serif;
+    font-family:var(--police);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
     position:relative;
   }
-  body.lang-ar{font-family:'Cairo',sans-serif;}
-  body.lang-ar h1,body.lang-ar h2,body.lang-ar h3{font-family:'Cairo',sans-serif;}
-  h1,h2,h3{font-family:'Figtree',sans-serif;}
-  .wordmark,.nav-mark,.signature,footer .wordmark{font-family:'Figtree',sans-serif !important;}
+  h1,h2,h3{font-family:var(--police-titre);}
+  .wordmark,.nav-mark,.signature,footer .wordmark{font-family:var(--police-marque) !important;}
   a{color:inherit;}
 
   .label{
@@ -110,7 +108,7 @@
   .lang-toggle{
     border:1px solid var(--deep-maroon);background:transparent;color:var(--deep-maroon);
     padding:8px 14px;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;
-    cursor:pointer;border-radius:2px;font-family:'Figtree',sans-serif;
+    cursor:pointer;border-radius:2px;font-family:var(--police);
     transition:background .2s,color .2s;white-space:nowrap;
   }
   .lang-toggle{text-decoration:none;display:inline-block;line-height:1;}
@@ -233,7 +231,7 @@
   .qty-btn{
     width:34px;height:34px;border-radius:50%;
     border:1.5px solid var(--deep-maroon);background:transparent;color:var(--deep-maroon);
-    font-family:'Figtree',sans-serif;font-size:1.2rem;line-height:1;
+    font-family:var(--police);font-size:1.2rem;line-height:1;
     display:flex;align-items:center;justify-content:center;cursor:pointer;
     transition:background .15s ease, color .15s ease;
     padding:0;
@@ -241,7 +239,7 @@
   .qty-btn:hover{background:var(--deep-maroon);color:var(--cream);}
   .qty-btn:active{transform:scale(0.92);}
   .qty-val{
-    min-width:26px;text-align:center;font-family:'Figtree',sans-serif;
+    min-width:26px;text-align:center;font-family:var(--police);
     font-size:1.15rem;color:var(--deep-maroon);font-weight:700;
   }
 
@@ -259,15 +257,15 @@
     padding:16px 24px;gap:16px;flex-wrap:wrap;
   }
   .order-bar-info{
-    color:var(--cream);font-family:'Figtree',sans-serif;font-size:1rem;
+    color:var(--cream);font-family:var(--police);font-size:1rem;
     display:flex;align-items:center;gap:8px;
   }
-  .order-bar-count{font-family:'Figtree',sans-serif;font-weight:700;font-size:1.15rem;color:var(--gold);}
-  .order-bar-total{font-family:'Figtree',sans-serif;font-weight:700;font-size:1.15rem;color:var(--cream);}
+  .order-bar-count{font-family:var(--police);font-weight:700;font-size:1.15rem;color:var(--gold);}
+  .order-bar-total{font-family:var(--police);font-weight:700;font-size:1.15rem;color:var(--cream);}
   .order-bar-dot{color:var(--gold);opacity:0.6;}
   .order-bar-btn{
     background:var(--gold);color:var(--deep-maroon);border:none;
-    font-family:'Figtree',sans-serif;font-weight:700;font-size:0.95rem;
+    font-family:var(--police);font-weight:700;font-size:0.95rem;
     padding:13px 26px;border-radius:2px;cursor:pointer;
     letter-spacing:0.01em;
     transition:transform .15s ease, background .15s ease;
@@ -390,7 +388,7 @@
 
   /* le paiement, une ligne d'information sous le total */
   .pay-info{
-    margin:10px 0 0;font-family:'Figtree',sans-serif;font-size:0.84rem;line-height:1.45;
+    margin:10px 0 0;font-family:var(--police);font-size:0.84rem;line-height:1.45;
     color:var(--maroon);
   }
 
@@ -401,7 +399,7 @@
   }
   .cart-line .cl-name{flex:1;font-size:0.92rem;color:var(--deep-maroon);line-height:1.3;}
   .cart-line .cl-sub{font-size:0.8rem;color:var(--dusty-rose);display:block;}
-  .cart-line .cl-price{font-family:'Figtree',sans-serif;font-weight:700;color:var(--deep-maroon);font-size:0.95rem;}
+  .cart-line .cl-price{font-family:var(--police);font-weight:700;color:var(--deep-maroon);font-size:0.95rem;}
   .cl-step{display:flex;align-items:center;gap:8px;}
   .cl-step button{
     width:28px;height:28px;border-radius:50%;padding:0;cursor:pointer;
@@ -413,7 +411,7 @@
   /* fields */
   .fld{margin-top:22px;}
   .fld > label,.fld-label{
-    display:block;font-family:'Figtree',sans-serif;font-weight:600;
+    display:block;font-family:var(--police);font-weight:600;
     font-size:0.75rem;letter-spacing:0.09em;text-transform:uppercase;
     color:var(--maroon);margin-bottom:9px;
   }
@@ -423,7 +421,7 @@
     color:var(--dusty-rose);font-size:0.72rem;margin-inline-start:6px;
   }
   .fld input[type=text],.fld input[type=tel],.fld textarea,.fld select{
-    width:100%;font-family:'Figtree',sans-serif;font-size:1rem;color:var(--deep-maroon);
+    width:100%;font-family:var(--police);font-size:1rem;color:var(--deep-maroon);
     background:#fff;border:1.5px solid rgba(94,22,34,0.22);border-radius:8px;
     padding:13px 14px;outline:none;
   }
@@ -444,7 +442,7 @@
      quatre cartes, et un id ne désigne qu'un seul endroit. */
   .offre-choix{display:flex;flex-direction:column;gap:10px;}
   .chip{
-    font-family:'Figtree',sans-serif;font-size:0.88rem;cursor:pointer;
+    font-family:var(--police);font-size:0.88rem;cursor:pointer;
     padding:10px 15px;border-radius:999px;
     border:1.5px solid rgba(94,22,34,0.25);background:#fff;color:var(--maroon);
     transition:background .15s,border-color .15s,color .15s;
@@ -463,10 +461,10 @@
   .date-chip{
     flex:0 0 auto;width:60px;padding:9px 0;border-radius:10px;cursor:pointer;
     border:1.5px solid rgba(94,22,34,0.25);background:#fff;text-align:center;
-    font-family:'Figtree',sans-serif;transition:background .15s,border-color .15s;
+    font-family:var(--police);transition:background .15s,border-color .15s;
   }
   .date-chip small{display:block;font-size:0.68rem;color:var(--dusty-rose);letter-spacing:0.05em;text-transform:uppercase;}
-  .date-chip b{display:block;font-family:'Figtree',sans-serif;font-size:1.2rem;color:var(--deep-maroon);line-height:1.4;}
+  .date-chip b{display:block;font-family:var(--police);font-size:1.2rem;color:var(--deep-maroon);line-height:1.4;}
   .date-chip em{display:block;font-size:0.64rem;font-style:normal;color:var(--maroon);}
   .date-chip[aria-pressed="true"]{background:var(--deep-maroon);border-color:var(--deep-maroon);}
   .date-chip[aria-pressed="true"] small,.date-chip[aria-pressed="true"] b,.date-chip[aria-pressed="true"] em{color:var(--cream);}
@@ -481,7 +479,7 @@
   .totals .tl{display:flex;justify-content:space-between;align-items:baseline;font-size:0.92rem;color:var(--maroon);margin-bottom:8px;}
   .totals .tl.grand{
     margin:12px 0 0;padding-top:12px;border-top:1px solid rgba(94,22,34,0.15);
-    font-family:'Figtree',sans-serif;font-size:1.25rem;font-weight:700;color:var(--deep-maroon);
+    font-family:var(--police);font-size:1.25rem;font-weight:700;color:var(--deep-maroon);
   }
   .totals .free{color:var(--deep-green);font-weight:700;}
   .nudge{
@@ -513,7 +511,7 @@
   .sheet-send{
     width:100%;padding:17px;border:none;border-radius:9px;cursor:pointer;
     background:var(--deep-maroon);color:var(--cream);
-    font-family:'Figtree',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0.04em;
+    font-family:var(--police);font-weight:600;font-size:1rem;letter-spacing:0.04em;
     display:flex;align-items:center;justify-content:center;gap:10px;
   }
   .sheet-send:active{transform:scale(0.99);}
@@ -531,27 +529,29 @@
   }
   .pk-line:last-child{border-bottom:none;}
   .pk-name{
-    flex:1;font-family:'Figtree',sans-serif;font-size:0.95rem;
+    flex:1;font-family:var(--police);font-size:0.95rem;
     line-height:1.3;color:var(--deep-maroon);
   }
-  [dir="rtl"] .pk-name{font-family:'Cairo',sans-serif;}
   /* Deux lignes de même allure sous le nom : le prix (`.pk-unit`, insécable
      par style.css) et la composition (`.pk-what`, qui se replie). La seconde
      n'est PAS dans la liste des insécables : c'est là que vit la composition
      du coffret, trop longue pour tenir sur une ligne de téléphone. */
   .pk-unit,.pk-what{
-    display:block;margin-top:3px;font-family:'Figtree',sans-serif;font-style:italic;
+    display:block;margin-top:3px;font-family:var(--police);font-style:italic;
     font-size:0.78rem;color:var(--dusty-rose);unicode-bidi:isolate;
   }
-  [dir="rtl"] .pk-unit,[dir="rtl"] .pk-what{font-style:normal;font-family:'Figtree',sans-serif;}
+  /* Exprès en LATIN sur la page arabe : l'unité et le contenu portent des
+     chiffres et des noms de produits latins. `--police-latin` et non
+     `--police`, qui vaut Cairo ici. */
+  [dir="rtl"] .pk-unit,[dir="rtl"] .pk-what{font-style:normal;font-family:var(--police-latin);}
   .pk-q{min-width:22px;text-align:center;font-weight:700;color:var(--deep-maroon);}
   .pick-empty{
-    font-family:'Figtree',sans-serif;font-style:italic;font-size:0.88rem;
+    font-family:var(--police);font-style:italic;font-size:0.88rem;
     color:var(--dusty-rose);padding:14px 0 2px;margin:0;
   }
   [dir="rtl"] .pick-empty{font-style:normal;}
   .tl-note{
-    font-family:'Figtree',sans-serif;font-size:0.78rem;line-height:1.4;
+    font-family:var(--police);font-size:0.78rem;line-height:1.4;
     color:var(--deep-green);margin:-4px 0 10px;
   }
   .sheet-send:disabled{opacity:0.4;cursor:not-allowed;}
@@ -569,7 +569,7 @@
   .sugg.on{display:block;}
   .sugg-i{
     display:block;width:100%;text-align:start;cursor:pointer;
-    font-family:'Figtree',sans-serif;font-size:1rem;line-height:1.2;color:var(--deep-maroon);
+    font-family:var(--police);font-size:1rem;line-height:1.2;color:var(--deep-maroon);
     background:none;border:0;border-bottom:1px solid rgba(94,22,34,0.08);
     padding:13px 11px;
   }
@@ -580,7 +580,7 @@
      Posé par la lecture du catalogue : la fiche reste visible, mais
      elle n'est plus commandable. */
   .soldout{
-    font-family:'Figtree',sans-serif;font-size:0.85rem;color:#B3261E;
+    font-family:var(--police);font-size:0.85rem;color:#B3261E;
     margin:6px 0 2px;
   }
   .menu-card.is-soldout .img-wrap{opacity:0.45;}
@@ -599,7 +599,7 @@
   }
   .date-chip[aria-pressed="true"] i{color:var(--cream);}
   .scarce{
-    margin:10px 0 0;font-family:'Figtree',sans-serif;font-size:0.88rem;
+    margin:10px 0 0;font-family:var(--police);font-size:0.88rem;
     color:var(--gold);letter-spacing:0.02em;
   }
   .scarce::before{
@@ -732,7 +732,7 @@
   .lead-badge{
     display:inline-block;margin:0 0 6px;padding:3px 10px;border-radius:999px;
     background:rgba(227,177,114,0.18);border:1px solid rgba(227,177,114,0.55);
-    color:var(--maroon-deep);font-family:'Figtree',sans-serif;
+    color:var(--maroon-deep);font-family:var(--police);
     font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;
   }
 
@@ -755,20 +755,20 @@
   }
   .spread-inside li:first-child{border-top:0;padding-top:0;}
   .spread-inside li b{
-    font-family:'Figtree',sans-serif;font-size:1.25rem;font-weight:700;
+    font-family:var(--police);font-size:1.25rem;font-weight:700;
     line-height:1;color:var(--deep-maroon);text-align:right;unicode-bidi:isolate;
   }
   [dir="rtl"] .spread-inside li b{text-align:left;}
-  .spread-inside li span{font-family:'Figtree',sans-serif;font-size:0.98rem;color:var(--maroon);}
-  [dir="rtl"] .spread-inside li span{font-family:'Cairo',sans-serif;font-size:1.05rem;}
+  .spread-inside li span{font-family:var(--police);font-size:0.98rem;color:var(--maroon);}
+  [dir="rtl"] .spread-inside li span{font-size:1.05rem;}
 
   .spread-price{margin-top:22px;}
   .spread-price b{
-    font-family:'Figtree',sans-serif;font-size:2.1rem;font-weight:700;
+    font-family:var(--police);font-size:2.1rem;font-weight:700;
     line-height:1;color:var(--deep-maroon);unicode-bidi:isolate;display:inline-block;
   }
   .spread-price em{
-    display:block;margin-top:8px;font-family:'Figtree',sans-serif;font-style:normal;
+    display:block;margin-top:8px;font-family:var(--police);font-style:normal;
     font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--deep-green);
   }
   [dir="rtl"] .spread-price em{letter-spacing:0;text-transform:none;font-size:0.85rem;}
@@ -802,16 +802,15 @@
   .zone:active{transform:scale(0.97);}
   .zone[aria-pressed="true"]{border-color:var(--deep-maroon);background:rgba(207,224,198,0.3);}
   .zone b{
-    display:block;font-family:'Figtree',sans-serif;font-size:0.9rem;font-weight:700;
+    display:block;font-family:var(--police);font-size:0.9rem;font-weight:700;
     color:var(--deep-maroon);line-height:1.25;margin-bottom:5px;
   }
-  [dir="rtl"] .zone b{font-family:'Cairo',sans-serif;}
   .zone small{
-    display:block;font-family:'Figtree',sans-serif;font-size:0.7rem;line-height:1.3;
+    display:block;font-family:var(--police);font-size:0.7rem;line-height:1.3;
     color:var(--dusty-rose);min-height:2.6em;
   }
   .zone i{
-    display:block;margin-top:7px;font-style:normal;font-family:'Figtree',sans-serif;
+    display:block;margin-top:7px;font-style:normal;font-family:var(--police);
     font-weight:700;font-size:0.85rem;color:var(--maroon);unicode-bidi:isolate;
   }
   .zone[aria-pressed="true"] i{color:var(--deep-green);}
@@ -819,12 +818,12 @@
   .more-toggle{
     width:100%;margin-top:14px;padding:12px;cursor:pointer;
     background:transparent;border:1px dashed rgba(94,22,34,0.3);border-radius:4px;
-    font-family:'Figtree',sans-serif;font-size:0.85rem;color:var(--maroon);
+    font-family:var(--police);font-size:0.85rem;color:var(--maroon);
   }
   .more-fields{display:none;}
   .more-fields.on{display:block;}
   .fld-help{
-    display:block;margin-top:6px;font-family:'Figtree',sans-serif;font-size:0.76rem;
+    display:block;margin-top:6px;font-family:var(--police);font-size:0.76rem;
     color:var(--dusty-rose);line-height:1.4;font-style:italic;
   }
   [dir="rtl"] .fld-help{font-style:normal;}
@@ -836,9 +835,9 @@
   .fallback-card{background:var(--cream);border-radius:6px;padding:26px;max-width:520px;width:100%;max-height:86vh;max-height:86dvh;overflow-y:auto;}
   .fallback-card h4{font-size:1.1rem;color:var(--deep-maroon);margin-bottom:8px;}
   .fallback-card p{font-size:0.88rem;color:var(--maroon);margin-bottom:14px;line-height:1.5;}
-  .fallback-card pre{white-space:pre-wrap;word-break:break-word;font-family:'Figtree',sans-serif;font-size:0.85rem;background:#fff;border:1px solid rgba(94,22,34,0.18);border-radius:4px;padding:14px;color:var(--deep-maroon);margin-bottom:14px;}
+  .fallback-card pre{white-space:pre-wrap;word-break:break-word;font-family:var(--police);font-size:0.85rem;background:#fff;border:1px solid rgba(94,22,34,0.18);border-radius:4px;padding:14px;color:var(--deep-maroon);margin-bottom:14px;}
   .fallback-card .fb-row{display:flex;gap:10px;flex-wrap:wrap;}
-  .fallback-card button{flex:1;min-width:140px;padding:13px;border:none;border-radius:4px;cursor:pointer;font-family:'Figtree',sans-serif;font-size:0.92rem;}
+  .fallback-card button{flex:1;min-width:140px;padding:13px;border:none;border-radius:4px;cursor:pointer;font-family:var(--police);font-size:0.92rem;}
   .fb-copy{background:var(--deep-maroon);color:var(--cream);}
   .fb-num{background:transparent;border:1px solid var(--deep-maroon)!important;color:var(--deep-maroon);}
 
@@ -846,19 +845,19 @@
   .qty-row{justify-content:flex-start;}
   .qty-price{
     margin-inline-start:auto;
-    font-family:'Figtree',sans-serif;font-weight:700;font-size:1.05rem;
+    font-family:var(--police);font-weight:700;font-size:1.05rem;
     color:var(--maroon);unicode-bidi:isolate;letter-spacing:0.01em;
   }
   .spread .qty-row .qty-price{display:none;}
 
   /* ================= NOMBRE DE PIÈCES ================= */
   .qty-note{
-    font-family:'Figtree',sans-serif;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;
+    font-family:var(--police);font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;
     color:var(--dusty-rose);margin:0 0 8px;
   }
   [dir="rtl"] .qty-note{letter-spacing:0;text-transform:none;font-size:0.86rem;}
   .cl-qty{
-    display:block;font-family:'Figtree',sans-serif;font-size:0.74rem;
+    display:block;font-family:var(--police);font-size:0.74rem;
     letter-spacing:0.09em;text-transform:uppercase;color:var(--deep-green);margin-top:2px;
   }
   [dir="rtl"] .cl-qty{letter-spacing:0;text-transform:none;font-size:0.84rem;}
@@ -869,12 +868,12 @@
   }
   @media(max-width:420px){ .addr-grid{grid-template-columns:1fr 1fr;} .af-wide{grid-column:1 / -1;order:-1;} }
   .af-l{
-    display:block;font-family:'Figtree',sans-serif;font-size:0.7rem;
+    display:block;font-family:var(--police);font-size:0.7rem;
     letter-spacing:0.09em;text-transform:uppercase;color:var(--maroon);margin-bottom:5px;
   }
   [dir="rtl"] .af-l{letter-spacing:0;text-transform:none;font-size:0.82rem;}
   .af input{
-    width:100%;font-family:'Figtree',sans-serif;font-size:1rem;color:var(--deep-maroon);
+    width:100%;font-family:var(--police);font-size:1rem;color:var(--deep-maroon);
     background:#fff;border:1.5px solid rgba(94,22,34,0.22);border-radius:4px;
     padding:12px 11px;outline:none;
   }
@@ -900,7 +899,7 @@
     display:flex;align-items:center;justify-content:center;gap:9px;
     width:100%;margin-top:14px;padding:13px;cursor:pointer;
     background:rgba(207,224,198,0.28);border:1px solid rgba(78,114,89,0.4);border-radius:4px;
-    font-family:'Figtree',sans-serif;font-size:0.9rem;color:var(--deep-green);
+    font-family:var(--police);font-size:0.9rem;color:var(--deep-green);
     transition:background .2s ease;
   }
   .loc-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
@@ -916,7 +915,7 @@
   .sameday-warn{
     display:none;margin-top:11px;padding:12px 14px;border-radius:4px;
     background:rgba(227,177,114,0.2);border:1px dashed var(--gold);
-    font-family:'Figtree',sans-serif;font-size:0.84rem;line-height:1.45;color:var(--cocoa);
+    font-family:var(--police);font-size:0.84rem;line-height:1.45;color:var(--cocoa);
   }
 
   /* ================= LIVRAISON : bloc à part, hors du total ================= */
@@ -930,19 +929,19 @@
     fill:none;stroke:var(--dusty-rose);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
   }
   .driver-note b{
-    display:block;font-family:'Figtree',sans-serif;font-weight:600;
+    display:block;font-family:var(--police);font-weight:600;
     font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;
     color:var(--maroon);margin-bottom:4px;
   }
   [dir="rtl"] .driver-note b{letter-spacing:0;text-transform:none;font-size:0.86rem;}
   .driver-note div{
-    font-family:'Figtree',sans-serif;font-size:0.82rem;line-height:1.5;color:var(--dusty-rose);
+    font-family:var(--police);font-size:0.82rem;line-height:1.5;color:var(--dusty-rose);
   }
 
   /* ---------- localisation d'un autre lieu ---------- */
   .loc-else{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(94,22,34,0.18);}
   .loc-else input{
-    width:100%;font-family:'Figtree',sans-serif;font-size:0.92rem;color:var(--deep-maroon);
+    width:100%;font-family:var(--police);font-size:0.92rem;color:var(--deep-maroon);
     background:#fff;border:1.5px solid rgba(94,22,34,0.22);border-radius:4px;
     padding:12px 11px;outline:none;margin-bottom:6px;
   }
@@ -969,7 +968,7 @@
   .qty-note-t{white-space:nowrap;}
   .qty-note-p{
     flex:0 0 auto;white-space:nowrap;
-    font-family:'Figtree',sans-serif;font-weight:700;font-size:0.95rem;
+    font-family:var(--police);font-weight:700;font-size:0.95rem;
     letter-spacing:0.01em;text-transform:none;
     color:var(--maroon);unicode-bidi:isolate;
   }
@@ -1020,7 +1019,7 @@
   .hero .delivery-line{grid-column:1;grid-row:2;align-self:start;margin:0;}
   .hero-boxes{grid-column:2;grid-row:1 / 3;min-width:0;}
   .hero-eyebrow{
-    font-family:'Figtree',sans-serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+    font-family:var(--police);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--maroon);margin:0 0 14px;
   }
   [dir="rtl"] .hero-eyebrow{letter-spacing:0;font-size:0.9rem;}
@@ -1029,11 +1028,11 @@
     color:var(--deep-maroon);letter-spacing:-0.012em;margin:0;text-wrap:balance;
   }
   .hero-sub{
-    font-family:'Figtree',sans-serif;font-size:clamp(1.02rem,1.5vw,1.15rem);line-height:1.55;
+    font-family:var(--police);font-size:clamp(1.02rem,1.5vw,1.15rem);line-height:1.55;
     color:var(--maroon);margin:18px 0 0;max-width:34em;
   }
   .delivery-line{
-    font-family:'Figtree',sans-serif;font-size:0.9rem;line-height:1.5;color:var(--maroon);
+    font-family:var(--police);font-size:0.9rem;line-height:1.5;color:var(--maroon);
     margin:12px 0 0;max-width:46em;
   }
   .hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px;}
@@ -1074,7 +1073,7 @@
   .hero-box .spread-price{margin:2px 0 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
   .hero-box .spread-price b{font-size:1.5rem;font-weight:700;line-height:1;display:inline;}
   .hero-box .spread-price em{
-    display:inline;margin:0;font-family:'Figtree',sans-serif;font-style:normal;
+    display:inline;margin:0;font-family:var(--police);font-style:normal;
     font-size:0.76rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--maroon);
   }
   [dir="rtl"] .hero-box .spread-price em{letter-spacing:0;text-transform:none;font-size:0.9rem;}
@@ -1083,7 +1082,7 @@
     display:flex;flex-direction:column;gap:10px;
     border-top:1px solid rgba(94,22,34,0.12);padding-top:12px;
   }
-  .hero-box-desc{font-family:'Figtree',sans-serif;font-size:0.9rem;line-height:1.5;color:var(--maroon);margin:0;max-width:none;}
+  .hero-box-desc{font-family:var(--police);font-size:0.9rem;line-height:1.5;color:var(--maroon);margin:0;max-width:none;}
   .hero-box .spread-inside{margin:0;}
   .hero-box .spread-inside .fld-label{margin-bottom:2px;}
   .hero-box .spread-inside li{padding:5px 0;gap:10px;grid-template-columns:2.2em 1fr;}
@@ -1128,7 +1127,7 @@
     display:inline-flex;align-items:center;justify-content:center;gap:6px;
     min-height:40px;padding:0 18px;border-radius:2px;cursor:pointer;
     background:var(--deep-maroon);color:var(--cream);border:1px solid var(--deep-maroon);
-    font-family:'Figtree',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;
+    font-family:var(--police);font-weight:600;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;
     transition:background .2s ease;
   }
   .qty-add:hover{background:var(--maroon);}
@@ -1139,7 +1138,7 @@
   .hero-box .qty-add{min-height:44px;padding:0 22px;}
 
   /* ================= LA NOTE DU JOUR MÊME, SOUS LE TITRE DU MENU ================= */
-  .menu-note{font-family:'Figtree',sans-serif;font-size:0.95rem;line-height:1.5;color:var(--maroon);margin:12px auto 0;max-width:34em;}
+  .menu-note{font-family:var(--police);font-size:0.95rem;line-height:1.5;color:var(--maroon);margin:12px auto 0;max-width:34em;}
 
   /* ================= LES RAYURES, EN SIGNATURE — 04/09/2026 =================
      Elles étaient le fond de toute la page, visibles là où une section restait
@@ -1162,7 +1161,7 @@
      pour tout le reste. */
   .qty-note,.cl-qty,.scarce,.tl-note,.date-chip.is-today small,.hero-eyebrow{color:var(--maroon);}
   .fld-help,.pk-unit,.pk-what,.cart-line .cl-sub,.sheet-reassure,.driver-note div,.date-chip small,.pick-empty{color:var(--maroon);font-style:normal;}
-  [dir="rtl"] .pk-unit,[dir="rtl"] .pk-what{font-family:'Figtree',sans-serif;}
+  [dir="rtl"] .pk-unit,[dir="rtl"] .pk-what{font-family:var(--police);}
   .driver-note svg{stroke:var(--maroon);}
   .loc-btn{color:var(--deep-maroon);border-color:rgba(94,22,34,0.35);}
   .loc-btn[aria-pressed="true"]{background:var(--deep-maroon);border-color:var(--deep-maroon);color:var(--cream);}
@@ -1180,13 +1179,13 @@
     stroke:var(--deep-maroon);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
   }
   .sheet-sent h3{font-size:1.5rem;color:var(--deep-maroon);margin:0 0 8px;}
-  .sheet-sent p{font-family:'Figtree',sans-serif;font-size:0.95rem;line-height:1.5;color:var(--maroon);margin:0 auto 6px;max-width:34em;}
+  .sheet-sent p{font-family:var(--police);font-size:0.95rem;line-height:1.5;color:var(--maroon);margin:0 auto 6px;max-width:34em;}
   .sheet-sent .sent-when{font-weight:600;color:var(--deep-maroon);margin-top:10px;}
   .sent-actions{display:flex;flex-direction:column;gap:10px;margin:22px auto 0;max-width:340px;}
   .sent-actions .btn{text-align:center;}
   .sent-close{
     margin-top:16px;background:none;border:none;cursor:pointer;
-    font-family:'Figtree',sans-serif;font-size:0.88rem;color:var(--maroon);
+    font-family:var(--police);font-size:0.88rem;color:var(--maroon);
     text-decoration:underline;text-underline-offset:3px;
   }
 
@@ -1228,14 +1227,60 @@
      pastilles ronds ; cartes arrondies sans bordure sur fond pêche ; des blancs
      généreux et moins de texte sur téléphone. Bordeaux, crème et rayures
      restent : c'est l'ADN. */
-  :root{--coral:#E4634A;--r:18px;}
-  body,button,input,textarea,select{font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;}
+  /* ═══ LES POLICES VIVENT ICI, ET NULLE PART AILLEURS (11/09/2026) ═══
+
+     Avant ce jour, le nom « Figtree » était écrit EN DUR à 43 endroits de ce
+     fichier et à 16 dans checkout.css. Changer de police voulait dire les
+     retrouver tous, et en oublier un ne se voyait pas : la page s'affichait,
+     simplement pas dans la bonne fonte. Depuis, tout le fichier dit
+     `var(--police)`, et le nom de la fonte n'est écrit qu'ici.
+
+     `--police` et `--police-titre` sont RÉÉCRITES sous `body.lang-ar` : c'est
+     comme ça que la page arabe passe en Cairo d'un seul geste, sans qu'aucune
+     règle n'ait à répéter « Cairo ». `--police-marque`, elle, ne l'est jamais —
+     le mot-marque « Petit Gâteau » reste latin, même sur /ar/.
+
+     Pourquoi Fraunces et plus Playfair : c'est écrit en tête de build2.py,
+     avec la décision et sa date. Ici on ne porte que le branchement. */
+  :root{
+    --coral:#E4634A;--r:18px;
+    --police-latin:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --police-arabe:'Cairo','Figtree',system-ui,sans-serif;
+    --police-serif:'Fraunces',Georgia,serif;
+    --police:var(--police-latin);      /* le texte courant de la page */
+    --police-titre:var(--police-serif);/* les titres h1 à h4 */
+    --police-marque:var(--police-serif);/* « Petit Gâteau », latin partout */
+  }
+  body.lang-ar{--police:var(--police-arabe);--police-titre:var(--police-arabe);}
+  body,button,input,textarea,select{font-family:var(--police);}
   body{line-height:1.55;}
-  h1,h2,h3,h4{font-family:'Figtree',system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:1.1;}
-  .nav-mark,footer .wordmark{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:0;}
-  body.lang-ar,body.lang-ar button,body.lang-ar input,body.lang-ar textarea,
-  body.lang-ar h1,body.lang-ar h2,body.lang-ar h3,body.lang-ar h4{font-family:'Cairo','Figtree',system-ui,sans-serif;}
-  body.lang-ar .nav-mark,body.lang-ar footer .wordmark{font-family:'Playfair Display',Georgia,serif;}
+  /* Fraunces est plus large et descend sous la ligne : l'interligne de 1,1 et
+     le serrage de -0,015em étaient réglés pour Figtree, où rien ne dépasse.
+     Mesuré à 390 px le 11/09/2026 : à 1,1 les jambages du « y » de « today »
+     touchaient la ligne suivante. */
+  h1,h2,h3,h4{font-family:var(--police-titre);font-weight:700;letter-spacing:-0.005em;line-height:1.18;}
+  /* L'arabe garde EXACTEMENT ses réglages d'avant : Cairo n'a pas changé, et
+     ses voyelles passent déjà sous la ligne (voir plus bas, `body.lang-ar
+     .hero h1`). Sans ces trois valeurs, la page arabe héritait du réglage
+     fabriqué pour Fraunces, qu'elle n'utilise pas. */
+  body.lang-ar h1,body.lang-ar h2,body.lang-ar h3,body.lang-ar h4{
+    font-weight:800;letter-spacing:-0.015em;line-height:1.1;
+  }
+  .nav-mark,footer .wordmark{font-family:var(--police-marque);font-weight:700;letter-spacing:-0.01em;}
+  /* Les prix et les grands chiffres suivent les titres : c'est ce qui fait
+     lire « 490 QR » comme un prix de carte et non comme une donnée. Réservé à
+     la page latine — sur /ar/ les prix restent dans la fonte de la page,
+     comme avant, et la comparaison montrée à Samer le 11/09/2026 le montrait
+     déjà ainsi. */
+  body:not(.lang-ar) .spread-price b,body:not(.lang-ar) .hero-box .spread-price b,
+  body:not(.lang-ar) .order-bar-total,
+  body:not(.lang-ar) #tGrand,body:not(.lang-ar) .rail-price,
+  body:not(.lang-ar) .price-badge,body:not(.lang-ar) .qty-note-p{
+    font-family:var(--police-serif);font-weight:700;letter-spacing:0;
+  }
+  /* `.pk-unit` est un prix, lui aussi, mais petit, italique et rose passé —
+     et Fraunces n'a pas d'italique ici : le navigateur en fabriquerait un
+     faux, penché et cassé. Il reste donc dans la police du texte. */
 
   /* les étiquettes : en minuscules, en gras, en corail */
   .label,.hero-eyebrow,.fld-label,.af-l,.qty-note-t,.cl-qty,.driver-note b,.date-chip small,
@@ -1260,7 +1305,7 @@
   .sheet-send{font-size:1.05rem;}
   .chip{font-weight:600;font-size:0.92rem;}
   .date-chip{border-radius:14px;}
-  .date-chip b{font-family:'Figtree',sans-serif;font-weight:800;}
+  .date-chip b{font-family:var(--police);font-weight:800;}
   .gift-toggle{border-radius:14px;}
   .fld input[type=text],.fld input[type=tel],.fld textarea,.fld select,.af input,.loc-else input{border-radius:12px;}
   .lang-toggle{border-radius:999px;}
@@ -1277,7 +1322,7 @@
   .soldout{font-weight:600;}
 
   /* les prix et les titres des fiches */
-  .qty-note-p{font-family:'Figtree',sans-serif;font-weight:800;font-size:1.08rem;letter-spacing:0;}
+  .qty-note-p{font-family:var(--police);font-weight:800;font-size:1.08rem;letter-spacing:0;}
   .menu-card h3{font-weight:800;letter-spacing:-0.01em;}
   .spread-price b{font-weight:900;letter-spacing:-0.02em;}
   .hero-box .spread-price em{color:var(--coral);text-transform:none;letter-spacing:0;font-weight:700;font-size:0.92rem;}
@@ -1345,11 +1390,15 @@
     .menu-card h3{font-size:0.98rem;}
   }
 
-  /* La marque reste en Playfair : l'icône « PG » et le nom sont dessinés
-     avec elle, c'est l'ADN. Écrit avec la spécificité des règles d'origine
-     (`nav .nav-mark`, `footer .wordmark`), sinon elles l'emportent. */
+  /* Le mot-marque, écrit avec la spécificité des règles d'origine
+     (`nav .nav-mark`, `footer .wordmark`), sinon elles l'emportent.
+     Il est passé de Playfair à Fraunces le 11/09/2026, en même temps que les
+     titres — la valeur est dans `--police-marque`, plus haut. ATTENTION :
+     l'ICÔNE « PG » de l'onglet, elle, est restée en Playfair et c'est voulu ;
+     elle est déjà sur des écrans d'accueil et se change par `icones.py`, avec
+     un renommage daté. Les deux ne sont plus dans la même fonte. */
   nav .nav-mark,.nav-mark,footer .wordmark,.wordmark,.story-frame .signature,.signature{
-    font-family:'Playfair Display',Georgia,serif!important;font-weight:700;letter-spacing:0;
+    font-family:var(--police-marque)!important;font-weight:700;letter-spacing:-0.01em;
   }
 
   /* Téléphone — le premier écran, en panneau (05/09/2026 au soir). Sa femme :
@@ -1434,20 +1483,19 @@
   .proof{padding:44px 0 8px;}
   .proof .label{display:block;margin-bottom:12px;}
   .proof-facts{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px;}
-  .proof-facts li{background:var(--sage);color:var(--vert);border-radius:999px;padding:7px 14px;font-family:'Figtree',sans-serif;font-weight:700;font-size:0.86rem;line-height:1.3;}
+  .proof-facts li{background:var(--sage);color:var(--vert);border-radius:999px;padding:7px 14px;font-family:var(--police);font-weight:700;font-size:0.86rem;line-height:1.3;}
   .proof-quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
   .quote{margin:0;background:var(--cream);border:1px solid rgba(94,22,34,0.12);border-radius:var(--r);padding:16px 18px;}
-  .quote blockquote{margin:0;font-family:'Figtree',sans-serif;font-size:0.98rem;line-height:1.5;color:var(--maroon);}
-  .quote figcaption{margin-top:10px;font-family:'Figtree',sans-serif;font-weight:800;font-size:0.76rem;letter-spacing:0.1em;color:var(--vert);}
-  body.lang-ar .proof-facts li,body.lang-ar .quote blockquote{font-family:'Cairo','Figtree',sans-serif;}
+  .quote blockquote{margin:0;font-family:var(--police);font-size:0.98rem;line-height:1.5;color:var(--maroon);}
+  .quote figcaption{margin-top:10px;font-family:var(--police);font-weight:800;font-size:0.76rem;letter-spacing:0.1em;color:var(--vert);}
   body.lang-ar .quote figcaption{letter-spacing:0;}
 
   /* Les allergènes, descendus de l'app sous chaque fiche : une ligne discrète,
      cachée tant que le catalogue n'a rien dit — on n'affirme pas « sans
      allergène ». */
-  .allergens{margin:2px 0 6px;font-family:'Figtree',sans-serif;font-size:0.74rem;line-height:1.35;color:rgba(94,22,34,0.72);}
+  .allergens{margin:2px 0 6px;font-family:var(--police);font-size:0.74rem;line-height:1.35;color:rgba(94,22,34,0.72);}
   .hero-box .allergens{font-size:0.8rem;margin:6px 0 0;}
-  body.lang-ar .allergens{font-family:'Cairo','Figtree',sans-serif;font-size:0.82rem;}
+  body.lang-ar .allergens{font-size:0.82rem;}
 
   /* ================= MADE IN QATAR — 05/09/2026 au soir =================
      Samer : « qu'on voie TRÈS bien que ça se passe au Qatar, par une
@@ -1458,16 +1506,15 @@
      tampon et « Made in Qatar, by Qatari hands. ». Le dosage discret est
      gardé dans 4-BRANDING/qatar/LISEZ-MOI.md pour le jour où on baisse le
      ton : ces règles-ci ne bougent pas, seuls les textes et la bande. */
-  .nav-place{display:block;font-family:'Figtree',sans-serif;font-size:0.68rem;font-weight:600;color:var(--maroon);letter-spacing:0;line-height:1;margin-top:3px;}
-  body.lang-ar .nav-place{font-family:'Cairo','Figtree',sans-serif;font-size:0.72rem;}
+  .nav-place{display:block;font-family:var(--police);font-size:0.68rem;font-weight:600;color:var(--maroon);letter-spacing:0;line-height:1;margin-top:3px;}
+  body.lang-ar .nav-place{font-size:0.72rem;}
   .stk-inline-sceau{width:40px;height:40px;vertical-align:-14px;transform:rotate(-8deg);margin-inline-start:8px;}
   .proof-facts li.proof-qatar{background:var(--gold);color:var(--deep-maroon);}
   .qatar-band{background:repeating-linear-gradient(90deg, var(--cream) 0 22px, var(--sage) 22px 44px);padding:22px 0;}
   .qatar-inner{display:flex;gap:16px;align-items:center;background:var(--cream);border-radius:var(--r);padding:16px 18px;box-shadow:0 2px 14px -8px rgba(94,22,34,0.3);}
   .qatar-stamp{width:92px;height:92px;flex:none;transform:rotate(-8deg);overflow:visible;}
-  .qatar-t{font-family:'Figtree',sans-serif;font-weight:800;font-size:1.15rem;line-height:1.2;color:var(--deep-maroon);margin:0;letter-spacing:-0.01em;}
-  .qatar-s{font-family:'Figtree',sans-serif;font-size:0.92rem;line-height:1.45;color:var(--maroon);margin:6px 0 0;max-width:34em;}
-  body.lang-ar .qatar-t,body.lang-ar .qatar-s{font-family:'Cairo','Figtree',sans-serif;}
+  .qatar-t{font-family:var(--police);font-weight:800;font-size:1.15rem;line-height:1.2;color:var(--deep-maroon);margin:0;letter-spacing:-0.01em;}
+  .qatar-s{font-family:var(--police);font-size:0.92rem;line-height:1.45;color:var(--maroon);margin:6px 0 0;max-width:34em;}
   footer .stk-foot{width:78px;height:78px;margin-bottom:12px;transform:rotate(-6deg);filter:drop-shadow(0 4px 8px rgba(0,0,0,0.28));}
   @media(min-width:900px){
     .qatar-inner{padding:20px 26px;gap:22px;}
@@ -1693,7 +1740,7 @@
   .nav-cart:hover{background:var(--cream);color:var(--vert);}
   .nav-cart svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
   .nav-cart-n{position:absolute;top:-7px;inset-inline-end:-7px;min-width:21px;height:21px;padding:0 5px;box-sizing:border-box;
-    border-radius:999px;background:var(--gold);color:var(--vert);font-family:'Figtree',sans-serif;font-weight:800;
+    border-radius:999px;background:var(--gold);color:var(--vert);font-family:var(--police);font-weight:800;
     font-size:0.74rem;line-height:21px;text-align:center;letter-spacing:0;}
   .nav-cart-n[hidden]{display:none;}
   .nav-cart-n.bump{animation:bump .3s ease;}
